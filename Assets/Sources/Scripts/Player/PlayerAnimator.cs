@@ -4,7 +4,7 @@ public class PlayerAnimator
 {
     private Animator _animator;
     
-    public void Initialize(Animator animator)
+    public PlayerAnimator(Animator animator)
     {
         _animator = animator;
     }
