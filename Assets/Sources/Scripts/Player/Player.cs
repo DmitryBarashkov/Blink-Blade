@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
 
         _weapon = _weaponHandler.GetChild(0).GetComponent<Weapon>();
         
-        _teleport = new Teleport(_weapon, _transform, GetComponent<CapsuleCollider>(), _focusCamera, _weaponHandler);
+        _teleport = new Teleport(_weapon, _transform, GetComponent<CapsuleCollider>(), _focusCamera);
         _aimer = new Aimer(_transform, _focusCamera, _rigBuilder, _targetTransform, _weaponHandler, _weapon, _animator, _aimingArrow);
     }
 

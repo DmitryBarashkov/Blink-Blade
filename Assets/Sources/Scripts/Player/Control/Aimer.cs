@@ -35,7 +35,7 @@ public class Aimer
         _weapon = weapon;        
 
         _animator = new PlayerAnimator(animator);
-        _thrower = new Thrower(_weapon.GetRigidbody());        
+        _thrower = new Thrower(_weapon.GetComponent<Rigidbody>());        
     }    
     
     public void StartAim()
