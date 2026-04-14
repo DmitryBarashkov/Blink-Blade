@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Weapon : MonoBehaviour
 {
     private Rigidbody _rigidbody;
@@ -8,6 +9,8 @@ public class Weapon : MonoBehaviour
 
     private Vector3 _startWeaponPosition;
     private Quaternion _startWeaponRotation;
+
+    private float _fixedZ = 0;
 
     private void Awake()
     {
@@ -19,19 +22,29 @@ public class Weapon : MonoBehaviour
         _startWeaponRotation = _transform.localRotation;
     }
 
-    private void ChangePositionToObstacle(Collision collision)
+    private void LateUpdate()
     {
-        Debug.Log($"Collided with {collision.collider.name}");
+        if (transform.position.z != _fixedZ && _rigidbody.isKinematic == false)
+            Utils.FixPositionZ(_transform);
+    }
 
-        _rigidbody.isKinematic = true;
-        _rigidbody.velocity = Vector3.zero;
-        _rigidbody.angularVelocity = Vector3.zero;
+    private void OnCollisionEnter(Collision collision)
+    {
+        Enemy enemy = collision.collider.GetComponent<Enemy>();
 
-        Vector3 impactDir = collision.relativeVelocity.normalized;
+        if (enemy != null)
+        {
+            enemy.Die();
+        }
+    }
 
-        _transform.forward = impactDir;
-        _transform.position += _transform.forward * 0.2f;
-        _transform.SetParent(collision.transform);
+    private void OnDrawGizmosSelected()
+    {
+        if (_rigidbody != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(transform.TransformPoint(_rigidbody.centerOfMass), 0.05f);
+        }
     }
 
     public void ReturnToWeaponHandler()
@@ -46,19 +59,5 @@ public class Weapon : MonoBehaviour
         _rigidbody.velocity = Vector3.zero;
         _rigidbody.angularVelocity = Vector3.zero;
         _rigidbody.isKinematic = true;
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        //ChangePositionToObstacle(collision);
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (_rigidbody != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(transform.TransformPoint(_rigidbody.centerOfMass), 0.05f);
-        }
     }
 }

@@ -12,9 +12,10 @@ public class Player : MonoBehaviour
     [SerializeField] Transform _targetTransform;
     [SerializeField] Transform _weaponHandler;
     [SerializeField] private GameObject _aimingArrow;
+    [SerializeField] private GroundChecker _groundChecker;
 
     private Transform _transform;
-    private Animator _animator;
+    private PlayerAnimator _animator;
     private RigBuilder _rigBuilder;
     private InputService _input;
     private Aimer _aimer;
@@ -28,13 +29,13 @@ public class Player : MonoBehaviour
     {
         _transform = transform;
         
-        _animator = GetComponent<Animator>();
         _rigBuilder = GetComponent<RigBuilder>();
-        _input = GetComponent<InputService>();        
+        _input = GetComponent<InputService>();
 
         _weapon = _weaponHandler.GetChild(0).GetComponent<Weapon>();
-        
-        _teleport = new Teleport(_weapon, _transform, GetComponent<CapsuleCollider>(), _focusCamera);
+
+        _animator = new PlayerAnimator(GetComponent<Animator>());
+        _teleport = new Teleport(_weapon, this, _focusCamera);
         _aimer = new Aimer(_transform, _focusCamera, _rigBuilder, _targetTransform, _weaponHandler, _weapon, _animator, _aimingArrow);
     }
 
@@ -42,12 +43,14 @@ public class Player : MonoBehaviour
     {
         _input.AttackBtnPressed += OnAttackButtonPressed;
         _input.AttackBtnUp += OnAttackButtonUp;
+        _groundChecker.Grounded += OnGroundedChange;
     }
 
     private void OnDisable()
     {
         _input.AttackBtnPressed -= OnAttackButtonPressed;
         _input.AttackBtnUp -= OnAttackButtonUp;
+        _groundChecker.Grounded -= OnGroundedChange;
     }
 
     private void Update()
@@ -77,5 +80,10 @@ public class Player : MonoBehaviour
             _aimer.StartAim();
             _isAiming = true;
         }        
+    }
+
+    private void OnGroundedChange(bool value)
+    {
+        _animator.SetGrounded(value);
     }
 }

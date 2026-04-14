@@ -22,7 +22,7 @@ public class Aimer
 
     public Aimer(Transform playerTransform, SmartFocusCamera focusCamera, RigBuilder rigBuilder, 
                  Transform target, Transform weaponHandler, Weapon weapon, 
-                 Animator animator, GameObject aimingArrow)
+                 PlayerAnimator animator, GameObject aimingArrow)
     {
         _camera = focusCamera.GetComponent<Camera>();
         _focusCamera = focusCamera;
@@ -32,9 +32,9 @@ public class Aimer
         _aimingArrow = aimingArrow;
         
         _weaponHandler = weaponHandler;
-        _weapon = weapon;        
+        _weapon = weapon;
 
-        _animator = new PlayerAnimator(animator);
+        _animator = animator;
         _thrower = new Thrower(_weapon.GetComponent<Rigidbody>());        
     }    
     

@@ -5,15 +5,17 @@ public class Teleport
     private Weapon _weapon;
     private Transform _playerTransform;
     private CapsuleCollider _playerCollider;
+    private Rigidbody _playerRigidbody;
     private SmartFocusCamera _focusCamera;
 
-    private float _obstacleOffset = 1f;    
+    private float _obstacleOffset = 1.5f;    
 
-    public Teleport(Weapon weapon, Transform playerTransform, CapsuleCollider playerCollider, SmartFocusCamera focusCamera)
+    public Teleport(Weapon weapon, Player player, SmartFocusCamera focusCamera)
     {
         _weapon = weapon;
-        _playerTransform = playerTransform;
-        _playerCollider = playerCollider;
+        _playerTransform = player.transform;
+        _playerCollider = player.GetComponent<CapsuleCollider>();
+        _playerRigidbody = player.GetComponent<Rigidbody>();
         _focusCamera = focusCamera;
     }
 
@@ -21,6 +23,8 @@ public class Teleport
     {
         Vector3 newPosition = GetSafePosition(_weapon.transform.position);
 
+        _playerRigidbody.velocity = Vector3.zero;
+        _playerRigidbody.angularVelocity = Vector3.zero;
         _playerTransform.position = newPosition;
         
         _focusCamera.ResetToPlayer();

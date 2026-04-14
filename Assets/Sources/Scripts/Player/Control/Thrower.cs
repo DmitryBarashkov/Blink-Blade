@@ -4,8 +4,8 @@ public class Thrower
 {
     private Rigidbody _weaponRigidbody;    
 
-    private float throwForce = 20f;
-    private float torqueForce = 50f;
+    private float throwForce = 15f;
+    private float torqueForce = 80f;
 
     public Thrower(Rigidbody weaponRigidbody)
     {
