@@ -8,11 +8,11 @@ using UnityEngine.Animations.Rigging;
 [RequireComponent(typeof(CapsuleCollider))]
 public class Player : MonoBehaviour
 {
-    [SerializeField] SmartFocusCamera _focusCamera;
     [SerializeField] Transform _targetTransform;
     [SerializeField] Transform _weaponHandler;
     [SerializeField] private GameObject _aimingArrow;
     [SerializeField] private GroundChecker _groundChecker;
+    [SerializeField] private Camera _camera;
 
     private Transform _transform;
     private PlayerAnimator _animator;
@@ -35,8 +35,8 @@ public class Player : MonoBehaviour
         _weapon = _weaponHandler.GetChild(0).GetComponent<Weapon>();
 
         _animator = new PlayerAnimator(GetComponent<Animator>());
-        _teleport = new Teleport(_weapon, this, _focusCamera);
-        _aimer = new Aimer(_transform, _focusCamera, _rigBuilder, _targetTransform, _weaponHandler, _weapon, _animator, _aimingArrow);
+        _teleport = new Teleport(_weapon, this);
+        _aimer = new Aimer(_camera, _transform, _rigBuilder, _targetTransform, _weaponHandler, _weapon, _animator, _aimingArrow);
     }
 
     private void OnEnable()

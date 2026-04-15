@@ -4,7 +4,6 @@ using UnityEngine.Animations.Rigging;
 public class Aimer
 {
     private Camera _camera;
-    private SmartFocusCamera _focusCamera;
     private RigBuilder _rigBuilder;
     private Transform _transform;
     private GameObject _aimingArrow;
@@ -20,12 +19,11 @@ public class Aimer
     private Vector3 _targetDir;
     private float _currentAngle;    
 
-    public Aimer(Transform playerTransform, SmartFocusCamera focusCamera, RigBuilder rigBuilder, 
+    public Aimer(Camera camera, Transform playerTransform, RigBuilder rigBuilder, 
                  Transform target, Transform weaponHandler, Weapon weapon, 
                  PlayerAnimator animator, GameObject aimingArrow)
     {
-        _camera = focusCamera.GetComponent<Camera>();
-        _focusCamera = focusCamera;
+        _camera = camera;
         _rigBuilder = rigBuilder;
         _targetTransform = target;        
         _transform = playerTransform;
@@ -63,8 +61,7 @@ public class Aimer
     {
         Vector3 direction = (_targetTransform.position - _weaponHandler.position).normalized;
 
-        _thrower?.Throw(direction);
-        _focusCamera.SetTarget(_weapon.transform);
+        _thrower?.Throw(direction);        
 
         _animator.SetAiming(false);
 
