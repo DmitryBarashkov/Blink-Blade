@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
@@ -8,11 +9,12 @@ using UnityEngine.Animations.Rigging;
 [RequireComponent(typeof(CapsuleCollider))]
 public class Player : MonoBehaviour
 {
-    [SerializeField] Transform _targetTransform;
+    [SerializeField] Target _target;
     [SerializeField] Transform _weaponHandler;
-    [SerializeField] private GameObject _aimingArrow;
+    [SerializeField] private AimingArrow _aimingArrow;
     [SerializeField] private GroundChecker _groundChecker;
-    [SerializeField] private Camera _camera;
+    [SerializeField] private CapsuleCollider _obstacleChecker;
+    [SerializeField] private CinemachineVirtualCamera _camera;    
 
     private Transform _transform;
     private PlayerAnimator _animator;
@@ -35,8 +37,8 @@ public class Player : MonoBehaviour
         _weapon = _weaponHandler.GetChild(0).GetComponent<Weapon>();
 
         _animator = new PlayerAnimator(GetComponent<Animator>());
-        _teleport = new Teleport(_weapon, this);
-        _aimer = new Aimer(_camera, _transform, _rigBuilder, _targetTransform, _weaponHandler, _weapon, _animator, _aimingArrow);
+        _teleport = new Teleport(_weapon, this, _obstacleChecker);
+        _aimer = new Aimer(_camera, _transform, _rigBuilder, _target, _weaponHandler, _weapon, _animator, _aimingArrow);
     }
 
     private void OnEnable()

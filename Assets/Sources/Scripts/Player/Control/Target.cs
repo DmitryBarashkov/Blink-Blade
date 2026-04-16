@@ -4,6 +4,8 @@ public class Target : MonoBehaviour
 {
     private Transform _transform;
 
+    private float _aimOffset = 10f;
+
     private float _fixedZ = 0;
 
     private void Awake()
@@ -22,5 +24,10 @@ public class Target : MonoBehaviour
         Gizmos.color = Color.green;
 
         Gizmos.DrawWireSphere(transform.position, 0.5f);
+    }
+
+    public void SetPosition(Vector3 mouseWorldPoint)
+    {
+        _transform.position = Vector3.Lerp(_transform.position, mouseWorldPoint, Time.deltaTime * _aimOffset);
     }
 }

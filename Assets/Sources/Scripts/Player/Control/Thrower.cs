@@ -1,26 +1,28 @@
+using System;
+using System.Collections;
 using UnityEngine;
+
 
 public class Thrower
 {
-    private Rigidbody _weaponRigidbody;    
+    private Weapon _weapon;
 
-    private float throwForce = 15f;
-    private float torqueForce = 80f;
-
-    public Thrower(Rigidbody weaponRigidbody)
+    public Thrower(Weapon weapon)
     {
-        _weaponRigidbody = weaponRigidbody;        
+        _weapon = weapon;
     }
 
     public void Throw(Vector3 direction)
     {
-        if (_weaponRigidbody != null )
+        if (_weapon == null)
+            throw new ArgumentNullException(nameof(_weapon));
+
+        if (direction == Vector3.zero)
+            throw new ArgumentNullException(nameof(direction));
+
+        if (_weapon != null)
         {
-            _weaponRigidbody.isKinematic = false;
-            _weaponRigidbody.transform.SetParent(null);
-            
-            _weaponRigidbody.AddForce(direction * throwForce, ForceMode.Impulse);            
-            _weaponRigidbody.AddRelativeTorque(-Vector3.forward * torqueForce, ForceMode.Impulse);
+            _weapon.Throw(direction);
         }
-    }
+    }    
 }

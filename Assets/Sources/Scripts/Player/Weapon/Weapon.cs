@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -5,21 +7,32 @@ public class Weapon : MonoBehaviour
 {
     private Rigidbody _rigidbody;
     private Transform _transform;
-    private Transform _weaponHandler;
+    private Transform _weaponHandler;    
 
     private Vector3 _startWeaponPosition;
     private Quaternion _startWeaponRotation;
 
     private float _fixedZ = 0;
+    private float _spinSpeed = 500f;
+    private float _throwForce = 15f;    
+    private bool _isThrown = false;
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody = GetComponent<Rigidbody>();        
         _transform = transform;
         _weaponHandler = transform.parent;
 
         _startWeaponPosition = _transform.localPosition;
-        _startWeaponRotation = _transform.localRotation;
+        _startWeaponRotation = _transform.localRotation;        
+    }
+
+    private void Update()
+    {
+        if (_isThrown)
+        {
+            _transform.Rotate(0, 0, _spinSpeed * Time.deltaTime, Space.Self);
+        }
     }
 
     private void LateUpdate()
@@ -30,12 +43,30 @@ public class Weapon : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        _isThrown = false;
+            
         Enemy enemy = collision.collider.GetComponent<Enemy>();
 
         if (enemy != null)
         {
             enemy.Die();
         }
+
+        //StickToObstacle(collision);
+    }
+
+    private void StickToObstacle(Collision collision)
+    {
+        if (_rigidbody.velocity.magnitude > 0.1f)
+        {
+            _transform.rotation = Quaternion.FromToRotation(Vector3.right, _rigidbody.velocity.normalized);
+        }
+
+        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.angularVelocity = Vector3.zero;
+        _rigidbody.isKinematic = true;
+
+        _transform.SetParent(collision.transform);
     }
 
     private void OnDrawGizmosSelected()
@@ -51,6 +82,8 @@ public class Weapon : MonoBehaviour
     {
         if (_weaponHandler == null)
             return;
+
+        _isThrown = false;
         
         _transform.SetParent(_weaponHandler);
         _transform.localPosition = _startWeaponPosition;
@@ -59,5 +92,33 @@ public class Weapon : MonoBehaviour
         _rigidbody.velocity = Vector3.zero;
         _rigidbody.angularVelocity = Vector3.zero;
         _rigidbody.isKinematic = true;
+    }
+
+    public void ResetRotation(float rotationAngle)
+    {
+        if (rotationAngle == 0)
+            throw new ArgumentNullException(nameof(rotationAngle));
+
+        if (rotationAngle > 0)
+        {
+            _transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+        else
+        {
+            _transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+    }
+
+    public void Throw(Vector3 direction)
+    {
+        if (direction == Vector3.zero)
+            throw new ArgumentNullException(nameof(direction));        
+
+        _isThrown = true;
+
+        _rigidbody.isKinematic = false;
+        _rigidbody.transform.SetParent(null);
+
+        _rigidbody.AddForce(direction * _throwForce, ForceMode.Impulse);        
     }
 }

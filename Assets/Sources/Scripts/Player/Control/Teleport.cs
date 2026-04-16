@@ -4,16 +4,14 @@ public class Teleport
 {
     private Weapon _weapon;
     private Transform _playerTransform;
-    private CapsuleCollider _playerCollider;
+    private CapsuleCollider _safePositionCollider;    
     private Rigidbody _playerRigidbody;    
 
-    private float _obstacleOffset = 1.5f;    
-
-    public Teleport(Weapon weapon, Player player)
+    public Teleport(Weapon weapon, Player player, CapsuleCollider checkerCollider)
     {
         _weapon = weapon;
         _playerTransform = player.transform;
-        _playerCollider = player.GetComponent<CapsuleCollider>();
+        _safePositionCollider = checkerCollider;
         _playerRigidbody = player.GetComponent<Rigidbody>();        
     }
 
@@ -28,26 +26,26 @@ public class Teleport
         _weapon.ReturnToWeaponHandler();
     }
 
-    private Vector3 GetSafePosition(Vector3 targetPos)
+    private Vector3 GetSafePosition(Vector3 targetPosition)
     {
-        float playerRadius = _playerCollider.radius;
-        float playerHeight = _playerCollider.height;
-        float scaledHeight = playerHeight * _playerTransform.lossyScale.y;
-        float scaledRadius = playerRadius * Mathf.Max(_playerTransform.lossyScale.x, _playerTransform.lossyScale.z);
         LayerMask obstacleMask = LayerMask.GetMask("Ground");
+        Vector3 origin = _playerTransform.position;
+        Vector3 direction = targetPosition - origin;
 
-        Vector3 point1 = targetPos + Vector3.up * scaledRadius;
-        Vector3 point2 = targetPos + Vector3.up * (scaledHeight - playerRadius);
+        float playerRadius = _safePositionCollider.radius * _playerTransform.lossyScale.x;
+        float distance = direction.magnitude + playerRadius;
+        float playerHeight = _safePositionCollider.height * _playerTransform.lossyScale.y;
 
-        if (Physics.CheckCapsule(point1, point2, scaledRadius, obstacleMask))
+        if (Physics.SphereCast(origin, playerRadius, direction.normalized, out RaycastHit hit, distance, obstacleMask))
         {
-            Vector3 directionToPlayer = (_playerTransform.position - targetPos).normalized;
+            Vector3 safePosition = hit.point + (hit.normal * playerRadius);
+                    
+            if (Vector3.Dot(hit.normal, Vector3.down) > 0.7f)
+                safePosition.y = hit.point.y - playerHeight;
 
-            return targetPos + directionToPlayer * _obstacleOffset;
+            return safePosition;
         }
-
-        targetPos.z = _playerTransform.position.z;
-
-        return targetPos;
+        
+        return targetPosition;
     }
 }

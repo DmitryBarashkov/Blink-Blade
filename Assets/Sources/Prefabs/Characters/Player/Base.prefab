@@ -186,8 +186,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5211818053477625674}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0039605713, y: -0.7133969, z: -0.0039552795, w: 0.70073795}
-  m_LocalPosition: {x: 0.7014127, y: 0.37610498, z: 0.033785768}
+  m_LocalRotation: {x: -0.003960699, y: -0.71339697, z: -0.0039551556, w: 0.7007379}
+  m_LocalPosition: {x: 0.7014128, y: 1.4264097, z: 0.030871272}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -195,7 +195,7 @@ Transform:
   - {fileID: 6431076813744277618}
   - {fileID: 2859284180819632363}
   - {fileID: 3335501370920721991}
-  m_Father: {fileID: 6549097687414243434}
+  m_Father: {fileID: 6760663183796147236}
   m_LocalEulerAnglesHint: {x: 60, y: 42.407, z: 122.015}
 --- !u!1 &6514288613707242716
 GameObject:
@@ -582,6 +582,61 @@ MonoBehaviour:
       x: 1
       y: 1
       z: 1
+--- !u!1 &9032896361042145098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8049924925358268822}
+  - component: {fileID: 1994449384680568485}
+  m_Layer: 6
+  m_Name: ObstacleChecker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8049924925358268822
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9032896361042145098}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6760663183796147236}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1994449384680568485
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9032896361042145098}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.1770718
+  m_Height: 2.5636902
+  m_Direction: 1
+  m_Center: {x: 1.4902719e-16, y: 1.2113428, z: 0.07298684}
 --- !u!1001 &6509964419194581967
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -659,13 +714,16 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 26884749826e6774aa58a039de667f50, type: 3}
       insertIndex: 0
+      addedObject: {fileID: 4049588483323517142}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 26884749826e6774aa58a039de667f50, type: 3}
+      insertIndex: 1
       addedObject: {fileID: 5237199069999639380}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 26884749826e6774aa58a039de667f50, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6169421126496945828}
-    - targetCorrespondingSourceObject: {fileID: 52666057402282917, guid: 26884749826e6774aa58a039de667f50, type: 3}
-      insertIndex: 0
-      addedObject: {fileID: 4049588483323517142}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 26884749826e6774aa58a039de667f50, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8049924925358268822}
     - targetCorrespondingSourceObject: {fileID: -8588122464579329139, guid: 26884749826e6774aa58a039de667f50, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6927518288078869414}
@@ -758,11 +816,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c48b0e21010f1d4288ab480b85ed2bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _focusCamera: {fileID: 0}
-  _targetTransform: {fileID: 0}
+  _target: {fileID: 0}
   _weaponHandler: {fileID: 0}
   _aimingArrow: {fileID: 0}
   _groundChecker: {fileID: 0}
+  _camera: {fileID: 0}
+  _weapon: {fileID: 0}
 --- !u!114 &4196362278627446568
 MonoBehaviour:
   m_ObjectHideFlags: 0
