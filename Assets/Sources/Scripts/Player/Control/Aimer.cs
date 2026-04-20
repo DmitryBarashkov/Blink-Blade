@@ -41,7 +41,7 @@ public class Aimer
     public void StartAim()
     {
         _camera.Follow = _playerTransform;
-        _aimingArrow.Show();        
+        _aimingArrow.Show();
 
         Plane plane = new Plane(Vector3.forward, _playerTransform.position + _playerTransform.forward * _aimDistance);
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -55,7 +55,7 @@ public class Aimer
             mouseWorldPoint.z = _playerTransform.position.z;
 
             _target.SetPosition(mouseWorldPoint);
-            _aimingArrow.SetPosition(mouseWorldPoint);
+            //_aimingArrow.SetPosition(mouseWorldPoint);
         }
 
         _animator.SetAiming(true);
