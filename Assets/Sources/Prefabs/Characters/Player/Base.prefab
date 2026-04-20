@@ -582,61 +582,6 @@ MonoBehaviour:
       x: 1
       y: 1
       z: 1
---- !u!1 &9032896361042145098
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8049924925358268822}
-  - component: {fileID: 1994449384680568485}
-  m_Layer: 6
-  m_Name: ObstacleChecker
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8049924925358268822
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9032896361042145098}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6760663183796147236}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &1994449384680568485
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9032896361042145098}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.1770718
-  m_Height: 2.5636902
-  m_Direction: 1
-  m_Center: {x: 1.4902719e-16, y: 1.2113428, z: 0.07298684}
 --- !u!1001 &6509964419194581967
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -721,9 +666,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 26884749826e6774aa58a039de667f50, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6169421126496945828}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 26884749826e6774aa58a039de667f50, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8049924925358268822}
     - targetCorrespondingSourceObject: {fileID: -8588122464579329139, guid: 26884749826e6774aa58a039de667f50, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6927518288078869414}
@@ -774,9 +716,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.25
-  m_Height: 2
+  m_Height: 1.9465611
   m_Direction: 1
-  m_Center: {x: 0, y: 0.95, z: -0}
+  m_Center: {x: -0, y: 0.9767195, z: 0}
 --- !u!54 &4255096516078180701
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -820,8 +762,8 @@ MonoBehaviour:
   _weaponHandler: {fileID: 0}
   _aimingArrow: {fileID: 0}
   _groundChecker: {fileID: 0}
+  _obstacleChecker: {fileID: 0}
   _camera: {fileID: 0}
-  _weapon: {fileID: 0}
 --- !u!114 &4196362278627446568
 MonoBehaviour:
   m_ObjectHideFlags: 0
