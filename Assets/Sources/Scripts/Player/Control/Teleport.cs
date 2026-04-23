@@ -6,30 +6,37 @@ public class Teleport
     private Transform _playerTransform;
     private CapsuleCollider _safePositionCollider;    
     private Rigidbody _playerRigidbody;
+    private EffectsSpawner _effectsSpawner;    
 
     private float _playerHeight;
     private LayerMask _obstacleMask = LayerMask.GetMask("Ground");
     private float _horizontalOffset = 1.6f;
     private float _verticalOffset = 1.6f;
 
-    public Teleport(Weapon weapon, Player player)
+    public Teleport(Weapon weapon, Player player, ParticleSystem startTeleportEffect, ParticleSystem teleportTrailEffect)
     {
         _weapon = weapon;
         _playerTransform = player.transform;
         _safePositionCollider = player.GetComponent<CapsuleCollider>();
         _playerRigidbody = player.GetComponent<Rigidbody>();
 
+        _effectsSpawner = new EffectsSpawner(startTeleportEffect, teleportTrailEffect);
         _playerHeight = _safePositionCollider.height * _playerTransform.lossyScale.y;
     }
 
     public void Perform()
     {
         Vector3 newPosition = GetSafePosition();
+        Vector3 startLinePosition = _playerTransform.position + Vector3.up;
+        Vector3 endLinePosition = newPosition + Vector3.up;        
+
+        _effectsSpawner.SpawnEffectFromPool(_playerTransform);        
+        _effectsSpawner.SpawnTrailEffect(startLinePosition, endLinePosition);
 
         _playerRigidbody.velocity = Vector3.zero;
         _playerRigidbody.angularVelocity = Vector3.zero;
         _playerTransform.position = newPosition;
-        
+
         _weapon.ReturnToWeaponHandler();
     }
 

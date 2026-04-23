@@ -1,15 +1,17 @@
 using System;
-using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Weapon : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem _throwEffect;
+    
     private Rigidbody _rigidbody;
     private Transform _transform;
     private Transform _weaponHandler;    
 
-    private Vector3 _startWeaponPosition;
+    private Vector3 _startWeaponPosition;    
     private Quaternion _startWeaponRotation;
 
     private float _fixedZ = 0;
@@ -45,28 +47,12 @@ public class Weapon : MonoBehaviour
     {
         _isThrown = false;
             
-        Enemy enemy = collision.collider.GetComponent<Enemy>();
+        Enemy enemy = collision.collider.GetComponent<Enemy>();        
 
         if (enemy != null)
         {
-            enemy.Die();
+            enemy.Die(collision.contacts[0]);
         }
-
-        //StickToObstacle(collision);
-    }
-
-    private void StickToObstacle(Collision collision)
-    {
-        if (_rigidbody.velocity.magnitude > 0.1f)
-        {
-            _transform.rotation = Quaternion.FromToRotation(Vector3.right, _rigidbody.velocity.normalized);
-        }
-
-        _rigidbody.velocity = Vector3.zero;
-        _rigidbody.angularVelocity = Vector3.zero;
-        _rigidbody.isKinematic = true;
-
-        _transform.SetParent(collision.transform);
     }
 
     private void OnDrawGizmosSelected()
@@ -83,8 +69,8 @@ public class Weapon : MonoBehaviour
         if (_weaponHandler == null)
             return;
 
-        _isThrown = false;
-        
+        _isThrown = false;        
+
         _transform.SetParent(_weaponHandler);
         _transform.localPosition = _startWeaponPosition;
         _transform.localRotation = _startWeaponRotation;
@@ -115,6 +101,7 @@ public class Weapon : MonoBehaviour
             throw new ArgumentNullException(nameof(direction));        
 
         _isThrown = true;
+        _throwEffect.Play();
 
         _rigidbody.isKinematic = false;
         _rigidbody.transform.SetParent(null);

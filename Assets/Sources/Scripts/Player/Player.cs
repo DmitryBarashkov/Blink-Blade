@@ -13,7 +13,11 @@ public class Player : MonoBehaviour
     [SerializeField] Transform _weaponHandler;
     [SerializeField] private AimingArrow _aimingArrow;
     [SerializeField] private GroundChecker _groundChecker;    
-    [SerializeField] private CinemachineVirtualCamera _camera;  
+    [SerializeField] private CinemachineVirtualCamera _camera;
+
+    [Header("Effects")]
+    [SerializeField] private ParticleSystem _startTeleportEffect;
+    [SerializeField] private ParticleSystem _teleportTrailEffect;
 
     private Transform _transform;
     private PlayerAnimator _animator;
@@ -36,7 +40,7 @@ public class Player : MonoBehaviour
         _weapon = _weaponHandler.GetChild(0).GetComponent<Weapon>();
 
         _animator = new PlayerAnimator(GetComponent<Animator>());
-        _teleport = new Teleport(_weapon, this);
+        _teleport = new Teleport(_weapon, this, _startTeleportEffect, _teleportTrailEffect);
         _aimer = new Aimer(_camera, _transform, _rigBuilder, _target, _weaponHandler, _weapon, _animator, _aimingArrow);
     }
 
