@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 public class Teleport
 {
@@ -13,14 +14,19 @@ public class Teleport
     private float _horizontalOffset = 1.6f;
     private float _verticalOffset = 1.6f;
 
-    public Teleport(Weapon weapon, Player player, ParticleSystem startTeleportEffect, ParticleSystem teleportTrailEffect)
+    [Inject]
+    private void Construct(EffectsSpawner effectsSpawner)
+    {
+        _effectsSpawner = effectsSpawner;
+    }
+
+    public void Initialize(Weapon weapon, Player player)
     {
         _weapon = weapon;
         _playerTransform = player.transform;
         _safePositionCollider = player.GetComponent<CapsuleCollider>();
         _playerRigidbody = player.GetComponent<Rigidbody>();
 
-        _effectsSpawner = new EffectsSpawner(startTeleportEffect, teleportTrailEffect);
         _playerHeight = _safePositionCollider.height * _playerTransform.lossyScale.y;
     }
 

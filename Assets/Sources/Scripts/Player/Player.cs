@@ -1,31 +1,27 @@
-using Cinemachine;
-using System;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using Zenject;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(RigBuilder))]
-[RequireComponent(typeof(InputService))]
 [RequireComponent(typeof(CapsuleCollider))]
 public class Player : MonoBehaviour
 {
-    [SerializeField] Target _target;
-    [SerializeField] Transform _weaponHandler;
-    [SerializeField] private AimingArrow _aimingArrow;
-    [SerializeField] private GroundChecker _groundChecker;    
-    [SerializeField] private CinemachineVirtualCamera _camera;
-
-    [Header("Effects")]
-    [SerializeField] private ParticleSystem _startTeleportEffect;
-    [SerializeField] private ParticleSystem _teleportTrailEffect;
-
     private Transform _transform;
+        
     private PlayerAnimator _animator;
+    
     private RigBuilder _rigBuilder;
     private InputService _input;
+    
     private Aimer _aimer;
-    private Weapon _weapon;
     private Teleport _teleport;
+    
+    private Weapon _weapon;
+    private WeaponHandler _weaponHandler;
+    
+    private AimingArrow _aimingArrow;
+    private GroundChecker _groundChecker;       
 
     private bool _canTeleport = false;
     private bool _isAiming = false;
@@ -34,14 +30,13 @@ public class Player : MonoBehaviour
     {
         _transform = transform;
         
-        _rigBuilder = GetComponent<RigBuilder>();
-        _input = GetComponent<InputService>();
-
-        _weapon = _weaponHandler.GetChild(0).GetComponent<Weapon>();
+        _rigBuilder = GetComponent<RigBuilder>();            
 
         _animator = new PlayerAnimator(GetComponent<Animator>());
-        _teleport = new Teleport(_weapon, this, _startTeleportEffect, _teleportTrailEffect);
-        _aimer = new Aimer(_camera, _transform, _rigBuilder, _target, _weaponHandler, _weapon, _animator, _aimingArrow);
+        
+        _weapon.Initialize(_weaponHandler);
+        _teleport.Initialize(_weapon, this);
+        _aimer.Initialize(_transform, _rigBuilder, _animator, _aimingArrow, _weaponHandler);
     }
 
     private void OnEnable()
@@ -60,10 +55,24 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        _input.GetInput();
+        if (_input != null)
+            _input.GetInput();
 
         if (_isAiming)
             _aimer.RotateToTarget();
+    }
+
+    [Inject]
+    private void Construct(InputService input, Weapon weapon, Teleport teleport, Aimer aimer)
+    {
+        _input = input;        
+        _weapon = weapon;        
+        _teleport = teleport;
+        _aimer = aimer;
+
+        _aimingArrow = GetComponentInChildren<AimingArrow>(true);
+        _weaponHandler = GetComponentInChildren<WeaponHandler>();
+        _groundChecker = GetComponentInChildren<GroundChecker>();
     }
 
     private void OnAttackButtonUp()

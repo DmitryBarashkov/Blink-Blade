@@ -1,15 +1,14 @@
 using System;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(ParticleSystem))]
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem _throwEffect;
-    
+    private ParticleSystem _throwEffect;
     private Rigidbody _rigidbody;
     private Transform _transform;
-    private Transform _weaponHandler;    
+    private WeaponHandler _weaponHandler;    
 
     private Vector3 _startWeaponPosition;    
     private Quaternion _startWeaponRotation;
@@ -21,12 +20,9 @@ public class Weapon : MonoBehaviour
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();        
-        _transform = transform;
-        _weaponHandler = transform.parent;
-
-        _startWeaponPosition = _transform.localPosition;
-        _startWeaponRotation = _transform.localRotation;        
+        _rigidbody = GetComponent<Rigidbody>();
+        _throwEffect = GetComponentInChildren<ParticleSystem>();
+        _transform = transform;        
     }
 
     private void Update()
@@ -64,6 +60,15 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    public void Initialize(WeaponHandler weaponHandler)
+    {
+        _weaponHandler = weaponHandler;        
+        
+        _transform.SetParent(_weaponHandler.transform);
+        _transform.localPosition = _startWeaponPosition = _transform.position;
+        _transform.localRotation = _startWeaponRotation = _transform.rotation;
+    }
+
     public void ReturnToWeaponHandler()
     {
         if (_weaponHandler == null)
@@ -71,7 +76,7 @@ public class Weapon : MonoBehaviour
 
         _isThrown = false;        
 
-        _transform.SetParent(_weaponHandler);
+        _transform.SetParent(_weaponHandler.transform);
         _transform.localPosition = _startWeaponPosition;
         _transform.localRotation = _startWeaponRotation;
 

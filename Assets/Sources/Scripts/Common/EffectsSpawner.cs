@@ -3,6 +3,7 @@ using UnityEngine.Pool;
 using Cysharp.Threading.Tasks;
 
 using static UnityEngine.Object;
+using Zenject;
 
 public class EffectsSpawner
 {
@@ -19,7 +20,8 @@ public class EffectsSpawner
 
     private ObjectPool<ParticleSystem> Pool;        
 
-    public EffectsSpawner(ParticleSystem startEffect, ParticleSystem trailEffect)
+    [Inject]
+    private void Construct(ParticleSystem startEffect, ParticleSystem trailEffect)
     {
         _startTeleportEffect = startEffect;
         _trailTeleportEffect = trailEffect;

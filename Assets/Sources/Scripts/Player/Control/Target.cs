@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 public class Target : MonoBehaviour
 {
@@ -7,11 +8,6 @@ public class Target : MonoBehaviour
     private float _aimOffset = 10f;
 
     private float _fixedZ = 0;
-
-    private void Awake()
-    {
-        _transform = transform;
-    }
 
     private void LateUpdate()
     {
@@ -24,6 +20,12 @@ public class Target : MonoBehaviour
         Gizmos.color = Color.green;
 
         Gizmos.DrawWireSphere(transform.position, 0.5f);
+    }
+
+    [Inject]
+    private void Initialize()
+    {
+        _transform = transform;
     }
 
     public void SetPosition(Vector3 mouseWorldPoint)

@@ -6,18 +6,18 @@ public class GroundChecker: MonoBehaviour
 {
     private const float CheckDelay = 0.1f;
 
-    [SerializeField] private LayerMask _layerMask;
-
     public event Action<bool> Grounded;
 
     private Transform _transform;
     private Coroutine _coroutine;
+    private LayerMask _layerMask;
 
     private float _radius = 0.2f;
     
     private void Awake()
     {
         _transform = transform;
+        _layerMask = LayerMask.GetMask("Ground");
     }
 
     private void OnEnable()

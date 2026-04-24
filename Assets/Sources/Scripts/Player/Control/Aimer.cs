@@ -1,6 +1,7 @@
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using Zenject;
 
 public class Aimer
 {
@@ -8,7 +9,7 @@ public class Aimer
     private RigBuilder _rigBuilder;
     private Transform _playerTransform;
     private AimingArrow _aimingArrow;
-    private Transform _weaponHandler;
+    private WeaponHandler _weaponHandler;
     private Target _target;
     private PlayerAnimator _animator;
     private Thrower _thrower;
@@ -20,24 +21,27 @@ public class Aimer
     private Vector3 _targetDir;
     private float _currentAngle;    
 
-    public Aimer(CinemachineVirtualCamera camera, Transform playerTransform, RigBuilder rigBuilder,
-                 Target target, Transform weaponHandler, Weapon weapon, 
-                 PlayerAnimator animator, AimingArrow aimingArrow)
+    [Inject]
+    private void Construct(CinemachineVirtualCamera camera, Target target, Weapon weapon)
     {
         _camera = camera;
-        
-        _rigBuilder = rigBuilder;
-        _target = target;        
-        _playerTransform = playerTransform;
-        _aimingArrow = aimingArrow;
-        
-        _weaponHandler = weaponHandler;
+        _target = target;
         _weapon = weapon;
 
-        _animator = animator;
         _thrower = new Thrower(_weapon);
-    }    
-    
+    }
+
+    public void Initialize(Transform playerTransform, RigBuilder rigBuilder, PlayerAnimator animator, AimingArrow aimingArrow, WeaponHandler weaponHandler)
+    {
+        _rigBuilder = rigBuilder;
+        
+        _animator = animator;
+
+        _playerTransform = playerTransform;
+        _aimingArrow = aimingArrow;
+        _weaponHandler = weaponHandler;
+    }
+
     public void StartAim()
     {
         _camera.Follow = _playerTransform;
@@ -54,8 +58,7 @@ public class Aimer
 
             mouseWorldPoint.z = _playerTransform.position.z;
 
-            _target.SetPosition(mouseWorldPoint);
-            //_aimingArrow.SetPosition(mouseWorldPoint);
+            _target.SetPosition(mouseWorldPoint);            
         }
 
         _animator.SetAiming(true);
@@ -63,10 +66,10 @@ public class Aimer
 
     public void StopAim()
     {
-        Vector3 direction = (_target.transform.position - _weaponHandler.position).normalized;
+        Vector3 direction = (_target.transform.position - _weaponHandler.transform.position).normalized;
 
         _weapon.ResetRotation(_playerTransform.rotation.y);        
-        _thrower?.Throw(direction);
+        _thrower.Throw(direction);
 
         _animator.SetAiming(false);
 

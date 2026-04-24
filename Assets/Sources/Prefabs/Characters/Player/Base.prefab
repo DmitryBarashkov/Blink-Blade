@@ -44,9 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5423eda9d2ad46c42be9c5c4c4f97f36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1 &1026125606368093987
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,6 +53,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6927518288078869414}
+  - component: {fileID: 6719172962893720182}
   m_Layer: 0
   m_Name: WeaponHandler
   m_TagString: Untagged
@@ -78,6 +76,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5947238857533820994}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6719172962893720182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026125606368093987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b42293c3c19621e4e80296269c3bd314, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4652923600824337181
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,6 +181,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4049588483323517142}
+  - component: {fileID: 700517143058538136}
   m_Layer: 0
   m_Name: AimingArrow
   m_TagString: Untagged
@@ -198,6 +209,18 @@ Transform:
   - {fileID: 5050320354876634681}
   m_Father: {fileID: 6549097687414243434}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &700517143058538136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5211818053477625674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b2c35aca1dc14e46b541cdf18d0619a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6514288613707242716
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,15 +647,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 26884749826e6774aa58a039de667f50, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.65
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 26884749826e6774aa58a039de667f50, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.65
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 26884749826e6774aa58a039de667f50, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.65
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 26884749826e6774aa58a039de667f50, type: 3}
       propertyPath: m_LocalPosition.x
@@ -714,9 +737,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 26884749826e6774aa58a039de667f50, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4196362278627446568}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 26884749826e6774aa58a039de667f50, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4390837548126315215}
   m_SourcePrefab: {fileID: 100100000, guid: 26884749826e6774aa58a039de667f50, type: 3}
 --- !u!4 &5947238857533820994 stripped
 Transform:
@@ -748,9 +768,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.25
-  m_Height: 1.9465611
+  m_Height: 1.9225934
   m_Direction: 1
-  m_Center: {x: -0, y: 0.9767195, z: 0}
+  m_Center: {x: -0, y: 0.98870337, z: 0}
 --- !u!54 &4255096516078180701
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -762,7 +782,7 @@ Rigidbody:
   m_Mass: 85
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_CenterOfMass: {x: -2, y: -2, z: -2}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
@@ -774,9 +794,9 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 8
   m_CollisionDetection: 0
 --- !u!114 &3485385634334101565
 MonoBehaviour:
@@ -790,11 +810,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c48b0e21010f1d4288ab480b85ed2bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 0}
-  _weaponHandler: {fileID: 0}
-  _aimingArrow: {fileID: 0}
-  _groundChecker: {fileID: 0}
-  _camera: {fileID: 0}
 --- !u!114 &4196362278627446568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -808,21 +823,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RigLayers:
-  - m_Rig: {fileID: 0}
+  - m_Rig: {fileID: 8126811104450331984}
     m_Active: 1
   m_Effectors: []
---- !u!114 &4390837548126315215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6240128658431495838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c72ff44b462d7c4e990f8f8dcc031c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &6549097687414243434 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 52666057402282917, guid: 26884749826e6774aa58a039de667f50, type: 3}
