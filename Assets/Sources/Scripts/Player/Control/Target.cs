@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -30,6 +31,9 @@ public class Target : MonoBehaviour
 
     public void SetPosition(Vector3 mouseWorldPoint)
     {
+        if (mouseWorldPoint == null)
+            throw new ArgumentNullException(nameof(mouseWorldPoint));
+        
         _transform.position = Vector3.Lerp(_transform.position, mouseWorldPoint, Time.deltaTime * _aimOffset);
     }
 }

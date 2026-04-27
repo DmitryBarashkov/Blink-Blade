@@ -12,7 +12,7 @@ public class Teleport
     private float _playerHeight;
     private LayerMask _obstacleMask = LayerMask.GetMask("Ground");
     private float _horizontalOffset = 1.6f;
-    private float _verticalOffset = 1.6f;
+    private float _verticalOffset = 1.8f;
 
     [Inject]
     private void Construct(EffectsSpawner effectsSpawner)
@@ -33,11 +33,12 @@ public class Teleport
     public void Perform()
     {
         Vector3 newPosition = GetSafePosition();
-        Vector3 startLinePosition = _playerTransform.position + Vector3.up;
-        Vector3 endLinePosition = newPosition + Vector3.up;        
+        Vector3 centerPlayerPosition = Vector3.up * _playerHeight / 2;
+        Vector3 startLinePosition = _playerTransform.position + centerPlayerPosition;
+        Vector3 endLinePosition = newPosition;
 
-        _effectsSpawner.SpawnEffectFromPool(_playerTransform);        
         _effectsSpawner.SpawnTrailEffect(startLinePosition, endLinePosition);
+        _effectsSpawner.SpawnStartTeleportEffect(_playerTransform);        
 
         _playerRigidbody.velocity = Vector3.zero;
         _playerRigidbody.angularVelocity = Vector3.zero;

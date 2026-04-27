@@ -1,4 +1,5 @@
 using Cinemachine;
+using System;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using Zenject;
@@ -17,6 +18,7 @@ public class Aimer
 
     private float _aimDistance = 10f;
     private float _maxTurnAngle = 100f;
+    private float _targetWeight = 1f;
             
     private Vector3 _targetDir;
     private float _currentAngle;    
@@ -34,17 +36,22 @@ public class Aimer
     public void Initialize(Transform playerTransform, RigBuilder rigBuilder, PlayerAnimator animator, AimingArrow aimingArrow, WeaponHandler weaponHandler)
     {
         _rigBuilder = rigBuilder;
+        SetRigBuilderTarget();
         
         _animator = animator;
 
         _playerTransform = playerTransform;
         _aimingArrow = aimingArrow;
         _weaponHandler = weaponHandler;
+
+        _camera.Follow = _playerTransform;
+        _camera.LookAt = _playerTransform;
     }
 
     public void StartAim()
     {
         _camera.Follow = _playerTransform;
+        _camera.LookAt = _playerTransform;
         _aimingArrow.Show();
 
         Plane plane = new Plane(Vector3.forward, _playerTransform.position + _playerTransform.forward * _aimDistance);
@@ -75,7 +82,8 @@ public class Aimer
 
         _rigBuilder.enabled = false;
         _aimingArrow.Hide();
-        _camera.Follow = _weapon.transform;        
+        _camera.Follow = _weapon.transform;
+        _camera.LookAt = _weapon.transform;
     }
 
     public void RotateToTarget()
@@ -87,5 +95,26 @@ public class Aimer
         {
             _playerTransform.rotation = Quaternion.LookRotation(_targetDir);
         }
+    }
+
+    private void SetRigBuilderTarget()
+    {
+        MultiAimConstraint aimConstraint = _rigBuilder.GetComponentInChildren<MultiAimConstraint>();
+        var weightedTransform = new WeightedTransform(_target.transform, _targetWeight);
+        var sourceArray = new WeightedTransformArray { weightedTransform };
+        var animator = _rigBuilder.GetComponent<Animator>();
+
+        if (aimConstraint == null)
+            throw new ArgumentNullException(nameof(aimConstraint));
+
+        if (animator == null)
+            throw new ArgumentNullException(nameof(animator));
+
+        aimConstraint.data.sourceObjects = sourceArray;
+
+        if (animator != null)
+            animator.enabled = true;
+
+        _rigBuilder.Build();
     }
 }

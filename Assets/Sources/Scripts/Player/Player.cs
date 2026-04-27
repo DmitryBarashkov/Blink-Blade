@@ -77,9 +77,12 @@ public class Player : MonoBehaviour
 
     private void OnAttackButtonUp()
     {
-        _aimer.StopAim();
-        _canTeleport = true;
-        _isAiming = false;
+        if (_isAiming)
+        {
+            _aimer.StopAim();
+            _canTeleport = true;
+            _isAiming = false;
+        }
     }
 
     private void OnAttackButtonPressed()
