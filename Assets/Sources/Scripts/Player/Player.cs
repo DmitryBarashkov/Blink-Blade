@@ -20,7 +20,6 @@ public class Player : MonoBehaviour
     private Weapon _weapon;
     private WeaponHandler _weaponHandler;
     
-    private AimingArrow _aimingArrow;
     private GroundChecker _groundChecker;       
 
     private bool _canTeleport = false;
@@ -36,7 +35,7 @@ public class Player : MonoBehaviour
         
         _weapon.Initialize(_weaponHandler);
         _teleport.Initialize(_weapon, this);
-        _aimer.Initialize(_transform, _rigBuilder, _animator, _aimingArrow, _weaponHandler);
+        _aimer.Initialize(_transform, _rigBuilder, _animator, _weaponHandler);
     }
 
     private void OnEnable()
@@ -59,7 +58,7 @@ public class Player : MonoBehaviour
             _input.GetInput();
 
         if (_isAiming)
-            _aimer.RotateToTarget();
+            _aimer.RotateToTarget();        
     }
 
     [Inject]
@@ -70,7 +69,6 @@ public class Player : MonoBehaviour
         _teleport = teleport;
         _aimer = aimer;
 
-        _aimingArrow = GetComponentInChildren<AimingArrow>(true);
         _weaponHandler = GetComponentInChildren<WeaponHandler>();
         _groundChecker = GetComponentInChildren<GroundChecker>();
     }

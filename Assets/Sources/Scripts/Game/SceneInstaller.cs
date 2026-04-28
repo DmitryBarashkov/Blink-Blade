@@ -1,4 +1,5 @@
 using Cinemachine;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -13,12 +14,20 @@ public class SceneInstaller : MonoInstaller
     [SerializeField] private ParticleSystem _trailTeleportEffect;
 
     [SerializeField] private CinemachineVirtualCamera _camera;
+
+    [SerializeField] private AimingArrow _aimingArrow;
     
     public override void InstallBindings()
     {
         BindWeapon();
         BindPlayerUtils();
         BindPlayer();
+        BindUI();
+    }
+
+    private void BindUI()
+    {
+        Container.BindInstance(_aimingArrow).AsSingle();
     }
 
     private void BindPlayerUtils()

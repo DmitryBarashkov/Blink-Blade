@@ -24,24 +24,24 @@ public class Aimer
     private float _currentAngle;    
 
     [Inject]
-    private void Construct(CinemachineVirtualCamera camera, Target target, Weapon weapon)
+    private void Construct(CinemachineVirtualCamera camera, Target target, Weapon weapon, AimingArrow aimingArrow)
     {
         _camera = camera;
         _target = target;
         _weapon = weapon;
+        _aimingArrow = aimingArrow;
 
         _thrower = new Thrower(_weapon);
     }
 
-    public void Initialize(Transform playerTransform, RigBuilder rigBuilder, PlayerAnimator animator, AimingArrow aimingArrow, WeaponHandler weaponHandler)
+    public void Initialize(Transform playerTransform, RigBuilder rigBuilder, PlayerAnimator animator, WeaponHandler weaponHandler)
     {
         _rigBuilder = rigBuilder;
         SetRigBuilderTarget();
         
         _animator = animator;
 
-        _playerTransform = playerTransform;
-        _aimingArrow = aimingArrow;
+        _playerTransform = playerTransform;        
         _weaponHandler = weaponHandler;
 
         _camera.Follow = _playerTransform;
@@ -52,8 +52,7 @@ public class Aimer
     {
         _camera.Follow = _playerTransform;
         _camera.LookAt = _playerTransform;
-        _aimingArrow.Show();
-
+        
         Plane plane = new Plane(Vector3.forward, _playerTransform.position + _playerTransform.forward * _aimDistance);
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -66,9 +65,12 @@ public class Aimer
             mouseWorldPoint.z = _playerTransform.position.z;
 
             _target.SetPosition(mouseWorldPoint);            
-        }
+        }        
 
         _animator.SetAiming(true);
+        _aimingArrow.SetPosition(_weaponHandler.transform, _target.transform);
+        
+        _aimingArrow.Show();
     }
 
     public void StopAim()
