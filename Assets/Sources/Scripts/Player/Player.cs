@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using YG;
 using Zenject;
 
 [RequireComponent(typeof(Animator))]
@@ -7,6 +9,8 @@ using Zenject;
 [RequireComponent(typeof(CapsuleCollider))]
 public class Player : MonoBehaviour
 {
+    [Inject] private PlayerStats _playerStats;
+    
     private Transform _transform;
         
     private PlayerAnimator _animator;
@@ -25,6 +29,9 @@ public class Player : MonoBehaviour
     private bool _canTeleport = false;
     private bool _isAiming = false;
 
+    private int _energy;
+    private int _coins;
+
     private void Awake()
     {
         _transform = transform;
@@ -36,6 +43,8 @@ public class Player : MonoBehaviour
         _weapon.Initialize(_weaponHandler);
         _teleport.Initialize(_weapon, this);
         _aimer.Initialize(_transform, _rigBuilder, _animator, _weaponHandler);
+
+        _playerStats.currentEnergy.Value = _energy;
     }
 
     private void OnEnable()
@@ -62,12 +71,14 @@ public class Player : MonoBehaviour
     }
 
     [Inject]
-    private void Construct(InputService input, Weapon weapon, Teleport teleport, Aimer aimer)
+    private void Construct(InputService input, Weapon weapon, Teleport teleport, Aimer aimer, int energy, int coins)
     {
         _input = input;        
         _weapon = weapon;        
         _teleport = teleport;
         _aimer = aimer;
+        _energy = energy;
+        _coins = coins;
 
         _weaponHandler = GetComponentInChildren<WeaponHandler>();
         _groundChecker = GetComponentInChildren<GroundChecker>();
@@ -85,9 +96,14 @@ public class Player : MonoBehaviour
 
     private void OnAttackButtonPressed()
     {
+        if (_energy == 0)
+            Defeat();
+        
         if (_canTeleport) 
         {
             _teleport.Perform();
+            _energy--;
+            _playerStats.currentEnergy.Value = _energy;            
             _canTeleport = false;
         }
         else
@@ -95,6 +111,11 @@ public class Player : MonoBehaviour
             _aimer.StartAim();
             _isAiming = true;
         }        
+    }
+
+    private void Defeat()
+    {
+        Debug.Log("Энергия закончилась");
     }
 
     private void OnGroundedChange(bool value)

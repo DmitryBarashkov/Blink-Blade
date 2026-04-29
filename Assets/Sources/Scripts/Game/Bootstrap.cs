@@ -1,10 +1,11 @@
-using UnityEngine;
+using UnityEngine.SceneManagement;
+using Zenject;
+using YG;
 
-public class Bootstrap : MonoBehaviour
+public class Bootstrap : IInitializable
 {
-    private void Awake()
+    public void Initialize()
     {
-        InputService input = new InputService();
-        Player player = new Player();
+        SceneManager.LoadScene(YG2.saves.level);
     }
 }

@@ -6,7 +6,7 @@ public class AimingArrow : MonoBehaviour
 {
     private RectTransform _rectTransform;
 
-    private float _offset = 40f;
+    [SerializeField] private float _offset = 40f;
 
     [Inject]
     private void Construct()
@@ -32,6 +32,6 @@ public class AimingArrow : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         _rectTransform.position = weaponHandlerCanvasPosition + direction.normalized * _offset;
-        _rectTransform.rotation = Quaternion.Euler(0, 0, angle - 180f);
+        _rectTransform.rotation = Quaternion.Euler(0, 0, angle);
     }
 }

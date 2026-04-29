@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1f96b74ef79671b489cd68027c0ac6dd, type: 2}
+    - target: {fileID: 7777716653811025642, guid: 3374304d78a259d4787ecd5a0ad5932e, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8982342737175443021, guid: 3374304d78a259d4787ecd5a0ad5932e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.031
@@ -56,13 +60,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 145.812
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1494791573278161889, guid: 3374304d78a259d4787ecd5a0ad5932e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5693913536086193555}
+    - targetCorrespondingSourceObject: {fileID: 1494791573278161889, guid: 3374304d78a259d4787ecd5a0ad5932e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4993851346816280815}
   m_SourcePrefab: {fileID: 100100000, guid: 3374304d78a259d4787ecd5a0ad5932e, type: 3}
 --- !u!1 &149714196364660900 stripped
 GameObject:
@@ -96,3 +104,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 8
   m_CollisionDetection: 1
+--- !u!114 &-4993851346816280815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149714196364660900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b42293c3c19621e4e80296269c3bd314, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

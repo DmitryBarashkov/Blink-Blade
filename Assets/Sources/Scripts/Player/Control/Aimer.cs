@@ -12,8 +12,7 @@ public class Aimer
     private AimingArrow _aimingArrow;
     private WeaponHandler _weaponHandler;
     private Target _target;
-    private PlayerAnimator _animator;
-    private Thrower _thrower;
+    private PlayerAnimator _animator;    
     private Weapon _weapon;    
 
     private float _aimDistance = 10f;
@@ -30,8 +29,6 @@ public class Aimer
         _target = target;
         _weapon = weapon;
         _aimingArrow = aimingArrow;
-
-        _thrower = new Thrower(_weapon);
     }
 
     public void Initialize(Transform playerTransform, RigBuilder rigBuilder, PlayerAnimator animator, WeaponHandler weaponHandler)
@@ -77,8 +74,7 @@ public class Aimer
     {
         Vector3 direction = (_target.transform.position - _weaponHandler.transform.position).normalized;
 
-        _weapon.ResetRotation(_playerTransform.rotation.y);        
-        _thrower.Throw(direction);
+        _weapon.Throw(direction, _playerTransform.rotation.y);
 
         _animator.SetAiming(false);
 

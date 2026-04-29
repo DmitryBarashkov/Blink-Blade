@@ -66,7 +66,7 @@ public class Weapon : MonoBehaviour
         
         _transform.SetParent(_weaponHandler.transform);
         _transform.localPosition = _startWeaponPosition = _transform.position;
-        _transform.localRotation = _startWeaponRotation = _transform.rotation;
+        _transform.localRotation = _startWeaponRotation = _transform.rotation;        
     }
 
     public void ReturnToWeaponHandler()
@@ -85,7 +85,23 @@ public class Weapon : MonoBehaviour
         _rigidbody.isKinematic = true;
     }
 
-    public void ResetRotation(float rotationAngle)
+    public void Throw(Vector3 direction, float rotationAngle)
+    {
+        if (direction == Vector3.zero)
+            throw new ArgumentNullException(nameof(direction));
+
+        ResetRotation(rotationAngle);
+
+        _isThrown = true;
+        _throwEffect.Play();
+
+        _rigidbody.isKinematic = false;
+        _rigidbody.transform.SetParent(null);
+
+        _rigidbody.AddForce(direction * _throwForce, ForceMode.Impulse);        
+    }
+
+    private void ResetRotation(float rotationAngle)
     {
         if (rotationAngle == 0)
             throw new ArgumentNullException(nameof(rotationAngle));
@@ -98,19 +114,5 @@ public class Weapon : MonoBehaviour
         {
             _transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-    }
-
-    public void Throw(Vector3 direction)
-    {
-        if (direction == Vector3.zero)
-            throw new ArgumentNullException(nameof(direction));        
-
-        _isThrown = true;
-        _throwEffect.Play();
-
-        _rigidbody.isKinematic = false;
-        _rigidbody.transform.SetParent(null);
-
-        _rigidbody.AddForce(direction * _throwForce, ForceMode.Impulse);        
     }
 }
