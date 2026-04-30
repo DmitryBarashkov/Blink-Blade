@@ -4,11 +4,10 @@ using Cysharp.Threading.Tasks;
 
 using static UnityEngine.Object;
 using Zenject;
-using System;
 
 public class EffectsSpawner
 {
-    private ParticleSystem _startTeleportEffect;
+    private ParticleSystem _teleportEffect;
     private ParticleSystem _trailTeleportEffect;
     
     private int _poolCapacity = 3;
@@ -19,13 +18,13 @@ public class EffectsSpawner
     private float _half = 0.5f;
     private int _emitAmount = 30;
 
-    private ObjectPool<ParticleSystem> StartTeleportPool;      
+    private ObjectPool<ParticleSystem> TeleportPool;      
     private ObjectPool<ParticleSystem> TrailTeleportPool;      
 
     [Inject]
-    private void Construct(ParticleSystem startEffect, ParticleSystem trailEffect)
+    private void Construct(ParticleSystem teleportEffect, ParticleSystem trailEffect)
     {
-        _startTeleportEffect = startEffect;
+        _teleportEffect = teleportEffect;
         _trailTeleportEffect = trailEffect;
 
         InitializePools();
@@ -33,8 +32,8 @@ public class EffectsSpawner
 
     private void InitializePools()
     {
-        StartTeleportPool = new ObjectPool<ParticleSystem>(
-        createFunc: () => Instantiate(_startTeleportEffect),
+        TeleportPool = new ObjectPool<ParticleSystem>(
+        createFunc: () => Instantiate(_teleportEffect),
         actionOnGet: (obj) => obj.gameObject.SetActive(true),
         actionOnRelease: (obj) => obj.gameObject.SetActive(false),
         actionOnDestroy: (obj) => Destroy(obj.gameObject),
@@ -52,20 +51,20 @@ public class EffectsSpawner
         maxSize: _poolMaxSize);
     }
 
-    public void SpawnStartTeleportEffect(Transform spawnTransform)
+    public void SpawnTeleportEffect(Transform spawnTransform)
     {
-        ParticleSystem effect = StartTeleportPool.Get();
+        ParticleSystem effect = TeleportPool.Get();
 
         effect.transform.SetParent(spawnTransform);
         
-        effect.transform.localPosition = _startTeleportEffect.transform.position;
-        effect.transform.localRotation = _startTeleportEffect.transform.rotation;
+        effect.transform.localPosition = _teleportEffect.transform.position;
+        effect.transform.localRotation = _teleportEffect.transform.rotation;
         
         effect.transform.SetParent(null);
 
         effect.Play();
 
-        ReleaseOnLifetimeEnds(effect, StartTeleportPool).Forget();
+        ReleaseOnLifetimeEnds(effect, TeleportPool).Forget();
     }
 
     public void SpawnTrailEffect(Vector3 start, Vector3 end)
@@ -92,13 +91,13 @@ public class EffectsSpawner
         ReleaseOnLifetimeEnds(trailEffect, TrailTeleportPool).Forget();
     }
 
-    private async UniTask ReleaseOnLifetimeEnds(ParticleSystem obj, ObjectPool<ParticleSystem> pool)
+    private async UniTask ReleaseOnLifetimeEnds(ParticleSystem effect, ObjectPool<ParticleSystem> pool)
     {
         await UniTask.Delay(_lifetime);
 
-        if (obj != null)
+        if (effect != null)
         {
-            pool.Release(obj);
+            pool.Release(effect);
         }
     }
 }

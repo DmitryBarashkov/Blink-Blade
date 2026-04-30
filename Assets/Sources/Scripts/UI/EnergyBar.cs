@@ -25,7 +25,16 @@ public class EnergyBar : MonoBehaviour
         _stats.currentEnergy.Subscribe((currentEnergy) =>
         {
             _valueText.text = currentEnergy.ToString();
-            _image.fillAmount = Mathf.Clamp(currentEnergy / _maxEnergy, minFillAmount, maxFillAmount);
+
+            if (currentEnergy == 0)
+            {
+                _image.gameObject.SetActive(false);
+            }
+            else
+            {
+                _image.fillAmount = Mathf.Clamp(currentEnergy / _maxEnergy, minFillAmount, maxFillAmount);
+                _image.gameObject.SetActive(true);
+            }
         })
         .AddTo(this);
     }

@@ -1,11 +1,17 @@
 using UnityEngine.SceneManagement;
 using Zenject;
 using YG;
+using Cysharp.Threading.Tasks;
 
 public class Bootstrap : IInitializable
 {
-    public void Initialize()
+    public async void Initialize()
     {
-        SceneManager.LoadScene(YG2.saves.level);
+        await StartLevel();
+    }
+
+    private async UniTask StartLevel()
+    {
+        await SceneManager.LoadSceneAsync($"Level{YG2.saves.level}");
     }
 }

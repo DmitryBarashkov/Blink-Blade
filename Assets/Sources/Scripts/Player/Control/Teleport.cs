@@ -37,14 +37,14 @@ public class Teleport
         Vector3 startLinePosition = _playerTransform.position + centerPlayerPosition;
         Vector3 endLinePosition = newPosition;
 
-        _effectsSpawner.SpawnTrailEffect(startLinePosition, endLinePosition);
-        _effectsSpawner.SpawnStartTeleportEffect(_playerTransform);        
-
         _playerRigidbody.velocity = Vector3.zero;
         _playerRigidbody.angularVelocity = Vector3.zero;
         _playerTransform.position = newPosition;
 
         _weapon.ReturnToWeaponHandler();
+
+        _effectsSpawner.SpawnTrailEffect(startLinePosition, endLinePosition);
+        _effectsSpawner.SpawnTeleportEffect(_playerTransform);
     }
 
     private Vector3 GetSafePosition()
