@@ -1,13 +1,13 @@
-using System;
+using Zenject;
 
 public class StartButton : MenuButton
 {
-    public event Action StartLevel;
-    
+    [Inject] private Level _level;
+
     public override void HandleClick()
     {
         gameObject.SetActive(false);
 
-        StartLevel?.Invoke();
+        _level.StartPlay();
     }
 }

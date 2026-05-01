@@ -5,7 +5,7 @@ using UnityEngine;
 using YG;
 using Zenject;
 
-public class SceneInstaller : MonoInstaller
+public class PlayerInstaller : MonoInstaller
 {
     [SerializeField] private Player _playerPrefab;
     [SerializeField] private Transform _playerSpawnPoint;

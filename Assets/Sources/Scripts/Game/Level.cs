@@ -1,21 +1,8 @@
-using UnityEngine;
 using Zenject;
 
-public class Level : MonoBehaviour
+public class Level
 {
-    [SerializeField] private StartButton _startButton;
-    
     private InputService _input;
-
-    private void OnEnable()
-    {
-        _startButton.StartLevel += StartPlay;
-    }
-
-    private void OnDisable()
-    {
-        _startButton.StartLevel -= StartPlay;
-    }
 
     [Inject]
     private void Construct(InputService input)
@@ -23,7 +10,7 @@ public class Level : MonoBehaviour
         _input = input;
     }
 
-    private void StartPlay()
+    public void StartPlay()
     {
         _input.Activate();
     }
