@@ -5,8 +5,12 @@ using Zenject;
 public class AimingArrow : MonoBehaviour
 {
     private RectTransform _rectTransform;
+    private Vector2 _direction;
 
-    [SerializeField] private float _offset = 40f;
+    [SerializeField] private float _offset = 50f;
+    [SerializeField] private float _playerHeightOffset = 1.2f;
+
+    public Vector2 Direction => _direction;
 
     [Inject]
     private void Construct()
@@ -24,14 +28,21 @@ public class AimingArrow : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void SetPosition(Transform weaponHandler, Transform target)
+    public void SetPosition(Vector3 playerPosition)
     {
-        Vector2 weaponHandlerCanvasPosition = Camera.main.WorldToScreenPoint(weaponHandler.position);
-        Vector2 targetCanvasPosition = Camera.main.WorldToScreenPoint(target.position);
-        Vector2 direction = targetCanvasPosition - weaponHandlerCanvasPosition;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        if (playerPosition == Vector3.zero)
+            throw new ArgumentNullException(nameof(playerPosition));
 
-        _rectTransform.position = weaponHandlerCanvasPosition + direction.normalized * _offset;
+        Vector3 position = playerPosition + _playerHeightOffset * Vector3.up;
+        Vector2 playerCanvasPosition = Camera.main.WorldToScreenPoint(position);
+        Vector2 targetPosition = Input.mousePosition;
+        
+        _direction = (targetPosition - playerCanvasPosition).normalized;
+        
+        float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
+        float scaledOffset = _offset * _rectTransform.lossyScale.x;
+
+        _rectTransform.position = playerCanvasPosition + _direction * scaledOffset;
         _rectTransform.rotation = Quaternion.Euler(0, 0, angle);
     }
 }

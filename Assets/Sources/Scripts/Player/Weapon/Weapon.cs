@@ -1,10 +1,13 @@
 using System;
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(ParticleSystem))]
 public class Weapon : MonoBehaviour
 {
+    [Inject] private Level _level;
+
     private ParticleSystem _throwEffect;
     private Rigidbody _rigidbody;
     private Transform _transform;
@@ -48,6 +51,7 @@ public class Weapon : MonoBehaviour
         if (enemy != null)
         {
             enemy.Die(collision.contacts[0]);
+            _level.DecreaseEnemiesCount();
         }
     }
 

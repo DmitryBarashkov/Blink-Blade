@@ -1,5 +1,4 @@
 using Cinemachine;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using YG;
@@ -9,8 +8,7 @@ public class PlayerInstaller : MonoInstaller
 {
     [SerializeField] private Player _playerPrefab;
     [SerializeField] private Transform _playerSpawnPoint;
-    [SerializeField] private List<Weapon> _weaponPrefabs;
-    [SerializeField] private Target _targetPrefab;
+    [SerializeField] private List<Weapon> _weaponPrefabs;    
     
     [SerializeField] private ParticleSystem _teleportEffect;
     [SerializeField] private ParticleSystem _trailTeleportEffect;
@@ -25,11 +23,13 @@ public class PlayerInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
+        Debug.Log($"Installing on: {gameObject.name}", gameObject);
+
+        BindUI();
         LoadPlayerData();
         BindWeapon();
         BindPlayerUtils();
         BindPlayer();
-        BindUI();
     }
 
     private void LoadPlayerData()
@@ -47,19 +47,9 @@ public class PlayerInstaller : MonoInstaller
     private void BindPlayerUtils()
     {
         Container.Bind<PlayerStats>().AsSingle();
-
-        Container.BindInterfacesAndSelfTo<Target>()
-            .FromComponentInNewPrefab(_targetPrefab)
-            .AsSingle()
-            .NonLazy();
-
-        Container.Bind<Teleport>().AsSingle().NonLazy();
-        
-        Container.Bind<Aimer>()
-            .AsSingle()
-            .WithArguments(_camera)
-            .NonLazy();
-
+        Container.Bind<Teleport>().AsSingle();
+        Container.Bind<Aimer>().AsSingle().WithArguments(_camera);
+            
         Container.Bind<EffectsSpawner>()
             .AsSingle()
             .WithArguments(_teleportEffect, _trailTeleportEffect)
@@ -68,7 +58,7 @@ public class PlayerInstaller : MonoInstaller
 
     private void BindWeapon()
     {
-        Container.BindInterfacesAndSelfTo<Weapon>()
+        Container.Bind<Weapon>()
             .FromComponentInNewPrefab(_weaponPrefabs[_weaponId])
             .AsSingle()
             .NonLazy();            
@@ -76,7 +66,7 @@ public class PlayerInstaller : MonoInstaller
 
     private void BindPlayer()
     {
-        Container.BindInterfacesAndSelfTo<Player>()
+        Container.Bind<Player>()
             .FromComponentInNewPrefab(_playerPrefab)
             .AsSingle()
             .WithArguments(_energy, _coins)

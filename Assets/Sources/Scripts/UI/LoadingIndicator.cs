@@ -3,8 +3,8 @@ using UnityEngine;
 public class LoadingIndicator : MonoBehaviour
 {
     [SerializeField] private float _rotationSpeed = 200f;
-    [SerializeField] private float _pulseSpeed = 200f;
-    [SerializeField] private float _pulseAmount = 200f;
+    [SerializeField] private float _pulseSpeed = 2f;
+    [SerializeField] private float _pulseAmount = 0.2f;
 
     private Transform _transform;
     private Vector3 _initialScale;

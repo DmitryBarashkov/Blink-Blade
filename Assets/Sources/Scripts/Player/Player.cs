@@ -1,11 +1,7 @@
-using System;
 using UnityEngine;
-using UnityEngine.Animations.Rigging;
-using YG;
 using Zenject;
 
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(RigBuilder))]
 [RequireComponent(typeof(CapsuleCollider))]
 public class Player : MonoBehaviour
 {
@@ -15,7 +11,6 @@ public class Player : MonoBehaviour
         
     private PlayerAnimator _animator;
     
-    private RigBuilder _rigBuilder;
     private InputService _input;
     
     private Aimer _aimer;
@@ -36,13 +31,11 @@ public class Player : MonoBehaviour
     {
         _transform = transform;
         
-        _rigBuilder = GetComponent<RigBuilder>();            
-
         _animator = new PlayerAnimator(GetComponent<Animator>());
         
         _weapon.Initialize(_weaponHandler);
         _teleport.Initialize(_weapon, this);
-        _aimer.Initialize(_transform, _rigBuilder, _animator, _weaponHandler);
+        _aimer.Initialize(_transform, _animator);
 
         _playerStats.currentEnergy.Value = _energy;
     }

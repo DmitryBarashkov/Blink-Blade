@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zenject-UnitTests-Editor", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zenject-Editor", "Zenject-Editor.csproj", "{4C8F08F2-2E7F-C457-A333-4F389F8D4C5B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass.csproj", "{D6AAD83C-7D72-2786-6AC2-674F6960E0A1}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeanLocalization.TMP", "LeanLocalization.TMP.csproj", "{CE46DF08-AA09-7D75-9270-D1631A4A05DD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zenject-TestFramework", "Zenject-TestFramework.csproj", "{77E467DE-A83C-9E69-0847-02F281A25FB0}"
@@ -87,6 +89,10 @@ Global
 		{4C8F08F2-2E7F-C457-A333-4F389F8D4C5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C8F08F2-2E7F-C457-A333-4F389F8D4C5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C8F08F2-2E7F-C457-A333-4F389F8D4C5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6AAD83C-7D72-2786-6AC2-674F6960E0A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6AAD83C-7D72-2786-6AC2-674F6960E0A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6AAD83C-7D72-2786-6AC2-674F6960E0A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6AAD83C-7D72-2786-6AC2-674F6960E0A1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CE46DF08-AA09-7D75-9270-D1631A4A05DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CE46DF08-AA09-7D75-9270-D1631A4A05DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE46DF08-AA09-7D75-9270-D1631A4A05DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
