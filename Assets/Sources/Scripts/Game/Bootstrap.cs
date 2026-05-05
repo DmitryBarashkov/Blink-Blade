@@ -7,6 +7,7 @@ public class Bootstrap : IInitializable
 {
     public async void Initialize()
     {
+        //await UniTask.Delay(5000);
         await StartLevel();
     }
 

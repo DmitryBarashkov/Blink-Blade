@@ -44,14 +44,17 @@ public class Weapon : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        _isThrown = false;
-            
-        Enemy enemy = collision.collider.GetComponent<Enemy>();        
-
-        if (enemy != null)
+        if (_isThrown)
         {
-            enemy.Die(collision.contacts[0]);
-            _level.DecreaseEnemiesCount();
+            Enemy enemy = collision.collider.GetComponent<Enemy>();
+
+            if (enemy != null)
+            {
+                enemy.Die(collision.contacts[0]);
+                _level.DecreaseEnemiesCount();
+            }
+
+            _isThrown = false;
         }
     }
 
