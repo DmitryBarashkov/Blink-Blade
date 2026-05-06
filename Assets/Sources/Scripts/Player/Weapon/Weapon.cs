@@ -1,13 +1,10 @@
 using System;
 using UnityEngine;
-using Zenject;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(ParticleSystem))]
 public class Weapon : MonoBehaviour
 {
-    [Inject] private Level _level;
-
     private ParticleSystem _throwEffect;
     private Rigidbody _rigidbody;
     private Transform _transform;
@@ -20,6 +17,7 @@ public class Weapon : MonoBehaviour
     private float _spinSpeed = 500f;
     private float _throwForce = 15f;    
     private bool _isThrown = false;
+    private bool _isShouldRotate = false;
 
     private void Awake()
     {
@@ -30,7 +28,7 @@ public class Weapon : MonoBehaviour
 
     private void Update()
     {
-        if (_isThrown)
+        if (_isShouldRotate)
         {
             _transform.Rotate(0, 0, _spinSpeed * Time.deltaTime, Space.Self);
         }
@@ -44,17 +42,16 @@ public class Weapon : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        _isShouldRotate = false;
+
         if (_isThrown)
         {
             Enemy enemy = collision.collider.GetComponent<Enemy>();
 
             if (enemy != null)
             {
-                enemy.Die(collision.contacts[0]);
-                _level.DecreaseEnemiesCount();
-            }
-
-            _isThrown = false;
+                enemy.Die(collision.contacts[0]);               
+            }            
         }
     }
 
@@ -81,7 +78,8 @@ public class Weapon : MonoBehaviour
         if (_weaponHandler == null)
             return;
 
-        _isThrown = false;        
+        _isThrown = false;
+        _isShouldRotate = false;
 
         _transform.SetParent(_weaponHandler.transform);
         _transform.localPosition = _startWeaponPosition;
@@ -100,6 +98,7 @@ public class Weapon : MonoBehaviour
         ResetRotation(rotationAngle);
 
         _isThrown = true;
+        _isShouldRotate = true;
         _throwEffect.Play();
 
         _rigidbody.isKinematic = false;

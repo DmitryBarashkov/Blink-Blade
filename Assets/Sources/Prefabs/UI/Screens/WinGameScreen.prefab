@@ -623,6 +623,8 @@ GameObject:
   - component: {fileID: 6512806317326821470}
   - component: {fileID: 4947874445489879933}
   - component: {fileID: 1700045827320979864}
+  - component: {fileID: -2113288794565745609}
+  - component: {fileID: 8610852896871048155}
   m_Layer: 5
   m_Name: WinGameScreen
   m_TagString: Untagged
@@ -639,7 +641,7 @@ RectTransform:
   m_GameObject: {fileID: 4817629102248517671}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.7, y: 1.7, z: 1.7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1445355472402930396}
@@ -688,6 +690,30 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &-2113288794565745609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4817629102248517671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced5798c358457841acd3c0df0de126d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!225 &8610852896871048155
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4817629102248517671}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8789106215762788410
 GameObject:
   m_ObjectHideFlags: 0

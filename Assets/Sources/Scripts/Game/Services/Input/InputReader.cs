@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InputReader : MonoBehaviour
+public class InputReader
 {
     private const string MouseXAxis = "Mouse X";
     private const string MouseYAxis = "Mouse Y";

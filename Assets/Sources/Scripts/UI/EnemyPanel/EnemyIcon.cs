@@ -13,14 +13,23 @@ public class EnemyIcon: MonoBehaviour
     private float _shakeStrength = 10f;
     private float _shakeEffectDuration = 0.3f;
 
+    public bool IsMarked { get; private set; }
+
     private void Awake()
     {
         _iconImage = GetComponent<Image>();
         _crossImage = GetComponentInChildren<CrossImage>(true).GetComponent<Image>();
     }
 
+    public void Initialize()
+    {
+        IsMarked = false;
+    }
+    
     public void MarkAsDead()
     {
+        IsMarked = true;
+        
         _crossImage.gameObject.SetActive(true);
 
         _iconImage.DOColor(Color.gray, _colorEffectDuration);

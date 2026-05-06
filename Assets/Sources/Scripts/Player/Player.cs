@@ -1,13 +1,17 @@
+using System;
 using UnityEngine;
+using YG;
 using Zenject;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(CapsuleCollider))]
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IResetable
 {
     [Inject] private PlayerStats _playerStats;
+    [Inject] private Level _level;
     
     private Transform _transform;
+    private Transform _spawnPoint;
         
     private PlayerAnimator _animator;
     
@@ -24,8 +28,7 @@ public class Player : MonoBehaviour
     private bool _canTeleport = false;
     private bool _isAiming = false;
 
-    private int _energy;
-    private int _coins;
+    private int _energy;    
 
     private void Awake()
     {
@@ -64,17 +67,23 @@ public class Player : MonoBehaviour
     }
 
     [Inject]
-    private void Construct(InputService input, Weapon weapon, Teleport teleport, Aimer aimer, int energy, int coins)
+    private void Construct(InputService input, Weapon weapon, Teleport teleport, Aimer aimer, int energy, Transform spawnPoint)
     {
         _input = input;        
         _weapon = weapon;        
         _teleport = teleport;
         _aimer = aimer;
         _energy = energy;
-        _coins = coins;
+        _spawnPoint = spawnPoint;
 
         _weaponHandler = GetComponentInChildren<WeaponHandler>();
         _groundChecker = GetComponentInChildren<GroundChecker>();
+    }
+
+    public void AddEnergy(int addCount)
+    {
+        _energy += addCount;
+        _playerStats.currentEnergy.Value = _energy;
     }
 
     private void OnAttackButtonUp()
@@ -89,30 +98,43 @@ public class Player : MonoBehaviour
 
     private void OnAttackButtonPressed()
     {
-        if (_energy == 0)
-            Defeat();
-        
         if (_canTeleport) 
         {
-            _teleport.Perform();
             _energy--;
-            _playerStats.currentEnergy.Value = _energy;            
+            _playerStats.currentEnergy.Value = _energy;
             _canTeleport = false;
+            _teleport.Perform();
+        }
+        else if (_energy == 0)
+        {
+            _aimer.SetCameraAim(_transform);
+            _isAiming = false;
+            Defeat(true);
         }
         else
         {
             _aimer.StartAim();
             _isAiming = true;
-        }        
+        }              
     }
 
-    private void Defeat()
+    private void Defeat(bool isOutOfEnergy = false)
     {
-        Debug.Log("Энергия закончилась");
+        _level.Lose(isOutOfEnergy);
     }
 
     private void OnGroundedChange(bool value)
     {
         _animator.SetGrounded(value);
+    }
+
+    public void ResetOnRestart()
+    {
+        _transform.position = _spawnPoint.position;
+        _transform.rotation = _spawnPoint.rotation;
+        _canTeleport = false;
+        _isAiming = false;
+        _energy = YG2.saves.energy;
+        _playerStats.currentEnergy.Value = _energy;
     }
 }

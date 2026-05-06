@@ -4,12 +4,12 @@ using UniRx;
 using Zenject;
 
 [RequireComponent(typeof(RectTransform))]
-public class EnemyPanel: MonoBehaviour
+public class EnemyPanel: MonoBehaviour, IResetable
 {
-    [Inject] private LevelStats _levelStats;
+    [Inject] private LevelState _levelStats;
 
     private EnemyIcon _iconPrefab;
-    private Queue<EnemyIcon> _icons;
+    private List<EnemyIcon> _icons;
     private RectTransform _rectTransform;
 
     private float _offsetBetweenIcons = 8f;
@@ -26,9 +26,19 @@ public class EnemyPanel: MonoBehaviour
     [Inject]
     private void Construct(int enemiesCount, EnemyIcon enemyIconPrefab)
     {
-        _icons = new Queue<EnemyIcon>(enemiesCount);
+        _icons = new List<EnemyIcon>(enemiesCount);
         _iconPrefab = enemyIconPrefab;
         _enemiesCount = enemiesCount;
+    }
+
+    public void ResetOnRestart()
+    {
+        _enemiesCount = _levelStats.CurrentEnemiesCount.Value;
+        
+        _icons.ForEach((icon) =>
+        {
+            icon.Initialize();
+        });
     }
 
     private void CreatePanel()
@@ -42,23 +52,33 @@ public class EnemyPanel: MonoBehaviour
             RectTransform iconRectTransform = icon.GetComponent<RectTransform>();
 
             float iconOffset = i == 0 ? _firstElementOffset : _firstElementOffset + _elementOffset * i;
-            iconRectTransform.anchoredPosition = new Vector2(iconOffset, iconRectTransform.anchoredPosition.y);
             
-            _icons.Enqueue(icon);
+            iconRectTransform.anchoredPosition = new Vector2(iconOffset, iconRectTransform.anchoredPosition.y);
+            icon.Initialize();
+            
+            _icons.Add(icon);
         }
     }
 
     private void SubscribeToEnemiesCountChange()
     {
-        _levelStats.currentEnemiesCount
+        _levelStats.CurrentEnemiesCount
             .Skip(1)
             .Subscribe((count) =>
             {
-                if (_icons.Count > 0)
+                if (_enemiesCount == count)
+                    return;
+                
+                for (int i = 0; i < _icons.Count; i++) 
                 {
-                    EnemyIcon icon = _icons.Dequeue();
+                    EnemyIcon enemyIcon = _icons[i];
 
-                    icon.MarkAsDead();
+                    if (enemyIcon.IsMarked == false)
+                    {
+                        _enemiesCount--;
+                        enemyIcon.MarkAsDead();
+                        break;
+                    }
                 }
             });
     }

@@ -145,6 +145,7 @@ GameObject:
   - component: {fileID: 960412702990196747}
   - component: {fileID: 4848522587739536917}
   - component: {fileID: 8234807356703100754}
+  - component: {fileID: 6050749668614305924}
   m_Layer: 5
   m_Name: RestartButton
   m_TagString: Untagged
@@ -210,3 +211,15 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6050749668614305924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5757981543394911936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50c41b33e6d18b4498dd293792c5a572, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

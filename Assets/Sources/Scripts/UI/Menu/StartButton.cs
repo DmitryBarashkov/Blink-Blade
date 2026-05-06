@@ -1,6 +1,6 @@
 using Zenject;
 
-public class StartButton : MenuButton
+public class StartButton : UIButton
 {
     [Inject] private Level _level;
 

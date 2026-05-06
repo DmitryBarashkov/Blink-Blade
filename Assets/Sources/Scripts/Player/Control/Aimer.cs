@@ -35,9 +35,8 @@ public class Aimer
 
     public void StartAim()
     {
-        _camera.Follow = _playerTransform;
-        _camera.LookAt = _playerTransform;
-        
+        SetCameraAim(_playerTransform);
+
         _animator.SetAiming(true);
 
         _aimingArrow.SetPosition(_playerTransform.position);
@@ -51,8 +50,7 @@ public class Aimer
         _animator.SetAiming(false);
 
         _aimingArrow.Hide();
-        _camera.Follow = _weapon.transform;
-        _camera.LookAt = _weapon.transform;
+        SetCameraAim(_weapon.transform);
     }
 
     public void RotateToTarget()
@@ -64,5 +62,11 @@ public class Aimer
         {
             _playerTransform.rotation = Quaternion.LookRotation(_targetDir);
         }
+    }
+
+    public void SetCameraAim(Transform transform)
+    {
+        _camera.Follow = transform;
+        _camera.LookAt = transform;
     }
 }

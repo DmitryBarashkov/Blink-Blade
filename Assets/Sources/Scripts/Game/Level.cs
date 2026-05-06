@@ -1,22 +1,25 @@
-using System.Collections.Generic;
-using UnityEngine;
 using Zenject;
+using UniRx;
 
 public class Level
 {
-    [Inject] private LevelStats _levelStats;
-    [Inject]private List<EnemySpawnPoint> _spawnPoints;
+    [Inject] private LevelState _levelState;
+    [Inject] private InputService _input;
+    [Inject] private LevelRestartService _restartService;
 
-    private InputService _input;
-
-    private int _currentEnemiesCount;
+    private int _enemiesCount;
 
     [Inject]
-    private void Construct(InputService input)
+    private void Construct(int enemiesCount)
     {
-        _input = input;        
-        _currentEnemiesCount = _spawnPoints.Count;
-        _levelStats.currentEnemiesCount.Value = _currentEnemiesCount;
+        _levelState.CurrentEnemiesCount.Value = _enemiesCount = enemiesCount;
+
+        _levelState.CurrentEnemiesCount
+            .Subscribe(enemiesCount =>
+            {
+                if (enemiesCount == 0)
+                    Win();
+            });
     }
 
     public void StartPlay()
@@ -24,17 +27,21 @@ public class Level
         _input.Activate();
     }
 
-    public void DecreaseEnemiesCount()
+    public void Win()
     {
-        _currentEnemiesCount--;
-        _levelStats.currentEnemiesCount.Value = _currentEnemiesCount;
-
-        if (_currentEnemiesCount == 0)
-            Win();
+        _input.Deactivate();
+        _levelState.FinishLevel(true);
     }
 
-    private void Win()
+    public void Lose(bool isOutOfEnergy = false)
     {
-        Debug.Log("Вы победили");
+        _input.Deactivate();
+        _levelState.FinishLevel(false, isOutOfEnergy);
+    }
+
+    public void Restart()
+    {
+        _levelState.Restart(_enemiesCount);        
+        _restartService.ExecuteRestart();
     }
 }

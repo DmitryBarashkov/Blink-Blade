@@ -773,6 +773,17 @@ MonoBehaviour:
   _enemyPanelPrefab: {fileID: 9047468649376320031, guid: e87fa547e17ae5740a291e96c27e0e33, type: 3}
   _enemyIconPrefab: {fileID: 4246597001013131479, guid: d86039d83fdda0144b1aff4b4373b367, type: 3}
   _levelUICanvas: {fileID: 69097137}
+  _endGameCanvas: {fileID: 1804356623}
+  _winGameWindow:
+    m_AssetGUID: c72248cdc9ff0034f8481653af03b5df
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _loseGameWindow:
+    m_AssetGUID: 58bcd45c8d0025344bf2131f00460805
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!1 &151715020
 GameObject:
   m_ObjectHideFlags: 0
@@ -1543,7 +1554,7 @@ Transform:
   m_GameObject: {fileID: 686806794}
   serializedVersion: 2
   m_LocalRotation: {x: 0.04288023, y: 0.021385489, z: -0.0009180696, w: 0.99885094}
-  m_LocalPosition: {x: -0.34418866, y: -8.417878, z: -10.381854}
+  m_LocalPosition: {x: -0.35271764, y: -8.417839, z: -10.381485}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3850,10 +3861,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3

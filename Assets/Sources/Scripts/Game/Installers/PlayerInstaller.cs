@@ -23,8 +23,6 @@ public class PlayerInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
-        Debug.Log($"Installing on: {gameObject.name}", gameObject);
-
         BindUI();
         LoadPlayerData();
         BindWeapon();
@@ -66,10 +64,10 @@ public class PlayerInstaller : MonoInstaller
 
     private void BindPlayer()
     {
-        Container.Bind<Player>()
+        Container.BindInterfacesAndSelfTo<Player>()
             .FromComponentInNewPrefab(_playerPrefab)
             .AsSingle()
-            .WithArguments(_energy, _coins)
+            .WithArguments(_energy, _playerSpawnPoint)
             .OnInstantiated<Player>((ctx, player) =>
             {
                 player.transform.position = _playerSpawnPoint.position;

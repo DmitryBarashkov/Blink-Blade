@@ -1,13 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class MenuButton : MonoBehaviour
+[RequireComponent(typeof(Button))]
+public abstract class UIButton : MonoBehaviour
 {
-    private Button _button;
+    private Button _button;    
 
     private void Awake()
     {
-        _button = GetComponent<Button>();
+        _button = GetComponent<Button>();        
     }
 
     private void OnEnable()
