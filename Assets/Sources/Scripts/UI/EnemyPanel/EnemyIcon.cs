@@ -4,8 +4,13 @@ using DG.Tweening;
 
 public class EnemyIcon: MonoBehaviour
 {
+    [SerializeField] private Image _crossImage;
+
     private Image _iconImage;
-    private Image _crossImage;
+    private Transform _iconTransform;
+    
+    private GameObject _crossGameObject;
+    private Transform _crossTransform;
 
     private float _colorEffectDuration = 0.5f;
     private float _scaleFactor = 1.5f;
@@ -17,26 +22,35 @@ public class EnemyIcon: MonoBehaviour
 
     private void Awake()
     {
-        _iconImage = GetComponent<Image>();
-        _crossImage = GetComponentInChildren<CrossImage>(true).GetComponent<Image>();
+        _iconImage = GetComponent<Image>();        
+
+        _iconTransform = _iconImage.transform;
+        _crossGameObject = _crossImage.gameObject;
+        _crossTransform = _crossImage.transform;
     }
 
-    public void Initialize()
+    public void Reset()
     {
         IsMarked = false;
+
+        _crossGameObject.SetActive(false);
+        
+        _iconImage.color = Color.white;
+
+        _crossTransform.localScale = Vector3.one;
     }
     
     public void MarkAsDead()
     {
         IsMarked = true;
-        
-        _crossImage.gameObject.SetActive(true);
+
+        _crossGameObject.SetActive(true);
 
         _iconImage.DOColor(Color.gray, _colorEffectDuration);
 
-        _crossImage.transform.localScale = Vector3.one * _scaleFactor;
-        _crossImage.transform.DOScale(Vector3.one, _scaleEffectDuration).SetEase(Ease.OutBack);
+        _crossTransform.localScale = Vector3.one * _scaleFactor;
+        _crossTransform.DOScale(Vector3.one, _scaleEffectDuration).SetEase(Ease.OutBack);
 
-        _iconImage.transform.DOShakePosition(_shakeEffectDuration, _shakeStrength);        
+        _iconTransform.DOShakePosition(_shakeEffectDuration, _shakeStrength);        
     }
 }

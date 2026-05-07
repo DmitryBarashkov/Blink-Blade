@@ -9,5 +9,10 @@ public abstract class CharacterAnimator
     public CharacterAnimator(Animator animator)
     {
         _animator = animator;
-    }    
+    }
+
+    public float GetAnimationLength()
+    {
+        return _animator.GetCurrentAnimatorStateInfo(0).length;
+    }
 }

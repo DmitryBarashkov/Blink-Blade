@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class LevelRestartService
 {
@@ -18,5 +19,9 @@ public class LevelRestartService
         }
 
         Time.timeScale = 1;
+    }
+
+    public class Factory : PlaceholderFactory<LevelRestartService>
+    {
     }
 }

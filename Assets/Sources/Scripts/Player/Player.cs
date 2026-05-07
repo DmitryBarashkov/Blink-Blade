@@ -11,7 +11,7 @@ public class Player : MonoBehaviour, IResetable
     [Inject] private Level _level;
     
     private Transform _transform;
-    private Transform _spawnPoint;
+    private Transform _spawnPoint;    
         
     private PlayerAnimator _animator;
     
@@ -34,8 +34,8 @@ public class Player : MonoBehaviour, IResetable
     {
         _transform = transform;
         
-        _animator = new PlayerAnimator(GetComponent<Animator>());
-        
+        _animator = new PlayerAnimator(GetComponent<Animator>());        
+
         _weapon.Initialize(_weaponHandler);
         _teleport.Initialize(_weapon, this);
         _aimer.Initialize(_transform, _animator);
@@ -86,6 +86,23 @@ public class Player : MonoBehaviour, IResetable
         _playerStats.currentEnergy.Value = _energy;
     }
 
+    public void ResetOnRestart()
+    {
+        _transform.position = _spawnPoint.position;
+        _transform.rotation = _spawnPoint.rotation;        
+        _canTeleport = false;
+        _isAiming = false;
+        _energy = YG2.saves.energy;
+        _playerStats.currentEnergy.Value = _energy;
+    }
+
+    public void Die()
+    {
+        _aimer.SetCameraAim(_transform);
+
+        Defeat();
+    }
+
     private void OnAttackButtonUp()
     {
         if (_isAiming)
@@ -126,15 +143,5 @@ public class Player : MonoBehaviour, IResetable
     private void OnGroundedChange(bool value)
     {
         _animator.SetGrounded(value);
-    }
-
-    public void ResetOnRestart()
-    {
-        _transform.position = _spawnPoint.position;
-        _transform.rotation = _spawnPoint.rotation;
-        _canTeleport = false;
-        _isAiming = false;
-        _energy = YG2.saves.energy;
-        _playerStats.currentEnergy.Value = _energy;
     }
 }

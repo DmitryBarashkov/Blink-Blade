@@ -1,8 +1,11 @@
+using Cysharp.Threading.Tasks.Triggers;
 using UnityEngine;
 using Zenject;
 
 public class Enemy : MonoBehaviour, IResetable
 {
+    [SerializeField] EnemyAttacker _attacker;
+
     [Inject] private LevelState _levelState;
     
     private EnemyAnimator _animator;
@@ -27,9 +30,16 @@ public class Enemy : MonoBehaviour, IResetable
         _spawnPoint = spawnPoint;
     }
 
+    public void Attack()
+    {
+        _animator.SetAttack();    
+    }
+
     public void Die(ContactPoint hitPoint)
     {
         _effect.Perform(hitPoint);
+
+        _attacker.Disable();
         
         _animator.SetDied(true);
         _rigidbody.isKinematic = true;
@@ -42,6 +52,8 @@ public class Enemy : MonoBehaviour, IResetable
     {
         _transform.position = _spawnPoint.position;
         _transform.rotation = _spawnPoint.rotation;
+
+        _attacker.Enable();
 
         _animator.SetDied(false);
         _rigidbody.isKinematic = false;
