@@ -1,3 +1,5 @@
+using System;
+
 namespace YG
 {
     public partial class SavesYG
@@ -7,5 +9,7 @@ namespace YG
         public int coins = 0;
 
         public int weaponId = 1;
+
+        public bool IsAdsDisabled = false;
     }
 }

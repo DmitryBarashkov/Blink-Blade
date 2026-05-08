@@ -7,7 +7,12 @@ public class Bootstrap : IInitializable
 {
     public async void Initialize()
     {
-        //await UniTask.Delay(5000);
+        if (YG2.saves.IsAdsDisabled)
+            YG2.StickyAdActivity(false);
+
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+            return;
+
         await StartLevel();
     }
 
