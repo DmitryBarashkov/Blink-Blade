@@ -6,16 +6,16 @@ using Zenject;
 public class UIService : IInitializable, System.IDisposable
 {
     private readonly LevelState _levelState;
-    private readonly EndGameWindow.Factory _windowFactory;
+    private readonly EndGameScreen.Factory _windowFactory;
     private readonly AssetReference _winReference;
     private readonly AssetReference _loseReference;
 
-    private readonly Dictionary<AssetReference, EndGameWindow> _cachedWindows = new();
+    private readonly Dictionary<AssetReference, EndGameScreen> _cachedWindows = new();
     private readonly CompositeDisposable _disposables = new CompositeDisposable();
 
     private float _showDelay = 0.5f;
 
-    public UIService(LevelState levelState, EndGameWindow.Factory windowFactory, AssetReference winReference, AssetReference loseReference)
+    public UIService(LevelState levelState, EndGameScreen.Factory windowFactory, AssetReference winReference, AssetReference loseReference)
     {
         _levelState = levelState;
         _windowFactory = windowFactory;

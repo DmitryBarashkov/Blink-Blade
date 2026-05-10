@@ -1,33 +1,34 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Zenject;
 
 public class LevelInstaller : MonoInstaller
 {
-    [SerializeField] private List<EnemySpawnPoint> _spawnPoints;
+    [SerializeField] private EnemySpawnPointGetter _spawnPointsGetter;
 
     [Header("UI")]
     [SerializeField] private EnemyPanel _enemyPanelPrefab;
     [SerializeField] private EnemyIcon _enemyIconPrefab;
     [SerializeField] private Canvas _levelUICanvas;
     [SerializeField] private Canvas _endGameCanvas;
-    [SerializeField] private AssetReference _winGameWindow;
-    [SerializeField] private AssetReference _loseGameWindow;
+    [SerializeField] private AssetReference _winGameScreen;
+    [SerializeField] private AssetReference _loseGameScreen;
+
+    private EnemySpawnPoint[] _spawnPoints;
 
     public override void InstallBindings()
     {
+        _spawnPoints = _spawnPointsGetter.GetSpawnPoints();
+        
         BindEnemies();
-        BindLevel();
+        BindLevelServices();
         BindEnemiesUI();
         BindEndGameUI();
     }
 
     private void BindEnemies()
     {
-        Container.Bind<List<EnemySpawnPoint>>().FromInstance(_spawnPoints).AsSingle();
-        
-        _spawnPoints.ForEach((EnemySpawnPoint spawnPoint) =>
+        foreach (var spawnPoint in _spawnPoints)
         {
             Container.BindInterfacesAndSelfTo<Enemy>()
                 .FromComponentInNewPrefab(spawnPoint.EnemyPrefab)
@@ -38,15 +39,15 @@ public class LevelInstaller : MonoInstaller
                     enemy.transform.position = spawnPoint.transform.position;
                     enemy.transform.rotation = spawnPoint.transform.rotation;
                 })
-                .NonLazy();
-        });
+                .NonLazy();            
+        }
     }
 
-    private void BindLevel()
+    private void BindLevelServices()
     {
-        Container.BindFactory<LevelRestartService, LevelRestartService.Factory>().AsSingle();
+        Container.BindFactory<LevelRestartService, LevelRestartService.Factory>().AsSingle();        
         Container.Bind<LevelState>().AsSingle().NonLazy();
-        Container.BindInterfacesAndSelfTo<Level>().AsSingle().WithArguments(_spawnPoints.Count).NonLazy();
+        Container.BindInterfacesAndSelfTo<Level>().AsSingle().WithArguments(_spawnPoints.Length).NonLazy();
     }
 
     private void BindEnemiesUI()
@@ -55,14 +56,14 @@ public class LevelInstaller : MonoInstaller
             .FromComponentInNewPrefab(_enemyPanelPrefab)
             .UnderTransform(_levelUICanvas.transform)
             .AsSingle()
-            .WithArguments(_spawnPoints.Count, _enemyIconPrefab)
+            .WithArguments(_spawnPoints.Length, _enemyIconPrefab)
             .NonLazy();
     }
 
     private void BindEndGameUI()
     {
-        Container.Bind<EndGameWindow.Factory>().AsSingle().WithArguments(_endGameCanvas.transform);        
-        Container.BindInterfacesTo<UIService>().AsSingle().WithArguments(_winGameWindow, _loseGameWindow);
+        Container.Bind<EndGameScreen.Factory>().AsSingle().WithArguments(_endGameCanvas.transform);        
+        Container.BindInterfacesTo<UIService>().AsSingle().WithArguments(_winGameScreen, _loseGameScreen);
         
     }
 }

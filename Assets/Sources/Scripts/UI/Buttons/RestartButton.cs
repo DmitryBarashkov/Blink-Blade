@@ -1,15 +1,18 @@
-using UnityEngine;
+using YG;
 using Zenject;
 
 public class RestartButton : UIButton
 {
-    [SerializeField] EndGameWindow _window;
-    
-    [Inject] Level _level;
-    
+    [Inject] private Level _level;
+    [Inject] private LevelState _levelState;
+
     public override void HandleClick()
     {
-        _window.Close();
+        if (YG2.saves.IsAdsDisabled == false)
+            YG2.InterstitialAdvShow();
+
         _level.Restart();
+        _screen.Close();
+        _levelState.EnergyUsed.Value = false;
     }
 }

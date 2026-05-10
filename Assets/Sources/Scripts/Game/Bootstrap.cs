@@ -5,6 +5,8 @@ using Cysharp.Threading.Tasks;
 
 public class Bootstrap : IInitializable
 {
+    [Inject] private LevelLoadService _levelService;
+    
     public async void Initialize()
     {
         if (YG2.saves.IsAdsDisabled)
@@ -18,6 +20,6 @@ public class Bootstrap : IInitializable
 
     private async UniTask StartLevel()
     {
-        await SceneManager.LoadSceneAsync($"Level{YG2.saves.level}");
+        await SceneManager.LoadSceneAsync(_levelService.GetSceneName(YG2.saves.level));
     }
 }

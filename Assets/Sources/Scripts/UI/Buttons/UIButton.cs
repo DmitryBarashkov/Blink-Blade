@@ -1,13 +1,16 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public abstract class UIButton : MonoBehaviour
+public abstract class UIButton : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private TextMeshProUGUI _caption;
     [SerializeField] private List<Image> _icons;
+    
+    [SerializeField] protected EndGameScreen _screen;
 
     [Header("Settings")]
     [SerializeField] private Color _disabledTextColor;
@@ -44,6 +47,11 @@ public abstract class UIButton : MonoBehaviour
                 image.color = _disabledIconColor;
             });
         }
+    }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (_screen != null)
+            _screen.OnPointerClick(eventData);
     }
 
     public abstract void HandleClick();

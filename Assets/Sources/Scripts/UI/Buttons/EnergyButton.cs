@@ -1,11 +1,8 @@
-using UnityEngine;
 using YG;
 using Zenject;
 
 public class EnergyButton : UIButton
 {
-    [SerializeField] private EndGameWindow _window;
-
     [Inject] private Level _level;
     [Inject] private LevelState _levelState;
     [Inject] private Player _player;
@@ -19,7 +16,7 @@ public class EnergyButton : UIButton
         {
             _player.AddEnergy(_addCount);
 
-            _window.Close();
+            _screen.Close();
             _levelState.IsWin.Value = null;
             _levelState.EnergyUsed.Value = true;
             _level.StartPlay();

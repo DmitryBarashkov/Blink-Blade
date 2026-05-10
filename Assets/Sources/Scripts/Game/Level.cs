@@ -1,12 +1,11 @@
-using System.Text.RegularExpressions;
 using UniRx;
-using UnityEngine.SceneManagement;
+using YG;
 using Zenject;
 
 public class Level
 {
     [Inject] private LevelState _levelState;
-    [Inject] private InputService _input;
+    [Inject] private InputService _input;    
     
     public int EnemiesCount => _enemiesCount;
     public int LevelNumber => _levelNumber;
@@ -20,7 +19,7 @@ public class Level
     {
         _levelState.CurrentEnemiesCount.Value = _enemiesCount = enemiesCount;
         _restartFactory = restartFactory;
-        _levelNumber = GetLevelNumber();
+        _levelNumber = YG2.saves.level;
 
         _levelState.CurrentEnemiesCount
             .Subscribe(enemiesCount =>
@@ -55,18 +54,5 @@ public class Level
         _levelState.Restart(_enemiesCount);
 
         _input.Activate();
-    }
-
-    private int GetLevelNumber()
-    {
-        string sceneName = SceneManager.GetActiveScene().name;
-        Match match = Regex.Match(sceneName, @"\d+");
-
-        if (match.Success)
-        {
-            return int.Parse(match.Value);
-        }
-
-        return -1;
     }
 }

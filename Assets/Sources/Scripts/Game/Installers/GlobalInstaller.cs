@@ -5,6 +5,7 @@ public class GlobalInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
+        Container.Bind<LevelLoadService>().AsSingle();
         Container.BindInterfacesTo<Bootstrap>().AsSingle().NonLazy();
         Container.Bind<InputService>().AsSingle();       
         Container.Bind<SavesYG>().AsSingle();
