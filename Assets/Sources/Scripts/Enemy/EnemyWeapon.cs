@@ -3,13 +3,13 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 public class EnemyWeapon : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        Player player = other.GetComponent<Player>();
+        Player player = collision.collider.GetComponent<Player>();
 
         if (player != null)
         {
-            player.Die();            
+            player.Die(collision.contacts[0]);            
         }
     }
 }

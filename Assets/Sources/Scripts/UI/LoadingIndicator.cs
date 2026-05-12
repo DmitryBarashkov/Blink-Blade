@@ -16,7 +16,7 @@ public class LoadingIndicator : MonoBehaviour
 
     private void Start()
     {
-        _transform.DORotate(new Vector3(0, 0, 360), _rotationDuration, RotateMode.FastBeyond360)
+        _transform.DORotate(new Vector3(0, 0, -360), _rotationDuration, RotateMode.FastBeyond360)
             .SetLoops(-1, LoopType.Incremental)
             .SetEase(Ease.Linear);
 

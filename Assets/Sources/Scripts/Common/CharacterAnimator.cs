@@ -1,4 +1,5 @@
 using UnityEngine;
+using static EnemyAnimator;
 
 public abstract class CharacterAnimator
 {
@@ -11,8 +12,21 @@ public abstract class CharacterAnimator
         _animator = animator;
     }
 
+    public void SetDied(bool value)
+    {
+        AnimatorComponent.SetBool(CharacterAnimatorData.Params.IsDied, value);
+    }
+
     public float GetAnimationLength()
     {
         return _animator.GetCurrentAnimatorStateInfo(0).length;
+    }
+
+    public class CharacterAnimatorData
+    {
+        public class Params
+        {
+            public static readonly int IsDied = Animator.StringToHash(nameof(IsDied));
+        }
     }
 }

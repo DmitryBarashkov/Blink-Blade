@@ -43,14 +43,17 @@ public class Aimer
         _aimingArrow.Show();
     }
 
-    public void StopAim()
+    public void StopAim(bool isNeedWeaponThrow = true)
     {
-        _weapon.Throw(_aimingArrow.Direction, _playerTransform.rotation.y);
+        if (isNeedWeaponThrow)
+        {
+            _weapon.Throw(_aimingArrow.Direction, _playerTransform.rotation.y);
+            SetCameraAim(_weapon.transform);
+        }
 
         _animator.SetAiming(false);
-
         _aimingArrow.Hide();
-        SetCameraAim(_weapon.transform);
+        
     }
 
     public void RotateToTarget()

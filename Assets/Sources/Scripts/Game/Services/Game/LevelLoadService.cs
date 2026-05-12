@@ -1,3 +1,4 @@
+using System;
 using UnityEngine.SceneManagement;
 
 public class LevelLoadService
@@ -6,7 +7,10 @@ public class LevelLoadService
     
     public string GetSceneName(int levelForLoad)
     {
-        int levelCount = SceneManager.sceneCountInBuildSettings - _noRepeatLevels;        
+        int levelCount = SceneManager.sceneCountInBuildSettings - _noRepeatLevels;
+
+        if (levelCount == 0)
+            throw new ArgumentNullException("Не хватает уровней в билде");
 
         if (levelForLoad == 0)
             return "Level0";

@@ -11,7 +11,7 @@ public class Teleport
 
     private float _playerHeight;
     private LayerMask _obstacleMask = LayerMask.GetMask("Ground");
-    private float _horizontalOffset = 1.6f;
+    private float _horizontalOffset = 0.8f;
     private float _verticalOffset = 1.8f;
 
     [Inject]
@@ -20,12 +20,12 @@ public class Teleport
         _effectsSpawner = effectsSpawner;
     }
 
-    public void Initialize(Weapon weapon, Player player)
+    public void Initialize(Weapon weapon, Transform playerTransform, CapsuleCollider collider, Rigidbody rigidbody)
     {
         _weapon = weapon;
-        _playerTransform = player.transform;
-        _safePositionCollider = player.GetComponent<CapsuleCollider>();
-        _playerRigidbody = player.GetComponent<Rigidbody>();
+        _playerTransform = playerTransform;
+        _safePositionCollider = collider;
+        _playerRigidbody = rigidbody;
 
         _playerHeight = _safePositionCollider.height * _playerTransform.lossyScale.y;
     }
@@ -50,11 +50,12 @@ public class Teleport
     private Vector3 GetSafePosition()
     {
         Vector3 finalPosition = _weapon.transform.position;
+        float halfHeight = _playerHeight / 2f;
 
         finalPosition = GetCorrectedHorizontalPosition(finalPosition, Vector3.right);
         finalPosition = GetCorrectedHorizontalPosition(finalPosition, Vector3.left);
-        finalPosition = GetCorrectedCeilingPosition(finalPosition);
-        finalPosition = GetCorrectedFloorPosition(finalPosition);
+        finalPosition = GetCorrectedCeilingPosition(halfHeight, finalPosition);
+        finalPosition = GetCorrectedFloorPosition(halfHeight, finalPosition);
 
         return finalPosition;
     }
@@ -69,9 +70,8 @@ public class Teleport
         return targetPosition;
     }
 
-    private Vector3 GetCorrectedCeilingPosition(Vector3 position)
+    private Vector3 GetCorrectedCeilingPosition(float halfHeight, Vector3 position)
     {
-        float halfHeight = _playerHeight / 2f;
         float checkDistance = halfHeight + _verticalOffset;
 
         if (Physics.Raycast(position, Vector3.up, out RaycastHit hit, checkDistance, _obstacleMask))
@@ -85,9 +85,8 @@ public class Teleport
         return position;
     }
 
-    private Vector3 GetCorrectedFloorPosition(Vector3 position)
+    private Vector3 GetCorrectedFloorPosition(float halfHeight, Vector3 position)
     {
-        float halfHeight = _playerHeight / 2f;
         float checkDist = halfHeight + _horizontalOffset;        
         
         if (Physics.Raycast(position, Vector3.down, out RaycastHit hit, checkDist, _obstacleMask))

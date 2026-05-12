@@ -44,14 +44,14 @@ public class PlayerInstaller : MonoInstaller
 
     private void BindPlayerUtils()
     {
-        Container.Bind<PlayerStats>().AsSingle();
-        Container.Bind<Teleport>().AsSingle();
-        Container.Bind<Aimer>().AsSingle().WithArguments(_camera);
-            
         Container.Bind<EffectsSpawner>()
             .AsSingle()
             .WithArguments(_teleportEffect, _trailTeleportEffect)
             .NonLazy();
+
+        Container.Bind<PlayerStats>().AsSingle();
+        Container.Bind<Teleport>().AsSingle();
+        Container.Bind<Aimer>().AsSingle().WithArguments(_camera);
     }
 
     private void BindWeapon()
@@ -68,11 +68,6 @@ public class PlayerInstaller : MonoInstaller
             .FromComponentInNewPrefab(_playerPrefab)
             .AsSingle()
             .WithArguments(_energy, _playerSpawnPoint)
-            .OnInstantiated<Player>((ctx, player) =>
-            {
-                player.transform.position = _playerSpawnPoint.position;
-                player.transform.rotation = Quaternion.Euler(new Vector3(0, 90f, 0));
-            })
             .NonLazy();
     }
 }

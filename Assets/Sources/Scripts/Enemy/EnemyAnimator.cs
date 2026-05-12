@@ -7,11 +7,6 @@ public class EnemyAnimator : CharacterAnimator
     {
     }
 
-    public void SetDied(bool value)
-    {
-        AnimatorComponent.SetBool(EnemyAnimatorData.Params.IsDied, value);
-    }
-
     public void SetAttack()
     {
         AnimatorComponent.SetTrigger(EnemyAnimatorData.Params.Attack);
@@ -21,7 +16,6 @@ public class EnemyAnimator : CharacterAnimator
     {
         public class Params
         {
-            public static readonly int IsDied = Animator.StringToHash(nameof(IsDied));           
             public static readonly int Attack = Animator.StringToHash(nameof(Attack));           
         }
     }

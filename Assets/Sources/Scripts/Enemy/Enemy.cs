@@ -1,7 +1,10 @@
-using Cysharp.Threading.Tasks.Triggers;
 using UnityEngine;
 using Zenject;
 
+[RequireComponent(typeof(BloodEffectSpawner))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CapsuleCollider))]
 public class Enemy : MonoBehaviour, IResetable
 {
     [SerializeField] EnemyAttacker _attacker;
@@ -11,7 +14,7 @@ public class Enemy : MonoBehaviour, IResetable
     private EnemyAnimator _animator;
     private Rigidbody _rigidbody;
     private CapsuleCollider _collider;
-    private EffectSpawner _effect;
+    private BloodEffectSpawner _effect;
     private Transform _transform;
     private Transform _spawnPoint;
     
@@ -19,7 +22,7 @@ public class Enemy : MonoBehaviour, IResetable
     {
         _transform = transform;
         _animator = new EnemyAnimator(GetComponent<Animator>());
-        _effect = GetComponent<EffectSpawner>();
+        _effect = GetComponent<BloodEffectSpawner>();
         _rigidbody = GetComponent<Rigidbody>();
         _collider = GetComponent<CapsuleCollider>();
     }
@@ -41,8 +44,7 @@ public class Enemy : MonoBehaviour, IResetable
 
         _attacker.Disable();
         
-        _animator.SetDied(true);
-        _rigidbody.isKinematic = true;
+        _animator.SetDied(true);        
         _collider.enabled = false;
 
         _levelState.CurrentEnemiesCount.Value--;
@@ -55,8 +57,7 @@ public class Enemy : MonoBehaviour, IResetable
 
         _attacker.Enable();
 
-        _animator.SetDied(false);
-        _rigidbody.isKinematic = false;
+        _animator.SetDied(false);        
         _collider.enabled = true;
     }
 }
