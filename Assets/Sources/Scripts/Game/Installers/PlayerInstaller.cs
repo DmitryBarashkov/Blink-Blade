@@ -39,7 +39,8 @@ public class PlayerInstaller : MonoInstaller
 
     private void BindUI()
     {
-        Container.BindInstance(_aimingArrow).AsSingle();
+        Container.BindInstance(_aimingArrow).AsSingle();        
+        Container.Bind<CameraResizer>().AsSingle().WithArguments(_camera).NonLazy();
     }
 
     private void BindPlayerUtils()
@@ -50,7 +51,7 @@ public class PlayerInstaller : MonoInstaller
             .NonLazy();
 
         Container.Bind<PlayerStats>().AsSingle();
-        Container.Bind<Teleport>().AsSingle();
+        Container.Bind<Teleport>().AsSingle();               
         Container.Bind<Aimer>().AsSingle().WithArguments(_camera);
     }
 

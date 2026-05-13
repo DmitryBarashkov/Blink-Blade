@@ -110,7 +110,7 @@ public class Weapon : MonoBehaviour
     private void ResetRotation(float rotationAngle)
     {
         if (rotationAngle == 0)
-            throw new ArgumentNullException(nameof(rotationAngle));
+            return;
 
         if (rotationAngle > 0)
         {

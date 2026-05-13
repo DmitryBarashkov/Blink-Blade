@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.UI;
 using Zenject;
 
 public class LevelInstaller : MonoInstaller
@@ -13,6 +14,7 @@ public class LevelInstaller : MonoInstaller
     [SerializeField] private Canvas _endGameCanvas;
     [SerializeField] private AssetReference _winGameScreen;
     [SerializeField] private AssetReference _loseGameScreen;
+    [SerializeField] private CanvasScaler[] _canvasScales;
 
     private EnemySpawnPoint[] _spawnPoints;
 
@@ -64,6 +66,8 @@ public class LevelInstaller : MonoInstaller
     {
         Container.Bind<EndGameScreen.Factory>().AsSingle().WithArguments(_endGameCanvas.transform);        
         Container.BindInterfacesTo<UIService>().AsSingle().WithArguments(_winGameScreen, _loseGameScreen);
-        
+        Container.Bind<CanvasScaleAdapter>().AsSingle().WithArguments(_canvasScales).NonLazy();
+        Container.BindInterfacesAndSelfTo<ScreenResolutionAdapter>().AsSingle().NonLazy();
+
     }
 }
