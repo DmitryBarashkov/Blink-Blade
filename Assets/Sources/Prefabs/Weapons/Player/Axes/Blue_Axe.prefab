@@ -273,6 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e4b9bf0047bd247890b71b60de1fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rotationOffsetAngle: 50
 --- !u!198 &5461601011359998353
 ParticleSystem:
   m_ObjectHideFlags: 0

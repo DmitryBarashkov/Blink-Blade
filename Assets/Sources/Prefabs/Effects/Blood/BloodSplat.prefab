@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3266235413764761141}
   - component: {fileID: 5205950734103426629}
   m_Layer: 0
-  m_Name: BloodSplatDirectionalAnimated
+  m_Name: BloodSplat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

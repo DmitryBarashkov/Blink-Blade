@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BloodEffectSpawner : MonoBehaviour
+public class HitEffectSpawner : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _hitEffect;    
 
@@ -8,6 +8,6 @@ public class BloodEffectSpawner : MonoBehaviour
     {
         Quaternion spawnRotation = Quaternion.FromToRotation(Vector3.forward, hitPoint.normal);
 
-        ParticleSystem bloodBlow = Instantiate(_hitEffect, hitPoint.point, spawnRotation);
+        Instantiate(_hitEffect, hitPoint.point, spawnRotation);
     }
 }

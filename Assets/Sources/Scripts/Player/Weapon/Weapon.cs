@@ -5,10 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(ParticleSystem))]
 public class Weapon : MonoBehaviour
 {
+    [SerializeField] private float _rotationOffsetAngle;
+    
     private ParticleSystem _throwEffect;
     private Rigidbody _rigidbody;
     private Transform _transform;
-    private WeaponHandler _weaponHandler;    
+    private WeaponHandler _weaponHandler;
+    private WeaponRotator _weaponRotator;
 
     private Vector3 _startWeaponPosition;    
     private Quaternion _startWeaponRotation;
@@ -17,13 +20,14 @@ public class Weapon : MonoBehaviour
     private float _spinSpeed = 500f;
     private float _throwForce = 15f;    
     private bool _isThrown = false;
-    private bool _isShouldRotate = false;
+    private bool _isShouldRotate = false;    
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _throwEffect = GetComponentInChildren<ParticleSystem>();
-        _transform = transform;        
+        _transform = transform;
+        _weaponRotator = new WeaponRotator(_transform, _rotationOffsetAngle);
     }
 
     private void Update()
@@ -42,25 +46,26 @@ public class Weapon : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (_isShouldRotate)
+            _weaponRotator.RotateToObstacle(collision);
+
         _isShouldRotate = false;
 
         if (_isThrown)
         {
             Enemy enemy = collision.collider.GetComponent<Enemy>();
+            HitEffectSpawner effect = collision.collider.GetComponent<HitEffectSpawner>();
+            ContactPoint hitPoint = collision.contacts[0];
+
+            if (effect != null)
+            {
+                effect.Perform(hitPoint);
+            }
 
             if (enemy != null)
             {
-                enemy.Die(collision.contacts[0]);               
+                enemy.Die(hitPoint);             
             }            
-        }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (_rigidbody != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(transform.TransformPoint(_rigidbody.centerOfMass), 0.05f);
         }
     }
 
@@ -95,7 +100,7 @@ public class Weapon : MonoBehaviour
         if (direction == Vector3.zero)
             throw new ArgumentNullException(nameof(direction));
 
-        ResetRotation(rotationAngle);
+        _weaponRotator.ResetRotation(rotationAngle);
 
         _isThrown = true;
         _isShouldRotate = true;
@@ -105,20 +110,5 @@ public class Weapon : MonoBehaviour
         _rigidbody.transform.SetParent(null);
 
         _rigidbody.AddForce(direction * _throwForce, ForceMode.Impulse);        
-    }
-
-    private void ResetRotation(float rotationAngle)
-    {
-        if (rotationAngle == 0)
-            return;
-
-        if (rotationAngle > 0)
-        {
-            _transform.rotation = Quaternion.Euler(0, 180, 0);
-        }
-        else
-        {
-            _transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
     }
 }

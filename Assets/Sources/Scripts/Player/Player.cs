@@ -5,7 +5,7 @@ using Zenject;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(BloodEffectSpawner))]
+[RequireComponent(typeof(HitEffectSpawner))]
 public class Player : MonoBehaviour, IResetable
 {
     [Inject] private PlayerStats _playerStats;
@@ -17,7 +17,7 @@ public class Player : MonoBehaviour, IResetable
     private PlayerAnimator _animator;
     private Rigidbody _rigidBody;
     private CapsuleCollider _collider;
-    private BloodEffectSpawner _effect;
+    private HitEffectSpawner _effect;
     
     private InputService _input;
     
@@ -40,7 +40,7 @@ public class Player : MonoBehaviour, IResetable
         _animator = new PlayerAnimator(GetComponent<Animator>());
         _rigidBody = GetComponent<Rigidbody>();
         _collider = GetComponent<CapsuleCollider>();
-        _effect = GetComponent<BloodEffectSpawner>();
+        _effect = GetComponent<HitEffectSpawner>();
 
         _weapon.Initialize(_weaponHandler);
         _teleport.Initialize(_weapon, _transform, _collider, _rigidBody);
@@ -106,6 +106,7 @@ public class Player : MonoBehaviour, IResetable
         _energy = YG2.saves.energy;
         _playerStats.currentEnergy.Value = _energy;
         _rigidBody.useGravity = false;
+        _rigidBody.isKinematic = false;
         _rigidBody.velocity = Vector3.zero;
         _rigidBody.angularVelocity = Vector3.zero;
         _animator.SetDied(false);
@@ -172,6 +173,7 @@ public class Player : MonoBehaviour, IResetable
         if (_isDead && value)
         {
             _rigidBody.useGravity = false;
+            _rigidBody.isKinematic = true;
             _animator.SetDied(true);
             
             Defeat();

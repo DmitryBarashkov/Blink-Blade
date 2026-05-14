@@ -1,4 +1,5 @@
 using TMPro;
+using Lean.Localization;
 using UnityEngine;
 using YG;
 
@@ -7,10 +8,10 @@ public class BetweenLevelScreen : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _levelText;
     [SerializeField] private TextMeshProUGUI _coinsText;
     [SerializeField] private NoAdsButton _noAdsButton;
-
+    
     private void OnEnable()
     {
-        _levelText.text = $"Level {YG2.saves.level}";
+        _levelText.text = $"{LeanLocalization.GetTranslationText("ID_Level")} {YG2.saves.level}";
 
         if (YG2.saves.IsAdsDisabled == false)
         {

@@ -1,9 +1,8 @@
 using UnityEngine;
 using Zenject;
 
-[RequireComponent(typeof(BloodEffectSpawner))]
+[RequireComponent(typeof(HitEffectSpawner))]
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(CapsuleCollider))]
 public class Enemy : MonoBehaviour, IResetable
 {
@@ -12,9 +11,7 @@ public class Enemy : MonoBehaviour, IResetable
     [Inject] private LevelState _levelState;
     
     private EnemyAnimator _animator;
-    private Rigidbody _rigidbody;
-    private CapsuleCollider _collider;
-    private BloodEffectSpawner _effect;
+    private CapsuleCollider _collider;    
     private Transform _transform;
     private Transform _spawnPoint;
     
@@ -22,8 +19,6 @@ public class Enemy : MonoBehaviour, IResetable
     {
         _transform = transform;
         _animator = new EnemyAnimator(GetComponent<Animator>());
-        _effect = GetComponent<BloodEffectSpawner>();
-        _rigidbody = GetComponent<Rigidbody>();
         _collider = GetComponent<CapsuleCollider>();
     }
 
@@ -40,8 +35,6 @@ public class Enemy : MonoBehaviour, IResetable
 
     public void Die(ContactPoint hitPoint)
     {
-        _effect.Perform(hitPoint);
-
         _attacker.Disable();
         
         _animator.SetDied(true);        
