@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
@@ -15,6 +16,9 @@ public class LevelInstaller : MonoInstaller
     [SerializeField] private AssetReference _winGameScreen;
     [SerializeField] private AssetReference _loseGameScreen;
     [SerializeField] private CanvasScaler[] _canvasScales;
+    [SerializeField] private RectTransform _settingsContainer;
+    [SerializeField] private SoundButton _soundButton;
+    [SerializeField] private MusicButton _musicButton;
 
     private EnemySpawnPoint[] _spawnPoints;
 
@@ -26,6 +30,22 @@ public class LevelInstaller : MonoInstaller
         BindLevelServices();
         BindEnemiesUI();
         BindEndGameUI();
+        BindOptionsUI();
+    }
+
+    private void BindOptionsUI()
+    {
+        Container.BindInterfacesAndSelfTo<SoundButton>()
+            .FromComponentInNewPrefab(_soundButton)
+            .UnderTransform(_settingsContainer)
+            .AsSingle()
+            .NonLazy();
+
+        Container.BindInterfacesAndSelfTo<MusicButton>()
+            .FromComponentInNewPrefab(_musicButton)
+            .UnderTransform(_settingsContainer)
+            .AsSingle()
+            .NonLazy();
     }
 
     private void BindEnemies()
@@ -68,6 +88,5 @@ public class LevelInstaller : MonoInstaller
         Container.BindInterfacesTo<UIService>().AsSingle().WithArguments(_winGameScreen, _loseGameScreen);
         Container.Bind<CanvasScaleAdapter>().AsSingle().WithArguments(_canvasScales).NonLazy();
         Container.BindInterfacesAndSelfTo<ScreenResolutionAdapter>().AsSingle().NonLazy();
-
     }
 }

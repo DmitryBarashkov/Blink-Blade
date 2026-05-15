@@ -9,7 +9,7 @@ public class Bootstrap : IInitializable
     
     public async void Initialize()
     {
-        if (YG2.saves.IsAdsDisabled)
+        if (YG2.saves.isAdsDisabled)
             YG2.StickyAdActivity(false);
 
         if (SceneManager.GetActiveScene().buildIndex != 0)

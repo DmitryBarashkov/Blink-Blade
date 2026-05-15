@@ -8,7 +8,7 @@ public class RestartButton : EndScreenButton
 
     public override void HandleClick()
     {
-        if (YG2.saves.IsAdsDisabled == false)
+        if (YG2.saves.isAdsDisabled == false)
             YG2.InterstitialAdvShow();
 
         _level.Restart();

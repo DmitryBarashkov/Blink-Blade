@@ -8,7 +8,7 @@ public class NextLevelButton : EndScreenButton
 
     public override void HandleClick()
     {
-        if (YG2.saves.IsAdsDisabled == false)
+        if (YG2.saves.isAdsDisabled == false)
             YG2.InterstitialAdvShow();
 
         SceneManager.LoadScene(_levelService.GetSceneName(YG2.saves.level));

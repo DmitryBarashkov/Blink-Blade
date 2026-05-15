@@ -7,7 +7,8 @@ public class GlobalInstaller : MonoInstaller
     {
         Container.Bind<LevelLoadService>().AsSingle();
         Container.BindInterfacesTo<Bootstrap>().AsSingle().NonLazy();
-        Container.Bind<InputService>().AsSingle();       
+        Container.Bind<InputService>().AsSingle();      
         Container.Bind<SavesYG>().AsSingle();
+        Container.Bind<SoundService>().AsSingle().NonLazy();
     }
 }

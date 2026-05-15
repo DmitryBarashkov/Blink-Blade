@@ -16,7 +16,7 @@ public class NoAdsButton : UIButton
     {
         if (id == "no_ads")
         {
-            YG2.saves.IsAdsDisabled = true;
+            YG2.saves.isAdsDisabled = true;
             YG2.StickyAdActivity(false);
             YG2.SaveProgress();
         }

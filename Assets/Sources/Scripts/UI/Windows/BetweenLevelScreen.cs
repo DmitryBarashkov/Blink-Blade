@@ -12,7 +12,7 @@ public class BetweenLevelScreen : MonoBehaviour
     {
         _levelNumber.text = YG2.saves.level.ToString();
         
-        if (YG2.saves.IsAdsDisabled == false)
+        if (YG2.saves.isAdsDisabled == false)
         {
             Instantiate(_noAdsButton, transform);
         }
