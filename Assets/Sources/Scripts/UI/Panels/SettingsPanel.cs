@@ -16,7 +16,7 @@ public class SettingsPanel : MonoBehaviour
     private float _duration = 0.3f;
     private Ease _easeType = Ease.InOutQuad;
 
-    void Awake()
+    private void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();
         _rectTransform.sizeDelta = new Vector2(_rectTransform.sizeDelta.x, _collapsedHeight);
