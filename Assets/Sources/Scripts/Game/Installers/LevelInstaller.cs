@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
@@ -5,7 +6,7 @@ using Zenject;
 
 public class LevelInstaller : MonoInstaller
 {
-    [SerializeField] private EnemySpawnPointGetter _spawnPointsGetter;
+    [SerializeField] private EnemySpawnPointGetter _spawnPointsGetter;    
 
     [Header("UI")]
     [SerializeField] private EnemyPanel _enemyPanelPrefab;
@@ -18,6 +19,7 @@ public class LevelInstaller : MonoInstaller
     [SerializeField] private RectTransform _settingsContainer;
     [SerializeField] private SoundButton _soundButton;
     [SerializeField] private MusicButton _musicButton;
+    [SerializeField] private LanguageButton _languageButton;
 
     private EnemySpawnPoint[] _spawnPoints;
 
@@ -42,6 +44,12 @@ public class LevelInstaller : MonoInstaller
 
         Container.BindInterfacesAndSelfTo<MusicButton>()
             .FromComponentInNewPrefab(_musicButton)
+            .UnderTransform(_settingsContainer)
+            .AsSingle()
+            .NonLazy();
+
+        Container.BindInterfacesAndSelfTo<LanguageButton>()
+            .FromComponentInNewPrefab(_languageButton)
             .UnderTransform(_settingsContainer)
             .AsSingle()
             .NonLazy();

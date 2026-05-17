@@ -1,7 +1,7 @@
 using UnityEngine;
 using YG;
 
-public class AddCoinButton : EndScreenButton
+public class AddCoinsButton : EndScreenButton
 {
     [SerializeField] private WinGameScreen _winScreen;
 

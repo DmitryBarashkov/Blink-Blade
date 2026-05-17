@@ -1,12 +1,15 @@
+using UnityEngine;
 using Zenject;
 
 public class StartButton : UIButton
 {
+    [SerializeField] private BetweenLevelScreen _screen;
+    
     [Inject] private Level _level;
 
     public override void HandleClick()
     {
-        gameObject.SetActive(false);
+        _screen.gameObject.SetActive(false);
 
         _level.StartPlay();
     }

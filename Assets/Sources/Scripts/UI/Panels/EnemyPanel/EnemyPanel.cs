@@ -10,14 +10,9 @@ public class EnemyPanel: MonoBehaviour, IResetable
 
     private EnemyIcon _iconPrefab;
     private List<EnemyIcon> _icons;
-    private RectTransform _rectTransform;
-
-    private float _offsetBetweenIcons = 8f;
-    private float _firstElementOffset = 40f;
-    private float _elementOffset = 72f;
-    private float _initiateEnemiesCount;
-
     private CompositeDisposable _disposables = new CompositeDisposable();
+
+    private float _initiateEnemiesCount;
 
     private void OnDestroy()
     {
@@ -46,20 +41,10 @@ public class EnemyPanel: MonoBehaviour, IResetable
 
     private void CreatePanel()
     {
-        int enemiesCount = _icons.Capacity;
-        
-        _rectTransform = GetComponent<RectTransform>();
-        _rectTransform.sizeDelta = new Vector2(enemiesCount * _elementOffset + _offsetBetweenIcons, _rectTransform.sizeDelta.y);
-
-        for (int i = 0; i < enemiesCount; i++)
+        for (int i = 0; i < _icons.Capacity; i++)
         {
             EnemyIcon icon = Instantiate(_iconPrefab, this.transform, false);
-            RectTransform iconRectTransform = icon.GetComponent<RectTransform>();
 
-            float iconOffset = i == 0 ? _firstElementOffset : _firstElementOffset + _elementOffset * i;
-            
-            iconRectTransform.anchoredPosition = new Vector2(iconOffset, iconRectTransform.anchoredPosition.y);            
-            
             _icons.Add(icon);
         }
     }

@@ -1,0 +1,18 @@
+{
+  "intExample": 5,
+  "strExample": "Hello!",
+  "boolExample": [
+    false,
+    false,
+    false,
+    false
+  ],
+  "idSave": 2,
+  "level": 1,
+  "energy": 5,
+  "coins": 30,
+  "weaponId": 1,
+  "isAdsDisabled": false,
+  "isSoundOn": true,
+  "isMusicOn": true
+}

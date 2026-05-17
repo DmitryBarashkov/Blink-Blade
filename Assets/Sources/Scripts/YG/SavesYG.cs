@@ -14,7 +14,6 @@ namespace YG
 
         // Options
         public bool isSoundOn = true;
-        public bool isMusicOn = true;
-        public string Language = "ru";
+        public bool isMusicOn = true;        
     }
 }

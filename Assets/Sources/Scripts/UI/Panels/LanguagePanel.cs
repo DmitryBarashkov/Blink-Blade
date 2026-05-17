@@ -1,8 +1,12 @@
 using DG.Tweening;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LanguagePanel : MonoBehaviour
 {
+    public event UnityAction LanguageChanged;
+    
     [SerializeField] private CanvasGroup _canvasGroup;
 
     private RectTransform _rectTransform;
@@ -44,6 +48,44 @@ public class LanguagePanel : MonoBehaviour
 
             SetInteraction(false);
             _isOpen = false;
+        }
+    }
+
+    public void CreateSetLanguageButtons(SetLanguageButton prefab, string currentLanguage, Dictionary<string, Sprite> languages)
+    {
+        SetLanguageButton firstButton = Instantiate(prefab, this.transform);
+
+        firstButton.Initialize(currentLanguage, languages[currentLanguage], this);
+
+        foreach (var language in languages)
+        {
+            if (language.Key == currentLanguage)
+                continue;
+
+            SetLanguageButton setLanguageButton = Instantiate(prefab, this.transform);
+
+            setLanguageButton.Initialize(language.Key, language.Value, this);
+        }
+    }
+
+    public void ChangeLanguage(string language)
+    {
+        LanguageChanged?.Invoke();
+
+        SortSetLanguageButtons(language);
+    }
+
+    private void SortSetLanguageButtons(string language)
+    {
+        SetLanguageButton[] buttons = GetComponentsInChildren<SetLanguageButton>();
+
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            if (buttons[i].GetLanguageKey() == language)
+            {
+                buttons[i].transform.SetAsFirstSibling();
+                break;
+            }
         }
     }
 
