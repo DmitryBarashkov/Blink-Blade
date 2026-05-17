@@ -558,10 +558,6 @@ MonoBehaviour:
   - {fileID: 611583925}
   - {fileID: 69097136}
   - {fileID: 1804356622}
-  _settingsContainer: {fileID: 284272460}
-  _soundButton: {fileID: 6636052079103919179, guid: 033ad2d5dd55be94ca4d4c82af3703d8, type: 3}
-  _musicButton: {fileID: 3175739613441006071, guid: 0616c85d9bd13a64fb0a902d0405f1e3, type: 3}
-  _languageButton: {fileID: 1218538295470291480, guid: c18d052d19dc5cb4dba10a7ccd934bae, type: 3}
 --- !u!1 &151715020
 GameObject:
   m_ObjectHideFlags: 0
@@ -658,7 +654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ec10a5660d0fd445b75596ef49598fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _screen: {fileID: 6192304850302017994}
+  _screen: {fileID: 2673926361315406071}
 --- !u!114 &283966770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3499,6 +3495,7 @@ Transform:
   m_Children:
   - {fileID: 151079959}
   - {fileID: 1028241268}
+  - {fileID: 681549532}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &354697488
@@ -4343,6 +4340,54 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &681549531
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 681549532}
+  - component: {fileID: 681549533}
+  m_Layer: 0
+  m_Name: OptionsContext
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &681549532
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681549531}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 343307997}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &681549533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681549531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4c97db718b23d04a9deac800a9e34c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _settingsContainer: {fileID: 284272460}
+  _soundButton: {fileID: 6636052079103919179, guid: 033ad2d5dd55be94ca4d4c82af3703d8, type: 3}
+  _musicButton: {fileID: 3175739613441006071, guid: 0616c85d9bd13a64fb0a902d0405f1e3, type: 3}
+  _languageButton: {fileID: 1218538295470291480, guid: c18d052d19dc5cb4dba10a7ccd934bae, type: 3}
 --- !u!1 &686806794
 GameObject:
   m_ObjectHideFlags: 0
@@ -7003,6 +7048,7 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: 1028241269}
   - {fileID: 151079961}
+  - {fileID: 681549533}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:

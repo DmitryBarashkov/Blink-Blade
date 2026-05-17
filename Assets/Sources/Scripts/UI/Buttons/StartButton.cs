@@ -3,7 +3,7 @@ using Zenject;
 
 public class StartButton : UIButton
 {
-    [SerializeField] private BetweenLevelScreen _screen;
+    [SerializeField] private RectTransform _screen;
     
     [Inject] private Level _level;
 

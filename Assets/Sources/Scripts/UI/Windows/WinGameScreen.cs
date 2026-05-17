@@ -8,7 +8,7 @@ public class WinGameScreen : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _enemiesCountText;
     [SerializeField] private TextMeshProUGUI _coinsCountText;
-    [SerializeField] private TextMeshProUGUI _levelText;
+    [SerializeField] private TextMeshProUGUI _levelNumberText;
 
     [Inject] private Level _level;
 
@@ -25,7 +25,7 @@ public class WinGameScreen : MonoBehaviour
 
         _enemiesCountText.text = $"x{enemiesCount}";
         _coinsCountText.text = $"+{_earnedCoins}";
-        _levelText.text = $"Level {levelNumber} completed";
+        _levelNumberText.text = levelNumber.ToString();
 
         YG2.saves.coins += _earnedCoins;
         YG2.saves.level += 1;
