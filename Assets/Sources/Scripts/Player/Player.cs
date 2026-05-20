@@ -20,6 +20,7 @@ public class Player : MonoBehaviour, IResetable
     private HitEffectSpawner _effect;
     
     private InputService _input;
+    private IAudioService _audioService;
     
     private Aimer _aimer;
     private Teleport _teleport;
@@ -42,7 +43,7 @@ public class Player : MonoBehaviour, IResetable
         _collider = GetComponent<CapsuleCollider>();
         _effect = GetComponent<HitEffectSpawner>();
 
-        _weapon.Initialize(_weaponHandler);
+        _weapon.Initialize(_weaponHandler, _audioService);
         _teleport.Initialize(_weapon, _transform, _collider, _rigidBody);
         _aimer.Initialize(_transform, _animator);
 
@@ -73,7 +74,7 @@ public class Player : MonoBehaviour, IResetable
     }
 
     [Inject]
-    private void Construct(InputService input, Weapon weapon, Teleport teleport, Aimer aimer, int energy, Transform spawnPoint)
+    private void Construct(InputService input, Weapon weapon, Teleport teleport, Aimer aimer, int energy, Transform spawnPoint, IAudioService audioService)
     {
         _input = input;        
         _weapon = weapon;        
@@ -83,6 +84,7 @@ public class Player : MonoBehaviour, IResetable
         _spawnPoint = spawnPoint;
         _transform = transform;
 
+        _audioService = audioService;
         _transform.position = spawnPoint.position;
         _transform.rotation = spawnPoint.rotation;
 
@@ -100,16 +102,21 @@ public class Player : MonoBehaviour, IResetable
     {
         _transform.position = _spawnPoint.position;
         _transform.rotation = _spawnPoint.rotation;        
+        
         _canTeleport = false;
         _isAiming = false;
         _isDead = false;
         _energy = YG2.saves.energy;
         _playerStats.currentEnergy.Value = _energy;
+        
         _rigidBody.useGravity = false;
         _rigidBody.isKinematic = false;
         _rigidBody.velocity = Vector3.zero;
         _rigidBody.angularVelocity = Vector3.zero;
+        
+        _collider.enabled = true;
         _animator.SetDied(false);
+        _groundChecker.gameObject.SetActive(true);
     }
 
     public void Die(ContactPoint hitPoint)
@@ -117,6 +124,7 @@ public class Player : MonoBehaviour, IResetable
         _input.Deactivate();
         
         _effect.Perform(hitPoint);
+        _audioService.PlaySound(SoundType.Hurt);
 
         _aimer.StopAim(false);
         _aimer.SetCameraAim(_transform);
@@ -172,9 +180,12 @@ public class Player : MonoBehaviour, IResetable
 
         if (_isDead && value)
         {
+            _groundChecker.gameObject.SetActive(false);
             _rigidBody.useGravity = false;
             _rigidBody.isKinematic = true;
+            _collider.enabled = false;
             _animator.SetDied(true);
+            _audioService.PlaySound(SoundType.FallingOnGround);
             
             Defeat();
         }

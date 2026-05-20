@@ -8,14 +8,20 @@ public class GlobalInstaller : MonoInstaller
 {
     [Header("Настройки языковых флагов")]
     [SerializeField] private List<LanguageSpritePair> _languageFlags;
-    
+    [Header("Сервис звуков")]
+    [SerializeField] private AudioService _audioServicePrefab;
+
     public override void InstallBindings()
     {
         Container.Bind<LevelLoadService>().AsSingle();
         Container.BindInterfacesTo<Bootstrap>().AsSingle().NonLazy();
         Container.Bind<InputService>().AsSingle();
-        Container.Bind<SavesYG>().AsSingle();
-        Container.Bind<SoundService>().AsSingle().NonLazy();
+        Container.Bind<SavesYG>().AsSingle();        
+
+        Container.BindInterfacesAndSelfTo<AudioService>()            
+            .FromComponentInNewPrefab(_audioServicePrefab)
+            .AsSingle()
+            .NonLazy();
 
         BindLanguages();
     }

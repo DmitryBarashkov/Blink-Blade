@@ -2,21 +2,21 @@ using Zenject;
 
 public class SoundButton : ToggleButton
 {
-    private SoundService _soundService;
-
     [Inject]
-    public void Construct(SoundService soundService)
+    public void Construct(AudioService soundService)
     {
-        _soundService = soundService;
-
-        _isOn = _soundService.GetSoundOn();        
+        _isOn = _audioService.GetSoundOn();        
     }
 
     public override void HandleClick()
     {
+        if (_isOn)
+            _audioService.PlaySound(SoundType.ButtonClick);
+
+
         Toggle();
 
-        _soundService.SetSound(_isOn);
+        _audioService.SetSound(_isOn);
 
         SetSprite();
     }

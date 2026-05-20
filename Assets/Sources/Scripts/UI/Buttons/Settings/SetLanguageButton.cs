@@ -9,8 +9,9 @@ public class SetLanguageButton : UIButton
     private string _language;
     private LanguagePanel _panel;
 
-    public void Initialize(string language, Sprite sprite, LanguagePanel panel)
+    public void Initialize(string language, Sprite sprite, LanguagePanel panel, AudioService audioService)
     {
+        _audioService = audioService;
         _language = language;
         _image.sprite = sprite;
         _panel = panel;

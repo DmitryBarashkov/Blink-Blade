@@ -17,6 +17,7 @@ public class LevelState
     {
         IsWin.Value = null;
         IsOutOfEnergy.Value = false;
+        EnergyUsed.Value = false;
         CurrentEnemiesCount.Value = enemiesCount;
     }
 }

@@ -6,6 +6,8 @@ public class AddEnergyButton : EndScreenButton
 
     public override void HandleClick()
     {
+        _audioService.PlaySound(SoundType.ButtonClick);
+
         YG2.RewardedAdvShow(_rewardId, () =>
         {
             YG2.saves.energy += 1;

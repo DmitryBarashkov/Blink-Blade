@@ -1,33 +1,33 @@
 using System.Collections.Generic;
-using UnityEngine;
 using UniRx;
+using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(RectTransform))]
 public class EnemyPanel: MonoBehaviour, IResetable
 {
-    [Inject] private LevelState _levelStats;
+    [SerializeField] private EnemyIcon _iconPrefab;
 
-    private EnemyIcon _iconPrefab;
+    [Inject] private LevelState _levelState;    
+    [Inject] private readonly List<EnemySpawnPoint> _spawnPoints;
+
     private List<EnemyIcon> _icons;
-    private CompositeDisposable _disposables = new CompositeDisposable();
+    private CompositeDisposable _disposables = new CompositeDisposable();    
 
-    private float _initiateEnemiesCount;
+    private int _initiateEnemiesCount;
+
+    private void Awake()
+    {
+        _initiateEnemiesCount = _spawnPoints.Count;
+        _icons = new List<EnemyIcon>(_initiateEnemiesCount);
+        
+        CreatePanel();
+        SubscribeToEnemiesCountChange();
+    }
 
     private void OnDestroy()
     {
         _disposables.Dispose();
-    }
-
-    [Inject]
-    private void Construct(int enemiesCount, EnemyIcon enemyIconPrefab)
-    {
-        _initiateEnemiesCount = enemiesCount;
-        _icons = new List<EnemyIcon>(enemiesCount);
-        _iconPrefab = enemyIconPrefab;
-
-        CreatePanel();
-        SubscribeToEnemiesCountChange();
     }
 
     public void ResetOnRestart()
@@ -51,7 +51,7 @@ public class EnemyPanel: MonoBehaviour, IResetable
 
     private void SubscribeToEnemiesCountChange()
     {
-        _levelStats.CurrentEnemiesCount            
+        _levelState.CurrentEnemiesCount            
             .Skip(1)
             .Subscribe((count) =>
             {

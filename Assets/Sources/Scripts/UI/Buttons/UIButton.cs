@@ -1,14 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 [RequireComponent(typeof(Button))]
 public abstract class UIButton : MonoBehaviour
 {
-    protected Button _button;    
+    [Inject] protected IAudioService _audioService;
+    
+    protected Button _button;
 
     private void Awake()
     {
-        _button = GetComponent<Button>();        
+        _button = GetComponent<Button>();
     }
 
     private void OnEnable()

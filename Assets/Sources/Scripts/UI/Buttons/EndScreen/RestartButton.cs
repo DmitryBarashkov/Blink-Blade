@@ -8,6 +8,8 @@ public class RestartButton : EndScreenButton
 
     public override void HandleClick()
     {
+        _audioService.PlaySound(SoundType.ButtonClick);
+
         if (YG2.saves.isAdsDisabled == false)
             YG2.InterstitialAdvShow();
 

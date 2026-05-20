@@ -10,7 +10,6 @@ public class StartButton : UIButton
     public override void HandleClick()
     {
         _screen.gameObject.SetActive(false);
-
         _level.StartPlay();
     }
 }

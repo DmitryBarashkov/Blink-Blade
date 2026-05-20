@@ -12,6 +12,8 @@ public class EnergyButton : EndScreenButton
 
     public override void HandleClick()
     {
+        _audioService.PlaySound(SoundType.ButtonClick);
+
         YG2.RewardedAdvShow(_rewardId, () =>
         {
             _player.AddEnergy(_addCount);
@@ -19,9 +21,7 @@ public class EnergyButton : EndScreenButton
             _screen.Close();
             _levelState.IsWin.Value = null;
             _levelState.EnergyUsed.Value = true;
-            _level.StartPlay();
-        });
-
-        gameObject.SetActive(false);
+            _level.StartPlay(false);
+        });        
     }
 }

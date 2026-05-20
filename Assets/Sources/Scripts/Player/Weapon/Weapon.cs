@@ -11,6 +11,7 @@ public class Weapon : MonoBehaviour
     private Rigidbody _rigidbody;
     private Transform _transform;
     private WeaponHandler _weaponHandler;
+    private IAudioService _audioService;
     private WeaponRotator _weaponRotator;
 
     private Vector3 _startWeaponPosition;    
@@ -59,19 +60,22 @@ public class Weapon : MonoBehaviour
 
             if (effect != null)
             {
+                _audioService.PlaySound(SoundType.WeaponGrassHit);
                 effect.Perform(hitPoint);
             }
 
             if (enemy != null)
             {
+                _audioService.PlaySound(SoundType.Hurt);
                 enemy.Die(hitPoint);             
             }            
         }
     }
 
-    public void Initialize(WeaponHandler weaponHandler)
+    public void Initialize(WeaponHandler weaponHandler, IAudioService audioService)
     {
-        _weaponHandler = weaponHandler;        
+        _weaponHandler = weaponHandler;
+        _audioService = audioService;
         
         _transform.SetParent(_weaponHandler.transform);
         _transform.localPosition = _startWeaponPosition = _transform.position;
@@ -105,6 +109,7 @@ public class Weapon : MonoBehaviour
         _isThrown = true;
         _isShouldRotate = true;
         _throwEffect.Play();
+        _audioService.PlaySound(SoundType.ThrowWeapon);
 
         _rigidbody.isKinematic = false;
         _rigidbody.transform.SetParent(null);

@@ -2,10 +2,10 @@ using Zenject;
 
 public class MusicButton : ToggleButton
 {
-    private SoundService _soundService;
+    private AudioService _soundService;
 
     [Inject]
-    public void Construct(SoundService soundService)
+    public void Construct(AudioService soundService)
     {
         _soundService = soundService;
 
@@ -14,6 +14,8 @@ public class MusicButton : ToggleButton
 
     public override void HandleClick()
     {
+        _audioService.PlaySound(SoundType.ButtonClick);
+
         Toggle();
 
         _soundService.SetMusic(_isOn);

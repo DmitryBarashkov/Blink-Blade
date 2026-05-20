@@ -10,6 +10,8 @@ public class AddCoinsButton : EndScreenButton
     
     public override void HandleClick()
     {
+        _audioService.PlaySound(SoundType.ButtonClick);
+
         YG2.RewardedAdvShow(_rewardId, () =>
         {
             _winScreen.AddCoins(_coinsFactor);

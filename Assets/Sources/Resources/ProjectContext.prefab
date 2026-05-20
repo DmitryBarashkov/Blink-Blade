@@ -81,3 +81,4 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: 4dfcfcbe3fc37fc43bff4d4c71132cd2, type: 3}
   - LanguageCode: tr
     Sprite: {fileID: 21300000, guid: f26a8e775ae3b8245b2d410a94d1d458, type: 3}
+  _audioServicePrefab: {fileID: 5073186087192148321, guid: f88da8382e7f1d34b8bb651bb944e6bb, type: 3}

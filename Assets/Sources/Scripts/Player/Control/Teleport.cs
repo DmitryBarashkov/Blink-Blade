@@ -7,7 +7,8 @@ public class Teleport
     private Transform _playerTransform;
     private CapsuleCollider _safePositionCollider;    
     private Rigidbody _playerRigidbody;
-    private EffectsSpawner _effectsSpawner;    
+    private EffectsSpawner _effectsSpawner;
+    private IAudioService _audioService;
 
     private float _playerHeight;
     private LayerMask _obstacleMask = LayerMask.GetMask("Ground");
@@ -15,9 +16,10 @@ public class Teleport
     private float _verticalOffset = 1.8f;
 
     [Inject]
-    private void Construct(EffectsSpawner effectsSpawner)
+    private void Construct(EffectsSpawner effectsSpawner, IAudioService audioService)
     {
         _effectsSpawner = effectsSpawner;
+        _audioService = audioService;
     }
 
     public void Initialize(Weapon weapon, Transform playerTransform, CapsuleCollider collider, Rigidbody rigidbody)
@@ -45,6 +47,7 @@ public class Teleport
 
         _effectsSpawner.SpawnTrailEffect(startLinePosition, endLinePosition);
         _effectsSpawner.SpawnTeleportEffect(_playerTransform);
+        _audioService.PlaySound(SoundType.Teleport);
     }
 
     private Vector3 GetSafePosition()

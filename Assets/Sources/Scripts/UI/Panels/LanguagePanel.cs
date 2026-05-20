@@ -2,12 +2,15 @@ using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Zenject;
 
 public class LanguagePanel : MonoBehaviour
 {
     public event UnityAction LanguageChanged;
     
     [SerializeField] private CanvasGroup _canvasGroup;
+
+    [Inject] private AudioService _audioService;
 
     private RectTransform _rectTransform;
 
@@ -30,6 +33,7 @@ public class LanguagePanel : MonoBehaviour
 
     public void ToggleMenu()
     {
+        _audioService.PlaySound(SoundType.ExpandPanel);
         _rectTransform.DOKill();
         _canvasGroup.DOKill();
 
@@ -55,7 +59,7 @@ public class LanguagePanel : MonoBehaviour
     {
         SetLanguageButton firstButton = Instantiate(prefab, this.transform);
 
-        firstButton.Initialize(currentLanguage, languages[currentLanguage], this);
+        firstButton.Initialize(currentLanguage, languages[currentLanguage], this, _audioService);
 
         foreach (var language in languages)
         {
@@ -64,7 +68,7 @@ public class LanguagePanel : MonoBehaviour
 
             SetLanguageButton setLanguageButton = Instantiate(prefab, this.transform);
 
-            setLanguageButton.Initialize(language.Key, language.Value, this);
+            setLanguageButton.Initialize(language.Key, language.Value, this, _audioService);
         }
     }
 

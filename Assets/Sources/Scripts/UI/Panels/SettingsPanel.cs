@@ -1,11 +1,14 @@
 using DG.Tweening;
 using UnityEngine;
+using Zenject;
 
 public class SettingsPanel : MonoBehaviour
 {
     [SerializeField] private RectTransform _gearIcon;
     [SerializeField] private CanvasGroup _canvasGroup;
 
+    [Inject] private AudioService _audioService;
+    
     private RectTransform _rectTransform;
 
     private bool _isOpen = false;
@@ -27,6 +30,7 @@ public class SettingsPanel : MonoBehaviour
 
     public void ToggleMenu()
     {
+        _audioService.PlaySound(SoundType.ExpandPanel);
         _rectTransform.DOKill();
         _canvasGroup.DOKill();
         

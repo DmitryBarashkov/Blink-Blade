@@ -3,39 +3,53 @@ using Zenject;
 
 [RequireComponent(typeof(HitEffectSpawner))]
 [RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(CapsuleCollider))]
 public class Enemy : MonoBehaviour, IResetable
 {
     [SerializeField] EnemyAttacker _attacker;
+    
+    protected EnemyAnimator _animator;    
+    protected Transform _transform;
+    private Vector3 _initiatePosition;
+    private Quaternion _initiateRotation;
 
-    [Inject] private LevelState _levelState;
-    
-    private EnemyAnimator _animator;
+    private LevelState _levelState;
     private CapsuleCollider _collider;    
-    private Transform _transform;
-    private Transform _spawnPoint;
+    private IAudioService _audioService;    
     
-    private void Awake()
+    [Inject]
+    public virtual void Construct(IAudioService audioService, LevelState levelState)
     {
         _transform = transform;
+        _audioService = audioService;
+        _levelState = levelState;
+    }
+
+    protected virtual void Awake()
+    {
         _animator = new EnemyAnimator(GetComponent<Animator>());
         _collider = GetComponent<CapsuleCollider>();
     }
 
-    [Inject]
-    private void Construct(Transform spawnPoint)
+    public virtual void Activate()
     {
-        _spawnPoint = spawnPoint;
+        _transform.position = _initiatePosition;
+        _transform.rotation = _initiateRotation;
+
+        _attacker.Enable();
+
+        _animator.SetDied(false);
+        _collider.enabled = true;
+    }
+    
+    public virtual void Attack()
+    {
+        _animator.SetAttack();
+        _audioService.PlaySound(SoundType.SwordAttack);
     }
 
-    public void Attack()
+    public virtual void Die(ContactPoint hitPoint)
     {
-        _animator.SetAttack();    
-    }
-
-    public void Die(ContactPoint hitPoint)
-    {
-        _attacker.Disable();
+        _attacker.Disable();        
         
         _animator.SetDied(true);        
         _collider.enabled = false;
@@ -45,12 +59,14 @@ public class Enemy : MonoBehaviour, IResetable
 
     public void ResetOnRestart()
     {
-        _transform.position = _spawnPoint.position;
-        _transform.rotation = _spawnPoint.rotation;
-
-        _attacker.Enable();
-
-        _animator.SetDied(false);        
-        _collider.enabled = true;
+        Activate();
     }
+
+    public void SetInitiatePosition(Transform initTransform)
+    {
+        _transform.position = _initiatePosition = initTransform.position;
+        _transform.rotation = _initiateRotation = initTransform.rotation;
+    }
+
+    public class Factory : PlaceholderFactory<Object, Enemy> { }
 }

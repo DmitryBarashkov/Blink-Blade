@@ -4,7 +4,7 @@ using Zenject;
 
 public class LevelRestartService
 {
-    private readonly List<IResetable> _resettables;
+    [Inject] private readonly List<IResetable> _resettables;
 
     public LevelRestartService(List<IResetable> resettables)
     {

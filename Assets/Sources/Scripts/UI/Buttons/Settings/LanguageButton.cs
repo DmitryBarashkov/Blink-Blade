@@ -23,14 +23,14 @@ public class LanguageButton : UIButton
 
     private void OnEnable()
     {
-        _panel.LanguageChanged += SetLanguage;
         _button.onClick.AddListener(HandleClick);
+        _panel.LanguageChanged += SetLanguage;
     }
 
     private void OnDisable()
     {
-        _panel.LanguageChanged -= SetLanguage;
         _button.onClick.RemoveListener(HandleClick);
+        _panel.LanguageChanged -= SetLanguage;
     }
 
     public override void HandleClick()
