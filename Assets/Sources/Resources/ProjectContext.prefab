@@ -82,3 +82,18 @@ MonoBehaviour:
   - LanguageCode: tr
     Sprite: {fileID: 21300000, guid: f26a8e775ae3b8245b2d410a94d1d458, type: 3}
   _audioServicePrefab: {fileID: 5073186087192148321, guid: f88da8382e7f1d34b8bb651bb944e6bb, type: 3}
+  _enemies:
+  - rid: 3747826606367834113
+  - rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 3747826606367834113
+      type: {class: EnemySpawnData, ns: , asm: Assembly-CSharp}
+      data:
+        enemyType: 0
+        prefabs:
+        - {fileID: 7588240896824679470, guid: a701ee4cfe25fc44ea018fe97e73fc26, type: 3}
+        - {fileID: -189589757401792533, guid: 88ecc3d76114dc14894a1cbed8908b8f, type: 3}

@@ -47,6 +47,11 @@ public class Enemy : MonoBehaviour, IResetable
         _audioService.PlaySound(SoundType.SwordAttack);
     }
 
+    public virtual void StopAttack()
+    {
+
+    }
+
     public virtual void Die(ContactPoint hitPoint)
     {
         _attacker.Disable();        

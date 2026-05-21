@@ -10,9 +10,12 @@ public class GlobalInstaller : MonoInstaller
     [SerializeField] private List<LanguageSpritePair> _languageFlags;
     [Header("Сервис звуков")]
     [SerializeField] private AudioService _audioServicePrefab;
+    [Header("База врагов")]
+    [SerializeField] private EnemyDatabase _database;
 
     public override void InstallBindings()
     {
+        Container.Bind<EnemyDatabase>().FromInstance(_database).AsSingle();
         Container.Bind<LevelLoadService>().AsSingle();
         Container.BindInterfacesTo<Bootstrap>().AsSingle().NonLazy();
         Container.Bind<InputService>().AsSingle();

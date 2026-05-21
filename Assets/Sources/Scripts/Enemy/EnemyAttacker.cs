@@ -35,4 +35,12 @@ public class EnemyAttacker : MonoBehaviour
             _enemy.Attack();
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.GetComponent<Player>())
+        {
+            _enemy.StopAttack();
+        }
+    }
 }
