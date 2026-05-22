@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class EnemySpawner : IInitializable
 {
-    private readonly Enemy.Factory _enemyFactory;
-    private readonly List<Enemy> _activeEnemies = new List<Enemy>();
-
     [Inject] private readonly List<EnemySpawnPoint> _spawnPoints;
     
-    public EnemySpawner(Enemy.Factory enemyFactory)
+    private readonly Enemy.Factory _enemyFactory;
+    private readonly List<Enemy> _activeEnemies = new List<Enemy>();
+    private Transform _enemyContainer;
+    
+    public EnemySpawner(Enemy.Factory enemyFactory, Transform container)
     {
-        _enemyFactory = enemyFactory;        
+        _enemyFactory = enemyFactory;
+        _enemyContainer = container;
     }
 
     public void Initialize()
@@ -26,8 +28,8 @@ public class EnemySpawner : IInitializable
 
             Enemy enemy = _enemyFactory.Create(spawnPoint.EnemyPrefab);
 
-            enemy.SetInitiatePosition(spawnPoint.transform);
-
+            enemy.SetInitiatePosition(spawnPoint.transform, _enemyContainer);
+            
             _activeEnemies.Add(enemy);
         }
     }

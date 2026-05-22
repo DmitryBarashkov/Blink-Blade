@@ -20,7 +20,9 @@ public enum SoundType
     Hurt,
     WeaponGrassHit,
     ArrowGrassHit,
-    FallingOnGround
+    WeaponMetalHit,
+
+    FallingOnGround,
 }
 
 [Serializable]

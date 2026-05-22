@@ -16,7 +16,7 @@ public class PatrolEnemy : Enemy
     protected override void Awake()
     {
         base.Awake();
-        _patrol.Initialize(_transform, _animator, _wallCheckDistance);
+        _patrol.Initialize(_transform, AnimatorInstance, _wallCheckDistance);
     }
 
     private void Update()

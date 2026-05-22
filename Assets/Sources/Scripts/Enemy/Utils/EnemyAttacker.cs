@@ -4,7 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 public class EnemyAttacker : MonoBehaviour
 {
-    [SerializeField] Enemy _enemy;
+    public event Action OnPlayerInAttackArea;
+    public event Action OnPlayerOutAttackArea;
+    
     [SerializeField] EnemyWeapon _weapon;
 
     private BoxCollider _collider;
@@ -32,7 +34,7 @@ public class EnemyAttacker : MonoBehaviour
     {
         if (other.GetComponent<Player>())
         {
-            _enemy.Attack();
+            OnPlayerInAttackArea?.Invoke();
         }
     }
 
@@ -40,7 +42,7 @@ public class EnemyAttacker : MonoBehaviour
     {
         if (other.GetComponent<Player>())
         {
-            _enemy.StopAttack();
+            OnPlayerOutAttackArea?.Invoke();
         }
     }
 }

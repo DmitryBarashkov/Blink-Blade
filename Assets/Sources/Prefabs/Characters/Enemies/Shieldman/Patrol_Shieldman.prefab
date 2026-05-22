@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4400844814926803547
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2413713125382878710, guid: 81d4a52d10c19a844bbc6e4cf9083973, type: 3}
+      propertyPath: m_Name
+      value: Patrol_Shielman
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041314995931754316, guid: 81d4a52d10c19a844bbc6e4cf9083973, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041314995931754316, guid: 81d4a52d10c19a844bbc6e4cf9083973, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041314995931754316, guid: 81d4a52d10c19a844bbc6e4cf9083973, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041314995931754316, guid: 81d4a52d10c19a844bbc6e4cf9083973, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041314995931754316, guid: 81d4a52d10c19a844bbc6e4cf9083973, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041314995931754316, guid: 81d4a52d10c19a844bbc6e4cf9083973, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041314995931754316, guid: 81d4a52d10c19a844bbc6e4cf9083973, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041314995931754316, guid: 81d4a52d10c19a844bbc6e4cf9083973, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041314995931754316, guid: 81d4a52d10c19a844bbc6e4cf9083973, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3041314995931754316, guid: 81d4a52d10c19a844bbc6e4cf9083973, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4250921656953023815, guid: 81d4a52d10c19a844bbc6e4cf9083973, type: 3}
+      propertyPath: _enemy
+      value: 
+      objectReference: {fileID: 3198851489643684601}
+    m_RemovedComponents:
+    - {fileID: 3420621831905454876, guid: 81d4a52d10c19a844bbc6e4cf9083973, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2413713125382878710, guid: 81d4a52d10c19a844bbc6e4cf9083973, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3198851489643684601}
+  m_SourcePrefab: {fileID: 100100000, guid: 81d4a52d10c19a844bbc6e4cf9083973, type: 3}
+--- !u!114 &571042029965401884 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4250921656953023815, guid: 81d4a52d10c19a844bbc6e4cf9083973, type: 3}
+  m_PrefabInstance: {fileID: 4400844814926803547}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2606a3b1c9065148aa5ac2701ebd884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &2048515809490241453 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2413713125382878710, guid: 81d4a52d10c19a844bbc6e4cf9083973, type: 3}
+  m_PrefabInstance: {fileID: 4400844814926803547}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3198851489643684601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048515809490241453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1fd8dba7476409419bb5797426ff33b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attacker: {fileID: 571042029965401884}
+  _wallCheckDistance: 1

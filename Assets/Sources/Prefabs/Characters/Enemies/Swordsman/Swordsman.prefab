@@ -288,6 +288,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 6350042086622714873, guid: b018c4f3d93be254b83929d062e03b81, type: 3}
+      propertyPath: _sound
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 6459376335270637354, guid: b018c4f3d93be254b83929d062e03b81, type: 3}
       propertyPath: m_Layer
       value: 9

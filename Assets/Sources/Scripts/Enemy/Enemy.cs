@@ -6,20 +6,23 @@ using Zenject;
 public class Enemy : MonoBehaviour, IResetable
 {
     [SerializeField] EnemyAttacker _attacker;
-    
-    protected EnemyAnimator _animator;    
+
     protected Transform _transform;
+    protected CapsuleCollider _collider;    
+    
+    private EnemyAnimator _animator;    
     private Vector3 _initiatePosition;
     private Quaternion _initiateRotation;
 
     private LevelState _levelState;
-    private CapsuleCollider _collider;    
-    private IAudioService _audioService;    
-    
+    private IAudioService _audioService;
+
+    protected virtual EnemyAnimator AnimatorInstance => _animator;
+
     [Inject]
     public virtual void Construct(IAudioService audioService, LevelState levelState)
     {
-        _transform = transform;
+        _transform = transform;        
         _audioService = audioService;
         _levelState = levelState;
     }
@@ -30,6 +33,18 @@ public class Enemy : MonoBehaviour, IResetable
         _collider = GetComponent<CapsuleCollider>();
     }
 
+    protected virtual void OnEnable()
+    {
+        _attacker.OnPlayerInAttackArea += Attack;
+        _attacker.OnPlayerOutAttackArea += StopAttack;
+    }
+
+    protected virtual void OnDisable()
+    {
+        _attacker.OnPlayerInAttackArea -= Attack;
+        _attacker.OnPlayerOutAttackArea -= StopAttack;
+    }
+
     public virtual void Activate()
     {
         _transform.position = _initiatePosition;
@@ -37,13 +52,13 @@ public class Enemy : MonoBehaviour, IResetable
 
         _attacker.Enable();
 
-        _animator.SetDied(false);
+        AnimatorInstance.SetDied(false);
         _collider.enabled = true;
     }
     
     public virtual void Attack()
     {
-        _animator.SetAttack();
+        AnimatorInstance.SetAttack();
         _audioService.PlaySound(SoundType.SwordAttack);
     }
 
@@ -54,9 +69,9 @@ public class Enemy : MonoBehaviour, IResetable
 
     public virtual void Die(ContactPoint hitPoint)
     {
-        _attacker.Disable();        
-        
-        _animator.SetDied(true);        
+        _attacker.Disable();
+
+        AnimatorInstance.SetDied(true);
         _collider.enabled = false;
 
         _levelState.CurrentEnemiesCount.Value--;
@@ -67,8 +82,9 @@ public class Enemy : MonoBehaviour, IResetable
         Activate();
     }
 
-    public void SetInitiatePosition(Transform initTransform)
+    public void SetInitiatePosition(Transform initTransform, Transform container)
     {
+        _transform.SetParent(container);
         _transform.position = _initiatePosition = initTransform.position;
         _transform.rotation = _initiateRotation = initTransform.rotation;
     }

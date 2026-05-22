@@ -12,12 +12,12 @@ TagManager:
   - Water
   - UI
   - Player
-  - Weapon
+  - 
   - Ground
   - Enemy
-  - 
-  - 
-  - 
+  - Shield
+  - PlayerWeaponActive
+  - PlayerWeaponPassive
   - 
   - 
   - 

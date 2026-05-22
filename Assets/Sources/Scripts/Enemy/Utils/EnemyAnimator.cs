@@ -21,7 +21,7 @@ public class EnemyAnimator : CharacterAnimator
         public class Params
         {
             public static readonly int Attack = Animator.StringToHash(nameof(Attack));          
-            public static readonly int IsWalking = Animator.StringToHash(nameof(IsWalking));          
+            public static readonly int IsWalking = Animator.StringToHash(nameof(IsWalking));                              
         }
     }
 }

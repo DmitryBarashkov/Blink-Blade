@@ -117,6 +117,7 @@ public class Player : MonoBehaviour, IResetable
         _collider.enabled = true;
         _animator.SetDied(false);
         _groundChecker.gameObject.SetActive(true);
+        _weapon.SetActive(true);
     }
 
     public void Die(ContactPoint hitPoint)
@@ -128,6 +129,8 @@ public class Player : MonoBehaviour, IResetable
 
         _aimer.StopAim(false);
         _aimer.SetCameraAim(_transform);
+        _weapon.SetActive(false);
+
         _rigidBody.useGravity = true;
         _rigidBody.velocity = Vector3.zero;
         _rigidBody.angularVelocity = Vector3.zero;

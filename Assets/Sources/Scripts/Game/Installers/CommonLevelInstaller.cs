@@ -11,7 +11,11 @@ public class CommonLevelInstaller : MonoInstaller
     [SerializeField] private Canvas _endGameCanvas;    
     [SerializeField] private AssetReference _winGameScreen;
     [SerializeField] private AssetReference _loseGameScreen;
-    [SerializeField] private CanvasScaler[] _canvasScales;    
+    [SerializeField] private CanvasScaler[] _canvasScales;
+
+    [Header("Containers")]
+    [SerializeField] private Transform _enemyContainer;
+    [SerializeField] private Transform _effectsContainer;
 
     public override void InstallBindings()
     {
@@ -26,7 +30,7 @@ public class CommonLevelInstaller : MonoInstaller
         Container.BindFactory<Object, Enemy, Enemy.Factory>().FromFactory<PrefabFactory<Enemy>>();
         Container.Bind<Patrol>().AsTransient();
         Container.Bind<EnemySpawnPoint>().FromComponentsInHierarchy().AsCached();
-        Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle().WithArguments(_enemyContainer).NonLazy();
     }
 
     private void BindLevelServices()

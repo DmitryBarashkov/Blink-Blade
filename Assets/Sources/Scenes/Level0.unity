@@ -445,9 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183cf586b55ce1448b761c15f47232f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnPointsGetter: {fileID: 1013302326}
   _enemyPanelPrefab: {fileID: 9047468649376320031, guid: e87fa547e17ae5740a291e96c27e0e33, type: 3}
-  _enemyIconPrefab: {fileID: 4246597001013131479, guid: d86039d83fdda0144b1aff4b4373b367, type: 3}
   _levelUICanvas: {fileID: 69097137}
   _endGameCanvas: {fileID: 1804356623}
   _winGameScreen:
@@ -509,7 +507,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPrefab: {fileID: 7588240896824679470, guid: a701ee4cfe25fc44ea018fe97e73fc26, type: 3}
+  _database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
+  isPatrolList: 0
+  selectedEnemyIndex: 0
 --- !u!1 &273129444
 GameObject:
   m_ObjectHideFlags: 0
@@ -3934,7 +3934,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPrefab: {fileID: 7588240896824679470, guid: a701ee4cfe25fc44ea018fe97e73fc26, type: 3}
+  _database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
+  isPatrolList: 0
+  selectedEnemyIndex: 0
 --- !u!1 &1967215862
 GameObject:
   m_ObjectHideFlags: 0

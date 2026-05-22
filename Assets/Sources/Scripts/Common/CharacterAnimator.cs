@@ -1,5 +1,4 @@
 using UnityEngine;
-using static EnemyAnimator;
 
 public abstract class CharacterAnimator
 {
@@ -15,11 +14,6 @@ public abstract class CharacterAnimator
     public void SetDied(bool value)
     {
         AnimatorComponent.SetBool(CharacterAnimatorData.Params.IsDied, value);
-    }
-
-    public float GetAnimationLength()
-    {
-        return _animator.GetCurrentAnimatorStateInfo(0).length;
     }
 
     public class CharacterAnimatorData
