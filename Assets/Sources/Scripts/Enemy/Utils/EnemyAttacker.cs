@@ -16,6 +16,12 @@ public class EnemyAttacker : MonoBehaviour
     {
         _collider = GetComponent<BoxCollider>();
         _weaponCollider = _weapon.GetComponent<BoxCollider>();
+
+        if (_weaponCollider == null)
+            throw new ArgumentNullException(nameof(_weaponCollider));
+
+        if (_collider == null)
+            throw new ArgumentNullException(nameof(_collider));
     }
 
     public void Enable()

@@ -188,6 +188,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4722590259074940258, guid: b018c4f3d93be254b83929d062e03b81, type: 3}
+      propertyPath: _wallCheckDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4833638167799668443, guid: b018c4f3d93be254b83929d062e03b81, type: 3}
       propertyPath: m_Layer
       value: 9

@@ -1,51 +1,51 @@
-using UnityEngine;
-using Zenject;
+//using UnityEngine;
+//using Zenject;
 
-public class PatrolEnemy : Enemy
-{
-    [SerializeField] private float _wallCheckDistance;
+//public class PatrolEnemy : Enemy
+//{
+//    [SerializeField] private float _wallCheckDistance;
     
-    private Patrol _patrol;
+//    private Patrol _patrol;
     
-    [Inject]
-    public void ConstructPatrol(Patrol patrol)
-    {
-        _patrol = patrol;              
-    }
+//    [Inject]
+//    public void ConstructPatrol(Patrol patrol)
+//    {
+//        _patrol = patrol;              
+//    }
 
-    protected override void Awake()
-    {
-        base.Awake();
-        _patrol.Initialize(_transform, AnimatorInstance, _wallCheckDistance);
-    }
+//    protected override void Awake()
+//    {
+//        base.Awake();
+//        //_patrol.Initialize(_transform, AnimatorInstance, _wallCheckDistance);
+//    }
 
-    private void Update()
-    {
-        _patrol.UpdateTick();
-    }
+//    private void Update()
+//    {
+//        _patrol.UpdateTick();
+//    }
 
-    public override void Attack()
-    {
-        _patrol.Stop();
-        base.Attack();
-    }
+//    public override void Attack()
+//    {
+//        _patrol.Stop();
+//        base.Attack();
+//    }
 
-    public override void StopAttack()
-    {
-        _patrol.KeepMoving();
-    }
+//    public override void StopAttack()
+//    {
+//        _patrol.KeepMoving();
+//    }
 
-    public override void Die(ContactPoint hitPoint)
-    {
-        base.Die(hitPoint);
+//    public override void Die(ContactPoint hitPoint)
+//    {
+//        base.Die(hitPoint);
 
-        _patrol.Stop();        
-    }
+//        _patrol.Stop();        
+//    }
 
-    public override void Activate()
-    {
-        base.Activate();
+//    public override void Activate()
+//    {
+//        base.Activate();
 
-        _patrol.Start();
-    }
-}
+//        _patrol.Start();
+//    }
+//}

@@ -12,17 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f136eae56597e7646964d4909b133f9b, type: 3}
   m_Name: EnemyDatabase
   m_EditorClassIdentifier: 
-  idleEnemies:
-  - type: 0
-    behaviour: 0
+  enemies:
+  - enemyName: Swordsman Idle
     prefab: {fileID: 7588240896824679470, guid: a701ee4cfe25fc44ea018fe97e73fc26, type: 3}
-  - type: 1
-    behaviour: 0
-    prefab: {fileID: 6484166656171749369, guid: 81d4a52d10c19a844bbc6e4cf9083973, type: 3}
-  patrolEnemies:
-  - type: 0
-    behaviour: 1
-    prefab: {fileID: -189589757401792533, guid: 88ecc3d76114dc14894a1cbed8908b8f, type: 3}
-  - type: 1
-    behaviour: 1
-    prefab: {fileID: 3198851489643684601, guid: 6c21be8ebe139874eb2808305b994ac4, type: 3}
+    movementStrategy:
+      rid: 3747826653048340515
+    attackingStrategy:
+      rid: 3747826653048340517
+  - enemyName: Swordsman Patrol
+    prefab: {fileID: 7588240896824679470, guid: a701ee4cfe25fc44ea018fe97e73fc26, type: 3}
+    movementStrategy:
+      rid: 3747826653048340516
+    attackingStrategy:
+      rid: 3747826653048340518
+  references:
+    version: 2
+    RefIds:
+    - rid: 3747826653048340515
+      type: {class: Idle, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3747826653048340516
+      type: {class: Patrol, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3747826653048340517
+      type: {class: MeleeAttack, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3747826653048340518
+      type: {class: MeleeAttack, ns: , asm: Assembly-CSharp}
+      data: 

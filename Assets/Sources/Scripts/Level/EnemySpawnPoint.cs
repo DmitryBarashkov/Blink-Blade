@@ -5,24 +5,7 @@ public class EnemySpawnPoint : MonoBehaviour
 {
     [SerializeField] private EnemyDatabase _database;
 
-    [HideInInspector] public bool isPatrolList;
-    [HideInInspector] public int selectedEnemyIndex;
-
-    public Enemy EnemyPrefab { get; private set; }
-
-    private void Awake()
-    {
-        if (isPatrolList)
-        {
-            if (selectedEnemyIndex >= 0 && selectedEnemyIndex < _database.patrolEnemies.Count)
-                EnemyPrefab = _database.patrolEnemies[selectedEnemyIndex].prefab;
-        }
-        else
-        {
-            if (selectedEnemyIndex >= 0 && selectedEnemyIndex < _database.idleEnemies.Count)
-                EnemyPrefab = _database.idleEnemies[selectedEnemyIndex].prefab;
-        }
-    }
+    [HideInInspector] public string selectedEnemyName;
 
     private void Reset()
     {

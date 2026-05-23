@@ -6,73 +6,98 @@ using Zenject;
 public class Enemy : MonoBehaviour, IResetable
 {
     [SerializeField] EnemyAttacker _attacker;
-
-    protected Transform _transform;
-    protected CapsuleCollider _collider;    
+    [SerializeField] float _wallCheckDistance;
     
-    private EnemyAnimator _animator;    
+    private Transform _transform;
+    private CapsuleCollider _collider;
+    private EnemyAnimator _animator;
+    private LevelState _levelState;
+
+    private IMovementStrategy _movementStrategy;
+    private IAttackingStrategy _attackingStrategy;
+
     private Vector3 _initiatePosition;
     private Quaternion _initiateRotation;
 
-    private LevelState _levelState;
     private IAudioService _audioService;
 
-    protected virtual EnemyAnimator AnimatorInstance => _animator;
+    public EnemyAnimator AnimatorInstance => _animator;
 
     [Inject]
-    public virtual void Construct(IAudioService audioService, LevelState levelState)
+    public void Construct(IAudioService audioService, 
+                          IMovementStrategy movementStrategy, 
+                          IAttackingStrategy attackingStrategy, 
+                          LevelState levelState)
     {
         _transform = transform;        
-        _audioService = audioService;
+        _audioService = audioService;        
+        
+        _movementStrategy = movementStrategy;
+        _attackingStrategy = attackingStrategy;
+
         _levelState = levelState;
+
+        _initiatePosition = _transform.position;
+        _initiateRotation = _transform.rotation;
     }
 
-    protected virtual void Awake()
+    private void Awake()
     {
         _animator = new EnemyAnimator(GetComponent<Animator>());
         _collider = GetComponent<CapsuleCollider>();
+
+        _movementStrategy.Initialize(_transform, _animator, _wallCheckDistance);
+        _attackingStrategy.Initialize(_attacker, _audioService, _animator);
     }
 
-    protected virtual void OnEnable()
+    private void OnEnable()
     {
-        _attacker.OnPlayerInAttackArea += Attack;
-        _attacker.OnPlayerOutAttackArea += StopAttack;
+        _attackingStrategy.AttackStarted += Attack;
+        _attackingStrategy.AttackStopped += StopAttack;
     }
 
-    protected virtual void OnDisable()
+    private void OnDisable()
     {
-        _attacker.OnPlayerInAttackArea -= Attack;
-        _attacker.OnPlayerOutAttackArea -= StopAttack;
+        _attackingStrategy.AttackStarted -= Attack;
+        _attackingStrategy.AttackStopped -= StopAttack;
+        _attackingStrategy.Disable();
     }
 
-    public virtual void Activate()
+    private void Update()
+    {
+        _movementStrategy.Tick();
+    }
+
+    public void Activate()
     {
         _transform.position = _initiatePosition;
         _transform.rotation = _initiateRotation;
 
-        _attacker.Enable();
+        _attackingStrategy.Enable();
+        _movementStrategy.Start();
 
         AnimatorInstance.SetDied(false);
         _collider.enabled = true;
     }
     
-    public virtual void Attack()
+    public void Attack()
     {
-        AnimatorInstance.SetAttack();
-        _audioService.PlaySound(SoundType.SwordAttack);
+        _movementStrategy.Stop();
     }
 
-    public virtual void StopAttack()
+    public void StopAttack()
     {
-
+        _movementStrategy.KeepMoving();
     }
 
-    public virtual void Die(ContactPoint hitPoint)
+    public void Die(ContactPoint hitPoint)
     {
-        _attacker.Disable();
+        _movementStrategy.Stop();
+        _attackingStrategy.Disable();
+
+        _collider.enabled = false;
 
         AnimatorInstance.SetDied(true);
-        _collider.enabled = false;
 
         _levelState.CurrentEnemiesCount.Value--;
     }
@@ -81,13 +106,4 @@ public class Enemy : MonoBehaviour, IResetable
     {
         Activate();
     }
-
-    public void SetInitiatePosition(Transform initTransform, Transform container)
-    {
-        _transform.SetParent(container);
-        _transform.position = _initiatePosition = initTransform.position;
-        _transform.rotation = _initiateRotation = initTransform.rotation;
-    }
-
-    public class Factory : PlaceholderFactory<Object, Enemy> { }
 }

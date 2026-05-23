@@ -16,6 +16,7 @@ public class GlobalInstaller : MonoInstaller
     public override void InstallBindings()
     {
         Container.Bind<EnemyDatabase>().FromInstance(_database).AsSingle();
+        Container.Bind<EnemyFactory>().AsSingle();
         Container.Bind<LevelLoadService>().AsSingle();
         Container.BindInterfacesTo<Bootstrap>().AsSingle().NonLazy();
         Container.Bind<InputService>().AsSingle();

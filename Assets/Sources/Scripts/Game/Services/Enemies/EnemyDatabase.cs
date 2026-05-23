@@ -1,28 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EnemyDatabase", menuName = "Config/Enemy Database")]
 public class EnemyDatabase : ScriptableObject
 {
-    [System.Serializable]
-    public struct IdleMapping 
-    { 
-        public EnemyType type;
-        public BehaviourType behaviour;
-        public Enemy prefab;
-    }
-
-    [System.Serializable]
-    public struct PatrolMapping
+    [Serializable]
+    public struct AssembledEnemy
     {
-        public EnemyType type;
-        public BehaviourType behaviour;
-        public PatrolEnemy prefab;
+        public string enemyName;
+        public Enemy prefab;
+        [SerializeReference] public IMovementStrategy movementStrategy;
+        [SerializeReference] public IAttackingStrategy attackingStrategy;
     }
 
-    [Header("Обычные враги")]
-    public List<IdleMapping> idleEnemies;
+    [Header("Сконструированные враги")]
+    public List<AssembledEnemy> enemies;
 
-    [Header("Патрульные враги")]
-    public List<PatrolMapping> patrolEnemies;
+    public bool TryGetEnemy(string name, out AssembledEnemy result)
+    {
+        foreach (var enemy in enemies)
+        {
+            if (enemy.enemyName == name)
+            {
+                result = enemy;
+                return true;
+            }
+        }
+
+        result = default;
+        return false;
+    }
 }

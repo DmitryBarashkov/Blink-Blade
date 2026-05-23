@@ -27,7 +27,7 @@ public class CommonLevelInstaller : MonoInstaller
 
     private void BindEnemies()
     {
-        Container.BindFactory<Object, Enemy, Enemy.Factory>().FromFactory<PrefabFactory<Enemy>>();
+        Container.Bind<EnemyFactory>().AsSingle();
         Container.Bind<Patrol>().AsTransient();
         Container.Bind<EnemySpawnPoint>().FromComponentsInHierarchy().AsCached();
         Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle().WithArguments(_enemyContainer).NonLazy();

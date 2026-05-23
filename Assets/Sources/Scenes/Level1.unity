@@ -584,7 +584,7 @@ Transform:
   m_GameObject: {fileID: 151715020}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 3, y: -11.07, z: 0}
+  m_LocalPosition: {x: 4, y: -11.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -603,8 +603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  isPatrolList: 0
-  selectedEnemyIndex: 1
+  selectedEnemyName: Swordsman Patrol
 --- !u!1 &283966767
 GameObject:
   m_ObjectHideFlags: 0
@@ -4875,7 +4874,7 @@ Transform:
   m_GameObject: {fileID: 797750128}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 4.02, y: -8.14, z: 0}
+  m_LocalPosition: {x: 4, y: -8.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4894,8 +4893,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  isPatrolList: 0
-  selectedEnemyIndex: 0
+  selectedEnemyName: Swordsman Idle
 --- !u!1 &1013302324
 GameObject:
   m_ObjectHideFlags: 0
@@ -6155,7 +6153,7 @@ Transform:
   m_GameObject: {fileID: 1812294402}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 1.79, y: -14.6, z: 0}
+  m_LocalPosition: {x: 3.85, y: -14.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6174,8 +6172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  isPatrolList: 0
-  selectedEnemyIndex: 1
+  selectedEnemyName: Swordsman Patrol
 --- !u!43 &1825061162
 Mesh:
   m_ObjectHideFlags: 0
@@ -6484,8 +6481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  isPatrolList: 0
-  selectedEnemyIndex: 0
+  selectedEnemyName: Swordsman Idle
 --- !u!43 &1865840141
 Mesh:
   m_ObjectHideFlags: 0

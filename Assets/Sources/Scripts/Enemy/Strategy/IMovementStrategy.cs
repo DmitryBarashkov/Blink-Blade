@@ -1,14 +1,35 @@
 using DG.Tweening;
+using System;
 using UnityEngine;
 
-public class Patrol
+public interface IMovementStrategy
+{
+    void Initialize(Transform transform, EnemyAnimator animator, float wallCheckDistance);
+    void Start();
+    void Tick();
+    void KeepMoving();
+    void Stop();
+}
+
+[Serializable]
+public class Idle : IMovementStrategy
+{
+    public void Initialize(Transform transform, EnemyAnimator animator, float wallCheckDistance) { }
+    public void Start() { }
+    public void Tick() { }
+    public void KeepMoving() { }
+    public void Stop() { }
+}
+
+[Serializable]
+public class Patrol : IMovementStrategy
 {
     private Transform _transform;
     private EnemyAnimator _animator;
-    private LayerMask _groundLayer = LayerMask.GetMask("Ground");
+    private LayerMask _groundLayer;
 
-    private PatrolState _patrolState = PatrolState.Stopped;
-    
+    private PatrolState _patrolState;
+
     private float _speed = 1.5f;
     private float _idleTime = 3f;
     private float _wallCheckDistance;
@@ -24,6 +45,8 @@ public class Patrol
         _transform = transform;
         _animator = animator;
         _wallCheckDistance = wallCheckDistance;
+        _groundLayer = LayerMask.GetMask("Ground");
+        _patrolState = PatrolState.Stopped;
     }
 
     public void Start()
@@ -37,11 +60,11 @@ public class Patrol
         _animator.SetWalking(false);
     }
 
-    public void UpdateTick()
+    public void Tick()
     {
         if (_patrolState == PatrolState.Stopped)
             return;
-        
+
         if (_patrolState == PatrolState.Moving)
             Move();
         else if (_patrolState == PatrolState.Waiting)
@@ -56,7 +79,7 @@ public class Patrol
     private void Move()
     {
         _animator.SetWalking(true);
-        
+
         if (IsHittingWall() || IsAtCliff())
         {
             _patrolState = PatrolState.Waiting;
@@ -71,7 +94,7 @@ public class Patrol
     {
         if (_patrolState == PatrolState.Rotating)
             return;
-        
+
         _animator.SetWalking(false);
         _waitTimer += Time.deltaTime;
 
@@ -100,7 +123,7 @@ public class Patrol
     {
         Vector3 origin = _transform.position + (_transform.forward * _cliffForwardOffset) + (Vector3.up * 0.1f);
         bool hasGroundAhead = Physics.Raycast(origin, Vector3.down, _cliffCheckDistance, _groundLayer);
-        
+
         return !hasGroundAhead;
     }
 

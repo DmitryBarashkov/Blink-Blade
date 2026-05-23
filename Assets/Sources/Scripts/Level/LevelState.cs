@@ -13,7 +13,7 @@ public class LevelState
         IsOutOfEnergy.Value = isOutOfEnergy;
     }
 
-    internal void Restart(int enemiesCount)
+    public void Restart(int enemiesCount)
     {
         IsWin.Value = null;
         IsOutOfEnergy.Value = false;
