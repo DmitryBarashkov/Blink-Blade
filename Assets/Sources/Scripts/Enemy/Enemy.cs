@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 using Zenject;
 
 [RequireComponent(typeof(HitEffectSpawner))]
@@ -8,25 +9,33 @@ public class Enemy : MonoBehaviour, IResetable
     [SerializeField] EnemyAttacker _attacker;
     [SerializeField] float _wallCheckDistance;
     
+    [Header(("Defence"))]
+    [SerializeField] private Blocker _blocker;
+    [SerializeField] private Shield _shield;
+
     private Transform _transform;
     private CapsuleCollider _collider;
-    private EnemyAnimator _animator;
+    private Animator _animator;
+    private EnemyAnimator _enemyAnimator;
+    private RigBuilder _rigBuilder;
     private LevelState _levelState;
 
     private IMovementStrategy _movementStrategy;
     private IAttackingStrategy _attackingStrategy;
+    private IDefendingStrategy _defendingStrategy;
 
     private Vector3 _initiatePosition;
     private Quaternion _initiateRotation;
 
     private IAudioService _audioService;
 
-    public EnemyAnimator AnimatorInstance => _animator;
+    public EnemyAnimator AnimatorInstance => _enemyAnimator;
 
     [Inject]
     public void Construct(IAudioService audioService, 
                           IMovementStrategy movementStrategy, 
-                          IAttackingStrategy attackingStrategy, 
+                          IAttackingStrategy attackingStrategy,
+                          IDefendingStrategy defendingStrategy,
                           LevelState levelState)
     {
         _transform = transform;        
@@ -34,6 +43,7 @@ public class Enemy : MonoBehaviour, IResetable
         
         _movementStrategy = movementStrategy;
         _attackingStrategy = attackingStrategy;
+        _defendingStrategy = defendingStrategy;
 
         _levelState = levelState;
 
@@ -43,24 +53,34 @@ public class Enemy : MonoBehaviour, IResetable
 
     private void Awake()
     {
-        _animator = new EnemyAnimator(GetComponent<Animator>());
+        _animator = GetComponent<Animator>();
+        _enemyAnimator = new EnemyAnimator(GetComponent<Animator>());
         _collider = GetComponent<CapsuleCollider>();
+        _rigBuilder = GetComponent<RigBuilder>();
 
-        _movementStrategy.Initialize(_transform, _animator, _wallCheckDistance);
-        _attackingStrategy.Initialize(_attacker, _audioService, _animator);
+        _movementStrategy.Initialize(_transform, _enemyAnimator, _wallCheckDistance);
+        _attackingStrategy.Initialize(_attacker, _audioService, _enemyAnimator);
+        _defendingStrategy.Initialize(_animator, _rigBuilder, _blocker, _shield);
     }
 
     private void OnEnable()
     {
-        _attackingStrategy.AttackStarted += Attack;
-        _attackingStrategy.AttackStopped += StopAttack;
+        _movementStrategy.MovementStarted += OnStartMoving;
+        
+        _attackingStrategy.AttackStarted += StopMove;
+        _attackingStrategy.AttackStopped += KeepMove;
+
+        _defendingStrategy.StartBlocking += KeepMove;        
     }
 
     private void OnDisable()
     {
-        _attackingStrategy.AttackStarted -= Attack;
-        _attackingStrategy.AttackStopped -= StopAttack;
-        _attackingStrategy.Disable();
+        _attackingStrategy.AttackStarted -= StopMove;
+        _attackingStrategy.AttackStopped -= KeepMove;
+        _attackingStrategy.Deactivate();
+
+        _defendingStrategy.StartBlocking -= KeepMove;        
+        _defendingStrategy.Deactivate();
     }
 
     private void Update()
@@ -73,27 +93,19 @@ public class Enemy : MonoBehaviour, IResetable
         _transform.position = _initiatePosition;
         _transform.rotation = _initiateRotation;
 
-        _attackingStrategy.Enable();
-        _movementStrategy.Start();
+        _attackingStrategy.Activate();
+        _defendingStrategy.Activate();
+        _movementStrategy.Activate();
 
         AnimatorInstance.SetDied(false);
         _collider.enabled = true;
     }
     
-    public void Attack()
-    {
-        _movementStrategy.Stop();
-    }
-
-    public void StopAttack()
-    {
-        _movementStrategy.KeepMoving();
-    }
-
     public void Die(ContactPoint hitPoint)
     {
-        _movementStrategy.Stop();
-        _attackingStrategy.Disable();
+        _movementStrategy.Deactivate();
+        _attackingStrategy.Deactivate();
+        _defendingStrategy.Deactivate();
 
         _collider.enabled = false;
 
@@ -105,5 +117,20 @@ public class Enemy : MonoBehaviour, IResetable
     public void ResetOnRestart()
     {
         Activate();
+    }
+
+    private void StopMove()
+    {
+        _movementStrategy.Deactivate();
+    }
+
+    private void KeepMove()
+    {
+        _movementStrategy.KeepMoving();
+    }
+
+    private void OnStartMoving()
+    {
+        _defendingStrategy.StopBlock();
     }
 }

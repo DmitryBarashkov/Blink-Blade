@@ -127,10 +127,12 @@ public class Weapon : MonoBehaviour
         _transform.SetParent(_weaponHandler.transform);
         _transform.localPosition = _startWeaponPosition;
         _transform.localRotation = _startWeaponRotation;
-
-        _rigidbody.velocity = Vector3.zero;
-        _rigidbody.angularVelocity = Vector3.zero;
-        _rigidbody.isKinematic = true;
+                
+        if (_rigidbody.isKinematic == false)
+        {
+            ClearVelocity();
+            _rigidbody.isKinematic = true;
+        }
     }
 
     public void Throw(Vector3 direction, float rotationAngle)
@@ -162,8 +164,7 @@ public class Weapon : MonoBehaviour
     {
         Vector3 bounceDirection = hitPoint.normal;
 
-        _rigidbody.velocity = Vector3.zero;
-        _rigidbody.angularVelocity = Vector3.zero;
+        ClearVelocity();
 
         bounceDirection.y = 0;
         bounceDirection.Normalize();
@@ -174,5 +175,11 @@ public class Weapon : MonoBehaviour
         
         _rotateAngle = -_spinSpeed;
         _isShouldRotate = true;
+    }
+
+    private void ClearVelocity()
+    {
+        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.angularVelocity = Vector3.zero;
     }
 }

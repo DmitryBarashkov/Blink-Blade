@@ -12,6 +12,7 @@ public class EnemyDatabase : ScriptableObject
         public Enemy prefab;
         [SerializeReference] public IMovementStrategy movementStrategy;
         [SerializeReference] public IAttackingStrategy attackingStrategy;
+        [SerializeReference] public IDefendingStrategy defendingStrategy;
     }
 
     [Header("Сконструированные враги")]

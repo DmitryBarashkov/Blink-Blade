@@ -4,26 +4,30 @@ using UnityEngine;
 
 public interface IMovementStrategy
 {
+    event Action MovementStarted;
     void Initialize(Transform transform, EnemyAnimator animator, float wallCheckDistance);
-    void Start();
+    void Activate();
     void Tick();
     void KeepMoving();
-    void Stop();
+    void Deactivate();
 }
 
 [Serializable]
 public class Idle : IMovementStrategy
 {
+    public event Action MovementStarted = delegate { };
     public void Initialize(Transform transform, EnemyAnimator animator, float wallCheckDistance) { }
-    public void Start() { }
+    public void Activate() { }
     public void Tick() { }
     public void KeepMoving() { }
-    public void Stop() { }
+    public void Deactivate() { }
 }
 
 [Serializable]
 public class Patrol : IMovementStrategy
 {
+    public event Action MovementStarted;
+    
     private Transform _transform;
     private EnemyAnimator _animator;
     private LayerMask _groundLayer;
@@ -40,6 +44,8 @@ public class Patrol : IMovementStrategy
     private float _leftTurn = 270f;
     private float _turnSpeed = 0.4f;
 
+    private bool _shouldRotate = true;
+
     public void Initialize(Transform transform, EnemyAnimator animator, float wallCheckDistance)
     {
         _transform = transform;
@@ -49,12 +55,12 @@ public class Patrol : IMovementStrategy
         _patrolState = PatrolState.Stopped;
     }
 
-    public void Start()
+    public void Activate()
     {
         _patrolState = PatrolState.Moving;
     }
 
-    public void Stop()
+    public void Deactivate()
     {
         _patrolState = PatrolState.Stopped;
         _animator.SetWalking(false);
@@ -74,15 +80,18 @@ public class Patrol : IMovementStrategy
     public void KeepMoving()
     {
         _patrolState = PatrolState.Waiting;
+        _shouldRotate = false;
     }
 
     private void Move()
     {
+        MovementStarted?.Invoke();
         _animator.SetWalking(true);
 
         if (IsHittingWall() || IsAtCliff())
         {
             _patrolState = PatrolState.Waiting;
+            _shouldRotate = true;
             return;
         }
 
@@ -106,17 +115,25 @@ public class Patrol : IMovementStrategy
 
     private void SwitchDirection()
     {
-        Vector3 currentRotation = _transform.eulerAngles;
-        float targetTurn = currentRotation.y == _leftTurn ? _rightTurn : _leftTurn;
+        if (_shouldRotate == false)
+        {
+            _patrolState = PatrolState.Moving;
+            _waitTimer = 0f;
+        }
+        else
+        {
+            Vector3 currentRotation = _transform.eulerAngles;
+            float targetTurn = currentRotation.y == _leftTurn ? _rightTurn : _leftTurn;
 
-        _patrolState = PatrolState.Rotating;
+            _patrolState = PatrolState.Rotating;
 
-        _transform.DORotate(new Vector3(currentRotation.x, targetTurn, currentRotation.z), _turnSpeed, RotateMode.Fast)
-            .OnComplete(() =>
-            {
-                _patrolState = PatrolState.Moving;
-                _waitTimer = 0f;
-            });
+            _transform.DORotate(new Vector3(currentRotation.x, targetTurn, currentRotation.z), _turnSpeed, RotateMode.Fast)
+                .OnComplete(() =>
+                {
+                    _patrolState = PatrolState.Moving;
+                    _waitTimer = 0f;
+                });
+        }
     }
 
     private bool IsAtCliff()

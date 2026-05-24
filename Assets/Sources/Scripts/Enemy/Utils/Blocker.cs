@@ -4,8 +4,7 @@ using UnityEngine.Animations.Rigging;
 
 public class Blocker : MonoBehaviour
 {
-    public event Action OnWeaponInBlockingArea;
-    public event Action OnWeaponOutBlockingArea;
+    public event Action OnWeaponInBlockingArea;    
     
     [Header("Компоненты Rigging")]
     [SerializeField] private MultiAimConstraint _bodyAimConstraint;
@@ -48,12 +47,7 @@ public class Blocker : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Weapon weapon = other.GetComponent<Weapon>();
-
-        if (weapon != null)
-        {
-            _isWeaponInZone = false;
-            OnWeaponOutBlockingArea?.Invoke();
-        }
+        if (other.GetComponent<Weapon>() != null)
+            _isWeaponInZone = false;            
     }
 }

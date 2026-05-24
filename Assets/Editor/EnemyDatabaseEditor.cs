@@ -9,6 +9,7 @@ public class EnemyDatabaseEditor : Editor
 {
     private Type[] _movementTypes;
     private Type[] _attackingTypes;
+    private Type[] _defendingTypes;
 
     private void OnEnable()
     {
@@ -21,6 +22,11 @@ public class EnemyDatabaseEditor : Editor
             .SelectMany(assembly => assembly.GetTypes())
             .Where(type => typeof(IAttackingStrategy).IsAssignableFrom(type) && !type.IsInterface && !type.IsAbstract)
             .ToArray();
+
+        _defendingTypes = AppDomain.CurrentDomain.GetAssemblies()
+            .SelectMany(assembly => assembly.GetTypes())
+            .Where(type => typeof(IDefendingStrategy).IsAssignableFrom(type) && !type.IsInterface && !type.IsAbstract)
+            .ToArray();
     }
 
     public override void OnInspectorGUI()
@@ -28,7 +34,7 @@ public class EnemyDatabaseEditor : Editor
         serializedObject.Update();
 
         SerializedProperty enemiesProp = serializedObject.FindProperty("enemies");
-        EditorGUILayout.LabelField("Сконструированные враги", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Enemies", EditorStyles.boldLabel);
 
         for (int i = 0; i < enemiesProp.arraySize; i++)
         {
@@ -37,10 +43,12 @@ public class EnemyDatabaseEditor : Editor
             SerializedProperty prefabProp = element.FindPropertyRelative("prefab");
             SerializedProperty movingStrategyProp = element.FindPropertyRelative("movementStrategy");
             SerializedProperty attackingStrategyProp = element.FindPropertyRelative("attackingStrategy");
+            SerializedProperty defendingStrategyProp = element.FindPropertyRelative("defendingStrategy");
 
             bool hasPrefabError = prefabProp.objectReferenceValue == null;
             bool hasMoveError = movingStrategyProp.managedReferenceValue == null;
             bool hasAttackError = attackingStrategyProp.managedReferenceValue == null;
+            bool hasDefendError = defendingStrategyProp.managedReferenceValue == null;
             bool hasAnyError = hasPrefabError || hasMoveError || hasAttackError;
 
             Color originalColor = GUI.backgroundColor;
@@ -68,21 +76,26 @@ public class EnemyDatabaseEditor : Editor
 
             DrawStrategyPopup("Movement:", movingStrategyProp, _movementTypes);
             DrawStrategyPopup("Attack:", attackingStrategyProp, _attackingTypes);
+            DrawStrategyPopup("Defend:", defendingStrategyProp, _defendingTypes);
 
             if (hasAnyError)
             {
                 EditorGUILayout.Space(5);
                 if (hasPrefabError)
                 {
-                    EditorGUILayout.HelpBox("Ошибка: Обязательно перетащите префаб врага!", MessageType.Error);
+                    EditorGUILayout.HelpBox("Ошибка: Choose prefab!", MessageType.Error);
                 }
                 if (hasMoveError)
                 {
-                    EditorGUILayout.HelpBox("Ошибка: Не выбрана стратегия движения.", MessageType.Warning);
+                    EditorGUILayout.HelpBox("Ошибка: Choose moving strategy", MessageType.Warning);
                 }
                 if (hasAttackError)
                 {
-                    EditorGUILayout.HelpBox("Ошибка: Не выбрана стратегия атаки.", MessageType.Info);
+                    EditorGUILayout.HelpBox("Ошибка: Choose attacking strategy", MessageType.Info);
+                }
+                if (hasDefendError)
+                {
+                    EditorGUILayout.HelpBox("Ошибка: Choose defending strategy", MessageType.Info);
                 }
             }
 
@@ -91,7 +104,7 @@ public class EnemyDatabaseEditor : Editor
                 UpdateEnemyName(nameProp, prefabProp, movingStrategyProp);
             }
 
-            if (GUILayout.Button("Удалить врага", GUILayout.Width(100)))
+            if (GUILayout.Button("Delete enemy", GUILayout.Width(100)))
             {
                 enemiesProp.DeleteArrayElementAtIndex(i);
                 break;
@@ -101,7 +114,7 @@ public class EnemyDatabaseEditor : Editor
             EditorGUILayout.Space(5);
         }
 
-        if (GUILayout.Button("Добавить нового врага"))
+        if (GUILayout.Button("Add new enemy"))
         {
             enemiesProp.arraySize++;
         }
@@ -144,7 +157,7 @@ public class EnemyDatabaseEditor : Editor
         if (strategyProp.managedReferenceValue != null)
         {
             EditorGUI.indentLevel++;
-            EditorGUILayout.PropertyField(strategyProp, new GUIContent("Параметры"), true);
+            EditorGUILayout.PropertyField(strategyProp, new GUIContent("Params"), true);
             EditorGUI.indentLevel--;
         }
     }

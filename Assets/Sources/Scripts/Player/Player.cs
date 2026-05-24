@@ -117,6 +117,8 @@ public class Player : MonoBehaviour, IResetable
         _collider.enabled = true;
         _animator.SetDied(false);
         _groundChecker.gameObject.SetActive(true);
+
+        _weapon.ReturnToWeaponHandler();
         _weapon.SetActive(true);
     }
 

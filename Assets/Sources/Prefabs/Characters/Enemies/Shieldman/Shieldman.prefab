@@ -1183,7 +1183,7 @@ GameObject:
   - component: {fileID: 2569392994472523827}
   - component: {fileID: 3957993495652158855}
   - component: {fileID: 2013925413208438228}
-  - component: {fileID: 6484166656171749369}
+  - component: {fileID: 478639616586872186}
   m_Layer: 9
   m_Name: Shieldman
   m_TagString: Untagged
@@ -1324,7 +1324,7 @@ MonoBehaviour:
   - m_Rig: {fileID: 7474768265403532880}
     m_Active: 1
   m_Effectors: []
---- !u!114 &6484166656171749369
+--- !u!114 &478639616586872186
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1333,10 +1333,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2413713125382878710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29432ed36f94e3444b0640ac0c94870c, type: 3}
+  m_Script: {fileID: 11500000, guid: dd1a26211f44b0c46b69999f8f841859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _attacker: {fileID: 4250921656953023815}
+  _wallCheckDistance: 1
   _blocker: {fileID: 4201298558575324665}
   _shield: {fileID: 8664506510587136672}
 --- !u!1 &3158117298531596225

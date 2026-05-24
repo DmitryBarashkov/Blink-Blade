@@ -3,6 +3,23 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 public class EnemyWeapon : MonoBehaviour
 {
+    private BoxCollider _collider;
+    
+    private void Awake()
+    {
+        _collider = GetComponent<BoxCollider>();
+    }
+
+    public void Activate()
+    {
+        _collider.enabled = true;
+    }
+
+    public void Deactivate()
+    {
+        _collider.enabled = false;
+    }
+    
     private void OnCollisionEnter(Collision collision)
     {
         Player player = collision.collider.GetComponent<Player>();

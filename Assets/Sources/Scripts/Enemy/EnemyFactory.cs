@@ -20,8 +20,6 @@ public class EnemyFactory
         
         if (_database.TryGetEnemy(enemyName, out AssembledEnemy enemyRecord))
         {
-            object[] strategies = GetClonedStrategies(enemyRecord);
-
             Enemy enemy = _container.InstantiatePrefabForComponent<Enemy>(
                 enemyRecord.prefab,
                 enemyTransform.position,
@@ -41,10 +39,15 @@ public class EnemyFactory
         var originalMovement = enemyRecord.movementStrategy;
         string moveJson = JsonUtility.ToJson(originalMovement);
         IMovementStrategy clonedMovement = JsonUtility.FromJson(moveJson, originalMovement.GetType()) as IMovementStrategy;
+        
         var originalAttacking = enemyRecord.attackingStrategy;
         string attackJson = JsonUtility.ToJson(originalAttacking);
         IAttackingStrategy clonedAttack = JsonUtility.FromJson(moveJson, originalAttacking.GetType()) as IAttackingStrategy;
 
-        return new object[] { clonedMovement, clonedAttack };
+        var originalDefending = enemyRecord.defendingStrategy;
+        string defendJson = JsonUtility.ToJson(originalAttacking);
+        IDefendingStrategy cloneddefend = JsonUtility.FromJson(moveJson, originalDefending.GetType()) as IDefendingStrategy;
+
+        return new object[] { clonedMovement, clonedAttack, cloneddefend };
     }
 }

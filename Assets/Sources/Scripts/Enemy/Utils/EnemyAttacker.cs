@@ -10,30 +10,25 @@ public class EnemyAttacker : MonoBehaviour
     [SerializeField] EnemyWeapon _weapon;
 
     private BoxCollider _collider;
-    private BoxCollider _weaponCollider;
-
+    
     private void Awake()
     {
-        _collider = GetComponent<BoxCollider>();
-        _weaponCollider = _weapon.GetComponent<BoxCollider>();
+        _collider = GetComponent<BoxCollider>();        
 
-        if (_weaponCollider == null)
-            throw new ArgumentNullException(nameof(_weaponCollider));
-
-        if (_collider == null)
-            throw new ArgumentNullException(nameof(_collider));
+        if (_weapon == null)
+            throw new ArgumentNullException(nameof(_weapon));
     }
 
-    public void Enable()
+    public void Activate()
     {
         _collider.enabled = true;
-        _weaponCollider.enabled = true;
+        _weapon.Activate();
     }
 
-    public void Disable()
+    public void Deactivate()
     {
         _collider.enabled = false;
-        _weaponCollider.enabled = false;
+        _weapon.Deactivate();
     }
 
     private void OnTriggerEnter(Collider other)

@@ -282,7 +282,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6240128658431495838, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
       propertyPath: m_Name
-      value: StartWarrior
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6261281293582087236, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
       propertyPath: m_IsActive
@@ -446,6 +446,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8469099009854596160, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
       propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840146890146578989, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840146890146578989, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
+      propertyPath: m_Radius
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840146890146578989, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
+      propertyPath: m_Center.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840146890146578989, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
+      propertyPath: m_Center.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840146890146578989, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
+      propertyPath: m_Center.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:

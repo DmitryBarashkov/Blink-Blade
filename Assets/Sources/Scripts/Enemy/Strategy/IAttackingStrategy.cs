@@ -1,15 +1,12 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public interface IAttackingStrategy
 {
     event Action AttackStarted;
     event Action AttackStopped;
     void Initialize(EnemyAttacker attacker, IAudioService audioService, EnemyAnimator animator);
-    void Enable();    
-    void Disable();
+    void Activate();    
+    void Deactivate();
 }
 
 public class MeleeAttack : IAttackingStrategy
@@ -28,16 +25,16 @@ public class MeleeAttack : IAttackingStrategy
         _animator = animator;
     }
 
-    public void Enable()
+    public void Activate()
     {
-        _attacker.Enable();
+        _attacker.Activate();
         _attacker.OnPlayerInAttackArea += Attack;
         _attacker.OnPlayerOutAttackArea += StopAttack;
     }
 
-    public void Disable()
+    public void Deactivate()
     {
-        _attacker.Disable();
+        _attacker.Deactivate();
         _attacker.OnPlayerInAttackArea -= Attack;
         _attacker.OnPlayerOutAttackArea -= StopAttack;
     }
