@@ -664,11 +664,11 @@ PlayerSettings:
     PS4: YandexGamesPlatform_yg;PLUGIN_YG_2;TMP_YG2;RU_YG2;Authorization_yg;Storage_yg;DOTWEEN;DOTWEEN_UITOOLKIT;RewardedAdv_yg;Payments_yg;StickyAdv_yg;InterstitialAdv_yg;Localization_yg;AutoTranslateLangs_yg;NJSON_YG2;NJSON_STORAGE_YG2
     PS5: YandexGamesPlatform_yg;PLUGIN_YG_2;TMP_YG2;RU_YG2;Authorization_yg;Storage_yg;DOTWEEN;DOTWEEN_UITOOLKIT;RewardedAdv_yg;Payments_yg;StickyAdv_yg;InterstitialAdv_yg;Localization_yg;AutoTranslateLangs_yg;NJSON_YG2;NJSON_STORAGE_YG2
     QNX: DOTWEEN;DOTWEEN_UITOOLKIT
-    Server: PROBUILDER_EXPERIMENTAL_FEATURES
+    Server: 
     Stadia: DOTWEEN;DOTWEEN_UITOOLKIT
-    Standalone: YandexGamesPlatform_yg;PLUGIN_YG_2;TMP_YG2;RU_YG2;PROBUILDER_EXPERIMENTAL_FEATURES;Authorization_yg;Storage_yg;DOTWEEN;DOTWEEN_UITOOLKIT;RewardedAdv_yg;Payments_yg;StickyAdv_yg;InterstitialAdv_yg;Localization_yg;AutoTranslateLangs_yg;NJSON_YG2;NJSON_STORAGE_YG2
+    Standalone: YandexGamesPlatform_yg;PLUGIN_YG_2;TMP_YG2;RU_YG2;Authorization_yg;Storage_yg;DOTWEEN;DOTWEEN_UITOOLKIT;RewardedAdv_yg;Payments_yg;StickyAdv_yg;InterstitialAdv_yg;Localization_yg;AutoTranslateLangs_yg;NJSON_YG2;NJSON_STORAGE_YG2
     VisionOS: DOTWEEN;DOTWEEN_UITOOLKIT
-    WebGL: YandexGamesPlatform_yg;PLUGIN_YG_2;TMP_YG2;RU_YG2;PROBUILDER_EXPERIMENTAL_FEATURES;Authorization_yg;Storage_yg;DOTWEEN;DOTWEEN_UITOOLKIT;RewardedAdv_yg;Payments_yg;StickyAdv_yg;InterstitialAdv_yg;Localization_yg;AutoTranslateLangs_yg;NJSON_YG2;NJSON_STORAGE_YG2
+    WebGL: YandexGamesPlatform_yg;PLUGIN_YG_2;TMP_YG2;RU_YG2;Authorization_yg;Storage_yg;DOTWEEN;DOTWEEN_UITOOLKIT;RewardedAdv_yg;Payments_yg;StickyAdv_yg;InterstitialAdv_yg;Localization_yg;AutoTranslateLangs_yg;NJSON_YG2;NJSON_STORAGE_YG2
     Windows Store Apps: YandexGamesPlatform_yg;PLUGIN_YG_2;TMP_YG2;RU_YG2;Authorization_yg;Storage_yg;DOTWEEN;DOTWEEN_UITOOLKIT;RewardedAdv_yg;Payments_yg;StickyAdv_yg;InterstitialAdv_yg;Localization_yg;AutoTranslateLangs_yg;NJSON_YG2;NJSON_STORAGE_YG2
     XboxOne: YandexGamesPlatform_yg;PLUGIN_YG_2;TMP_YG2;RU_YG2;Authorization_yg;Storage_yg;DOTWEEN;DOTWEEN_UITOOLKIT;RewardedAdv_yg;Payments_yg;StickyAdv_yg;InterstitialAdv_yg;Localization_yg;AutoTranslateLangs_yg;NJSON_YG2;NJSON_STORAGE_YG2
     iPhone: YandexGamesPlatform_yg;PLUGIN_YG_2;TMP_YG2;RU_YG2;Authorization_yg;Storage_yg;DOTWEEN;DOTWEEN_UITOOLKIT;RewardedAdv_yg;Payments_yg;StickyAdv_yg;InterstitialAdv_yg;Localization_yg;AutoTranslateLangs_yg;NJSON_YG2;NJSON_STORAGE_YG2

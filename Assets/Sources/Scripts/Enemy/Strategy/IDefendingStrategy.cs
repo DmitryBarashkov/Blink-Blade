@@ -45,7 +45,8 @@ public class ShieldDefense : IDefendingStrategy
 
     public void Activate()
     {
-        _blocker.OnWeaponInBlockingArea += StartBlock;        
+        _blocker.OnWeaponInBlockingArea += StartBlock;
+        _blocker.Reset();
 
         _shield.OnHitWeapon += ShieldImpact;
         _shield.Activate();
@@ -55,7 +56,8 @@ public class ShieldDefense : IDefendingStrategy
 
     public void Deactivate()
     {
-        _blocker.OnWeaponInBlockingArea -= StartBlock;        
+        _blocker.OnWeaponInBlockingArea -= StartBlock;
+        _blocker.Reset();
 
         _shield.OnHitWeapon -= ShieldImpact;
         _shield.Deactivate();
@@ -77,5 +79,6 @@ public class ShieldDefense : IDefendingStrategy
     private void ShieldImpact()
     {
         _animator.BlockImpact();
+        StartBlocking?.Invoke();
     }
 }

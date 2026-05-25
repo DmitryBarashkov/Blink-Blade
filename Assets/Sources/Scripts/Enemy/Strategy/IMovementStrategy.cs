@@ -45,6 +45,7 @@ public class Patrol : IMovementStrategy
     private float _turnSpeed = 0.4f;
 
     private bool _shouldRotate = true;
+    private bool _isActive = true;
 
     public void Initialize(Transform transform, EnemyAnimator animator, float wallCheckDistance)
     {
@@ -58,29 +59,44 @@ public class Patrol : IMovementStrategy
     public void Activate()
     {
         _patrolState = PatrolState.Moving;
+        _isActive = true;
     }
 
     public void Deactivate()
     {
         _patrolState = PatrolState.Stopped;
         _animator.SetWalking(false);
+        _isActive = false;
     }
 
     public void Tick()
     {
-        if (_patrolState == PatrolState.Stopped)
-            return;
-
-        if (_patrolState == PatrolState.Moving)
-            Move();
-        else if (_patrolState == PatrolState.Waiting)
-            Wait();
+        if (_isActive)
+        {
+            switch(_patrolState)
+            {
+                case PatrolState.Stopped:
+                    break;
+                case PatrolState.Moving:
+                    Move();
+                    break;
+                case PatrolState.Waiting:
+                    Wait();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     public void KeepMoving()
     {
-        _patrolState = PatrolState.Waiting;
-        _shouldRotate = false;
+        if (_isActive)
+        {
+            _waitTimer = 0f;
+            _patrolState = PatrolState.Waiting;
+            _shouldRotate = false;
+        }
     }
 
     private void Move()

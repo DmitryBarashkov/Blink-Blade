@@ -33,6 +33,12 @@ public class Blocker : MonoBehaviour
         }
     }
 
+    public void Reset()
+    {
+        _aimTarget.position = Vector3.zero;
+        _isWeaponInZone = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         Weapon weapon = other.GetComponent<Weapon>();

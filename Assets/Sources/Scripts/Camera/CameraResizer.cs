@@ -7,7 +7,7 @@ public class CameraResizer
     private CinemachineVirtualCamera _camera;
     private CinemachineTransposer _transposer;
 
-    private float _portraitOrthoSize = 8f;
+    private float _portraitOrthoSize = 10f;
     private float _albumOrthoSize = 4f;
     private Vector3 _portraitFollowOffset = new Vector3(0, 6f, -10f);
     private Vector3 _albumFollowOffset = new Vector3(0, 1f, -10f);

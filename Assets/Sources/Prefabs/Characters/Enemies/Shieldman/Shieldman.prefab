@@ -3167,8 +3167,8 @@ MonoBehaviour:
         transform: {fileID: 0}
         weight: 0
     m_Offset: {x: 0, y: 0, z: 0}
-    m_MinLimit: -60
-    m_MaxLimit: 60
+    m_MinLimit: -45
+    m_MaxLimit: 45
     m_AimAxis: 4
     m_UpAxis: 2
     m_WorldUpType: 0
@@ -3880,8 +3880,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2.590538, z: 1.4392647}
-  m_Center: {x: 0, y: 0.58588886, z: 0.21963233}
+  m_Size: {x: 1, y: 2.9512, z: 1.6975338}
+  m_Center: {x: 0, y: 0.40555787, z: 0.34876692}
 --- !u!114 &4201298558575324665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4310,8 +4310,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.2373464, y: 0.5, z: 1.9369953}
-  m_Center: {x: -0.5561364, y: 0.08881741, z: -0.21849513}
+  m_Size: {x: 1.65, y: 0.3008959, z: 1.7499999}
+  m_Center: {x: -0.000000042311754, y: 0.13206801, z: -0.000000008854655}
 --- !u!54 &5718209592954966571
 Rigidbody:
   m_ObjectHideFlags: 0
