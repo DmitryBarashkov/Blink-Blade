@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
-public class EnemyWeapon : MonoBehaviour
+public class MeleeWeapon : EnemyWeapon
 {
     private BoxCollider _collider;
     
@@ -10,12 +10,12 @@ public class EnemyWeapon : MonoBehaviour
         _collider = GetComponent<BoxCollider>();
     }
 
-    public void Activate()
+    public override void Activate()
     {
         _collider.enabled = true;
     }
 
-    public void Deactivate()
+    public override void Deactivate()
     {
         _collider.enabled = false;
     }

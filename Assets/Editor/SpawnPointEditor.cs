@@ -15,7 +15,7 @@ public class SpawnPointEditor : Editor
 
         if (db == null || db.enemies == null || db.enemies.Count == 0)
         {
-            EditorGUILayout.HelpBox("Назначьте Enemy Database, в которой есть хотя бы один сконструированный враг.", MessageType.Warning);
+            EditorGUILayout.HelpBox("Enemy Database is empty", MessageType.Warning);
             return;
         }
 
@@ -24,7 +24,7 @@ public class SpawnPointEditor : Editor
 
         for (int i = 0; i < db.enemies.Count; i++)
         {
-            string name = string.IsNullOrEmpty(db.enemies[i].enemyName) ? $"Без имени (Элемент {i})" : db.enemies[i].enemyName;
+            string name = string.IsNullOrEmpty(db.enemies[i].enemyName) ? $"Noname (Element {i})" : db.enemies[i].enemyName;
             optionsList.Add(name);
             
             if (db.enemies[i].enemyName == enemyNameProp.stringValue)
@@ -34,9 +34,9 @@ public class SpawnPointEditor : Editor
         }
 
         EditorGUILayout.Space(10);
-        EditorGUILayout.LabelField("Настройки спавна", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField("Spawn Settings", EditorStyles.boldLabel);
 
-        int newIndex = EditorGUILayout.Popup("Враг для спавна", currentIndex, optionsList.ToArray());
+        int newIndex = EditorGUILayout.Popup("Enemy", currentIndex, optionsList.ToArray());
 
         if (newIndex != currentIndex || string.IsNullOrEmpty(enemyNameProp.stringValue))
         {

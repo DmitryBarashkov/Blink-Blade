@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bb97ff45f644bda469553f1117373812
+guid: 84c9670697264f44fb9737d5f8475bf2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,13 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: MidSurface
-    second: {fileID: 2100000, guid: ec8b3ce04bdc0824a8ce7e14d5aa3fbc, type: 2}
+      name: Grass.001
+    second: {fileID: 2100000, guid: 1889ef02832b2f54280d125a4cb266a3, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: UpSurface
-    second: {fileID: 2100000, guid: f274dd7d9ab81724e9b3f7462c40c312, type: 2}
+      name: Ground.001
+    second: {fileID: 2100000, guid: 669c01b28f5a3c14397b66948ae55eb7, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

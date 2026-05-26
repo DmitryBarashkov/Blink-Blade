@@ -6,14 +6,19 @@ using Zenject;
 [RequireComponent(typeof(Animator))]
 public class Enemy : MonoBehaviour, IResetable
 {
+    [Header("Attack")]
     [SerializeField] EnemyAttacker _attacker;
-    [SerializeField] float _wallCheckDistance;
+
+    [Header("Moving")]
+    [SerializeField] float _wallCheckDistance = 1f;
+    [SerializeField] float _cliffForwardOffset = 0.4f;
     
     [Header(("Defence"))]
     [SerializeField] private Blocker _blocker;
     [SerializeField] private Shield _shield;
 
     private Transform _transform;
+    Transform _playerTransform;
     private CapsuleCollider _collider;
     private Animator _animator;
     private EnemyAnimator _enemyAnimator;
@@ -36,9 +41,11 @@ public class Enemy : MonoBehaviour, IResetable
                           IMovementStrategy movementStrategy, 
                           IAttackingStrategy attackingStrategy,
                           IDefendingStrategy defendingStrategy,
-                          LevelState levelState)
+                          LevelState levelState,
+                          Player player)
     {
-        _transform = transform;        
+        _transform = transform;
+        _playerTransform = player.transform;
         _audioService = audioService;        
         
         _movementStrategy = movementStrategy;
@@ -58,7 +65,7 @@ public class Enemy : MonoBehaviour, IResetable
         _collider = GetComponent<CapsuleCollider>();
         _rigBuilder = GetComponent<RigBuilder>();
 
-        _movementStrategy.Initialize(_transform, _enemyAnimator, _wallCheckDistance);
+        _movementStrategy.Initialize(_transform, _enemyAnimator, _wallCheckDistance, _cliffForwardOffset);
         _attackingStrategy.Initialize(_attacker, _audioService, _enemyAnimator);
         _defendingStrategy.Initialize(_animator, _rigBuilder, _blocker, _shield);
     }
@@ -86,6 +93,7 @@ public class Enemy : MonoBehaviour, IResetable
     private void Update()
     {
         _movementStrategy.Tick();
+        _attackingStrategy.Tick(_transform, _playerTransform);
     }
 
     public void Activate()
@@ -121,7 +129,7 @@ public class Enemy : MonoBehaviour, IResetable
 
     private void StopMove()
     {
-        _movementStrategy.Deactivate();
+        _movementStrategy.Stop();
     }
 
     private void KeepMove()

@@ -16,10 +16,11 @@ public enum SoundType
 
     ThrowWeapon,
     SwordAttack,
+    ArcherStartAim,
     Teleport,
     Hurt,
     WeaponGrassHit,
-    ArrowGrassHit,
+    BowShot,
     WeaponMetalHit,
 
     FallingOnGround,

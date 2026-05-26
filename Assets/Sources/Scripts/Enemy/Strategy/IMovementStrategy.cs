@@ -5,22 +5,24 @@ using UnityEngine;
 public interface IMovementStrategy
 {
     event Action MovementStarted;
-    void Initialize(Transform transform, EnemyAnimator animator, float wallCheckDistance);
+    void Initialize(Transform transform, EnemyAnimator animator, float wallCheckDistance, float cliffForwardOffset);
     void Activate();
     void Tick();
     void KeepMoving();
     void Deactivate();
+    void Stop();
 }
 
 [Serializable]
 public class Idle : IMovementStrategy
 {
     public event Action MovementStarted = delegate { };
-    public void Initialize(Transform transform, EnemyAnimator animator, float wallCheckDistance) { }
+    public void Initialize(Transform transform, EnemyAnimator animator, float wallCheckDistance, float cliffForwardOffset) { }
     public void Activate() { }
     public void Tick() { }
     public void KeepMoving() { }
     public void Deactivate() { }
+    public void Stop() { }
 }
 
 [Serializable]
@@ -37,7 +39,7 @@ public class Patrol : IMovementStrategy
     private float _speed = 1.5f;
     private float _idleTime = 3f;
     private float _wallCheckDistance;
-    private float _cliffForwardOffset = 0.4f;
+    private float _cliffForwardOffset;
     private float _cliffCheckDistance = 0.5f;
     private float _waitTimer = 0f;
     private float _rightTurn = 90f;
@@ -47,11 +49,12 @@ public class Patrol : IMovementStrategy
     private bool _shouldRotate = true;
     private bool _isActive = true;
 
-    public void Initialize(Transform transform, EnemyAnimator animator, float wallCheckDistance)
+    public void Initialize(Transform transform, EnemyAnimator animator, float wallCheckDistance, float cliffForwardOffset)
     {
         _transform = transform;
         _animator = animator;
         _wallCheckDistance = wallCheckDistance;
+        _cliffForwardOffset = cliffForwardOffset;
         _groundLayer = LayerMask.GetMask("Ground");
         _patrolState = PatrolState.Stopped;
     }
@@ -95,8 +98,14 @@ public class Patrol : IMovementStrategy
         {
             _waitTimer = 0f;
             _patrolState = PatrolState.Waiting;
-            _shouldRotate = false;
+            _shouldRotate = IsHittingWall() || IsAtCliff();
         }
+    }
+
+    public void Stop() 
+    {
+        _animator.SetWalking(false);
+        _patrolState = PatrolState.Stopped;
     }
 
     private void Move()

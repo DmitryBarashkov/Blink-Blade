@@ -45,6 +45,22 @@ MonoBehaviour:
       rid: 3747826653048340518
     defendingStrategy:
       rid: 3747826672688431109
+  - enemyName: Archer Idle
+    prefab: {fileID: 4105221787743141580, guid: 2def9359f9aa0524f8048af7f18aefdf, type: 3}
+    movementStrategy:
+      rid: 3747826719521505280
+    attackingStrategy:
+      rid: 3747826719521505281
+    defendingStrategy:
+      rid: 3747826719521505282
+  - enemyName: Archer Patrol
+    prefab: {fileID: 4105221787743141580, guid: 2def9359f9aa0524f8048af7f18aefdf, type: 3}
+    movementStrategy:
+      rid: 3747826719521505283
+    attackingStrategy:
+      rid: 3747826719521505281
+    defendingStrategy:
+      rid: 3747826719521505282
   references:
     version: 2
     RefIds:
@@ -77,4 +93,16 @@ MonoBehaviour:
       data: 
     - rid: 3747826672688431109
       type: {class: ShieldDefense, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3747826719521505280
+      type: {class: Idle, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3747826719521505281
+      type: {class: RangedAttack, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3747826719521505282
+      type: {class: Defenceless, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3747826719521505283
+      type: {class: Patrol, ns: , asm: Assembly-CSharp}
       data: 
