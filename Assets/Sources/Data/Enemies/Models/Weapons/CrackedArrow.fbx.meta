@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: eb09b42d918eb814984a3e6451da1100
+guid: f8f26d11f7fa54a4091e5f1fbf5bcaa0
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,13 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Grass
-    second: {fileID: 2100000, guid: 70322e6f6e8faa5499b6e9d0afabaa93, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Ground
-    second: {fileID: 2100000, guid: 18bcadf4ff4addd4fab8cadfe50073c4, type: 2}
+      name: Base Palette Matetial
+    second: {fileID: 2100000, guid: a4b7aa925e537014b89ad89c0d42877f, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

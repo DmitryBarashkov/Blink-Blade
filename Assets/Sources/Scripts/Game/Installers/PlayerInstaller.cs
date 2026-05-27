@@ -10,9 +10,6 @@ public class PlayerInstaller : MonoInstaller
     [SerializeField] private Transform _playerSpawnPoint;
     [SerializeField] private List<Weapon> _weaponPrefabs;    
     
-    [SerializeField] private ParticleSystem _teleportEffect;
-    [SerializeField] private ParticleSystem _trailTeleportEffect;
-
     [SerializeField] private CinemachineVirtualCamera _camera;
 
     [SerializeField] private AimingArrow _aimingArrow;
@@ -45,11 +42,6 @@ public class PlayerInstaller : MonoInstaller
 
     private void BindPlayerUtils()
     {
-        Container.Bind<EffectsSpawner>()
-            .AsSingle()
-            .WithArguments(_teleportEffect, _trailTeleportEffect)
-            .NonLazy();
-
         Container.Bind<PlayerStats>().AsSingle();
         Container.Bind<Teleport>().AsSingle();               
         Container.Bind<Aimer>().AsSingle().WithArguments(_camera);

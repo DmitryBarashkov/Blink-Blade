@@ -8,6 +8,8 @@ using Zenject;
 [RequireComponent(typeof(HitEffectSpawner))]
 public class Player : MonoBehaviour, IResetable
 {
+    [SerializeField] private ParticleSystem _teleportEffect;
+    
     [Inject] private PlayerStats _playerStats;
     [Inject] private Level _level;
     
@@ -33,8 +35,11 @@ public class Player : MonoBehaviour, IResetable
     private bool _canTeleport = false;
     private bool _isAiming = false;
     private bool _isDead = false;
+    private bool _isInvincible;
 
-    private int _energy;    
+    private int _energy;
+
+    public bool IsInvincible => _isInvincible;
 
     private void Awake()
     {
@@ -44,7 +49,7 @@ public class Player : MonoBehaviour, IResetable
         _effect = GetComponent<HitEffectSpawner>();
 
         _weapon.Initialize(_weaponHandler, _audioService);
-        _teleport.Initialize(_weapon, _transform, _collider, _rigidBody);
+        _teleport.Initialize(_weapon, _transform, _collider, _rigidBody, _teleportEffect);
         _aimer.Initialize(_transform, _animator);
 
         _playerStats.currentEnergy.Value = _energy;
@@ -106,6 +111,8 @@ public class Player : MonoBehaviour, IResetable
         _canTeleport = false;
         _isAiming = false;
         _isDead = false;
+        _isInvincible = false;
+
         _energy = YG2.saves.energy;
         _playerStats.currentEnergy.Value = _energy;
         
@@ -136,6 +143,7 @@ public class Player : MonoBehaviour, IResetable
         _rigidBody.useGravity = true;
         _rigidBody.velocity = Vector3.zero;
         _rigidBody.angularVelocity = Vector3.zero;
+        _isInvincible = true;
 
         _isDead = true;
         _canTeleport = false;

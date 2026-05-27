@@ -22,9 +22,9 @@ public class MeleeWeapon : EnemyWeapon
     
     private void OnCollisionEnter(Collision collision)
     {
-        Player player = collision.collider.GetComponent<Player>();
+        Player player = collision.collider.GetComponent<Player>();        
 
-        if (player != null)
+        if (player && player.IsInvincible == false)
         {
             player.Die(collision.contacts[0]);            
         }

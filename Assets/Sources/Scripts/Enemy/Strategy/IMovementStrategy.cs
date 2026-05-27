@@ -155,7 +155,9 @@ public class Patrol : IMovementStrategy
             _transform.DORotate(new Vector3(currentRotation.x, targetTurn, currentRotation.z), _turnSpeed, RotateMode.Fast)
                 .OnComplete(() =>
                 {
-                    _patrolState = PatrolState.Moving;
+                    if (_patrolState != PatrolState.Stopped)
+                        _patrolState = PatrolState.Moving;
+                    
                     _waitTimer = 0f;
                 });
         }

@@ -22,7 +22,9 @@ public abstract class EnemyAttacker : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Player>())
+        Player player = other.GetComponent<Player>();
+        
+        if (player && player.IsInvincible == false)
         {
             OnPlayerInAttackArea?.Invoke();
         }
@@ -30,7 +32,9 @@ public abstract class EnemyAttacker : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<Player>())
+        Player player = other.GetComponent<Player>();
+        
+        if (player && player.IsInvincible == false)
         {
             OnPlayerOutAttackArea?.Invoke();
         }

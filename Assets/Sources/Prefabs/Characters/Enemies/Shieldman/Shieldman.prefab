@@ -1306,7 +1306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30535b38de8572740a93b55edc2c321f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitEffect: {fileID: 3266235413764761141, guid: 9d54f7b6a6b31144b8142ff711f01bc9, type: 3}
+  _spawnObjectType: 1
   _sound: 10
 --- !u!114 &2013925413208438228
 MonoBehaviour:
@@ -1338,6 +1338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attacker: {fileID: 8033887579840645680}
   _wallCheckDistance: 1
+  _cliffForwardOffset: 0.4
   _blocker: {fileID: 4201298558575324665}
   _shield: {fileID: 8664506510587136672}
 --- !u!1 &3158117298531596225
@@ -4351,8 +4352,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30535b38de8572740a93b55edc2c321f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitEffect: {fileID: 198272901577952178, guid: 8507061b262ea8c48931359405404ccf, type: 3}
-  _sound: 12
+  _spawnObjectType: 2
+  _sound: 13
 --- !u!114 &8664506510587136672
 MonoBehaviour:
   m_ObjectHideFlags: 0

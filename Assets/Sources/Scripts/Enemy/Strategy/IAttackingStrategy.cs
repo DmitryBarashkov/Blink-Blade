@@ -5,10 +5,12 @@ public interface IAttackingStrategy
 {
     event Action AttackStarted;
     event Action AttackStopped;
-    void Initialize(EnemyAttacker attacker, IAudioService audioService, EnemyAnimator animator);
+    void Initialize(EnemyAttacker attacker, IAudioService audioService, 
+                    EnemyAnimator animator,
+                    Transform transform, Transform target, ObjectPoolService poolService);
     void Activate();
     void Deactivate();
-    void Tick(Transform transform, Transform target);
+    void Tick();
 }
 
 public class MeleeAttack : IAttackingStrategy
@@ -20,7 +22,9 @@ public class MeleeAttack : IAttackingStrategy
     private IAudioService _audioService;
     private EnemyAnimator _animator;
     
-    public void Initialize(EnemyAttacker attacker, IAudioService audioService, EnemyAnimator animator)
+    public void Initialize(EnemyAttacker attacker, IAudioService audioService, 
+                           EnemyAnimator animator,
+                           Transform transform, Transform target, ObjectPoolService poolService)
     {
         _attacker = attacker;
         _audioService = audioService;
@@ -41,7 +45,7 @@ public class MeleeAttack : IAttackingStrategy
         _attacker.OnPlayerOutAttackArea -= StopAttack;
     }
 
-    public void Tick(Transform transform, Transform target) { }
+    public void Tick() { }
 
     private void Attack()
     {
@@ -61,19 +65,30 @@ public class RangedAttack : IAttackingStrategy
     public event Action AttackStarted;
     public event Action AttackStopped;
 
+    private ObjectPoolService _poolService;
+    
     private EnemyAttacker _attacker;
     private IAudioService _audioService;
     private EnemyAnimator _animator;
+    private Transform _enemyTransform;
+    private Transform _playerTransform;
 
     private AttackState _attackState; 
     private bool _isActive = false;
     private float _aimingCooldown = 2f;
     private float _cooldownTimer = 0f;
     private float _viewAngle = 120f;
+    private float _shootForce = 15f;
     private LayerMask _obstacleLayer;
 
-    public void Initialize(EnemyAttacker attacker, IAudioService audioService, EnemyAnimator animator)
+    public void Initialize(EnemyAttacker attacker, IAudioService audioService, 
+                           EnemyAnimator animator, 
+                           Transform transform, Transform target, ObjectPoolService poolService)
     {
+        _enemyTransform = transform;
+        _playerTransform = target;
+        _poolService = poolService;
+
         _attacker = attacker;
         _audioService = audioService;
         _animator = animator;
@@ -86,7 +101,9 @@ public class RangedAttack : IAttackingStrategy
         _attackState = AttackState.Idle;
 
         _isActive = true;
-        
+        _animator.SetAiming(false);
+        _cooldownTimer = 0;
+
         _attacker.OnPlayerInAttackArea += TryAim;
         _attacker.OnPlayerOutAttackArea += StopTryAim;
     }
@@ -102,17 +119,17 @@ public class RangedAttack : IAttackingStrategy
         _attacker.OnPlayerOutAttackArea -= StopTryAim;
     }
 
-    public void Tick(Transform transform, Transform target)
+    public void Tick()
     {
         if (_isActive == false)
             return;
         
-        if (target == null || transform == null)
+        if (_playerTransform == null || _enemyTransform == null)
             throw new ArgumentNullException("Attacking strategy transform");
 
         if (_attackState != AttackState.Idle)
         {
-            bool isSeePlayer = CanSeePlayer(transform, target);
+            bool isSeePlayer = CanSeePlayer(_enemyTransform, _playerTransform);
 
             if (isSeePlayer)
                 Aim();
@@ -123,6 +140,7 @@ public class RangedAttack : IAttackingStrategy
 
     private void TryAim()
     {
+        _cooldownTimer = 0;
         _attackState = AttackState.TryAiming;
         _animator.SetAiming(false);
     }
@@ -134,7 +152,7 @@ public class RangedAttack : IAttackingStrategy
             AttackStarted?.Invoke();
             _animator.SetAiming(true);
             _attackState = AttackState.Aiming;
-            //_audioService.PlaySound(SoundType.ArcherStartAim);
+            _audioService.PlaySound(SoundType.ArcherStartAim);
         }
 
         _cooldownTimer += Time.deltaTime;
@@ -157,9 +175,21 @@ public class RangedAttack : IAttackingStrategy
 
     private void Shoot()
     {
-        _attackState = AttackState.Shoot;        
+        Vector3 startPosition = _enemyTransform.position + Vector3.up;
+        Vector3 targetPosition = _playerTransform.position + Vector3.up;
+        Vector3 direction = (targetPosition - startPosition).normalized;
+        Quaternion rotation = Quaternion.LookRotation(direction);
+
+        GameObject arrow = _poolService.Get(ObjectPoolService.PoolObjectTypes.Arrow, startPosition, rotation);
+        Rigidbody rigidbody = arrow.GetComponent<Rigidbody>();
+
+        rigidbody.velocity = Vector3.zero;
+        rigidbody.angularVelocity = Vector3.zero;
+        rigidbody.AddForce(direction * _shootForce, ForceMode.Impulse);
+
+        _attackState = AttackState.Shoot;
         _animator.SetAttack();
-        //_audioService.PlaySound(SoundType.BowShot);
+        _audioService.PlaySound(SoundType.BowShot);
     }
 
     private bool CanSeePlayer(Transform enemyTransform, Transform target)
@@ -168,7 +198,7 @@ public class RangedAttack : IAttackingStrategy
             return false;
 
         Vector3 startPos = enemyTransform.position + Vector3.up;
-        Vector3 targetPos = new Vector3(target.position.x, target.position.y, enemyTransform.position.z) + Vector3.up;
+        Vector3 targetPos = target.position + Vector3.up;
         Vector3 directionToPlayer = targetPos - startPos;
         Vector3 lookDirection = enemyTransform.forward;
         float angleToPlayer = Vector3.Angle(lookDirection, directionToPlayer);

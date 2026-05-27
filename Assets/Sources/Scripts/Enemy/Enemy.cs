@@ -33,6 +33,7 @@ public class Enemy : MonoBehaviour, IResetable
     private Quaternion _initiateRotation;
 
     private IAudioService _audioService;
+    private ObjectPoolService _poolService;
 
     public EnemyAnimator AnimatorInstance => _enemyAnimator;
 
@@ -42,11 +43,13 @@ public class Enemy : MonoBehaviour, IResetable
                           IAttackingStrategy attackingStrategy,
                           IDefendingStrategy defendingStrategy,
                           LevelState levelState,
-                          Player player)
+                          Player player,
+                          ObjectPoolService poolService)
     {
         _transform = transform;
         _playerTransform = player.transform;
-        _audioService = audioService;        
+        _audioService = audioService;
+        _poolService = poolService;
         
         _movementStrategy = movementStrategy;
         _attackingStrategy = attackingStrategy;
@@ -66,7 +69,7 @@ public class Enemy : MonoBehaviour, IResetable
         _rigBuilder = GetComponent<RigBuilder>();
 
         _movementStrategy.Initialize(_transform, _enemyAnimator, _wallCheckDistance, _cliffForwardOffset);
-        _attackingStrategy.Initialize(_attacker, _audioService, _enemyAnimator);
+        _attackingStrategy.Initialize(_attacker, _audioService, _enemyAnimator, _transform, _playerTransform, _poolService);
         _defendingStrategy.Initialize(_animator, _rigBuilder, _blocker, _shield);
     }
 
@@ -93,7 +96,7 @@ public class Enemy : MonoBehaviour, IResetable
     private void Update()
     {
         _movementStrategy.Tick();
-        _attackingStrategy.Tick(_transform, _playerTransform);
+        _attackingStrategy.Tick();
     }
 
     public void Activate()

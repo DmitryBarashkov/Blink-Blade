@@ -13,16 +13,38 @@ public class CommonLevelInstaller : MonoInstaller
     [SerializeField] private AssetReference _loseGameScreen;
     [SerializeField] private CanvasScaler[] _canvasScales;
 
+    [Header("Services")]
+    [SerializeField] private AudioService _audioServicePrefab;
+    [SerializeField] private ObjectPoolService _objectPoolServicePrefab;
+
     [Header("Containers")]
     [SerializeField] private Transform _enemyContainer;
-    [SerializeField] private Transform _effectsContainer;
+    [SerializeField] private Transform _serviceContainer;
+    [SerializeField] private Transform _poolContainer;
 
     public override void InstallBindings()
     {
+        InstallServices();
         BindEnemies();
         BindLevelServices();
         BindEnemiesUI();
         BindUIServices();        
+    }
+
+    private void InstallServices()
+    {
+        Container.BindInterfacesAndSelfTo<AudioService>()
+            .FromComponentInNewPrefab(_audioServicePrefab)
+            .UnderTransform(_serviceContainer)
+            .AsSingle()
+            .NonLazy();
+
+        Container.BindInterfacesAndSelfTo<ObjectPoolService>()
+            .FromComponentInNewPrefab(_objectPoolServicePrefab)
+            .UnderTransform(_serviceContainer)
+            .AsSingle()
+            .WithArguments(_poolContainer)
+            .NonLazy();
     }
 
     private void BindEnemies()

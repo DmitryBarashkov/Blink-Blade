@@ -1,13 +1,14 @@
 using UnityEngine;
 using Zenject;
+using static ObjectPoolService;
 
 public class Teleport
 {
     private Weapon _weapon;
     private Transform _playerTransform;
     private CapsuleCollider _safePositionCollider;    
-    private Rigidbody _playerRigidbody;
-    private EffectsSpawner _effectsSpawner;
+    private Rigidbody _playerRigidbody;    
+    private ParticleSystem _effect;
     private IAudioService _audioService;
 
     private float _playerHeight;
@@ -16,18 +17,18 @@ public class Teleport
     private float _verticalOffset = 1.8f;
 
     [Inject]
-    private void Construct(EffectsSpawner effectsSpawner, IAudioService audioService)
+    private void Construct(ObjectPoolService poolService, IAudioService audioService)
     {
-        _effectsSpawner = effectsSpawner;
-        _audioService = audioService;
+        _audioService = audioService;        
     }
 
-    public void Initialize(Weapon weapon, Transform playerTransform, CapsuleCollider collider, Rigidbody rigidbody)
+    public void Initialize(Weapon weapon, Transform playerTransform, CapsuleCollider collider, Rigidbody rigidbody, ParticleSystem teleportEffect)
     {
         _weapon = weapon;
         _playerTransform = playerTransform;
         _safePositionCollider = collider;
         _playerRigidbody = rigidbody;
+        _effect = teleportEffect;
 
         _playerHeight = _safePositionCollider.height * _playerTransform.lossyScale.y;
     }
@@ -36,8 +37,6 @@ public class Teleport
     {
         Vector3 newPosition = GetSafePosition();
         Vector3 centerPlayerPosition = Vector3.up * _playerHeight / 2;
-        Vector3 startLinePosition = _playerTransform.position + centerPlayerPosition;
-        Vector3 endLinePosition = newPosition;
 
         _playerRigidbody.velocity = Vector3.zero;
         _playerRigidbody.angularVelocity = Vector3.zero;
@@ -45,8 +44,7 @@ public class Teleport
 
         _weapon.ReturnToWeaponHandler();
 
-        _effectsSpawner.SpawnTrailEffect(startLinePosition, endLinePosition);
-        _effectsSpawner.SpawnTeleportEffect(_playerTransform);
+        _effect.Play();
         _audioService.PlaySound(SoundType.Teleport);
     }
 

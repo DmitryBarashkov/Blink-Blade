@@ -8,8 +8,6 @@ public class GlobalInstaller : MonoInstaller
 {
     [Header("Настройки языковых флагов")]
     [SerializeField] private List<LanguageSpritePair> _languageFlags;
-    [Header("Сервис звуков")]
-    [SerializeField] private AudioService _audioServicePrefab;
     [Header("База врагов")]
     [SerializeField] private EnemyDatabase _database;
 
@@ -21,11 +19,6 @@ public class GlobalInstaller : MonoInstaller
         Container.BindInterfacesTo<Bootstrap>().AsSingle().NonLazy();
         Container.Bind<InputService>().AsSingle();
         Container.Bind<SavesYG>().AsSingle();        
-
-        Container.BindInterfacesAndSelfTo<AudioService>()            
-            .FromComponentInNewPrefab(_audioServicePrefab)
-            .AsSingle()
-            .NonLazy();
 
         BindLanguages();
     }
