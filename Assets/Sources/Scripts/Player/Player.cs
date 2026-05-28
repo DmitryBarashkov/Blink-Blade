@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using YG;
 using Zenject;
@@ -8,6 +9,8 @@ using Zenject;
 [RequireComponent(typeof(HitEffectSpawner))]
 public class Player : MonoBehaviour, IResetable
 {
+    public event Action Dead;
+
     [SerializeField] private ParticleSystem _teleportEffect;
     
     [Inject] private PlayerStats _playerStats;
@@ -131,6 +134,8 @@ public class Player : MonoBehaviour, IResetable
 
     public void Die(ContactPoint hitPoint)
     {
+        Dead?.Invoke();
+
         _input.Deactivate();
         
         _effect.Perform(hitPoint);

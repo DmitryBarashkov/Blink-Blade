@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 [RequireComponent(typeof(Collider))]
 public abstract class EnemyAttacker : MonoBehaviour
@@ -8,7 +9,7 @@ public abstract class EnemyAttacker : MonoBehaviour
     public event Action OnPlayerOutAttackArea;
     
     [SerializeField] protected EnemyWeapon _weapon;
-    
+
     protected Collider _collider;
 
     private void Awake()

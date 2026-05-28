@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using Zenject;
@@ -18,7 +19,7 @@ public class Enemy : MonoBehaviour, IResetable
     [SerializeField] private Shield _shield;
 
     private Transform _transform;
-    Transform _playerTransform;
+    private Player _player;
     private CapsuleCollider _collider;
     private Animator _animator;
     private EnemyAnimator _enemyAnimator;
@@ -47,7 +48,7 @@ public class Enemy : MonoBehaviour, IResetable
                           ObjectPoolService poolService)
     {
         _transform = transform;
-        _playerTransform = player.transform;
+        _player = player;
         _audioService = audioService;
         _poolService = poolService;
         
@@ -69,7 +70,7 @@ public class Enemy : MonoBehaviour, IResetable
         _rigBuilder = GetComponent<RigBuilder>();
 
         _movementStrategy.Initialize(_transform, _enemyAnimator, _wallCheckDistance, _cliffForwardOffset);
-        _attackingStrategy.Initialize(_attacker, _audioService, _enemyAnimator, _transform, _playerTransform, _poolService);
+        _attackingStrategy.Initialize(_attacker, _audioService, _enemyAnimator, this, _player, _poolService);
         _defendingStrategy.Initialize(_animator, _rigBuilder, _blocker, _shield);
     }
 
@@ -80,7 +81,9 @@ public class Enemy : MonoBehaviour, IResetable
         _attackingStrategy.AttackStarted += StopMove;
         _attackingStrategy.AttackStopped += KeepMove;
 
-        _defendingStrategy.StartBlocking += KeepMove;        
+        _defendingStrategy.StartBlocking += KeepMove;
+
+        _player.Dead += Deactivate;
     }
 
     private void OnDisable()
@@ -91,6 +94,8 @@ public class Enemy : MonoBehaviour, IResetable
 
         _defendingStrategy.StartBlocking -= KeepMove;        
         _defendingStrategy.Deactivate();
+
+        _player.Dead -= Deactivate;
     }
 
     private void Update()
@@ -143,5 +148,12 @@ public class Enemy : MonoBehaviour, IResetable
     private void OnStartMoving()
     {
         _defendingStrategy.StopBlock();
+    }
+
+    private void Deactivate()
+    {
+        _attackingStrategy.Deactivate();
+        _defendingStrategy.Deactivate();        
+        _collider.enabled = false;
     }
 }

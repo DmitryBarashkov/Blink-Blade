@@ -42,11 +42,11 @@ public class EnemyFactory
         
         var originalAttacking = enemyRecord.attackingStrategy;
         string attackJson = JsonUtility.ToJson(originalAttacking);
-        IAttackingStrategy clonedAttack = JsonUtility.FromJson(moveJson, originalAttacking.GetType()) as IAttackingStrategy;
+        IAttackingStrategy clonedAttack = JsonUtility.FromJson(attackJson, originalAttacking.GetType()) as IAttackingStrategy;
 
         var originalDefending = enemyRecord.defendingStrategy;
         string defendJson = JsonUtility.ToJson(originalAttacking);
-        IDefendingStrategy cloneddefend = JsonUtility.FromJson(moveJson, originalDefending.GetType()) as IDefendingStrategy;
+        IDefendingStrategy cloneddefend = JsonUtility.FromJson(defendJson, originalDefending.GetType()) as IDefendingStrategy;
 
         return new object[] { clonedMovement, clonedAttack, cloneddefend };
     }

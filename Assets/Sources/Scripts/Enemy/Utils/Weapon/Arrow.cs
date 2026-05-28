@@ -9,6 +9,7 @@ public class Arrow : MonoBehaviour
 
     private ObjectPoolService _poolService;
     private MeshRenderer _mesh;
+    private Collider _collider;
     private GameObject _gameObject;
 
     [Inject]
@@ -20,6 +21,7 @@ public class Arrow : MonoBehaviour
     private void Awake()
     {
         _mesh = GetComponent<MeshRenderer>();
+        _collider = GetComponent<Collider>();
         _gameObject = gameObject;
     }
 
@@ -27,6 +29,7 @@ public class Arrow : MonoBehaviour
     {
         _crackEffect.Stop();
         _mesh.enabled = true;
+        _collider.enabled = true;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -45,13 +48,15 @@ public class Arrow : MonoBehaviour
         }
 
         _mesh.enabled = false;
+        _collider.enabled = false;
+
         _crackEffect.Play();
         StartCoroutine(ReturnToPoolAfterParticles());
     }
 
     private IEnumerator ReturnToPoolAfterParticles()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(_crackEffect.main.duration);
 
         _poolService.Release(ObjectPoolService.PoolObjectTypes.Arrow, _gameObject);
     }
