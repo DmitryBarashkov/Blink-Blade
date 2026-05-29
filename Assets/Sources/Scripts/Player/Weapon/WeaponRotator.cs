@@ -4,14 +4,14 @@ using UnityEngine;
 public class WeaponRotator
 {
     private Transform _weaponTransform;
-    private float _rotationOffsetAngle;
+    private float _stickOffsetAngle;
 
     private Vector3 _bladeDirection = Vector3.up;
 
-    public WeaponRotator(Transform weaponTransform, float rotationOffsetAngle)
+    public WeaponRotator(Transform weaponTransform, float stickOffsetAngle)
     {
         _weaponTransform = weaponTransform;
-        _rotationOffsetAngle = rotationOffsetAngle;        
+        _stickOffsetAngle = stickOffsetAngle;        
     }
 
     public void RotateToObstacle(Collision collision)
@@ -31,11 +31,11 @@ public class WeaponRotator
 
         if (targetBladeDir.x > 0)
         {
-            targetRotation *= Quaternion.Euler(0, 180f, -_rotationOffsetAngle);
+            targetRotation *= Quaternion.Euler(0, 180f, -_stickOffsetAngle);
         }
         else
         {
-            targetRotation *= Quaternion.Euler(0, 0, -_rotationOffsetAngle);
+            targetRotation *= Quaternion.Euler(0, 0, -_stickOffsetAngle);
         }
 
         _weaponTransform.rotation = targetRotation;
@@ -54,5 +54,12 @@ public class WeaponRotator
         {
             _weaponTransform.rotation = Quaternion.Euler(0, 0, 0);
         }
+    }
+
+    public void RotateBladeForward(Vector3 direction)
+    {
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        _weaponTransform.rotation = Quaternion.AngleAxis(angle - 90f, Vector3.forward);
     }
 }

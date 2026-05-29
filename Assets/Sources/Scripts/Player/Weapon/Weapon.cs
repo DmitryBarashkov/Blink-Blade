@@ -2,13 +2,13 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(ParticleSystem))]
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] private float _rotationOffsetAngle;
+    [SerializeField] private float _stickOffsetAngle = 50f;
+    [SerializeField] private ParticleSystem _throwEffect;
+    [SerializeField] private float _spinSpeed = 500f;
 
     private GameObject _gameObject;
-    private ParticleSystem _throwEffect;
     private Rigidbody _rigidbody;
     private Collider _collider;
     private Transform _transform;
@@ -19,11 +19,11 @@ public class Weapon : MonoBehaviour
     private Vector3 _startWeaponPosition;    
     private Quaternion _startWeaponRotation;
     
-    private float _fixedZ = 0;
-    private float _spinSpeed = 500f;
+    private float _fixedZ = 0;    
     private float _throwForce = 15f;
     private float _upwardBounceForce = 3f;
     private float _bounceForce = 5f;
+    private float _bounceRotationForce = 1200f;
     private float _movementThreshold = 20f;
     private int _activeLayer;
     private int _passiveLayer;
@@ -37,19 +37,19 @@ public class Weapon : MonoBehaviour
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _collider = GetComponent<Collider>();
-        _throwEffect = GetComponentInChildren<ParticleSystem>();
+        _collider = GetComponent<Collider>();        
         
         _transform = transform;
         _gameObject = gameObject;
 
-        _weaponRotator = new WeaponRotator(_transform, _rotationOffsetAngle);
+        _weaponRotator = new WeaponRotator(_transform, _stickOffsetAngle);
 
         _activeLayer = LayerMask.NameToLayer("PlayerWeaponActive");
         _passiveLayer = LayerMask.NameToLayer("PlayerWeaponPassive");
         _gameObject.layer = _passiveLayer;
 
         _rotateAngle = _spinSpeed;
+        _bounceRotationForce = _spinSpeed > 0 ? _spinSpeed : _bounceRotationForce;
     }
 
     private void Update()
@@ -130,7 +130,7 @@ public class Weapon : MonoBehaviour
                 
         if (_rigidbody.isKinematic == false)
         {
-            ClearVelocity();
+            ResetVelocity();
             _rigidbody.isKinematic = true;
         }
     }
@@ -142,9 +142,17 @@ public class Weapon : MonoBehaviour
 
         _weaponRotator.ResetRotation(rotationAngle);
 
+        if (_spinSpeed == 0)
+        {
+            _weaponRotator.RotateBladeForward(direction);
+        }
+
         _isThrown = true;
         _isShouldRotate = true;
-        _throwEffect.Play();
+
+        if (_throwEffect != null)
+            _throwEffect?.Play();
+
         _audioService.PlaySound(SoundType.ThrowWeapon);
 
         _rigidbody.isKinematic = false;
@@ -164,7 +172,7 @@ public class Weapon : MonoBehaviour
     {
         Vector3 bounceDirection = hitPoint.normal;
 
-        ClearVelocity();
+        ResetVelocity();
 
         bounceDirection.y = 0;
         bounceDirection.Normalize();
@@ -173,11 +181,11 @@ public class Weapon : MonoBehaviour
 
         _rigidbody.AddForce(bounceDirection * _bounceForce, ForceMode.Impulse);
         
-        _rotateAngle = -_spinSpeed;
+        _rotateAngle = -_bounceRotationForce;
         _isShouldRotate = true;
     }
 
-    private void ClearVelocity()
+    private void ResetVelocity()
     {
         _rigidbody.velocity = Vector3.zero;
         _rigidbody.angularVelocity = Vector3.zero;
