@@ -1,3 +1,5 @@
+using System;
+using UniRx;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
@@ -7,10 +9,9 @@ public class CommonLevelInstaller : MonoInstaller
 {
     [Header("UI")]
     [SerializeField] private EnemyPanel _enemyPanelPrefab;    
-    [SerializeField] private Canvas _levelUICanvas;
-    [SerializeField] private Canvas _endGameCanvas;    
     [SerializeField] private AssetReference _winGameScreen;
     [SerializeField] private AssetReference _loseGameScreen;
+    [SerializeField] private AssetReference _shopGameScreen;
     [SerializeField] private CanvasScaler[] _canvasScales;
 
     [Header("Services")]
@@ -21,6 +22,9 @@ public class CommonLevelInstaller : MonoInstaller
     [SerializeField] private Transform _enemyContainer;
     [SerializeField] private Transform _serviceContainer;
     [SerializeField] private Transform _poolContainer;
+    [SerializeField] private Transform _levelUIContainer;
+    [SerializeField] private Transform _endGameContainer;  
+    [SerializeField] private Transform _betweenLevelContainer;  
 
     public override void InstallBindings()
     {
@@ -67,16 +71,30 @@ public class CommonLevelInstaller : MonoInstaller
     {
         Container.BindInterfacesAndSelfTo<EnemyPanel>()
             .FromComponentInNewPrefab(_enemyPanelPrefab)
-            .UnderTransform(_levelUICanvas.transform)
+            .UnderTransform(_levelUIContainer)
             .AsSingle()
             .NonLazy();
     }
 
     private void BindUIServices()
     {
-        Container.Bind<EndGameScreen.Factory>().AsSingle().WithArguments(_endGameCanvas.transform);        
-        Container.BindInterfacesTo<UIService>().AsSingle().WithArguments(_winGameScreen, _loseGameScreen);
+        Container.BindInterfacesAndSelfTo<UIService>().AsSingle().WithArguments(_winGameScreen, _loseGameScreen, _shopGameScreen, _endGameContainer, _betweenLevelContainer).NonLazy();
         Container.Bind<CanvasScaleAdapter>().AsSingle().WithArguments(_canvasScales).NonLazy();
-        Container.BindInterfacesAndSelfTo<ScreenResolutionAdapter>().AsSingle().NonLazy();        
+        Container.BindInterfacesAndSelfTo<ScreenResolutionAdapter>().AsSingle().NonLazy();
+
+        Container.BindFactory<Transform, AssetReference, IObservable<UIScreen>, UIScreen.Factory>()
+            .FromMethod((container, parent, reference) =>
+            {
+                var handle = Addressables.LoadAssetAsync<GameObject>(reference);
+
+                return handle.Task.ToObservable()
+                        .ObserveOnMainThread()
+                        .Select(prefab =>
+                        {
+                            GameObject go = container.InstantiatePrefab(prefab, parent);
+
+                            return go.GetComponent<UIScreen>();
+                        });
+            });
     }
 }

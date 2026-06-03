@@ -1,33 +1,44 @@
-using System;
 using UnityEngine;
 using YG;
 using Zenject;
 
 public class UIInstaller : MonoInstaller
 {
-    [SerializeField] private RectTransform _settingsContainer;
+    [Header("Buttons")]
     [SerializeField] private SoundButton _soundButton;
     [SerializeField] private MusicButton _musicButton;
+    [SerializeField] private ShopButton _shopButtonPrefab;
     [SerializeField] private LanguageButton _languageButton;
-    [SerializeField] private BetweenLevelScreen _betweenLevelScreen;
     [SerializeField] private NoAdsButton _noAdsButtonPrefab;
+
+
+    [Header("Containers")]
+    [SerializeField] private RectTransform _settingsContainer;    
+    [SerializeField] private RectTransform _betweenLevelContainer;
+    [SerializeField] private RectTransform _shopButtonContainer;
 
     public override void InstallBindings()
     {
         BindOptionsUI();
-        BindAdsButton();
+        BindButtons();
     }
 
-    private void BindAdsButton()
+    private void BindButtons()
     {
         if (YG2.saves.isAdsDisabled == false)
         {
             Container.BindInterfacesAndSelfTo<NoAdsButton>()
                 .FromComponentInNewPrefab(_noAdsButtonPrefab)
-                .UnderTransform(_betweenLevelScreen.transform)
+                .UnderTransform(_betweenLevelContainer)
                 .AsSingle()
                 .NonLazy();
         }
+
+        Container.Bind<ShopButton>()
+            .FromComponentInNewPrefab(_shopButtonPrefab)
+            .UnderTransform(_shopButtonContainer)
+            .AsSingle()
+            .NonLazy();
     }
 
     private void BindOptionsUI()

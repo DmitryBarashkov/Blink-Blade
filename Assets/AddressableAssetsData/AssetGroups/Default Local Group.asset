@@ -17,13 +17,33 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 559762190775ece4aa1474fbad70e97a
   m_SerializeEntries:
+  - m_GUID: 488acab2eb67baa409d2ce5324253b9d
+    m_Address: Assets/Sources/Prefabs/UI/Controls/NoAdsButton.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 58bcd45c8d0025344bf2131f00460805
     m_Address: Assets/Sources/Prefabs/UI/Screens/LoseGameScreen.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bd29f8d105979cd4eae89bc887ae230f
+    m_Address: Assets/Sources/Prefabs/UI/Controls/Shop/ShopButton.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c72248cdc9ff0034f8481653af03b5df
     m_Address: Assets/Sources/Prefabs/UI/Screens/WinGameScreen.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c7500a782957413498d9b4a39291aea7
+    m_Address: Assets/Sources/Prefabs/UI/Screens/ShopScreen.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f683c416db58b534d8915d9613177029
+    m_Address: Assets/Sources/Prefabs/UI/Controls/Shop/WeaponItem.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -12,7 +12,9 @@ public class Player : MonoBehaviour, IResetable
     public event Action Dead;
 
     [SerializeField] private ParticleSystem _teleportEffect;
-    
+    [SerializeField] private WeaponHandler _weaponHandler;
+    [SerializeField] private GroundChecker _groundChecker;
+
     [Inject] private PlayerStats _playerStats;
     [Inject] private Level _level;
     
@@ -30,10 +32,7 @@ public class Player : MonoBehaviour, IResetable
     private Aimer _aimer;
     private Teleport _teleport;
     
-    private Weapon _weapon;
-    private WeaponHandler _weaponHandler;
-    
-    private GroundChecker _groundChecker;       
+    private PlayerWeaponController _weaponController;
 
     private bool _canTeleport = false;
     private bool _isAiming = false;
@@ -51,8 +50,8 @@ public class Player : MonoBehaviour, IResetable
         _collider = GetComponent<CapsuleCollider>();
         _effect = GetComponent<HitEffectSpawner>();
 
-        _weapon.Initialize(_weaponHandler, _audioService);
-        _teleport.Initialize(_weapon, _transform, _collider, _rigidBody, _teleportEffect);
+        _weaponController.Initialize(_weaponHandler);
+        _teleport.Initialize(_weaponController.CurrentWeapon, _transform, _collider, _rigidBody, _teleportEffect);
         _aimer.Initialize(_transform, _animator);
 
         _playerStats.currentEnergy.Value = _energy;
@@ -82,10 +81,11 @@ public class Player : MonoBehaviour, IResetable
     }
 
     [Inject]
-    private void Construct(InputService input, Weapon weapon, Teleport teleport, Aimer aimer, int energy, Transform spawnPoint, IAudioService audioService)
+    private void Construct(InputService input, PlayerWeaponController weaponController, Teleport teleport, Aimer aimer, 
+                           int energy, Transform spawnPoint, IAudioService audioService)
     {
         _input = input;        
-        _weapon = weapon;        
+        _weaponController = weaponController;
         _teleport = teleport;
         _aimer = aimer;
         _energy = energy;
@@ -95,9 +95,6 @@ public class Player : MonoBehaviour, IResetable
         _audioService = audioService;
         _transform.position = spawnPoint.position;
         _transform.rotation = spawnPoint.rotation;
-
-        _weaponHandler = GetComponentInChildren<WeaponHandler>();
-        _groundChecker = GetComponentInChildren<GroundChecker>();
     }
 
     public void AddEnergy(int addCount)
@@ -128,8 +125,7 @@ public class Player : MonoBehaviour, IResetable
         _animator.SetDied(false);
         _groundChecker.gameObject.SetActive(true);
 
-        _weapon.ReturnToWeaponHandler();
-        _weapon.SetActive(true);
+        _weaponController.ActivateWeapon();
     }
 
     public void Die(ContactPoint hitPoint)
@@ -143,7 +139,7 @@ public class Player : MonoBehaviour, IResetable
 
         _aimer.StopAim(false);
         _aimer.SetCameraAim(_transform);
-        _weapon.SetActive(false);
+        _weaponController.DeactivateWeapon();
 
         _rigidBody.useGravity = true;
         _rigidBody.velocity = Vector3.zero;

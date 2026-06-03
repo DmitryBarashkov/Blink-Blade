@@ -1,26 +1,34 @@
 using System.Collections.Generic;
 using UniRx;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Zenject;
 
 public class UIService : IInitializable, System.IDisposable
 {
     private readonly LevelState _levelState;
-    private readonly EndGameScreen.Factory _windowFactory;
+    private readonly UIScreen.Factory _windowFactory;
     private readonly AssetReference _winReference;
     private readonly AssetReference _loseReference;
-
-    private readonly Dictionary<AssetReference, EndGameScreen> _cachedWindows = new();
+    private readonly AssetReference _shopReference;
+    private Transform _endGameContainer;
+    private Transform _shopContainer;
+    private readonly Dictionary<AssetReference, UIScreen> _cachedWindows = new();
     private readonly CompositeDisposable _disposables = new CompositeDisposable();
 
     private float _showDelay = 0.5f;
 
-    public UIService(LevelState levelState, EndGameScreen.Factory windowFactory, AssetReference winReference, AssetReference loseReference)
+    public UIService(LevelState levelState, UIScreen.Factory windowFactory,
+                     AssetReference winReference, AssetReference loseReference, AssetReference shopReference,
+                     Transform endGameContainer, Transform shopContainer)
     {
         _levelState = levelState;
         _windowFactory = windowFactory;
         _winReference = winReference;
         _loseReference = loseReference;
+        _shopReference = shopReference;
+        _endGameContainer = endGameContainer;
+        _shopContainer = shopContainer;
     }
 
     public void Initialize()
@@ -32,30 +40,52 @@ public class UIService : IInitializable, System.IDisposable
             {
                 if (isWin.HasValue)
                 {
-                    OnLevelFinished(isWin ?? false, _levelState.IsOutOfEnergy.Value);
+                    OnLevelFinished(isWin ?? false);
                 }
             })            
             .AddTo(_disposables);
     }
 
+    public void ShowShop()
+    {
+        OpenScreen(_shopReference, _shopContainer, screen =>
+        {
+            if (screen is ShopGameScreen shop)
+            {
+                shop.Setup();
+            }
+        });
+    }
+
     public void Dispose() => _disposables.Dispose();
 
-
-    private void OnLevelFinished(bool isWin, bool isOutOfEnergy = false)
+    private void OnLevelFinished(bool isWin)
     {
         AssetReference targetReference = isWin ? _winReference : _loseReference;
 
-        if (_cachedWindows.TryGetValue(targetReference, out var window))
+        OpenScreen(targetReference, _endGameContainer, screen =>
         {
-            window.Setup();
+            if (screen is EndGameScreen endGameScreen)
+            {
+                endGameScreen.Setup();
+            }
+        });
+    }
+
+    private void OpenScreen(AssetReference reference, Transform container, System.Action<UIScreen> onReady)
+    {
+        if (_cachedWindows.TryGetValue(reference, out var screen))
+        {
+            onReady?.Invoke(screen);
         }
         else
         {
-            _windowFactory.Create(targetReference)
-                .Subscribe(window =>
+            _windowFactory.Create(container, reference)
+                .ObserveOnMainThread()
+                .Subscribe(loadedScreen =>
                 {
-                    _cachedWindows[targetReference] = window;
-                    window.Setup(isOutOfEnergy);
+                    _cachedWindows[reference] = loadedScreen;
+                    onReady?.Invoke(loadedScreen);
                 })
                 .AddTo(_disposables);
         }

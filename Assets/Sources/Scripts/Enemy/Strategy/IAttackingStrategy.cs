@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using UnityEngine;
 
 public interface IAttackingStrategy
@@ -80,6 +81,7 @@ public class RangedAttack : IAttackingStrategy
     private float _viewAngle = 120f;
     private float _shootForce = 15f;
     private float _aimHeightFactor = 0.7f;
+    private float _checkHitRadius = 0.2f;
     private Vector3 _playerCenterPosition;
     private Vector3 _enemyCenterPosition;
     private LayerMask _obstacleLayer;
@@ -217,8 +219,6 @@ public class RangedAttack : IAttackingStrategy
         Vector3 lookDirection = _enemyTransform.forward;
         float angleToPlayer = Vector3.Angle(lookDirection, directionToPlayer);
 
-        Debug.DrawRay(startPos, directionToPlayer, Color.red);
-
         if (angleToPlayer > _viewAngle / 2f)
         {
             return false;
@@ -227,8 +227,9 @@ public class RangedAttack : IAttackingStrategy
         float distance = Vector3.Distance(startPos, targetPos);
         RaycastHit hit;
 
-        Debug.DrawRay(startPos, directionToPlayer, Color.red);
-        return Physics.Raycast(startPos, directionToPlayer.normalized, out hit, distance, _obstacleLayer) == false;
+        Debug.DrawLine(startPos, targetPos, Color.red);
+
+        return Physics.SphereCast(startPos, _checkHitRadius, directionToPlayer.normalized, out hit, distance, _obstacleLayer) == false;
     }
 
     private enum AttackState

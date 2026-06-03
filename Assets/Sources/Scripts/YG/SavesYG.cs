@@ -1,10 +1,12 @@
+using System.Collections.Generic;
+
 namespace YG
 {
     public partial class SavesYG
     {
         // Player
         public int level = 0;
-        public int energy = 5;
+        public int energy = 50;
         public int coins = 0;
 
         //Weapon
@@ -15,6 +17,9 @@ namespace YG
 
         // Options
         public bool isSoundOn = true;
-        public bool isMusicOn = true;        
+        public bool isMusicOn = true;
+
+        //Shop
+        public List<int> purchasedItemsIds;
     }
 }

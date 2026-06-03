@@ -1,14 +1,15 @@
 using Cinemachine;
-using System.Collections.Generic;
 using UnityEngine;
 using YG;
 using Zenject;
 
 public class PlayerInstaller : MonoInstaller
 {
+    [SerializeField] private WeaponDatabase _weaponDatabase;   
+    [SerializeField] private Weapon _defaultWeaponPrefab;
+    
     [SerializeField] private Player _playerPrefab;
     [SerializeField] private Transform _playerSpawnPoint;
-    [SerializeField] private List<Weapon> _weaponPrefabs;    
     
     [SerializeField] private CinemachineVirtualCamera _camera;
 
@@ -40,19 +41,26 @@ public class PlayerInstaller : MonoInstaller
         Container.Bind<CameraResizer>().AsSingle().WithArguments(_camera).NonLazy();
     }
 
+    private void BindWeapon()
+    {
+        if (_weaponDatabase.TryGetWeapon(_weaponId, out var weapon))
+            Container.Bind<Weapon>()
+                .FromComponentInNewPrefab(weapon.prefab)
+                .AsSingle()
+                .NonLazy();
+        else
+            Container.Bind<Weapon>()
+                .FromComponentInNewPrefab(_defaultWeaponPrefab)
+                .AsSingle()
+                .NonLazy();            
+    }
+
     private void BindPlayerUtils()
     {
+        Container.Bind<PlayerWeaponController>().AsSingle();
         Container.Bind<PlayerStats>().AsSingle();
         Container.Bind<Teleport>().AsSingle();               
         Container.Bind<Aimer>().AsSingle().WithArguments(_camera);
-    }
-
-    private void BindWeapon()
-    {
-        Container.Bind<Weapon>()
-            .FromComponentInNewPrefab(_weaponPrefabs[_weaponId])
-            .AsSingle()
-            .NonLazy();            
     }
 
     private void BindPlayer()

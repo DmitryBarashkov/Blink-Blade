@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Zenject;
 
 public class AimingArrow : MonoBehaviour
@@ -8,7 +7,7 @@ public class AimingArrow : MonoBehaviour
     [SerializeField] private float _offset = 50f;
     [SerializeField] private float _playerHeightOffset = 1.2f;
 
-    private RectTransform _rectTransform;
+    private RectTransform _rectTransform;    
     private Vector2 _direction;
     private float _maxWidth;
 

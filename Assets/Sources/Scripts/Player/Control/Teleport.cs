@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 using static ObjectPoolService;
@@ -17,7 +18,7 @@ public class Teleport
     private float _verticalOffset = 1.8f;
 
     [Inject]
-    private void Construct(ObjectPoolService poolService, IAudioService audioService)
+    private void Construct(IAudioService audioService)
     {
         _audioService = audioService;        
     }
@@ -46,6 +47,11 @@ public class Teleport
 
         _effect.Play();
         _audioService.PlaySound(SoundType.Teleport);
+    }
+
+    public void ChangeWeapon(Weapon weapon)
+    {
+        _weapon = weapon;
     }
 
     private Vector3 GetSafePosition()

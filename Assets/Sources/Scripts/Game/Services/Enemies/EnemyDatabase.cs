@@ -15,7 +15,7 @@ public class EnemyDatabase : ScriptableObject
         [SerializeReference] public IDefendingStrategy defendingStrategy;
     }
 
-    [Header("Сконструированные враги")]
+    [Header("Assembled Enemies")]
     public List<AssembledEnemy> enemies;
 
     public bool TryGetEnemy(string name, out AssembledEnemy result)

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -6,6 +7,8 @@ public class Weapon : MonoBehaviour
 {
     [SerializeField] private float _stickOffsetAngle = 50f;
     [SerializeField] private ParticleSystem _throwEffect;
+    [SerializeField] private TrailRenderer _trailEffect;
+    [SerializeField] private float _trailDuration = 0.1f;
     [SerializeField] private float _spinSpeed = 500f;
 
     private GameObject _gameObject;
@@ -31,6 +34,7 @@ public class Weapon : MonoBehaviour
     private bool _isShouldRotate = false;
     private bool _isIdle = true;
     private float _rotateAngle;
+    private Coroutine _coroutine;
 
     public bool IsIdle => _isIdle;
 
@@ -85,6 +89,8 @@ public class Weapon : MonoBehaviour
             HitEffectSpawner effect = collision.collider.GetComponent<HitEffectSpawner>();
             ContactPoint hitPoint = collision.contacts[0];
 
+            ResetEffects();
+
             if (effect != null)
             {
                 effect.Perform(hitPoint);
@@ -121,6 +127,8 @@ public class Weapon : MonoBehaviour
         if (_weaponHandler == null)
             return;
 
+        ResetEffects();
+
         _isThrown = false;
         _isShouldRotate = false;
 
@@ -150,9 +158,8 @@ public class Weapon : MonoBehaviour
         _isThrown = true;
         _isShouldRotate = true;
 
-        if (_throwEffect != null)
-            _throwEffect?.Play();
-
+        PerformEffects();
+        
         _audioService.PlaySound(SoundType.ThrowWeapon);
 
         _rigidbody.isKinematic = false;
@@ -189,5 +196,36 @@ public class Weapon : MonoBehaviour
     {
         _rigidbody.velocity = Vector3.zero;
         _rigidbody.angularVelocity = Vector3.zero;
+    }
+
+    private void PerformEffects()
+    {
+        if (_throwEffect != null)
+            _throwEffect.Play(true);
+
+        if (_trailEffect != null)
+        {
+            _trailEffect.emitting = true;
+            _coroutine = StartCoroutine(ShowTrail());
+        }
+    }
+
+    private IEnumerator ShowTrail()
+    {
+        yield return new WaitForSeconds(_trailDuration);
+
+        _trailEffect.emitting = false;
+    }
+
+    private void ResetEffects()
+    {
+        if (_throwEffect != null)
+        {
+            _throwEffect.Clear();
+            _throwEffect.Stop();
+        }
+
+        if (_trailEffect != null)
+            _trailEffect.emitting = false;
     }
 }
