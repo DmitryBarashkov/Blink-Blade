@@ -12,6 +12,7 @@ public class ShopButton : UIButton
 
     public override void HandleClick()
     {
+        _audioService.PlaySound(SoundType.ButtonClick);
         _uiService.ShowShop();
     }
 }

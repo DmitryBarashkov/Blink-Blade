@@ -8,7 +8,7 @@ using Zenject;
 public class CommonLevelInstaller : MonoInstaller
 {
     [Header("UI")]
-    [SerializeField] private EnemyPanel _enemyPanelPrefab;    
+    [SerializeField] private EnemyPanel _enemyPanelPrefab;     
     [SerializeField] private AssetReference _winGameScreen;
     [SerializeField] private AssetReference _loseGameScreen;
     [SerializeField] private AssetReference _shopGameScreen;
@@ -31,7 +31,7 @@ public class CommonLevelInstaller : MonoInstaller
         InstallServices();
         BindEnemies();
         BindLevelServices();
-        BindEnemiesUI();
+        BindEnemiesUIPrefabs();
         BindUIServices();        
     }
 
@@ -42,6 +42,8 @@ public class CommonLevelInstaller : MonoInstaller
             .UnderTransform(_serviceContainer)
             .AsSingle()
             .NonLazy();
+
+        Container.BindInterfacesAndSelfTo<ShopService>().AsSingle().NonLazy();
 
         Container.BindInterfacesAndSelfTo<ObjectPoolService>()
             .FromComponentInNewPrefab(_objectPoolServicePrefab)
@@ -67,7 +69,7 @@ public class CommonLevelInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<Level>().AsSingle().NonLazy();
     }
 
-    private void BindEnemiesUI()
+    private void BindEnemiesUIPrefabs()
     {
         Container.BindInterfacesAndSelfTo<EnemyPanel>()
             .FromComponentInNewPrefab(_enemyPanelPrefab)
@@ -81,20 +83,5 @@ public class CommonLevelInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<UIService>().AsSingle().WithArguments(_winGameScreen, _loseGameScreen, _shopGameScreen, _endGameContainer, _betweenLevelContainer).NonLazy();
         Container.Bind<CanvasScaleAdapter>().AsSingle().WithArguments(_canvasScales).NonLazy();
         Container.BindInterfacesAndSelfTo<ScreenResolutionAdapter>().AsSingle().NonLazy();
-
-        Container.BindFactory<Transform, AssetReference, IObservable<UIScreen>, UIScreen.Factory>()
-            .FromMethod((container, parent, reference) =>
-            {
-                var handle = Addressables.LoadAssetAsync<GameObject>(reference);
-
-                return handle.Task.ToObservable()
-                        .ObserveOnMainThread()
-                        .Select(prefab =>
-                        {
-                            GameObject go = container.InstantiatePrefab(prefab, parent);
-
-                            return go.GetComponent<UIScreen>();
-                        });
-            });
     }
 }

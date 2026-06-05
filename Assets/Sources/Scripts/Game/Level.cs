@@ -1,3 +1,4 @@
+using System;
 using UniRx;
 using YG;
 using Zenject;
@@ -12,11 +13,14 @@ public class Level: IInitializable
 
     private int _enemiesCount;
     private int _levelNumber;
+    private bool _shouldReload = true;
     private LevelRestartService.Factory _restartFactory;
     private AudioService _audioService;
     private EnemySpawner _enemySpawner;
+    private BetweenLevelScreen _menu;
 
-    public Level(EnemySpawner enemySpawner, LevelRestartService.Factory restartFactory, AudioService audioService, LevelState levelState, InputService input)
+    public Level(EnemySpawner enemySpawner, LevelRestartService.Factory restartFactory, AudioService audioService, 
+                 LevelState levelState, InputService input, [Inject(Optional = true)] BetweenLevelScreen menu)
     {
         _restartFactory = restartFactory;
         _levelNumber = YG2.saves.level;
@@ -24,6 +28,7 @@ public class Level: IInitializable
         _enemySpawner = enemySpawner;
         _levelState = levelState;
         _input = input;
+        _menu = menu;
     }
 
     public void Initialize()
@@ -40,11 +45,21 @@ public class Level: IInitializable
             });
     }
 
-    public void StartPlay(bool isReloadLevel = true)
+    public void ShowMenu()
+    {
+        if (_menu == null)
+            return;
+        
+        _input.Deactivate();
+        _shouldReload = false;
+        _menu.Activate();
+    }
+
+    public void StartPlay()
     {
         _input.Activate();
 
-        if (isReloadLevel)
+        if (_shouldReload)
             _enemySpawner.ActivateAllEnemies();
     }
 
@@ -70,5 +85,10 @@ public class Level: IInitializable
         _levelState.Restart(_enemiesCount);
 
         _input.Activate();
+    }
+
+    public void SetReload(bool value)
+    {
+        _shouldReload = value;
     }
 }

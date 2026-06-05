@@ -8,10 +8,12 @@ public abstract class UIButton : MonoBehaviour
     [Inject] protected IAudioService _audioService;
     
     protected Button _button;
+    protected RectTransform _rectTransform;
 
     private void Awake()
     {
         _button = GetComponent<Button>();
+        _rectTransform = GetComponent<RectTransform>();
     }
 
     private void OnEnable()

@@ -1,4 +1,7 @@
+using System;
+using UniRx;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using YG;
 using Zenject;
 
@@ -21,6 +24,27 @@ public class UIInstaller : MonoInstaller
     {
         BindOptionsUI();
         BindButtons();
+        BindScreens();
+    }
+
+    private void BindScreens()
+    {
+        Container.Bind<BetweenLevelScreen>().FromComponentInHierarchy().AsSingle();
+
+        Container.BindFactory<Transform, AssetReference, IObservable<UIScreen>, UIScreen.Factory>()
+            .FromMethod((container, parent, reference) =>
+            {
+                var handle = Addressables.LoadAssetAsync<GameObject>(reference);
+
+                return handle.Task.ToObservable()
+                        .ObserveOnMainThread()
+                        .Select(prefab =>
+                        {
+                            GameObject screen = container.InstantiatePrefab(prefab, parent);
+
+                            return screen.GetComponent<UIScreen>();
+                        });
+            });
     }
 
     private void BindButtons()

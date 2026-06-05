@@ -170,9 +170,19 @@ public class Weapon : MonoBehaviour
         _rotateAngle = _spinSpeed;
     }
 
-    public void SetActive(bool value)
+    public void SetActiveCollider(bool value)
     {
         _collider.enabled = value;
+    }
+
+    public void Activate()
+    {
+        _gameObject.SetActive(true);
+    }
+
+    public void Deactivate()
+    {
+        _gameObject.SetActive(false);
     }
 
     private void Bounce(ContactPoint hitPoint)

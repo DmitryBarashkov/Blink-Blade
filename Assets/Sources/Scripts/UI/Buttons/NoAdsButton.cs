@@ -5,12 +5,6 @@ public class NoAdsButton : UIButton
 {
     private string _buyId = "no_ads";
 
-    [Inject]
-    public void Construct(IAudioService audioService)
-    {
-        _audioService = audioService;        
-    }
-
     private void OnEnable()
     {
         _button.onClick.AddListener(HandleClick);

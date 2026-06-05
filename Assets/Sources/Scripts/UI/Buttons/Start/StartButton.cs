@@ -3,13 +3,14 @@ using Zenject;
 
 public class StartButton : UIButton
 {
-    [SerializeField] private RectTransform _screen;
-    
+    [Inject] private BetweenLevelScreen _screen;
     [Inject] private Level _level;
 
     public override void HandleClick()
     {
-        _screen.gameObject.SetActive(false);
+        if (_screen != null)        
+            _screen.Deactivate();
+
         _level.StartPlay();
     }
 }

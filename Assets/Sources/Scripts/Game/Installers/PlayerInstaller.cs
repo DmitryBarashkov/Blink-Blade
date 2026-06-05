@@ -5,7 +5,6 @@ using Zenject;
 
 public class PlayerInstaller : MonoInstaller
 {
-    [SerializeField] private WeaponDatabase _weaponDatabase;   
     [SerializeField] private Weapon _defaultWeaponPrefab;
     
     [SerializeField] private Player _playerPrefab;
@@ -14,6 +13,8 @@ public class PlayerInstaller : MonoInstaller
     [SerializeField] private CinemachineVirtualCamera _camera;
 
     [SerializeField] private AimingArrow _aimingArrow;
+    
+    [Inject] private WeaponDatabase _weaponDatabase;    
     
     private int _coins;
     private int _energy;
@@ -32,7 +33,7 @@ public class PlayerInstaller : MonoInstaller
     {
         _coins = YG2.saves.coins;
         _energy = YG2.saves.energy;
-        _weaponId = YG2.saves.weaponId;
+        _weaponId = YG2.saves.weaponId;       
     }
 
     private void BindUI()
@@ -58,7 +59,7 @@ public class PlayerInstaller : MonoInstaller
     private void BindPlayerUtils()
     {
         Container.Bind<PlayerWeaponController>().AsSingle();
-        Container.Bind<PlayerStats>().AsSingle();
+        Container.Bind<PlayerStats>().AsSingle().WithArguments(_weaponId);
         Container.Bind<Teleport>().AsSingle();               
         Container.Bind<Aimer>().AsSingle().WithArguments(_camera);
     }

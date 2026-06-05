@@ -16,10 +16,9 @@ public class Aimer
     private float _currentAngle;    
 
     [Inject]
-    private void Construct(CinemachineVirtualCamera camera, Weapon weapon, AimingArrow aimingArrow)
+    private void Construct(CinemachineVirtualCamera camera, AimingArrow aimingArrow)
     {
         _camera = camera;        
-        _weapon = weapon;
         _aimingArrow = aimingArrow;
     }
 
@@ -31,6 +30,11 @@ public class Aimer
 
         _camera.Follow = _playerTransform;
         _camera.LookAt = _playerTransform;
+    }
+
+    public void ChangeWeapon(Weapon weapon)
+    {
+        _weapon = weapon;
     }
 
     public void StartAim()
@@ -53,7 +57,6 @@ public class Aimer
 
         _animator.SetAiming(false);
         _aimingArrow.Hide();
-        
     }
 
     public void RotateToTarget()

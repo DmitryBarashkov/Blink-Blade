@@ -18,7 +18,7 @@ public class UIService : IInitializable, System.IDisposable
 
     private float _showDelay = 0.5f;
 
-    public UIService(LevelState levelState, UIScreen.Factory windowFactory,
+    public UIService(LevelState levelState, [Inject(Optional = true)] UIScreen.Factory windowFactory,
                      AssetReference winReference, AssetReference loseReference, AssetReference shopReference,
                      Transform endGameContainer, Transform shopContainer)
     {
@@ -50,7 +50,7 @@ public class UIService : IInitializable, System.IDisposable
     {
         OpenScreen(_shopReference, _shopContainer, screen =>
         {
-            if (screen is ShopGameScreen shop)
+            if (screen is ShopScreen shop)
             {
                 shop.Setup();
             }

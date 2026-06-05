@@ -11,7 +11,7 @@ public class EnergyBar : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _valueText;
     [SerializeField] private Image _image;
 
-    [Inject] private PlayerStats _stats;
+    [Inject] private PlayerStats _playerStats;
 
     private float minFillAmount = 0.25f;
     private float maxFillAmount = 1;
@@ -22,7 +22,7 @@ public class EnergyBar : MonoBehaviour
     {
         _maxEnergy = YG2.saves.energy;
         
-        _stats.currentEnergy.Subscribe((currentEnergy) =>
+        _playerStats.currentEnergy.Subscribe((currentEnergy) =>
         {
             _valueText.text = currentEnergy.ToString();
 

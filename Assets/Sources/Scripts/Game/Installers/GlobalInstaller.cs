@@ -9,11 +9,13 @@ public class GlobalInstaller : MonoInstaller
     [Header("Настройки языковых флагов")]
     [SerializeField] private List<LanguageSpritePair> _languageFlags;
     [Header("База врагов")]
-    [SerializeField] private EnemyDatabase _database;
+    [SerializeField] private EnemyDatabase _enemyDatabase;
+    [SerializeField] private WeaponDatabase _weaponDatabase;
 
     public override void InstallBindings()
     {
-        Container.Bind<EnemyDatabase>().FromInstance(_database).AsSingle();
+        Container.Bind<EnemyDatabase>().FromInstance(_enemyDatabase).AsSingle();
+        Container.Bind<WeaponDatabase>().FromInstance(_weaponDatabase).AsSingle();
         Container.Bind<EnemyFactory>().AsSingle();
         Container.Bind<LevelLoadService>().AsSingle();
         Container.BindInterfacesTo<Bootstrap>().AsSingle().NonLazy();

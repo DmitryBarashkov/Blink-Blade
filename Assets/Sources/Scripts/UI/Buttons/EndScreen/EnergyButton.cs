@@ -21,7 +21,8 @@ public class EnergyButton : EndScreenButton
             _screen.Close();
             _levelState.IsWin.Value = null;
             _levelState.EnergyUsed.Value = true;
-            _level.StartPlay(false);
+            _level.SetReload(false);
+            _level.StartPlay();
         });        
     }
 }

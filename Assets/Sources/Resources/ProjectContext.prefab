@@ -81,7 +81,5 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: 4dfcfcbe3fc37fc43bff4d4c71132cd2, type: 3}
   - LanguageCode: tr
     Sprite: {fileID: 21300000, guid: f26a8e775ae3b8245b2d410a94d1d458, type: 3}
-  _audioServicePrefab: {fileID: 5073186087192148321, guid: f88da8382e7f1d34b8bb651bb944e6bb, type: 3}
-  _objectPoolServicePrefab: {fileID: 4245456890897903785, guid: 64a4f868a8c366147b817980bbd3c217, type: 3}
-  _database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  _serviceContainer: {fileID: 0}
+  _enemyDatabase: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
+  _weaponDatabase: {fileID: 11400000, guid: efd8fddbcaaaf4645a81f04671acfd59, type: 2}

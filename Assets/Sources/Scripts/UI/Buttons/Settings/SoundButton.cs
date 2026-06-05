@@ -3,7 +3,7 @@ using Zenject;
 public class SoundButton : ToggleButton
 {
     [Inject]
-    public void Construct(AudioService soundService)
+    public void Construct()
     {
         _isOn = _audioService.GetSoundOn();        
     }

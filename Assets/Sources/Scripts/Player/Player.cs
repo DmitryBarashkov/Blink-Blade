@@ -61,6 +61,7 @@ public class Player : MonoBehaviour, IResetable
     {
         _input.AttackBtnPressed += OnAttackButtonPressed;
         _input.AttackBtnUp += OnAttackButtonUp;
+        _input.MenuOpenBtnPressed += OnMenuOpenBtnPressed;
         _groundChecker.Grounded += OnGroundedChange;
     }
 
@@ -68,6 +69,7 @@ public class Player : MonoBehaviour, IResetable
     {
         _input.AttackBtnPressed -= OnAttackButtonPressed;
         _input.AttackBtnUp -= OnAttackButtonUp;
+        _input.MenuOpenBtnPressed -= OnMenuOpenBtnPressed;
         _groundChecker.Grounded -= OnGroundedChange;
     }
 
@@ -181,6 +183,13 @@ public class Player : MonoBehaviour, IResetable
             _aimer.StartAim();
             _isAiming = true;
         }              
+    }
+
+    private void OnMenuOpenBtnPressed()
+    {
+        _isAiming = false;
+        _aimer.StopAim(false);
+        _level.ShowMenu();
     }
 
     private void Defeat(bool isOutOfEnergy = false)

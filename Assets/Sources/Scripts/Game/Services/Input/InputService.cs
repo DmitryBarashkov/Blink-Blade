@@ -4,9 +4,11 @@ using UnityEngine;
 public class InputService
 {
     private const string Attack = "Fire1";
+    private const string MenuOpen = "Cancel";
 
     public event Action AttackBtnPressed;
     public event Action AttackBtnUp;
+    public event Action MenuOpenBtnPressed;
 
     private bool _isActive = false;
 
@@ -23,6 +25,11 @@ public class InputService
         {
             AttackBtnUp?.Invoke();
         }
+        if (Input.GetButton(MenuOpen))
+        {
+            MenuOpenBtnPressed?.Invoke();
+        }
+
     }
 
     public void Activate()

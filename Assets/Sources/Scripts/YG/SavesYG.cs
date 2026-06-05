@@ -6,7 +6,7 @@ namespace YG
     {
         // Player
         public int level = 0;
-        public int energy = 50;
+        public int energy = 5;
         public int coins = 0;
 
         //Weapon
@@ -20,6 +20,6 @@ namespace YG
         public bool isMusicOn = true;
 
         //Shop
-        public List<int> purchasedItemsIds;
+        public List<int> purchasedItemsIds = new List<int> { 0 };
     }
 }
