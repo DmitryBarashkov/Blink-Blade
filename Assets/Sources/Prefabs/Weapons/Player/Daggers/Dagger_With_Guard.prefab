@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5884713061657701614
+--- !u!1001 &3417196537743036834
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,64 +8,68 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6195975950144897240}
     m_Modifications:
-    - target: {fileID: 5214690587872032525, guid: 81cab3b12ca685842aba6c9eec7cd118, type: 3}
-      propertyPath: m_Name
-      value: DaggerThrowEffect
-      objectReference: {fileID: 0}
-    - target: {fileID: 6856693032577674349, guid: 81cab3b12ca685842aba6c9eec7cd118, type: 3}
+    - target: {fileID: 5106975467338261116, guid: 50583b6783941c74084cc5e5c528ad18, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.0017
       objectReference: {fileID: 0}
-    - target: {fileID: 6856693032577674349, guid: 81cab3b12ca685842aba6c9eec7cd118, type: 3}
+    - target: {fileID: 5106975467338261116, guid: 50583b6783941c74084cc5e5c528ad18, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.1654
       objectReference: {fileID: 0}
-    - target: {fileID: 6856693032577674349, guid: 81cab3b12ca685842aba6c9eec7cd118, type: 3}
+    - target: {fileID: 5106975467338261116, guid: 50583b6783941c74084cc5e5c528ad18, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 6856693032577674349, guid: 81cab3b12ca685842aba6c9eec7cd118, type: 3}
+    - target: {fileID: 5106975467338261116, guid: 50583b6783941c74084cc5e5c528ad18, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: -0.06684985
       objectReference: {fileID: 0}
-    - target: {fileID: 6856693032577674349, guid: 81cab3b12ca685842aba6c9eec7cd118, type: 3}
+    - target: {fileID: 5106975467338261116, guid: 50583b6783941c74084cc5e5c528ad18, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.7071068
+      value: 0.0010268985
       objectReference: {fileID: 0}
-    - target: {fileID: 6856693032577674349, guid: 81cab3b12ca685842aba6c9eec7cd118, type: 3}
+    - target: {fileID: 5106975467338261116, guid: 50583b6783941c74084cc5e5c528ad18, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.9523007
       objectReference: {fileID: 0}
-    - target: {fileID: 6856693032577674349, guid: 81cab3b12ca685842aba6c9eec7cd118, type: 3}
+    - target: {fileID: 5106975467338261116, guid: 50583b6783941c74084cc5e5c528ad18, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.29774722
       objectReference: {fileID: 0}
-    - target: {fileID: 6856693032577674349, guid: 81cab3b12ca685842aba6c9eec7cd118, type: 3}
+    - target: {fileID: 5106975467338261116, guid: 50583b6783941c74084cc5e5c528ad18, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
+      value: -34.557
       objectReference: {fileID: 0}
-    - target: {fileID: 6856693032577674349, guid: 81cab3b12ca685842aba6c9eec7cd118, type: 3}
+    - target: {fileID: 5106975467338261116, guid: 50583b6783941c74084cc5e5c528ad18, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 188.851
       objectReference: {fileID: 0}
-    - target: {fileID: 6856693032577674349, guid: 81cab3b12ca685842aba6c9eec7cd118, type: 3}
+    - target: {fileID: 5106975467338261116, guid: 50583b6783941c74084cc5e5c528ad18, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -2.634
+      objectReference: {fileID: 0}
+    - target: {fileID: 5185817119549579477, guid: 50583b6783941c74084cc5e5c528ad18, type: 3}
+      propertyPath: m_Name
+      value: TrailEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 5185817119549579477, guid: 50583b6783941c74084cc5e5c528ad18, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 81cab3b12ca685842aba6c9eec7cd118, type: 3}
---- !u!4 &1048615946442588291 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6856693032577674349, guid: 81cab3b12ca685842aba6c9eec7cd118, type: 3}
-  m_PrefabInstance: {fileID: 5884713061657701614}
+  m_SourcePrefab: {fileID: 100100000, guid: 50583b6783941c74084cc5e5c528ad18, type: 3}
+--- !u!96 &5151613916778923393 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 7499170357791642659, guid: 50583b6783941c74084cc5e5c528ad18, type: 3}
+  m_PrefabInstance: {fileID: 3417196537743036834}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &5544872167158625536 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 2114972748991551982, guid: 81cab3b12ca685842aba6c9eec7cd118, type: 3}
-  m_PrefabInstance: {fileID: 5884713061657701614}
+--- !u!4 &7616656813765342174 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5106975467338261116, guid: 50583b6783941c74084cc5e5c528ad18, type: 3}
+  m_PrefabInstance: {fileID: 3417196537743036834}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5942005142696847155
 PrefabInstance:
@@ -121,14 +125,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: de1c20f1fd9a93a4fb9055cf73b10395, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: de1c20f1fd9a93a4fb9055cf73b10395, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1048615946442588291}
+      addedObject: {fileID: 7616656813765342174}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: de1c20f1fd9a93a4fb9055cf73b10395, type: 3}
       insertIndex: -1
@@ -190,7 +194,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stickOffsetAngle: 0
-  _throwEffect: {fileID: 5544872167158625536}
+  _throwEffect: {fileID: 0}
+  _trailEffect: {fileID: 5151613916778923393}
+  _trailDuration: 0.1
   _spinSpeed: 0
 --- !u!65 &623643412027218452
 BoxCollider:

@@ -24,7 +24,7 @@ public class MeleeWeapon : EnemyWeapon
     {
         Player player = collision.collider.GetComponent<Player>();        
 
-        if (player && player.IsInvincible == false)
+        if (player != null && player.IsInvincible == false)
         {
             player.Die(collision.contacts[0]);            
         }

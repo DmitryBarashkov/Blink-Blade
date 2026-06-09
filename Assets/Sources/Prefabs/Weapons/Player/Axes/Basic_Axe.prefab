@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1276929513297207916}
   - component: {fileID: 1410676327612514590}
   - component: {fileID: 7596271948930152506}
-  m_Layer: 7
+  m_Layer: 12
   m_Name: Basic_Axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,9 +29,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3126208730675511138}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.04152773, y: -0.55009854, z: 0.7770147, w: 0.30317527}
-  m_LocalPosition: {x: -0.016, y: 0.133, z: 0.093}
-  m_LocalScale: {x: 1, y: 1.25, z: 1.1}
+  m_LocalRotation: {x: -0.041527737, y: -0.55009854, z: 0.7770147, w: 0.30317527}
+  m_LocalPosition: {x: 0.047, y: 0.142, z: 0.035}
+  m_LocalScale: {x: 1.0000104, y: 1.2500017, z: 1.1000129}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3394920443578107530}
@@ -126,8 +126,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e4b9bf0047bd247890b71b60de1fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rotationOffsetAngle: 50
+  _stickOffsetAngle: 50
   _throwEffect: {fileID: 2875632916806668603}
+  _trailEffect: {fileID: 0}
+  _trailDuration: 0.1
+  _spinSpeed: 500
 --- !u!65 &7596271948930152506
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -157,6 +160,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2912847324496849932}
     m_Modifications:
+    - target: {fileID: 1398222487712974219, guid: 932bc3046c7834c44a562286f0e747a3, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 1966523276276683233, guid: 932bc3046c7834c44a562286f0e747a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.066
@@ -197,9 +204,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 6337054722898726938, guid: 932bc3046c7834c44a562286f0e747a3, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 8455907716748067973, guid: 932bc3046c7834c44a562286f0e747a3, type: 3}
       propertyPath: m_Name
       value: BlueThrowTrail
+      objectReference: {fileID: 0}
+    - target: {fileID: 8455907716748067973, guid: 932bc3046c7834c44a562286f0e747a3, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

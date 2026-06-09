@@ -19,12 +19,15 @@ public class Player : MonoBehaviour, IResetable
     [Inject] private Level _level;
     
     private Transform _transform;
-    private Transform _spawnPoint;    
+    private Transform _spawnPoint;
+    private GameObject _gameObject;
         
     private PlayerAnimator _animator;
     private Rigidbody _rigidBody;
     private CapsuleCollider _collider;
     private HitEffectSpawner _effect;
+    private int _alivelayerMask;
+    private int _deadlayerMask;
     
     private InputService _input;
     private IAudioService _audioService;
@@ -55,6 +58,10 @@ public class Player : MonoBehaviour, IResetable
         _aimer.Initialize(_transform, _animator);
 
         _playerStats.currentEnergy.Value = _energy;
+        _gameObject = gameObject;
+
+        _alivelayerMask = LayerMask.NameToLayer("Player");
+        _deadlayerMask = LayerMask.NameToLayer("DeadPlayer");
     }
 
     private void OnEnable()
@@ -115,6 +122,8 @@ public class Player : MonoBehaviour, IResetable
         _isDead = false;
         _isInvincible = false;
 
+        _gameObject.layer = _alivelayerMask;
+
         _energy = YG2.saves.energy;
         _playerStats.currentEnergy.Value = _energy;
         
@@ -147,6 +156,8 @@ public class Player : MonoBehaviour, IResetable
         _rigidBody.velocity = Vector3.zero;
         _rigidBody.angularVelocity = Vector3.zero;
         _isInvincible = true;
+
+        _gameObject.layer = _deadlayerMask;
 
         _isDead = true;
         _canTeleport = false;
