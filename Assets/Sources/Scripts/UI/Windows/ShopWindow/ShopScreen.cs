@@ -11,21 +11,17 @@ public class ShopScreen : UIScreen
     private ShopService _service;
     private DiContainer _diContainer;
     
-    private GameObject _gameObject;
     private readonly List<WeaponItem> _weaponItems = new();
     private int _chosenItemId;
 
     [Inject]
-    public void Construct(ShopService service, WeaponDatabase database, DiContainer container)
+    public override void Construct(ShopService service, WeaponDatabase database, DiContainer container)
     {
+        base.Construct(service, database, container);
+        
         _weaponDatabase = database;
         _service = service;
         _diContainer = container;
-    }
-
-    private void Awake()
-    {
-        _gameObject = gameObject;
     }
 
     public override void Setup()

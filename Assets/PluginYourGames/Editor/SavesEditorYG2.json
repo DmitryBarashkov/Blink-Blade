@@ -7,16 +7,15 @@
     false,
     false
   ],
-  "idSave": 4,
-  "level": 1,
+  "idSave": 2,
+  "level": 2,
   "energy": 50,
-  "coins": 20,
-  "weaponId": 4,
+  "coins": 30,
+  "weaponId": 0,
   "isAdsDisabled": false,
   "isSoundOn": true,
   "isMusicOn": true,
   "purchasedItemsIds": [
-    0,
-    4
+    0
   ]
 }

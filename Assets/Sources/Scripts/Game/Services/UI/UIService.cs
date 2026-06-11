@@ -1,32 +1,34 @@
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using Zenject;
 
 public class UIService : IInitializable, System.IDisposable
 {
     private readonly LevelState _levelState;
-    private readonly UIScreen.Factory _windowFactory;
-    private readonly AssetReference _winReference;
-    private readonly AssetReference _loseReference;
-    private readonly AssetReference _shopReference;
+    private readonly DiContainer _container;
+
+    private readonly UIScreen _winScreenPrefab;
+    private readonly UIScreen _loseScreenPrefab;
+    private readonly UIScreen _shopScreenPrefab;
+
     private Transform _endGameContainer;
     private Transform _shopContainer;
-    private readonly Dictionary<AssetReference, UIScreen> _cachedWindows = new();
+
+    private readonly Dictionary<Component, GameObject> _cachedWindows = new();
     private readonly CompositeDisposable _disposables = new CompositeDisposable();
 
     private float _showDelay = 0.5f;
 
-    public UIService(LevelState levelState, [Inject(Optional = true)] UIScreen.Factory windowFactory,
-                     AssetReference winReference, AssetReference loseReference, AssetReference shopReference,
+    public UIService(LevelState levelState, DiContainer container,
+                     UIScreen winScreenPrefab, UIScreen loseScreenPrefab, [Inject(Optional = true)] UIScreen shopScreenPrefab,
                      Transform endGameContainer, Transform shopContainer)
     {
         _levelState = levelState;
-        _windowFactory = windowFactory;
-        _winReference = winReference;
-        _loseReference = loseReference;
-        _shopReference = shopReference;
+        _container = container;
+        _winScreenPrefab = winScreenPrefab;
+        _loseScreenPrefab = loseScreenPrefab;
+        _shopScreenPrefab = shopScreenPrefab;
         _endGameContainer = endGameContainer;
         _shopContainer = shopContainer;
     }
@@ -34,7 +36,7 @@ public class UIService : IInitializable, System.IDisposable
     public void Initialize()
     {
         _levelState.IsWin
-            .Delay(System.TimeSpan.FromSeconds(_showDelay))
+            .Delay(System.TimeSpan.FromSeconds(_showDelay), Scheduler.MainThreadIgnoreTimeScale)
             .ObserveOnMainThread()
             .Subscribe(isWin =>
             {
@@ -48,46 +50,34 @@ public class UIService : IInitializable, System.IDisposable
 
     public void ShowShop()
     {
-        OpenScreen(_shopReference, _shopContainer, screen =>
-        {
-            if (screen is ShopScreen shop)
-            {
-                shop.Setup();
-            }
-        });
+        GameObject shop = GetOrCreateWindow(_shopScreenPrefab, _shopContainer);
+        ShopScreen screen = shop.GetComponent<ShopScreen>();
+
+        screen.Setup();
     }
 
     public void Dispose() => _disposables.Dispose();
 
     private void OnLevelFinished(bool isWin)
     {
-        AssetReference targetReference = isWin ? _winReference : _loseReference;
+        UIScreen targetPrefab = isWin ? _winScreenPrefab : _loseScreenPrefab;
+        GameObject window = GetOrCreateWindow(targetPrefab, _endGameContainer);
+        UIScreen endGameScreen = window.GetComponent<EndGameScreen>();
 
-        OpenScreen(targetReference, _endGameContainer, screen =>
-        {
-            if (screen is EndGameScreen endGameScreen)
-            {
-                endGameScreen.Setup();
-            }
-        });
+        endGameScreen.Setup();
     }
 
-    private void OpenScreen(AssetReference reference, Transform container, System.Action<UIScreen> onReady)
+    private GameObject GetOrCreateWindow(UIScreen prefab, Transform container)
     {
-        if (_cachedWindows.TryGetValue(reference, out var screen))
+        if (_cachedWindows.TryGetValue(prefab, out GameObject activeWindow))
         {
-            onReady?.Invoke(screen);
+            return activeWindow;
         }
-        else
-        {
-            _windowFactory.Create(container, reference)
-                .ObserveOnMainThread()
-                .Subscribe(loadedScreen =>
-                {
-                    _cachedWindows[reference] = loadedScreen;
-                    onReady?.Invoke(loadedScreen);
-                })
-                .AddTo(_disposables);
-        }
+
+        GameObject spawnedInstance = _container.InstantiatePrefab(prefab, container);
+
+        _cachedWindows[prefab] = spawnedInstance;
+        
+        return spawnedInstance;
     }
 }

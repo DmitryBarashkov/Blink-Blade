@@ -69,7 +69,7 @@ public class Arrow : MonoBehaviour
             effect.Perform(hitPoint);
         
 
-        if (player != null)
+        if (player != null && player.IsInvincible == false)
         {
             player.Die(hitPoint);
         }

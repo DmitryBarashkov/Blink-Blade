@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using System;
 using UnityEngine;
 using YG;
@@ -27,7 +28,7 @@ public class Player : MonoBehaviour, IResetable
     private CapsuleCollider _collider;
     private HitEffectSpawner _effect;
     private int _alivelayerMask;
-    private int _deadlayerMask;
+    private int _invincibleMask;
     
     private InputService _input;
     private IAudioService _audioService;
@@ -61,7 +62,7 @@ public class Player : MonoBehaviour, IResetable
         _gameObject = gameObject;
 
         _alivelayerMask = LayerMask.NameToLayer("Player");
-        _deadlayerMask = LayerMask.NameToLayer("DeadPlayer");
+        _invincibleMask = LayerMask.NameToLayer("InvinciblePlayer");
     }
 
     private void OnEnable()
@@ -70,6 +71,7 @@ public class Player : MonoBehaviour, IResetable
         _input.AttackBtnUp += OnAttackButtonUp;
         _input.MenuOpenBtnPressed += OnMenuOpenBtnPressed;
         _groundChecker.Grounded += OnGroundedChange;
+        _level.LevelFinished += OnLevelFinished;
     }
 
     private void OnDisable()
@@ -78,6 +80,7 @@ public class Player : MonoBehaviour, IResetable
         _input.AttackBtnUp -= OnAttackButtonUp;
         _input.MenuOpenBtnPressed -= OnMenuOpenBtnPressed;
         _groundChecker.Grounded -= OnGroundedChange;
+        _level.LevelFinished -= OnLevelFinished;
     }
 
     private void Update()
@@ -126,12 +129,12 @@ public class Player : MonoBehaviour, IResetable
 
         _energy = YG2.saves.energy;
         _playerStats.currentEnergy.Value = _energy;
-        
-        _rigidBody.useGravity = false;
+
+        SetInvincibility(false);
+
         _rigidBody.isKinematic = false;
-        _rigidBody.velocity = Vector3.zero;
-        _rigidBody.angularVelocity = Vector3.zero;
-        
+        _rigidBody.useGravity = false;
+
         _collider.enabled = true;
         _animator.SetDied(false);
         _groundChecker.gameObject.SetActive(true);
@@ -152,16 +155,16 @@ public class Player : MonoBehaviour, IResetable
         _aimer.SetCameraAim(_transform);
         _weaponController.DeactivateWeapon();
 
-        _rigidBody.useGravity = true;
-        _rigidBody.velocity = Vector3.zero;
-        _rigidBody.angularVelocity = Vector3.zero;
-        _isInvincible = true;
+        SetInvincibility(true);
+        ResetVelocity();
 
-        _gameObject.layer = _deadlayerMask;
+        _rigidBody.useGravity = true;
 
         _isDead = true;
         _canTeleport = false;
         _isAiming = false;
+
+        Defeat();
     }
 
     private void OnAttackButtonUp()
@@ -220,8 +223,23 @@ public class Player : MonoBehaviour, IResetable
             _collider.enabled = false;
             _animator.SetDied(true);
             _audioService.PlaySound(SoundType.FallingOnGround);
-            
-            Defeat();
         }
+    }
+
+    private void ResetVelocity()
+    {
+        _rigidBody.velocity = Vector3.zero;
+        _rigidBody.angularVelocity = Vector3.zero;
+    }
+
+    private void SetInvincibility(bool value)
+    {
+        _isInvincible = value;
+        _gameObject.layer = _isInvincible ? _invincibleMask : _alivelayerMask;
+    }
+
+    private void OnLevelFinished()
+    {
+        SetInvincibility(true);
     }
 }

@@ -1,7 +1,4 @@
-using System;
-using UniRx;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 using Zenject;
 
@@ -9,9 +6,9 @@ public class CommonLevelInstaller : MonoInstaller
 {
     [Header("UI")]
     [SerializeField] private EnemyPanel _enemyPanelPrefab;     
-    [SerializeField] private AssetReference _winGameScreen;
-    [SerializeField] private AssetReference _loseGameScreen;
-    [SerializeField] private AssetReference _shopGameScreen;
+    [SerializeField] private UIScreen _winGameScreen;
+    [SerializeField] private UIScreen _loseGameScreen;
+    [SerializeField] private UIScreen _shopGameScreen;
     [SerializeField] private CanvasScaler[] _canvasScales;
 
     [Header("Services")]

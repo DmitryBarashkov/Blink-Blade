@@ -5,6 +5,8 @@ using Zenject;
 
 public class Level: IInitializable
 {
+    public event Action LevelFinished;
+    
     private LevelState _levelState;
     private InputService _input;
     
@@ -68,6 +70,8 @@ public class Level: IInitializable
         _input.Deactivate();
         _levelState.FinishLevel(true);
         _audioService.PlaySound(SoundType.Win);
+
+        LevelFinished?.Invoke();
     }
 
     public void Lose(bool isOutOfEnergy = false)
@@ -75,6 +79,8 @@ public class Level: IInitializable
         _input.Deactivate();
         _levelState.FinishLevel(false, isOutOfEnergy);
         _audioService.PlaySound(SoundType.Lose);
+
+        LevelFinished?.Invoke();
     }
 
     public void Restart()

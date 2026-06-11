@@ -1,5 +1,3 @@
-using System;
-using UniRx;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.EventSystems;
@@ -7,15 +5,7 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(CanvasGroup))]
 public class EndGameScreen : UIScreen, IPointerClickHandler
 {
-    private CanvasGroup _canvasGroup;
-    private GameObject _gameObject;
     private float _duration = 1.5f;
-
-    private void Awake()
-    {
-        _canvasGroup = GetComponent<CanvasGroup>();
-        _gameObject = gameObject;
-    }
 
     public override void Setup()
     {
