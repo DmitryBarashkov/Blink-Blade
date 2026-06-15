@@ -5,7 +5,7 @@ using Zenject;
 
 [RequireComponent(typeof(HitEffectSpawner))]
 [RequireComponent(typeof(Animator))]
-public class Enemy : MonoBehaviour, IResetable
+public class Enemy : MonoBehaviour
 {
     [Header("Attack")]
     [SerializeField] EnemyAttacker _attacker;
@@ -130,7 +130,7 @@ public class Enemy : MonoBehaviour, IResetable
         _levelState.CurrentEnemiesCount.Value--;
     }
 
-    public void ResetOnRestart()
+    public void Reset()
     {
         Activate();
     }

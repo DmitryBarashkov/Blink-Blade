@@ -1,4 +1,3 @@
-using Cinemachine;
 using UnityEngine;
 using YG;
 using Zenject;
@@ -6,12 +5,7 @@ using Zenject;
 public class PlayerInstaller : MonoInstaller
 {
     [SerializeField] private Weapon _defaultWeaponPrefab;
-    
-    [SerializeField] private Player _playerPrefab;
-    [SerializeField] private Transform _playerSpawnPoint;
-    
-    [SerializeField] private CinemachineVirtualCamera _camera;
-
+    [SerializeField] private Player _playerPrefab;    
     [SerializeField] private AimingArrow _aimingArrow;
     
     [Inject] private WeaponDatabase _weaponDatabase;    
@@ -39,7 +33,6 @@ public class PlayerInstaller : MonoInstaller
     private void BindUI()
     {
         Container.BindInstance(_aimingArrow).AsSingle();        
-        Container.Bind<CameraResizer>().AsSingle().WithArguments(_camera).NonLazy();
     }
 
     private void BindWeapon()
@@ -61,7 +54,7 @@ public class PlayerInstaller : MonoInstaller
         Container.Bind<PlayerWeaponController>().AsSingle();
         Container.Bind<PlayerStats>().AsSingle().WithArguments(_weaponId);
         Container.Bind<Teleport>().AsSingle();               
-        Container.Bind<Aimer>().AsSingle().WithArguments(_camera);
+        Container.Bind<Aimer>().AsSingle();
     }
 
     private void BindPlayer()
@@ -69,7 +62,6 @@ public class PlayerInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<Player>()
             .FromComponentInNewPrefab(_playerPrefab)
             .AsSingle()
-            .WithArguments(_energy, _playerSpawnPoint)
-            .NonLazy();
+            .WithArguments(_energy);            
     }
 }

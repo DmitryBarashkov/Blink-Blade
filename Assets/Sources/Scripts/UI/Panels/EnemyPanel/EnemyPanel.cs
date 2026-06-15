@@ -1,47 +1,42 @@
+using System;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
-using Zenject;
 
 [RequireComponent(typeof(RectTransform))]
-public class EnemyPanel: MonoBehaviour, IResetable
+public class EnemyPanel: MonoBehaviour
 {
     [SerializeField] private EnemyIcon _iconPrefab;
-
-    [Inject] private LevelState _levelState;    
-    [Inject] private readonly List<EnemySpawnPoint> _spawnPoints;
 
     private List<EnemyIcon> _icons;
     private CompositeDisposable _disposables = new CompositeDisposable();    
 
     private int _initiateEnemiesCount;
 
-    private void Awake()
-    {
-        _initiateEnemiesCount = _spawnPoints.Count;
-        _icons = new List<EnemyIcon>(_initiateEnemiesCount);
-        
-        CreatePanel();
-        SubscribeToEnemiesCountChange();
-    }
-
     private void OnDestroy()
     {
         _disposables.Dispose();
     }
 
-    public void ResetOnRestart()
+    public void Initialize(ILevelData levelData)
+    {
+        ClearPanel();
+        CreatePanel(levelData);
+    }
+
+    public void Reset()
     {
         _disposables.Clear();        
         
-        _icons.ForEach((icon) => icon.Reset());
-
-        SubscribeToEnemiesCountChange();
+        _icons.ForEach((icon) => icon.Reset());        
     }
 
-    private void CreatePanel()
+    private void CreatePanel(ILevelData levelData)
     {
-        for (int i = 0; i < _icons.Capacity; i++)
+        _initiateEnemiesCount = levelData.GetEnemySpawnPoints().Count;
+        _icons = new List<EnemyIcon>(_initiateEnemiesCount);
+
+        for (int i = 0; i < _initiateEnemiesCount; i++)
         {
             EnemyIcon icon = Instantiate(_iconPrefab, this.transform, false);
 
@@ -49,26 +44,27 @@ public class EnemyPanel: MonoBehaviour, IResetable
         }
     }
 
-    private void SubscribeToEnemiesCountChange()
+    private void ClearPanel()
     {
-        _levelState.CurrentEnemiesCount            
-            .Skip(1)
-            .Subscribe((count) =>
-            {
-                if (_initiateEnemiesCount == count)
-                    return;
-                
-                for (int i = 0; i < _icons.Count; i++)
-                {
-                    EnemyIcon enemyIcon = _icons[i];
+        if (_icons != null && _icons.Count > 0)
+            foreach (EnemyIcon icon in _icons)
+                Destroy(icon.gameObject);
+    }
 
-                    if (enemyIcon.IsMarked == false)
-                    {
-                        enemyIcon.MarkAsDead();
-                        break;
-                    }
-                }
-            })
-            .AddTo(_disposables);            
+    public void UpdateIcons(int enemiesCount)
+    {
+        if (_initiateEnemiesCount == enemiesCount)
+            return;
+
+        for (int i = 0; i < _icons.Count; i++)
+        {
+            EnemyIcon enemyIcon = _icons[i];
+
+            if (enemyIcon.IsMarked == false)
+            {
+                enemyIcon.MarkAsDead();
+                break;
+            }
+        }
     }
 }

@@ -3,7 +3,7 @@ using UniRx;
 using UnityEngine;
 using Zenject;
 
-public class UIService : IInitializable, System.IDisposable
+public class UIService : IInitializable
 {
     private readonly LevelState _levelState;
     private readonly DiContainer _container;
@@ -15,8 +15,7 @@ public class UIService : IInitializable, System.IDisposable
     private Transform _endGameContainer;
     private Transform _shopContainer;
 
-    private readonly Dictionary<Component, GameObject> _cachedWindows = new();
-    private readonly CompositeDisposable _disposables = new CompositeDisposable();
+    private readonly Dictionary<Component, GameObject> _cachedWindows = new();    
 
     private float _showDelay = 0.5f;
 
@@ -44,8 +43,7 @@ public class UIService : IInitializable, System.IDisposable
                 {
                     OnLevelFinished(isWin ?? false);
                 }
-            })            
-            .AddTo(_disposables);
+            });            
     }
 
     public void ShowShop()
@@ -55,8 +53,6 @@ public class UIService : IInitializable, System.IDisposable
 
         screen.Setup();
     }
-
-    public void Dispose() => _disposables.Dispose();
 
     private void OnLevelFinished(bool isWin)
     {

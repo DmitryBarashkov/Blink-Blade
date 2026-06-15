@@ -1,4 +1,3 @@
-using Newtonsoft.Json.Linq;
 using System;
 using UnityEngine;
 using YG;
@@ -8,7 +7,7 @@ using Zenject;
 [RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(HitEffectSpawner))]
-public class Player : MonoBehaviour, IResetable
+public class Player : MonoBehaviour
 {
     public event Action Dead;
 
@@ -20,19 +19,20 @@ public class Player : MonoBehaviour, IResetable
     [Inject] private Level _level;
     
     private Transform _transform;
-    private Transform _spawnPoint;
+    private Vector3 _initialPosition;
+    private Quaternion _initialRotation;
     private GameObject _gameObject;
         
     private PlayerAnimator _animator;
     private Rigidbody _rigidBody;
     private CapsuleCollider _collider;
-    private HitEffectSpawner _effect;
+    private HitEffectSpawner _effect;    
     private int _alivelayerMask;
     private int _invincibleMask;
     
     private InputService _input;
     private IAudioService _audioService;
-    
+    private CameraBoundsInstaller _camera;
     private Aimer _aimer;
     private Teleport _teleport;
     
@@ -94,19 +94,26 @@ public class Player : MonoBehaviour, IResetable
 
     [Inject]
     private void Construct(InputService input, PlayerWeaponController weaponController, Teleport teleport, Aimer aimer, 
-                           int energy, Transform spawnPoint, IAudioService audioService)
+                           int energy, IAudioService audioService, CameraBoundsInstaller camera)
     {
         _input = input;        
         _weaponController = weaponController;
         _teleport = teleport;
         _aimer = aimer;
-        _energy = energy;
-        _spawnPoint = spawnPoint;
-        _transform = transform;
-
+        _energy = energy;        
+        
         _audioService = audioService;
-        _transform.position = spawnPoint.position;
-        _transform.rotation = spawnPoint.rotation;
+        _camera = camera;
+
+        _transform = transform;
+        _initialPosition = _transform.position;
+        _initialRotation = _transform.rotation;
+    }
+
+    public void InitializeSpawnPoint(Vector3 position, Quaternion rotation)
+    {
+        _initialPosition = _transform.position = position;
+        _initialRotation = _transform.rotation = rotation;
     }
 
     public void AddEnergy(int addCount)
@@ -115,10 +122,10 @@ public class Player : MonoBehaviour, IResetable
         _playerStats.currentEnergy.Value = _energy;
     }
 
-    public void ResetOnRestart()
+    public void Reset()
     {
-        _transform.position = _spawnPoint.position;
-        _transform.rotation = _spawnPoint.rotation;        
+        _transform.position = _initialPosition;
+        _transform.rotation = _initialRotation;
         
         _canTeleport = false;
         _isAiming = false;
@@ -140,6 +147,8 @@ public class Player : MonoBehaviour, IResetable
         _groundChecker.gameObject.SetActive(true);
 
         _weaponController.ActivateWeapon();
+
+        _camera.SetAim(_transform);
     }
 
     public void Die(ContactPoint hitPoint)
@@ -152,7 +161,7 @@ public class Player : MonoBehaviour, IResetable
         _audioService.PlaySound(SoundType.Hurt);
 
         _aimer.StopAim(false);
-        _aimer.SetCameraAim(_transform);
+        _camera.SetAim(_transform);
         _weaponController.DeactivateWeapon();
 
         SetInvincibility(true);
@@ -188,7 +197,7 @@ public class Player : MonoBehaviour, IResetable
         }
         else if (_energy == 0)
         {
-            _aimer.SetCameraAim(_transform);
+            _camera.SetAim(_transform);
             _isAiming = false;
             Defeat(true);
         }

@@ -6,11 +6,13 @@ using Zenject;
 
 public class GlobalInstaller : MonoInstaller
 {
-    [Header("Настройки языковых флагов")]
+    [Header("Languages flags")]
     [SerializeField] private List<LanguageSpritePair> _languageFlags;
-    [Header("База врагов")]
+    [Header("Databases")]
     [SerializeField] private EnemyDatabase _enemyDatabase;
     [SerializeField] private WeaponDatabase _weaponDatabase;
+    [Header("Services")]
+    [SerializeField] private AudioService _audioServicePrefab;
 
     public override void InstallBindings()
     {
@@ -18,9 +20,17 @@ public class GlobalInstaller : MonoInstaller
         Container.Bind<WeaponDatabase>().FromInstance(_weaponDatabase).AsSingle();
         Container.Bind<EnemyFactory>().AsSingle();
         Container.Bind<LevelLoadService>().AsSingle();
+        Container.Bind<LevelState>().AsSingle().NonLazy();                 
         Container.BindInterfacesTo<Bootstrap>().AsSingle().NonLazy();
         Container.Bind<InputService>().AsSingle();
-        Container.Bind<SavesYG>().AsSingle();        
+        Container.Bind<SavesYG>().AsSingle();
+        Container.Bind<ActiveLevelBridge>().AsSingle();
+
+        Container.BindInterfacesAndSelfTo<AudioService>()
+            .FromComponentInNewPrefab(_audioServicePrefab)
+            .UnderTransformGroup("GlobalServices")
+            .AsSingle()
+            .NonLazy();
 
         BindLanguages();
     }

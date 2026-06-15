@@ -1,13 +1,12 @@
 using UnityEngine.SceneManagement;
 using Zenject;
 using YG;
-using Cysharp.Threading.Tasks;
 
 public class Bootstrap : IInitializable
 {
-    [Inject] private LevelLoadService _levelService;
+    [Inject] private LevelLoadService _levelService;    
     
-    public async void Initialize()
+    public void Initialize()
     {
         if (YG2.saves.isAdsDisabled)
             YG2.StickyAdActivity(false);
@@ -15,11 +14,16 @@ public class Bootstrap : IInitializable
         if (SceneManager.GetActiveScene().buildIndex != 0)
             return;
 
-        await StartLevel();
+        StartLevel();
     }
 
-    private async UniTask StartLevel()
+    private void StartLevel()
     {
-        await SceneManager.LoadSceneAsync(_levelService.GetSceneName(YG2.saves.level));
+        int levelnumber = YG2.saves.level;
+
+        if (levelnumber == 0)
+            _levelService.LoadTutorialLevel();
+        else
+            _levelService.LoadLevel(levelnumber).Forget();
     }
 }

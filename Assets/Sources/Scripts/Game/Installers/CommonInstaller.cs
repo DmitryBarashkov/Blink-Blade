@@ -1,9 +1,13 @@
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-public class CommonLevelInstaller : MonoInstaller
+public class CommonInstaller : MonoInstaller
 {
+    [Header("Camera")]
+    [SerializeField] private CinemachineVirtualCamera _camera;
+
     [Header("UI")]
     [SerializeField] private EnemyPanel _enemyPanelPrefab;     
     [SerializeField] private UIScreen _winGameScreen;
@@ -12,7 +16,6 @@ public class CommonLevelInstaller : MonoInstaller
     [SerializeField] private CanvasScaler[] _canvasScales;
 
     [Header("Services")]
-    [SerializeField] private AudioService _audioServicePrefab;
     [SerializeField] private ObjectPoolService _objectPoolServicePrefab;
 
     [Header("Containers")]
@@ -25,22 +28,18 @@ public class CommonLevelInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
-        InstallServices();
+        BindServices();
+        BindCamera();
         BindEnemies();
-        BindLevelServices();
         BindEnemiesUIPrefabs();
-        BindUIServices();        
+        BindSpawners();
+        BindLevelServices();
+        BindUIServices();
     }
 
-    private void InstallServices()
+    private void BindServices()
     {
-        Container.BindInterfacesAndSelfTo<AudioService>()
-            .FromComponentInNewPrefab(_audioServicePrefab)
-            .UnderTransform(_serviceContainer)
-            .AsSingle()
-            .NonLazy();
-
-        Container.BindInterfacesAndSelfTo<ShopService>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<ShopService>().AsSingle().NonLazy();        
 
         Container.BindInterfacesAndSelfTo<ObjectPoolService>()
             .FromComponentInNewPrefab(_objectPoolServicePrefab)
@@ -50,20 +49,10 @@ public class CommonLevelInstaller : MonoInstaller
             .NonLazy();
     }
 
-    private void BindEnemies()
+    private void BindCamera()
     {
-        Container.Bind<EnemyFactory>().AsSingle();
-        Container.Bind<Patrol>().AsTransient();
-        Container.Bind<EnemySpawnPoint>().FromComponentsInHierarchy().AsCached();
-        Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle().WithArguments(_enemyContainer).NonLazy();
-    }
-
-    private void BindLevelServices()
-    {
-        Container.Bind<IResetable>().FromComponentsInHierarchy().AsCached();
-        Container.BindFactory<LevelRestartService, LevelRestartService.Factory>().AsSingle();        
-        Container.Bind<LevelState>().AsSingle().NonLazy();
-        Container.BindInterfacesAndSelfTo<Level>().AsSingle().NonLazy();
+        Container.Bind<CameraResizer>().AsSingle().WithArguments(_camera).NonLazy();
+        Container.BindInterfacesAndSelfTo<CameraBoundsInstaller>().AsSingle().WithArguments(_camera).NonLazy();
     }
 
     private void BindEnemiesUIPrefabs()
@@ -73,6 +62,23 @@ public class CommonLevelInstaller : MonoInstaller
             .UnderTransform(_levelUIContainer)
             .AsSingle()
             .NonLazy();
+    }
+
+    private void BindEnemies()
+    {
+        Container.Bind<EnemyFactory>().AsSingle();
+        Container.Bind<Patrol>().AsTransient();        
+    }
+
+    private void BindLevelServices()
+    {
+        Container.BindInterfacesAndSelfTo<Level>().AsSingle().NonLazy();
+    }
+
+    private void BindSpawners()
+    {
+        Container.Bind<PlayerSpawner>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle().WithArguments(_enemyContainer).NonLazy();
     }
 
     private void BindUIServices()

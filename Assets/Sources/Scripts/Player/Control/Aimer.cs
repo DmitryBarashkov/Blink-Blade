@@ -1,10 +1,9 @@
-using Cinemachine;
 using UnityEngine;
 using Zenject;
 
 public class Aimer
 {
-    private CinemachineVirtualCamera _camera;
+    private CameraBoundsInstaller _camera;
     private Transform _playerTransform;
     private AimingArrow _aimingArrow;
     private PlayerAnimator _animator;    
@@ -16,7 +15,7 @@ public class Aimer
     private float _currentAngle;    
 
     [Inject]
-    private void Construct(CinemachineVirtualCamera camera, AimingArrow aimingArrow)
+    private void Construct(CameraBoundsInstaller camera, AimingArrow aimingArrow)
     {
         _camera = camera;        
         _aimingArrow = aimingArrow;
@@ -25,11 +24,8 @@ public class Aimer
     public void Initialize(Transform playerTransform, PlayerAnimator animator)
     {
         _animator = animator;
-
-        _playerTransform = playerTransform;        
-
-        _camera.Follow = _playerTransform;
-        _camera.LookAt = _playerTransform;
+        _playerTransform = playerTransform;
+        _camera.SetAim(_playerTransform);
     }
 
     public void ChangeWeapon(Weapon weapon)
@@ -39,7 +35,7 @@ public class Aimer
 
     public void StartAim()
     {
-        SetCameraAim(_playerTransform);
+        _camera.SetAim(_playerTransform);
 
         _animator.SetAiming(true);
 
@@ -52,7 +48,7 @@ public class Aimer
         if (isNeedWeaponThrow)
         {
             _weapon.Throw(_aimingArrow.Direction, _playerTransform.rotation.y);
-            SetCameraAim(_weapon.transform);
+            _camera.SetAim(_weapon.transform);
         }
 
         _animator.SetAiming(false);
@@ -68,11 +64,5 @@ public class Aimer
         {
             _playerTransform.rotation = Quaternion.LookRotation(_targetDir);
         }
-    }
-
-    public void SetCameraAim(Transform transform)
-    {
-        _camera.Follow = transform;
-        _camera.LookAt = transform;
     }
 }
