@@ -11,6 +11,9 @@ public class LevelLoadService
     private readonly ZenjectSceneLoader _sceneLoader;    
 
     private string _commonSceneName = "Common";
+    private string _loadingSceneName = "Loading";
+
+    private int _loadingSceneIndex = 0;
     private int _commonSceneIndex = 1;
     
     private string _currentLevelName;
@@ -28,9 +31,11 @@ public class LevelLoadService
 
         try
         {
+            await LoadLoadingScreen();
             await LoadCommonScene();
-            await UnloadOldLevel();
+            await UnloadScene(_currentLevelName);
             await LoadNewLevel(levelName);
+            await UnloadScene(_loadingSceneName);
         }
         catch (Exception exception)
         {
@@ -41,6 +46,76 @@ public class LevelLoadService
     public void LoadTutorialLevel()
     {
         LoadSingleScene(GetSceneName(0));
+    }
+
+    private async UniTask LoadLoadingScreen()
+    {
+        Scene loadingScene = SceneManager.GetSceneByName(_loadingSceneName);
+
+        if (loadingScene.isLoaded)
+            return;
+
+        await _sceneLoader.LoadSceneAsync(_loadingSceneIndex, LoadSceneMode.Additive).ToUniTask();
+
+        Scene loadedScene = SceneManager.GetSceneByName(_loadingSceneName);
+
+        if (loadedScene.IsValid())
+        {
+            SceneManager.SetActiveScene(loadedScene);
+        }
+    }
+
+    private async UniTask LoadCommonScene()
+    {
+        Scene commonScene = SceneManager.GetSceneByName(_commonSceneName);
+
+        if (commonScene.isLoaded)
+            return;
+
+        var tcs = new TaskCompletionSource<bool>();
+
+        await _sceneLoader.LoadSceneAsync(_commonSceneIndex, LoadSceneMode.Additive).ToUniTask();
+    }
+
+    private async UniTask UnloadScene(string levelName)
+    {
+        if (string.IsNullOrEmpty(levelName))
+            return;
+
+        Scene sceneForUnload = SceneManager.GetSceneByName(levelName);
+        
+        if (!sceneForUnload.isLoaded)
+            return;
+
+        await SceneManager.UnloadSceneAsync(levelName);
+        await Resources.UnloadUnusedAssets();
+    }
+
+    private async UniTask LoadNewLevel(string levelName)
+    {
+        _currentLevelName = levelName;
+
+        await _sceneLoader.LoadSceneAsync(levelName, LoadSceneMode.Additive);
+
+        ActivateScene(levelName);
+        ExecuteFinalSceneSetup(levelName);
+    }
+
+    private async void ExecuteFinalSceneSetup(string levelName)
+    {
+        await Task.Yield();
+
+        ActivateScene(levelName);
+    }
+
+    private void LoadSingleScene(string levelName)
+    {
+        _currentLevelName = levelName;
+
+        _sceneLoader.LoadSceneAsync(levelName, LoadSceneMode.Single, container =>
+        {
+            ActivateScene(levelName);
+        });
     }
 
     private string GetSceneName(int levelForLoad)
@@ -67,77 +142,13 @@ public class LevelLoadService
         return $"Level{levelForLoad}";
     }
 
-    private async UniTask LoadCommonScene()
+    private void ActivateScene(string sceneName)
     {
-        Scene commonScene = SceneManager.GetSceneByName(_commonSceneName);
+        Scene loadedScene = SceneManager.GetSceneByName(sceneName);
 
-        if (commonScene.isLoaded)
-            return;
-
-        var tcs = new TaskCompletionSource<bool>();
-
-        await _sceneLoader.LoadSceneAsync(_commonSceneIndex, LoadSceneMode.Single).ToUniTask();
-    }
-
-    private async UniTask UnloadOldLevel()
-    {
-        if (string.IsNullOrEmpty(_currentLevelName))
-            return;
-
-        Scene oldScene = SceneManager.GetSceneByName(_currentLevelName);
-        
-        if (!oldScene.isLoaded)
-            return;
-
-        await SceneManager.UnloadSceneAsync(_currentLevelName);
-        await Resources.UnloadUnusedAssets();
-    }
-
-    private async UniTask LoadNewLevel(string levelName)
-    {
-        _currentLevelName = levelName;
-
-        await _sceneLoader.LoadSceneAsync(levelName, LoadSceneMode.Additive);
-
-        Scene loadedScene = SceneManager.GetSceneByName(levelName);
-
-        if (loadedScene.IsValid())
-        {
+        if (loadedScene.IsValid() && loadedScene.isLoaded)
             SceneManager.SetActiveScene(loadedScene);
-        }
-
-        ExecuteFinalSceneSetup(levelName);
-    }
-
-    private async void ExecuteFinalSceneSetup(string levelName)
-    {
-        await Task.Yield();
-
-        Scene loadedScene = SceneManager.GetSceneByName(levelName);
-            
-        if (loadedScene.IsValid())
-        {
-            SceneManager.SetActiveScene(loadedScene);            
-        }            
-    }
-
-    private void LoadSingleScene(string levelName)
-    {
-        _currentLevelName = levelName;
-
-        _sceneLoader.LoadSceneAsync(levelName, LoadSceneMode.Single, container =>
-        {
-            Scene loadedScene = SceneManager.GetSceneByName(levelName);
-
-            if (loadedScene.IsValid())
-            {
-                Observable.NextFrame()
-                    .Take(1)
-                    .Subscribe(_ =>
-                    {
-                        SceneManager.SetActiveScene(loadedScene);                        
-                    });
-            }
-        });
     }
 }
+
+

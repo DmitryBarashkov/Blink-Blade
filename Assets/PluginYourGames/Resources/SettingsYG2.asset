@@ -142,6 +142,140 @@ MonoBehaviour:
     postponeCallByFail: 0
     postponeCallTimer: 10
     labelAdvSimLabel: 0
+  Leaderboards:
+    enable: 1
+    saveScoreAnonymousPlayers: 1
+    listLBSim:
+    - technoName: Score
+      entries: 
+      isDefault: 1
+      isInvertSortOrder: 0
+      decimalOffset: 0
+      type: numeric
+      players:
+      - rank: 1
+        name: Max
+        score: 1000
+        photo: demo image
+        uniqueID: 123
+        extraData: 
+      - rank: 2
+        name: Masha
+        score: 850
+        photo: demo image
+        uniqueID: 321
+        extraData: 
+      - rank: 3
+        name: Vasya
+        score: 700
+        photo: demo image
+        uniqueID: 456
+        extraData: 
+      - rank: 4
+        name: Dima
+        score: 650
+        photo: demo image
+        uniqueID: 321
+        extraData: 
+      - rank: 5
+        name: Kolya
+        score: 600
+        photo: demo image
+        uniqueID: 000
+        extraData: 
+      - rank: 6
+        name: Nastya
+        score: 500
+        photo: demo image
+        uniqueID: 326
+        extraData: 
+      - rank: 7
+        name: Veronika
+        score: 200
+        photo: demo image
+        uniqueID: 327
+        extraData: 
+      - rank: 8
+        name: Oleg
+        score: 150
+        photo: demo image
+        uniqueID: 328
+        extraData: 
+      - rank: 9
+        name: Stas
+        score: 100
+        photo: demo image
+        uniqueID: 329
+        extraData: 
+      - rank: 10
+        name: Ivan
+        score: 50
+        photo: demo image
+        uniqueID: 330
+        extraData: 
+      currentPlayer:
+        rank: 102
+        score: 6
+        extraData: 
+    - technoName: time
+      entries: '1. Max: 7123
+
+        2. Maria: 15321
+
+        3. anonymous: 62000
+
+        4.
+        Player 4: 122000
+
+        5. Player current: 127000
+
+        6. Player 6:
+        340000'
+      isDefault: 0
+      isInvertSortOrder: 1
+      decimalOffset: 0
+      type: numeric
+      players:
+      - rank: 1
+        name: Max
+        score: 7123
+        photo: demo image
+        uniqueID: 789
+        extraData: 
+      - rank: 2
+        name: Maria
+        score: 15321
+        photo: demo image
+        uniqueID: 987
+        extraData: 
+      - rank: 3
+        name: anonymous
+        score: 62000
+        photo: anonymous
+        uniqueID: 891
+        extraData: 
+      - rank: 4
+        name: Player 4
+        score: 122000
+        photo: demo image
+        uniqueID: 321
+        extraData: 
+      - rank: 5
+        name: Player current
+        score: 127000
+        photo: demo image
+        uniqueID: 000
+        extraData: 
+      - rank: 6
+        name: Player 6
+        score: 340000
+        photo: demo image
+        uniqueID: 321
+        extraData: 
+      currentPlayer:
+        rank: 5
+        score: 127000
+        extraData: 
   Localization:
     setLanguageMod: 0
   Payments:

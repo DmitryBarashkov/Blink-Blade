@@ -22,10 +22,17 @@ public class BetweenLevelScreen : MonoBehaviour
 
     public void Activate()
     {
-        _gameObject.SetActive(true);
+        if (_gameObject != null)
+            _gameObject.SetActive(true);
+        else
+            gameObject.SetActive(true);
     }
+
     public void Deactivate()
     {
-        _gameObject.SetActive(false);
+        if (_gameObject != null)
+            _gameObject.SetActive(false);
+        else
+            gameObject.SetActive(false);
     }
 }

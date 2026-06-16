@@ -1,6 +1,5 @@
 using System;
 using UniRx;
-using UniRx.Triggers;
 using YG;
 using Zenject;
 
@@ -145,6 +144,8 @@ public class Level : IDisposable
         _playerSpawner.Initialize(levelData);
         _cameraController.Initialize(levelData);
         _enemyPanel.Initialize(levelData);
+
+        YG2.GetLeaderboard("Score");
 
         ShowMenu();
     }

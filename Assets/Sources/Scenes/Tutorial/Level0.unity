@@ -455,7 +455,6 @@ MonoBehaviour:
   - {fileID: 69097136}
   - {fileID: 147129829}
   - {fileID: 1804356622}
-  _audioServicePrefab: {fileID: 5073186087192148321, guid: f88da8382e7f1d34b8bb651bb944e6bb, type: 3}
   _objectPoolServicePrefab: {fileID: 4245456890897903785, guid: 64a4f868a8c366147b817980bbd3c217, type: 3}
   _enemyContainer: {fileID: 1392727890}
   _serviceContainer: {fileID: 1239365396}
@@ -3245,7 +3244,8 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.69
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2316974707358190954, guid: 8863caec0a4442944a70714762b43c81, type: 3}
     m_RemovedGameObjects:
     - {fileID: 5396652510659379996, guid: 8863caec0a4442944a70714762b43c81, type: 3}
     - {fileID: 4682183670377816497, guid: 8863caec0a4442944a70714762b43c81, type: 3}
