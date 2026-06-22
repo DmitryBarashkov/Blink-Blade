@@ -12,7 +12,10 @@ public class Aimer
     private float _maxTurnAngle = 100f;    
 
     private Vector3 _targetDir;
-    private float _currentAngle;    
+    private float _currentAngle;
+    private bool _isFirstThrow;
+
+    public bool IsFirstThrow => _isFirstThrow;
 
     [Inject]
     private void Construct(CameraBoundsInstaller camera, AimingArrow aimingArrow)
@@ -26,6 +29,7 @@ public class Aimer
         _animator = animator;
         _playerTransform = playerTransform;
         _camera.SetAim(_playerTransform);
+        _isFirstThrow = true;
     }
 
     public void ChangeWeapon(Weapon weapon)
@@ -49,6 +53,7 @@ public class Aimer
         {
             _weapon.Throw(_aimingArrow.Direction, _playerTransform.rotation.y);
             _camera.SetAim(_weapon.transform);
+            _isFirstThrow = false;
         }
 
         _animator.SetAiming(false);

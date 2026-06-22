@@ -34,16 +34,16 @@ public class MeleeAttack : IAttackingStrategy
 
     public void Activate()
     {
-        _attacker.Activate();
         _attacker.OnPlayerInAttackArea += Attack;
         _attacker.OnPlayerOutAttackArea += StopAttack;
+        _attacker.Activate();
     }
 
     public void Deactivate()
     {
-        _attacker.Deactivate();
         _attacker.OnPlayerInAttackArea -= Attack;
         _attacker.OnPlayerOutAttackArea -= StopAttack;
+        _attacker.Deactivate();
     }
 
     public void Tick() { }
@@ -105,26 +105,26 @@ public class RangedAttack : IAttackingStrategy
 
     public void Activate()
     {
-        _attacker.Activate();
-        _attackState = AttackState.Idle;
+        _attacker.OnPlayerInAttackArea += TryAim;
+        _attacker.OnPlayerOutAttackArea += StopTryAim;
 
+        _attacker.Activate();
+        
         _isActive = true;
         _animator.SetAiming(false);
         _cooldownTimer = 0;
 
-        _attacker.OnPlayerInAttackArea += TryAim;
-        _attacker.OnPlayerOutAttackArea += StopTryAim;
     }
 
     public void Deactivate()
     {
+        _attacker.OnPlayerInAttackArea -= TryAim;
+        _attacker.OnPlayerOutAttackArea -= StopTryAim;
+
         _attacker.Deactivate();
         _attackState = AttackState.Idle;
 
         _isActive = false;
-        
-        _attacker.OnPlayerInAttackArea -= TryAim;
-        _attacker.OnPlayerOutAttackArea -= StopTryAim;
     }
 
     public void Tick()

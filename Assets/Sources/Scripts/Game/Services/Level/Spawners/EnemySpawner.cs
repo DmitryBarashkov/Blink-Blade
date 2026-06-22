@@ -21,7 +21,7 @@ public class EnemySpawner
     {
         if (levelData != null)
         {
-            List<EnemySpawnPoint> spawnPoints = levelData.GetEnemySpawnPoints();
+            IReadOnlyList<EnemySpawnPoint> spawnPoints = levelData.GetEnemySpawnPoints();
                     
             if (_enemies.Count > 0)
             {

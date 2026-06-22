@@ -10,6 +10,9 @@ public class WinGameScreen : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _coinsCountText;
     [SerializeField] private TextMeshProUGUI _levelNumberText;
 
+    [SerializeField] private AddCoinsButton _addCoinsButton;
+    [SerializeField] private AddEnergyButton _addEnergyButton;
+
     [Inject] private Level _level;
 
     private int _coinsFactor = 5;
@@ -27,9 +30,13 @@ public class WinGameScreen : MonoBehaviour
         _coinsCountText.text = $"+{_earnedCoins}";
         _levelNumberText.text = levelNumber.ToString();
 
+        _addCoinsButton.SetEnabled(true);
+        _addEnergyButton.SetEnabled(true);
+
         YG2.saves.coins += _earnedCoins;
         YG2.saves.level += 1;
         YG2.SaveProgress();
+        YG2.SetLeaderboard("Score", YG2.saves.coins);
     }
 
     public void AddCoins(int coinsMultiplier)
@@ -47,5 +54,6 @@ public class WinGameScreen : MonoBehaviour
 
         YG2.saves.coins += _earnedCoins - currentCoins;
         YG2.SaveProgress();
+        YG2.SetLeaderboard("Score", YG2.saves.coins);
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UniRx;
 using YG;
 using Zenject;
@@ -6,6 +7,7 @@ using Zenject;
 public class Level : IDisposable
 {
     public event Action LevelFinished;
+    public event Action LevelStarted;
     
     private LevelState _levelState;
     private InputService _input;
@@ -15,7 +17,7 @@ public class Level : IDisposable
 
     private int _enemiesCount;
     private int _levelNumber;
-    private bool _shouldReload = true;
+    private bool _shouldReload;
     
     private AudioService _audioService;
     private BetweenLevelScreen _menu;
@@ -26,6 +28,8 @@ public class Level : IDisposable
     private CameraBoundsInstaller _cameraController;
     private EnemyPanel _enemyPanel;
 
+    private IReadOnlyList<ArrowTrap> _arrowTraps;
+    
     private readonly CompositeDisposable _disposables = new CompositeDisposable();
     private readonly SerialDisposable _enemiesSubscription = new SerialDisposable();
 
@@ -37,7 +41,7 @@ public class Level : IDisposable
         _levelBridge = levelBridge;
         _enemySpawner = enemySpawner;
         _playerSpawner = playerSpawner;
-        _cameraController = cameraController;
+        _cameraController = cameraController;        
 
         _levelNumber = YG2.saves.level;
         _audioService = audioService;        
@@ -55,8 +59,7 @@ public class Level : IDisposable
         if (_menu == null)
             return;
 
-        _input.Deactivate();
-        _shouldReload = false;
+        _input.Deactivate();        
         _menu.Activate();
     }
 
@@ -65,7 +68,13 @@ public class Level : IDisposable
         _input.Activate();
 
         if (_shouldReload)
-            _enemySpawner.ActivateEnemies();
+        {
+            ActivateTraps();
+            ActivateEnemies();
+            LevelStarted?.Invoke();
+        }
+        else
+            ActivatePlayer();
     }
 
     public void Win()
@@ -122,9 +131,10 @@ public class Level : IDisposable
 
     private void InitializeLevelState(ILevelData levelData)
     {
+        _shouldReload = true;
+
         _enemiesCount = levelData.GetEnemySpawnPoints().Count;
-        _levelState.Restart(_enemiesCount);
-        _levelNumber = YG2.saves.level;
+        _levelState.Restart(_enemiesCount);        
 
         _enemiesSubscription.Disposable = _levelState.CurrentEnemiesCount
             .Subscribe(enemiesCount =>
@@ -144,10 +154,27 @@ public class Level : IDisposable
         _playerSpawner.Initialize(levelData);
         _cameraController.Initialize(levelData);
         _enemyPanel.Initialize(levelData);
+        _arrowTraps = levelData.GetArrowTraps();
 
         YG2.GetLeaderboard("Score");
 
         ShowMenu();
     }
 
+    private void ActivateTraps()
+    {
+        if (_arrowTraps.Count > 0)
+            foreach (var trap in _arrowTraps)
+                trap.Activate();
+    }
+
+    private void ActivateEnemies()
+    {
+        _enemySpawner.ActivateEnemies();
+    }
+
+    private void ActivatePlayer()
+    {
+        _playerSpawner.ActivateAfterEnergyAdded();
+    }
 }

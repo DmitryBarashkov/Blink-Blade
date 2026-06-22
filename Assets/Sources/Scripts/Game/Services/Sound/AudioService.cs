@@ -22,6 +22,7 @@ public enum SoundType
     WeaponGrassHit,
     BowShot,
     WeaponMetalHit,
+    WeaponWoodHit,
 
     FallingOnGround,
 }

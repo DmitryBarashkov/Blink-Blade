@@ -4,48 +4,68 @@ using YG.Utils.LB;
 
 public class LeaderboardPlayerRow : MonoBehaviour
 {
-    [SerializeField] private GameObject _playerRow;
+    [SerializeField] private GameObject _playerRowPrefab;
+    [SerializeField] private GameObject _separatorPrefab;
     [SerializeField] private RectTransform _panel;
-    [SerializeField] private LBPlayerDataYG _playerData;
-
+    [SerializeField] private RectTransform _itemsContainer;
+    
     private string _lbName = "Score";
-    private int _heightWithPLayer = 550;
-    private int _heightWithoutPLayer = 600;
+    private LBData _lbData;
+
+    private int _heightWithPlayerInTop = 550;
+    private int _heightWithPlayerOutOfTop = 650;
 
     private void OnEnable()
     {
-        YG2.onGetLeaderboard += CheckPlayerPosition;
+        YG2.onGetLeaderboard += SetPlayerData;
     }
 
     private void OnDisable()
     {
-        YG2.onGetLeaderboard -= CheckPlayerPosition;
+        YG2.onGetLeaderboard -= SetPlayerData;
     }
 
-    private void CheckPlayerPosition(LBData lbData)
+    public void CheckPlayerPosition()
     {
-        if (lbData.technoName != _lbName)
+        if (_lbData == null || _lbData.technoName != _lbName)
             return;
 
-        if (lbData.currentPlayer != null && lbData.currentPlayer.rank > 0)
+        if (_lbData.currentPlayer != null && _lbData.currentPlayer.rank > 0)
         {
-            bool isPLayerInTop = lbData.currentPlayer.rank <= 10;
-            int panelHeight = isPLayerInTop ? _heightWithPLayer : _heightWithoutPLayer;            
+            bool isPLayerInTop = _lbData.currentPlayer.rank <= 10;
+            int panelHeight = isPLayerInTop ? _heightWithPlayerInTop : _heightWithPlayerOutOfTop;            
 
-            if (_playerData != null && isPLayerInTop == false)
+            if (isPLayerInTop == false)
             {
-                _panel.sizeDelta = new Vector2(_panel.sizeDelta.x, panelHeight);
-                _playerRow.SetActive(true);
+                GameObject separator = Instantiate(_separatorPrefab, _itemsContainer);
+                GameObject playerRow = Instantiate(_playerRowPrefab, _itemsContainer);
+                LBPlayerDataYG playerData = playerRow.GetComponent<LBPlayerDataYG>();
 
-                _playerData.textMP.rank.text = lbData.currentPlayer.rank.ToString();
-                _playerData.textMP.name.text = YG2.player.name;
-                _playerData.textMP.score.text = lbData.currentPlayer.score.ToString();
-                _playerData.data.photoUrl = YG2.player.photo;
+                if (playerData != null)
+                {
+                    _panel.sizeDelta = new Vector2(_panel.sizeDelta.x, panelHeight);
 
-                _playerData.UpdateEntries();
+                    playerData.textMP.rank.text = _lbData.currentPlayer.rank.ToString();
+                    playerData.textMP.name.text = YG2.player.name;
+                    playerData.textMP.score.text = _lbData.currentPlayer.score.ToString();
+                    playerData.data.photoUrl = YG2.player.photo;
+
+                    playerData.UpdateEntries();
+                }
             }
         }
+    }
+
+    private void SetPlayerData(LBData lbData)
+    {
+        if (_lbData == null)
+        {
+            _lbData = lbData;
+            CheckPlayerPosition();
+        }
         else
-            _playerRow.SetActive(false);        
+        {
+            _lbData = lbData;
+        }
     }
 }

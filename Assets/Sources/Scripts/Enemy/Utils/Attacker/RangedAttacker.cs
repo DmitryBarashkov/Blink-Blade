@@ -20,6 +20,7 @@ public class RangedAttacker : EnemyAttacker
     {
         _collider.enabled = true;
         ResetWeight();
+        TryFindTarget();
     }
 
     public override void Deactivate()
@@ -51,5 +52,18 @@ public class RangedAttacker : EnemyAttacker
     {
         _bodyAimConstraint.weight = 0;
         _headAimConstraint.weight = 0;
+    }
+
+    private void TryFindTarget()
+    {
+        CapsuleCollider capsuleCollider = _collider as CapsuleCollider;
+        
+        if (capsuleCollider == null) 
+            return;
+
+        Vector3 worldCenter = capsuleCollider.transform.TransformPoint(capsuleCollider.center);
+                
+        if (Physics.CheckSphere(worldCenter, capsuleCollider.radius, _layerMask))
+            TriggerAttack();
     }
 }

@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Animations.Rigging;
 
 [RequireComponent(typeof(Collider))]
 public abstract class EnemyAttacker : MonoBehaviour
@@ -12,13 +11,16 @@ public abstract class EnemyAttacker : MonoBehaviour
 
     protected Collider _collider;
 
+    protected LayerMask _layerMask;
+
     private void Awake()
     {
         _collider = GetComponent<Collider>();
+        _layerMask = LayerMask.GetMask("Player");
     }
 
     public abstract void Activate();
-
+    
     public abstract void Deactivate();
 
     private void OnTriggerEnter(Collider other)
@@ -27,7 +29,7 @@ public abstract class EnemyAttacker : MonoBehaviour
         
         if (player && player.IsInvincible == false)
         {
-            OnPlayerInAttackArea?.Invoke();
+            TriggerAttack();
         }
     }
 
@@ -39,5 +41,10 @@ public abstract class EnemyAttacker : MonoBehaviour
         {
             OnPlayerOutAttackArea?.Invoke();
         }
+    }
+
+    protected void TriggerAttack()
+    {
+        OnPlayerInAttackArea?.Invoke();
     }
 }

@@ -12,6 +12,7 @@ public class EnergyBar : MonoBehaviour
     [SerializeField] private Image _image;
 
     [Inject] private PlayerStats _playerStats;
+    [Inject] private Level _level;
 
     private float minFillAmount = 0.25f;
     private float maxFillAmount = 1;
@@ -20,8 +21,8 @@ public class EnergyBar : MonoBehaviour
 
     private void Awake()
     {
-        _maxEnergy = YG2.saves.energy;
-        
+        SetMaxEnergy();
+
         _playerStats.currentEnergy.Subscribe((currentEnergy) =>
         {
             _valueText.text = currentEnergy.ToString();
@@ -37,5 +38,20 @@ public class EnergyBar : MonoBehaviour
             }
         })
         .AddTo(this);
+    }
+
+    private void OnEnable()
+    {
+        _level.LevelStarted += SetMaxEnergy;
+    }
+
+    private void OnDisable()
+    {
+        _level.LevelStarted -= SetMaxEnergy;
+    }
+
+    private void SetMaxEnergy()
+    {
+        _maxEnergy = YG2.saves.energy;
     }
 }

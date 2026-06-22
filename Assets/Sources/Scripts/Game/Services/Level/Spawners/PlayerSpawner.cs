@@ -34,4 +34,9 @@ public class PlayerSpawner
     {
         _player.Reset();
     }
+
+    public void ActivateAfterEnergyAdded()
+    {
+        _player.Activate();
+    }
 }

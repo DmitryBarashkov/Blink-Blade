@@ -119,7 +119,7 @@ public class Player : MonoBehaviour
     public void AddEnergy(int addCount)
     {
         _energy += addCount;
-        _playerStats.currentEnergy.Value = _energy;
+        _playerStats.currentEnergy.Value = _energy;        
     }
 
     public void Reset()
@@ -148,7 +148,7 @@ public class Player : MonoBehaviour
 
         _weaponController.ActivateWeapon();
 
-        _camera.SetAim(_transform);
+        _aimer.Initialize(_transform, _animator);
     }
 
     public void Die(ContactPoint hitPoint)
@@ -174,6 +174,18 @@ public class Player : MonoBehaviour
         _isAiming = false;
 
         Defeat();
+    }
+
+    public void Activate()
+    {
+        _collider.enabled = true;
+        SetInvincibility(false);
+    }
+
+    private void SetInvincibility(bool value)
+    {
+        _isInvincible = value;
+        _gameObject.layer = _isInvincible ? _invincibleMask : _alivelayerMask;
     }
 
     private void OnAttackButtonUp()
@@ -210,14 +222,23 @@ public class Player : MonoBehaviour
 
     private void OnMenuOpenBtnPressed()
     {
-        _isAiming = false;
-        _aimer.StopAim(false);
-        _level.ShowMenu();
+        if (_aimer.IsFirstThrow)
+        {
+            _isAiming = false;
+            _aimer.StopAim(false);
+            _level.ShowMenu();
+        }
     }
 
     private void Defeat(bool isOutOfEnergy = false)
     {
         _level.Lose(isOutOfEnergy);
+
+        if (isOutOfEnergy)
+        {
+            _collider.enabled = false;
+            SetInvincibility(true);
+        }
     }
 
     private void OnGroundedChange(bool value)
@@ -239,12 +260,6 @@ public class Player : MonoBehaviour
     {
         _rigidBody.velocity = Vector3.zero;
         _rigidBody.angularVelocity = Vector3.zero;
-    }
-
-    private void SetInvincibility(bool value)
-    {
-        _isInvincible = value;
-        _gameObject.layer = _isInvincible ? _invincibleMask : _alivelayerMask;
     }
 
     private void OnLevelFinished()

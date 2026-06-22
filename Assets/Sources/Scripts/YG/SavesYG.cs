@@ -5,8 +5,8 @@ namespace YG
     public partial class SavesYG
     {
         // Player
-        public int level = 1;
-        public int energy = 50;
+        public int level = 0;
+        public int energy = 3;
         public int coins = 0;
 
         //Weapon

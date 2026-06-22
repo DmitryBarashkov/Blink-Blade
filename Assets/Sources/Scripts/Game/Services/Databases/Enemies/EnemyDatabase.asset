@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: EnemyDatabase
   m_EditorClassIdentifier: 
   enemies:
-  - enemyName: Swordsman Idle
-    prefab: {fileID: 7588240896824679470, guid: a701ee4cfe25fc44ea018fe97e73fc26, type: 3}
+  - enemyName: Forest_Elf_Swordsman Idle
+    prefab: {fileID: 4722590259074940258, guid: 5fdca3c93893fcb4ab1e48a8c9de39a5, type: 3}
     movementStrategy:
-      rid: 3747826653048340515
+      rid: 3412875806881873921
     attackingStrategy:
       rid: 3747826653048340517
     defendingStrategy:
       rid: 3747826672688431106
-  - enemyName: Swordsman Patrol
-    prefab: {fileID: 7588240896824679470, guid: a701ee4cfe25fc44ea018fe97e73fc26, type: 3}
+  - enemyName: Forest_Elf_Swordsman Patrol
+    prefab: {fileID: 4722590259074940258, guid: 5fdca3c93893fcb4ab1e48a8c9de39a5, type: 3}
     movementStrategy:
-      rid: 3747826653048340516
+      rid: 3412875806881873923
     attackingStrategy:
       rid: 3747826653048340518
     defendingStrategy:
@@ -61,14 +61,95 @@ MonoBehaviour:
       rid: 3747826719521505281
     defendingStrategy:
       rid: 3747826719521505282
+  - enemyName: Swordsman Idle
+    prefab: {fileID: 478639616586872186, guid: 64424a200b3af1d44987c4270f2c54a8, type: 3}
+    movementStrategy:
+      rid: 3412875806881873924
+    attackingStrategy:
+      rid: 3412875806881873925
+    defendingStrategy:
+      rid: 3747826719521505282
+  - enemyName: Swordsman Patrol
+    prefab: {fileID: 478639616586872186, guid: 64424a200b3af1d44987c4270f2c54a8, type: 3}
+    movementStrategy:
+      rid: 3747826719521505283
+    attackingStrategy:
+      rid: 3412875806881873926
+    defendingStrategy:
+      rid: 3747826719521505282
+  - enemyName: Forest_Elf_Shieldman Idle
+    prefab: {fileID: 4722590259074940258, guid: 386f28d28be7a954c877e9ab90a9d24e, type: 3}
+    movementStrategy:
+      rid: 3412875806881873927
+    attackingStrategy:
+      rid: 3412875806881873926
+    defendingStrategy:
+      rid: 3412875806881873928
+  - enemyName: Forest_Elf_Shieldman Patrol
+    prefab: {fileID: 4722590259074940258, guid: 386f28d28be7a954c877e9ab90a9d24e, type: 3}
+    movementStrategy:
+      rid: 3747826719521505283
+    attackingStrategy:
+      rid: 3412875806881873926
+    defendingStrategy:
+      rid: 3412875806881873929
+  - enemyName: Forest_Elf_Archer Idle
+    prefab: {fileID: 4722590259074940258, guid: 0670096999bd03441aada3c488dc66f5, type: 3}
+    movementStrategy:
+      rid: 3412875806881873930
+    attackingStrategy:
+      rid: 3412875806881873931
+    defendingStrategy:
+      rid: 3412875806881873932
+  - enemyName: Forest_Elf_Archer Patrol
+    prefab: {fileID: 4722590259074940258, guid: 0670096999bd03441aada3c488dc66f5, type: 3}
+    movementStrategy:
+      rid: 3747826719521505283
+    attackingStrategy:
+      rid: 3412875806881873933
+    defendingStrategy:
+      rid: 3412875806881873934
   references:
     version: 2
     RefIds:
-    - rid: 3747826653048340515
+    - rid: 3412875806881873921
       type: {class: Idle, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 3747826653048340516
+    - rid: 3412875806881873923
       type: {class: Patrol, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3412875806881873924
+      type: {class: Idle, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3412875806881873925
+      type: {class: MeleeAttack, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3412875806881873926
+      type: {class: MeleeAttack, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3412875806881873927
+      type: {class: Idle, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3412875806881873928
+      type: {class: ShieldDefense, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3412875806881873929
+      type: {class: ShieldDefense, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3412875806881873930
+      type: {class: Idle, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3412875806881873931
+      type: {class: RangedAttack, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3412875806881873932
+      type: {class: Defenceless, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3412875806881873933
+      type: {class: RangedAttack, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3412875806881873934
+      type: {class: Defenceless, ns: , asm: Assembly-CSharp}
       data: 
     - rid: 3747826653048340517
       type: {class: MeleeAttack, ns: , asm: Assembly-CSharp}

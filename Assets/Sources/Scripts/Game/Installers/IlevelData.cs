@@ -2,8 +2,9 @@ using System.Collections.Generic;
 
 public interface ILevelData
 {
-    List<EnemySpawnPoint> GetEnemySpawnPoints();
+    IReadOnlyList<EnemySpawnPoint> GetEnemySpawnPoints();
     PlayerSpawnPoint GetPlayerSpawnPoint();
 
     CameraBounds GetCameraBounds();
+    IReadOnlyList<ArrowTrap> GetArrowTraps();
 }

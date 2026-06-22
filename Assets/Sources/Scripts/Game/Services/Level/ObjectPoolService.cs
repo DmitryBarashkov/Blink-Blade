@@ -14,6 +14,7 @@ public class ObjectPoolService : MonoBehaviour
         HitEffectBlood,
         HitEffectMetal,
         HitEffectGrass,
+        HitEffectWood,
 
         Arrow
     }

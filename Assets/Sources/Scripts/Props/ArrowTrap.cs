@@ -28,12 +28,13 @@ public class ArrowTrap : MonoBehaviour
         _transform = transform;
     }
 
-    private void OnEnable()
+    public void Activate()
     {
-        StartAttack();
+        _isActive = true;
+        _coroutine = StartCoroutine(WaitCooldownForShot());
     }
 
-    private void OnDisable()
+    public void Deactivate()
     {
         _isActive = false;
         
@@ -41,12 +42,6 @@ public class ArrowTrap : MonoBehaviour
         {
             StopCoroutine(_coroutine);
         }
-    }
-
-    private void StartAttack()
-    {
-        _isActive = true;
-        _coroutine = StartCoroutine(WaitCooldownForShot());
     }
 
     private IEnumerator WaitCooldownForShot()

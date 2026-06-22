@@ -15,21 +15,25 @@ public abstract class EndScreenButton : UIButton, IPointerClickHandler
     [SerializeField] private Color _disabledTextColor;
     [SerializeField] private Color _disabledIconColor;
 
-    public void Disable()
+    public void SetEnabled(bool isEnabled)
     {
-        _button.interactable = false;
+        if (_button == null)
+            return;
+        
+        _button.interactable = isEnabled;
 
         if (_caption != null)
-            _caption.color = _disabledTextColor;
+            _caption.color = isEnabled ? Color.white : _disabledTextColor;
 
         if (_icons.Count > 0)
         {
             _icons.ForEach((image) =>
             {
-                image.color = _disabledIconColor;
+                image.color = isEnabled ? Color.white : _disabledIconColor;
             });
         }
     }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (_screen != null)

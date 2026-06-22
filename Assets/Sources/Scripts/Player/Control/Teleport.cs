@@ -18,7 +18,7 @@ public class Teleport
     private float _verticalOffset = 1.8f;
 
     [Inject]
-    private void Construct(IAudioService audioService)
+    public void Construct(IAudioService audioService)
     {
         _audioService = audioService;        
     }

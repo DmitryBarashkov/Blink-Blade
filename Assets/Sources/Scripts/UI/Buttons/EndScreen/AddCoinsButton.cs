@@ -17,6 +17,6 @@ public class AddCoinsButton : EndScreenButton
             _winScreen.AddCoins(_coinsFactor);
         });
 
-        Disable();
+        SetEnabled(false);
     }
 }

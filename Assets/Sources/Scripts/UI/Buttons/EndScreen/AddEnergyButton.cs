@@ -13,6 +13,6 @@ public class AddEnergyButton : EndScreenButton
             YG2.saves.energy += 1;
         });
 
-        Disable();
+        SetEnabled(false);
     }
 }

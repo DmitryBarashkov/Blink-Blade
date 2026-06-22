@@ -2004,6 +2004,8 @@ MonoBehaviour:
   _enemiesCountText: {fileID: 2650963637361145268}
   _coinsCountText: {fileID: 2634695054059930639}
   _levelNumberText: {fileID: 8820368372012753021}
+  _addCoinsButton: {fileID: 8531612676647197083}
+  _addEnergyButton: {fileID: 8985572797135718437}
 --- !u!114 &193136053807336469
 MonoBehaviour:
   m_ObjectHideFlags: 0
