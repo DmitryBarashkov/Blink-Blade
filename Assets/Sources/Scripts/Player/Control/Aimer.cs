@@ -3,7 +3,8 @@ using Zenject;
 
 public class Aimer
 {
-    private CameraBoundsInstaller _camera;
+    private CameraBoundsInstaller _cameraBoundsInstaller;
+    private CameraOffsetChanger _cameraOffsetChanger;
     private Transform _playerTransform;
     private AimingArrow _aimingArrow;
     private PlayerAnimator _animator;    
@@ -18,9 +19,10 @@ public class Aimer
     public bool IsFirstThrow => _isFirstThrow;
 
     [Inject]
-    private void Construct(CameraBoundsInstaller camera, AimingArrow aimingArrow)
+    private void Construct(CameraBoundsInstaller cameraBoundsInstaller, CameraOffsetChanger cameraOffsetChanger, AimingArrow aimingArrow)
     {
-        _camera = camera;        
+        _cameraBoundsInstaller = cameraBoundsInstaller;
+        _cameraOffsetChanger = cameraOffsetChanger;
         _aimingArrow = aimingArrow;
     }
 
@@ -28,7 +30,7 @@ public class Aimer
     {
         _animator = animator;
         _playerTransform = playerTransform;
-        _camera.SetAim(_playerTransform);
+        _cameraBoundsInstaller.SetAim(_playerTransform);
         _isFirstThrow = true;
     }
 
@@ -39,7 +41,7 @@ public class Aimer
 
     public void StartAim()
     {
-        _camera.SetAim(_playerTransform);
+        _cameraBoundsInstaller.SetAim(_playerTransform);
 
         _animator.SetAiming(true);
 
@@ -52,18 +54,20 @@ public class Aimer
         if (isNeedWeaponThrow)
         {
             _weapon.Throw(_aimingArrow.Direction, _playerTransform.rotation.y);
-            _camera.SetAim(_weapon.transform);
+            _cameraBoundsInstaller.SetAim(_weapon.transform);
             _isFirstThrow = false;
         }
 
+        _cameraOffsetChanger.ClearOffset(isNeedWeaponThrow == false);
         _animator.SetAiming(false);
         _aimingArrow.Hide();
     }
 
-    public void RotateToTarget()
+    public void PerformAim()
     {
         _targetDir = Vector3.ProjectOnPlane(_aimingArrow.Direction, Vector3.up);
         _currentAngle = Vector3.Angle(_playerTransform.forward, _targetDir);
+        _cameraOffsetChanger.SetOffset(_aimingArrow.Direction.normalized);
 
         if (_currentAngle > _maxTurnAngle)
         {

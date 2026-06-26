@@ -2498,6 +2498,26 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2260458882828633632, guid: 972233c4d76a4af4db92604270dceb94, type: 3}
+      propertyPath: m_Size.x
+      value: 0.4127161
+      objectReference: {fileID: 0}
+    - target: {fileID: 2260458882828633632, guid: 972233c4d76a4af4db92604270dceb94, type: 3}
+      propertyPath: m_Size.z
+      value: 1.3663266
+      objectReference: {fileID: 0}
+    - target: {fileID: 2260458882828633632, guid: 972233c4d76a4af4db92604270dceb94, type: 3}
+      propertyPath: m_Center.x
+      value: 0.00708924
+      objectReference: {fileID: 0}
+    - target: {fileID: 2260458882828633632, guid: 972233c4d76a4af4db92604270dceb94, type: 3}
+      propertyPath: m_Center.y
+      value: -0.000000112739315
+      objectReference: {fileID: 0}
+    - target: {fileID: 2260458882828633632, guid: 972233c4d76a4af4db92604270dceb94, type: 3}
+      propertyPath: m_Center.z
+      value: 0.44682363
+      objectReference: {fileID: 0}
     - target: {fileID: 2827240777029775086, guid: 972233c4d76a4af4db92604270dceb94, type: 3}
       propertyPath: m_Layer
       value: 7

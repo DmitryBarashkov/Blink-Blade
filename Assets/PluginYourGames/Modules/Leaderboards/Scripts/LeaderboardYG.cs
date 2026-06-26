@@ -223,6 +223,11 @@ namespace YG
                 if (lb.players[i].uniqueID == YG2.player.id)
                 {
                     players[i].data.currentPlayer = true;
+                    
+                    var leaderBoardItem = playerObj.GetComponent<LeaderboardItem>();
+
+                    if (leaderBoardItem != null)
+                        leaderBoardItem.HighlightPlayer();
                 }
                 else
                 {

@@ -7,7 +7,7 @@ public class CameraBoundsInstaller
     private readonly CinemachineVirtualCamera _camera;    
 
     [Inject]
-    public CameraBoundsInstaller(CinemachineVirtualCamera camera, ActiveLevelBridge levelBridge)
+    public CameraBoundsInstaller(CinemachineVirtualCamera camera)
     {
         _camera = camera;        
     }

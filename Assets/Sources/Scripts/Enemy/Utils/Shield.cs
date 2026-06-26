@@ -13,6 +13,12 @@ public class Shield : MonoBehaviour
     private float _cooldown = 0.2f;
     private bool _isActive;
 
+    private float _bounceForce = 5f;
+    private float _bounceUpForce = 3f;
+
+    public float BounceForce => _bounceForce;
+    public float BounceUpForce=>  _bounceUpForce;
+
     private void Awake()
     {
         _collider = GetComponent<Collider>();

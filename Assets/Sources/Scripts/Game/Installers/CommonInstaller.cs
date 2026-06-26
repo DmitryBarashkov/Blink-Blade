@@ -53,6 +53,7 @@ public class CommonInstaller : MonoInstaller
     {
         Container.Bind<CameraResizer>().AsSingle().WithArguments(_camera).NonLazy();
         Container.BindInterfacesAndSelfTo<CameraBoundsInstaller>().AsSingle().WithArguments(_camera).NonLazy();
+        Container.BindInterfacesAndSelfTo<CameraOffsetChanger>().AsSingle().WithArguments(_camera).NonLazy();
     }
 
     private void BindEnemiesUIPrefabs()

@@ -26,7 +26,7 @@ public class MeleeWeapon : EnemyWeapon
 
         if (player != null && player.IsInvincible == false)
         {
-            player.Die(collision.contacts[0]);            
+            player.Die(collision.contacts[0]);
         }
     }
 }

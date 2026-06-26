@@ -89,7 +89,10 @@ public class Player : MonoBehaviour
             _input.GetInput();
 
         if (_isAiming)
-            _aimer.RotateToTarget();        
+        {
+            _aimer.PerformAim();            
+        }
+        
     }
 
     [Inject]

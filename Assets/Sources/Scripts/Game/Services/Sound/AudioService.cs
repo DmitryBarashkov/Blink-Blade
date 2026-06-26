@@ -23,6 +23,7 @@ public enum SoundType
     BowShot,
     WeaponMetalHit,
     WeaponWoodHit,
+    WeaponStoneHit,
 
     FallingOnGround,
 }

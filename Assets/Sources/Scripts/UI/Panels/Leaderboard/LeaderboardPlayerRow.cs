@@ -32,10 +32,10 @@ public class LeaderboardPlayerRow : MonoBehaviour
 
         if (_lbData.currentPlayer != null && _lbData.currentPlayer.rank > 0)
         {
-            bool isPLayerInTop = _lbData.currentPlayer.rank <= 10;
-            int panelHeight = isPLayerInTop ? _heightWithPlayerInTop : _heightWithPlayerOutOfTop;            
+            bool isPlayerInTop = _lbData.currentPlayer.rank <= 10;
+            int panelHeight = isPlayerInTop ? _heightWithPlayerInTop : _heightWithPlayerOutOfTop;            
 
-            if (isPLayerInTop == false)
+            if (isPlayerInTop == false)
             {
                 GameObject separator = Instantiate(_separatorPrefab, _itemsContainer);
                 GameObject playerRow = Instantiate(_playerRowPrefab, _itemsContainer);

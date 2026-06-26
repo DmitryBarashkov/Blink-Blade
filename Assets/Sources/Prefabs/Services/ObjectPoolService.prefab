@@ -67,6 +67,11 @@ MonoBehaviour:
     lifeTime: 5
   - id: 4
     objectType: 5
+    prefab: {fileID: 1649514149693448, guid: b17da2530534eda4f9eac52e8fdc8d33, type: 3}
+    poolSize: 3
+    lifeTime: 5
+  - id: 5
+    objectType: 6
     prefab: {fileID: 1219358074084769218, guid: a0ee4e0ef9cd2fb4fb67024763d751e5, type: 3}
     poolSize: 10
     lifeTime: 5

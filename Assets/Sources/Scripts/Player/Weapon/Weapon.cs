@@ -24,14 +24,13 @@ public class Weapon : MonoBehaviour
     
     private float _fixedZ = 0;    
     private float _throwForce = 15f;
-    private float _upwardBounceForce = 3f;
-    private float _bounceForce = 5f;
     private float _bounceRotationForce = 1200f;
     private float _movementThreshold = 20f;
     private int _activeLayer;
     private int _passiveLayer;
     private bool _isThrown = false;
     private bool _isShouldRotate = false;
+    private bool _isFirstHit;
     private bool _isIdle = true;
     private float _rotateAngle;
     private Coroutine _coroutine;
@@ -77,6 +76,12 @@ public class Weapon : MonoBehaviour
             Utils.FixPositionZ(_transform);
     }
 
+    private void OnDisable()
+    {
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (_isShouldRotate)
@@ -87,6 +92,7 @@ public class Weapon : MonoBehaviour
             Enemy enemy = collision.collider.GetComponent<Enemy>();
             Shield shield = collision.collider.GetComponent<Shield>();
             HitEffectSpawner effect = collision.collider.GetComponent<HitEffectSpawner>();
+            Ground ground = collision.collider.GetComponent<Ground>();
             ContactPoint hitPoint = collision.contacts[0];
 
             ResetEffects();
@@ -104,7 +110,26 @@ public class Weapon : MonoBehaviour
             if (shield != null)
             {
                 shield.HandleCollision(hitPoint);
-                Bounce(hitPoint);
+                Bounce(collision, shield.BounceForce, shield.BounceUpForce);
+                return;
+            }
+
+            if (ground != null)
+            {
+                if (ground.BounceForce > 0 && _isFirstHit)
+                {
+                    Bounce(collision, ground.BounceForce);
+                    _isFirstHit = false;
+                }
+                else if (ground.BounceForce == 0)
+                {
+                    ResetVelocity();
+                    
+                    _weaponRotator.RotateToObstacle(collision);
+                    _rigidbody.isKinematic = true;
+                    _transform.SetParent(ground.transform);
+                }
+
                 return;
             }
         }
@@ -124,7 +149,7 @@ public class Weapon : MonoBehaviour
 
     public void ReturnToWeaponHandler()
     {
-        if (_weaponHandler == null)
+        if (_weaponHandler == null || _transform == null)
             return;
 
         ResetEffects();
@@ -157,6 +182,7 @@ public class Weapon : MonoBehaviour
 
         _isThrown = true;
         _isShouldRotate = true;
+        _isFirstHit = true;
 
         PerformEffects();
         
@@ -172,6 +198,7 @@ public class Weapon : MonoBehaviour
 
     public void SetActiveCollider(bool value)
     {
+        if (_collider != null)
         _collider.enabled = value;
     }
 
@@ -185,18 +212,34 @@ public class Weapon : MonoBehaviour
         _gameObject.SetActive(false);
     }
 
-    private void Bounce(ContactPoint hitPoint)
+    private void Bounce(Collision collision, float bounceForce, float upwardBounceForce = 0)
     {
+        ContactPoint hitPoint = collision.contacts[0];
         Vector3 bounceDirection = hitPoint.normal;
 
-        ResetVelocity();
+        if (upwardBounceForce > 0)
+        {
+            bounceDirection.y = 0;
+            bounceDirection.Normalize();
+            ResetVelocity();
+            bounceDirection += Vector3.up * (upwardBounceForce / bounceForce);
+            bounceDirection.Normalize();
+            _rigidbody.AddForce(bounceDirection * bounceForce, ForceMode.Impulse);
+        }
+        else
+        {
+            Vector3 incomingVelocity = collision.relativeVelocity * -1f;
 
-        bounceDirection.y = 0;
-        bounceDirection.Normalize();
-        bounceDirection += Vector3.up * (_upwardBounceForce / _bounceForce);
-        bounceDirection.Normalize();
+            incomingVelocity.z = 0f;
 
-        _rigidbody.AddForce(bounceDirection * _bounceForce, ForceMode.Impulse);
+            float incomingSpeed = incomingVelocity.magnitude;
+            Vector3 reflectedDirection = Vector3.Reflect(incomingVelocity.normalized, bounceDirection).normalized;
+            Vector3 weaponBounceForce = reflectedDirection * bounceForce;
+
+            ResetVelocity();
+
+            _rigidbody.AddForce(weaponBounceForce, ForceMode.Impulse);
+        }        
         
         _rotateAngle = -_bounceRotationForce;
         _isShouldRotate = true;

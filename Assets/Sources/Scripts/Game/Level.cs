@@ -155,6 +155,7 @@ public class Level : IDisposable
         _cameraController.Initialize(levelData);
         _enemyPanel.Initialize(levelData);
         _arrowTraps = levelData.GetArrowTraps();
+        _levelNumber = YG2.saves.level;
 
         YG2.GetLeaderboard("Score");
 

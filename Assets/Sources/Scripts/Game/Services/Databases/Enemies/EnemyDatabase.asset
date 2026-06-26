@@ -109,6 +109,54 @@ MonoBehaviour:
       rid: 3412875806881873933
     defendingStrategy:
       rid: 3412875806881873934
+  - enemyName: Cave_Swordsman Idle
+    prefab: {fileID: 4530062177698052861, guid: 16926b1d473ae2540be18b16796d5ccf, type: 3}
+    movementStrategy:
+      rid: 3412875894591848448
+    attackingStrategy:
+      rid: 3412875894591848449
+    defendingStrategy:
+      rid: 3412875806881873934
+  - enemyName: Cave_Swordsman Patrol
+    prefab: {fileID: 4530062177698052861, guid: 16926b1d473ae2540be18b16796d5ccf, type: 3}
+    movementStrategy:
+      rid: 3412875894591848450
+    attackingStrategy:
+      rid: 3412875894591848449
+    defendingStrategy:
+      rid: 3412875806881873934
+  - enemyName: Cave_Shieldman Idle
+    prefab: {fileID: 6632015827303108662, guid: e805c08ae1cb6ab45acec232145d6330, type: 3}
+    movementStrategy:
+      rid: 3412875894591848451
+    attackingStrategy:
+      rid: 3412875894591848449
+    defendingStrategy:
+      rid: 3412875894591848452
+  - enemyName: Cave_Shieldman Patrol
+    prefab: {fileID: 6632015827303108662, guid: e805c08ae1cb6ab45acec232145d6330, type: 3}
+    movementStrategy:
+      rid: 3412875894591848453
+    attackingStrategy:
+      rid: 3412875894591848449
+    defendingStrategy:
+      rid: 3412875894591848452
+  - enemyName: Cave_Archer Idle
+    prefab: {fileID: 6632015827303108662, guid: f504bd495fa59aa44880d851b3ea3d93, type: 3}
+    movementStrategy:
+      rid: 3412875898560708608
+    attackingStrategy:
+      rid: 3412875898560708609
+    defendingStrategy:
+      rid: 3412875898560708612
+  - enemyName: Cave_Archer Patrol
+    prefab: {fileID: 6632015827303108662, guid: f504bd495fa59aa44880d851b3ea3d93, type: 3}
+    movementStrategy:
+      rid: 3412875898560708610
+    attackingStrategy:
+      rid: 3412875898560708609
+    defendingStrategy:
+      rid: 3412875898560708611
   references:
     version: 2
     RefIds:
@@ -149,6 +197,39 @@ MonoBehaviour:
       type: {class: RangedAttack, ns: , asm: Assembly-CSharp}
       data: 
     - rid: 3412875806881873934
+      type: {class: Defenceless, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3412875894591848448
+      type: {class: Idle, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3412875894591848449
+      type: {class: MeleeAttack, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3412875894591848450
+      type: {class: Patrol, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3412875894591848451
+      type: {class: Idle, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3412875894591848452
+      type: {class: ShieldDefense, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3412875894591848453
+      type: {class: Patrol, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3412875898560708608
+      type: {class: Idle, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3412875898560708609
+      type: {class: RangedAttack, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3412875898560708610
+      type: {class: Patrol, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3412875898560708611
+      type: {class: Defenceless, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 3412875898560708612
       type: {class: Defenceless, ns: , asm: Assembly-CSharp}
       data: 
     - rid: 3747826653048340517
