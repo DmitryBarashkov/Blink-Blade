@@ -10,7 +10,6 @@ public class PlayerInstaller : MonoInstaller
     
     [Inject] private WeaponDatabase _weaponDatabase;    
     
-    private int _coins;
     private int _energy;
     private int _weaponId;
 
@@ -25,7 +24,6 @@ public class PlayerInstaller : MonoInstaller
 
     private void LoadPlayerData()
     {
-        _coins = YG2.saves.coins;
         _energy = YG2.saves.energy;
         _weaponId = YG2.saves.weaponId;       
     }

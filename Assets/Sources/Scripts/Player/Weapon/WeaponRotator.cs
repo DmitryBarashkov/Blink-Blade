@@ -48,7 +48,7 @@ public class WeaponRotator
 
         if (rotationAngle > 0)
         {
-            _weaponTransform.rotation = Quaternion.Euler(0, 180, 0);
+            _weaponTransform.rotation = Quaternion.Euler(0, 180f, 0);
         }
         else
         {

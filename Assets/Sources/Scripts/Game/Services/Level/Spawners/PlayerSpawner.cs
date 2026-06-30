@@ -13,26 +13,19 @@ public class PlayerSpawner
         _container = container;
     }
 
-    public void Initialize(ILevelData levelData)
+    public void Initialize(PlayerSpawnPoint spawnPoint)
     {
-
-        PlayerSpawnPoint spawnPoint = levelData.GetPlayerSpawnPoint();
-
         if (spawnPoint != null)
         {
-            _player = _container.Resolve<Player>();
-            _player.InitializeSpawnPoint(spawnPoint.transform.position, spawnPoint.transform.rotation);
-            Reset();
+            if (_player == null)
+                _player = _container.Resolve<Player>();
+            
+            _player.Initialize(spawnPoint.transform.position, spawnPoint.transform.rotation);
         }
         else
         {
             Debug.LogError("--- [PLAYER SPAWNER] There is no PlayerSpawnPoint on scene!");
         }
-    }
-
-    public void Reset()
-    {
-        _player.Reset();
     }
 
     public void ActivateAfterEnergyAdded()

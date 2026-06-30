@@ -1132,8 +1132,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 686806794}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.04288023, y: 0.021385489, z: -0.0009180696, w: 0.99885094}
-  m_LocalPosition: {x: -0.44669706, y: -8.994944, z: -10.427146}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -9.892685, z: -10.523575}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2012,14 +2012,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1375202474}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.04288023, y: 0.021385489, z: -0.0009180696, w: 0.99885094}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -9.892685, z: -10.523575}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1545535350}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 4.916, y: 2.453, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1392727889
 GameObject:
   m_ObjectHideFlags: 0
@@ -2109,7 +2109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 6, z: -10}
+  m_FollowOffset: {x: 0, y: 1, z: -10}
   m_XDamping: 0.25
   m_YDamping: 0.25
   m_ZDamping: 0
@@ -2166,6 +2166,7 @@ MonoBehaviour:
   _enemySpawnPoints:
   - {fileID: 1860601274}
   - {fileID: 151715022}
+  _arrowTraps: []
   _bounds: {fileID: 2108732844}
 --- !u!1 &1676150127
 GameObject:

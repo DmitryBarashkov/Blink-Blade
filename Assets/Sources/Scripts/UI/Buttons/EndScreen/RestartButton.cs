@@ -10,9 +10,6 @@ public class RestartButton : EndScreenButton
     {
         _audioService.PlaySound(SoundType.ButtonClick);
 
-        if (YG2.saves.isAdsDisabled == false)
-            YG2.InterstitialAdvShow();
-
         _level.Restart();
         _screen.Close();
         _levelState.EnergyUsed.Value = false;

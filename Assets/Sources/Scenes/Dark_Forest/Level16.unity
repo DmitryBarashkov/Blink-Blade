@@ -657,7 +657,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  selectedEnemyName: Shieldman Idle
+  selectedEnemyName: Forest_Elf_Shieldman Idle
 --- !u!1 &963827622
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,7 +703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  selectedEnemyName: Shieldman Idle
+  selectedEnemyName: Forest_Elf_Shieldman Idle
 --- !u!1 &1013302324
 GameObject:
   m_ObjectHideFlags: 0

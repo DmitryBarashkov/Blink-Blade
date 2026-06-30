@@ -446,7 +446,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 335445666}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.04288023, y: 0.021385489, z: -0.0009180696, w: 0.99885094}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -10, z: -10.523575}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1478,7 +1478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 6, z: -10}
+  m_FollowOffset: {x: 0, y: 1, z: -10}
   m_XDamping: 0.25
   m_YDamping: 0.25
   m_ZDamping: 0
@@ -2847,8 +2847,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -38, y: 25.2}
-  m_SizeDelta: {x: 50, y: 30}
+  m_AnchoredPosition: {x: -55.9, y: 25.2}
+  m_SizeDelta: {x: 74.132, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &5568679903742600950
 RectTransform:
@@ -3622,7 +3622,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -3651,7 +3651,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0.09318544, y: 0.12518118, z: 2.6645663, w: 0.95145607}
+  m_margin: {x: -2.5393982, y: 0.12518118, z: 2.6645663, w: 0.95145607}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

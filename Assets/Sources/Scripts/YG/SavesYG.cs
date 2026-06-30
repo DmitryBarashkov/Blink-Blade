@@ -6,7 +6,7 @@ namespace YG
     {
         // Player
         public int level = 0;
-        public int energy = 3;
+        public int energy = 5;
         public int coins = 0;
 
         //Weapon

@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using YG;
 
@@ -17,7 +18,7 @@ public class BetweenLevelScreen : MonoBehaviour
     private void OnEnable()
     {
         _levelNumber.text = YG2.saves.level.ToString();
-        _coinsText.text = YG2.saves.coins.ToString();
+        _coinsText.text = GetCoinText();
     }
 
     public void Activate()
@@ -34,5 +35,26 @@ public class BetweenLevelScreen : MonoBehaviour
             _gameObject.SetActive(false);
         else
             gameObject.SetActive(false);
+    }
+
+    private string GetCoinText()
+    {
+        int coins = YG2.saves.coins;
+
+        if (coins < 1000)
+            return coins.ToString();
+
+        if (coins < 1000000)
+        {
+            float rounded = Mathf.Floor((coins / 1000f) * 10f) / 10f;
+            
+            return (coins / 1000f).ToString("F1") + "k";
+        }
+        else
+        {
+            float rounded = Mathf.Floor((coins / 100000f) * 10f) / 10f;
+            
+            return (coins / 1000000f).ToString("F1") + "m";
+        }
     }
 }

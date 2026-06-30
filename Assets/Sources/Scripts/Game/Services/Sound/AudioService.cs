@@ -83,6 +83,7 @@ public class AudioService : MonoBehaviour, IAudioService
     public void SetSound(bool value)
     {
         _isSoundOn = YG2.saves.isSoundOn = value;
+        YG2.SaveProgress();
 
         if (_isSoundOn)
         {
@@ -99,6 +100,7 @@ public class AudioService : MonoBehaviour, IAudioService
     public void SetMusic(bool value)
     {
         _isMusicOn = YG2.saves.isMusicOn = value;
+        YG2.SaveProgress();
 
         if (_isMusicOn)
             PlayMusic(SoundType.BackgroundMusic);

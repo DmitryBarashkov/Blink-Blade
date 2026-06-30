@@ -6,24 +6,40 @@ using Zenject;
 
 public class GlobalInstaller : MonoInstaller
 {
-    [Header("Languages flags")]
-    [SerializeField] private List<LanguageSpritePair> _languageFlags;
     [Header("Databases")]
     [SerializeField] private EnemyDatabase _enemyDatabase;
     [SerializeField] private WeaponDatabase _weaponDatabase;
     [Header("Services")]
     [SerializeField] private AudioService _audioServicePrefab;
+    [Header("Languages flags")]
+    [SerializeField] private List<LanguageSpritePair> _languageFlags;
 
     public override void InstallBindings()
+    {
+        BindLoaders();
+        BindData();
+        BindServices();
+        BindLanguages();
+    }
+
+    private void BindLoaders()
+    {
+        Container.Bind<SavesYG>().AsSingle();
+        Container.BindInterfacesTo<Bootstrap>().AsSingle().NonLazy();
+    }
+
+    private void BindData()
     {
         Container.Bind<EnemyDatabase>().FromInstance(_enemyDatabase).AsSingle();
         Container.Bind<WeaponDatabase>().FromInstance(_weaponDatabase).AsSingle();
         Container.Bind<EnemyFactory>().AsSingle();
+    }
+
+    private void BindServices()
+    {
         Container.Bind<LevelLoadService>().AsSingle();
-        Container.Bind<LevelState>().AsSingle().NonLazy();                 
-        Container.BindInterfacesTo<Bootstrap>().AsSingle().NonLazy();
+        Container.Bind<LevelState>().AsSingle().NonLazy();
         Container.Bind<InputService>().AsSingle();
-        Container.Bind<SavesYG>().AsSingle();
         Container.Bind<ActiveLevelBridge>().AsSingle();
 
         Container.BindInterfacesAndSelfTo<AudioService>()
@@ -31,8 +47,6 @@ public class GlobalInstaller : MonoInstaller
             .UnderTransformGroup("GlobalServices")
             .AsSingle()
             .NonLazy();
-
-        BindLanguages();
     }
 
     private void BindLanguages()

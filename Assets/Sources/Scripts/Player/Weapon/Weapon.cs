@@ -39,20 +39,11 @@ public class Weapon : MonoBehaviour
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();
-        _collider = GetComponent<Collider>();        
-        
         _transform = transform;
         _gameObject = gameObject;
 
-        _weaponRotator = new WeaponRotator(_transform, _stickOffsetAngle);
-
-        _activeLayer = LayerMask.NameToLayer("PlayerWeaponActive");
-        _passiveLayer = LayerMask.NameToLayer("PlayerWeaponPassive");
-        _gameObject.layer = _passiveLayer;
-
-        _rotateAngle = _spinSpeed;
-        _bounceRotationForce = _spinSpeed > 0 ? _spinSpeed : _bounceRotationForce;
+        _rigidbody = GetComponent<Rigidbody>();
+        _collider = GetComponent<Collider>();
     }
 
     private void Update()
@@ -84,7 +75,7 @@ public class Weapon : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (_isShouldRotate)
+        if (_isShouldRotate && _isFirstHit)
             _weaponRotator.RotateToObstacle(collision);
 
         if (_isThrown && IsIdle == false)
@@ -98,60 +89,56 @@ public class Weapon : MonoBehaviour
             ResetEffects();
 
             if (effect != null)
-            {
                 effect.Perform(hitPoint);
+
+            if (ground != null)
+            {
+                HandleGroundCollision(collision, ground);
+                return;
             }
 
             if (enemy != null)
             {
-                enemy.Die(hitPoint);             
+                HandleEnemyCollision(enemy, hitPoint);
+                return;
             }
 
             if (shield != null)
             {
-                shield.HandleCollision(hitPoint);
-                Bounce(collision, shield.BounceForce, shield.BounceUpForce);
+                HandleShieldCollision(collision, shield, hitPoint);
                 return;
             }
 
-            if (ground != null)
-            {
-                if (ground.BounceForce > 0 && _isFirstHit)
-                {
-                    Bounce(collision, ground.BounceForce);
-                    _isFirstHit = false;
-                }
-                else if (ground.BounceForce == 0)
-                {
-                    ResetVelocity();
-                    
-                    _weaponRotator.RotateToObstacle(collision);
-                    _rigidbody.isKinematic = true;
-                    _transform.SetParent(ground.transform);
-                }
-
-                return;
-            }
+            _isShouldRotate = false;
+            _isFirstHit = false;
         }
-
-        _isShouldRotate = false;
+        else
+            _isShouldRotate = false;
     }
 
     public void Initialize(WeaponHandler weaponHandler, IAudioService audioService)
     {
         _weaponHandler = weaponHandler;
         _audioService = audioService;
+        _transform = transform;
+        _gameObject = gameObject;
         
         _transform.SetParent(_weaponHandler.transform);
         _transform.localPosition = _startWeaponPosition = _transform.position;
-        _transform.localRotation = _startWeaponRotation = _transform.rotation;        
+        _transform.localRotation = _startWeaponRotation = _transform.rotation;
+
+        _weaponRotator = new WeaponRotator(_transform, _stickOffsetAngle);
+
+        _activeLayer = LayerMask.NameToLayer("PlayerWeaponActive");
+        _passiveLayer = LayerMask.NameToLayer("PlayerWeaponPassive");
+        _gameObject.layer = _passiveLayer;
+
+        _rotateAngle = _spinSpeed;
+        _bounceRotationForce = _spinSpeed > 0 ? _spinSpeed : _bounceRotationForce;
     }
 
     public void ReturnToWeaponHandler()
     {
-        if (_weaponHandler == null || _transform == null)
-            return;
-
         ResetEffects();
 
         _isThrown = false;
@@ -210,6 +197,45 @@ public class Weapon : MonoBehaviour
     public void Deactivate()
     {
         _gameObject.SetActive(false);
+    }
+
+    private void HandleShieldCollision(Collision collision, Shield shield, ContactPoint hitPoint)
+    {
+        _isShouldRotate = true;
+        _isFirstHit = false;
+
+        shield.HandleCollision(hitPoint);
+        Bounce(collision, shield.BounceForce, shield.BounceUpForce);
+    }
+
+    private void HandleEnemyCollision(Enemy enemy, ContactPoint hitPoint)
+    {
+        _isShouldRotate = false;
+        _isFirstHit = false;
+
+        enemy.Die(hitPoint);
+    }
+
+    private void HandleGroundCollision(Collision collision, Ground ground)
+    {
+        if (ground.BounceForce > 0 && _isFirstHit)
+        {
+            _isShouldRotate = true;
+            Bounce(collision, ground.BounceForce);
+        }
+        else if (ground.BounceForce == 0)
+        {
+            ResetVelocity();
+
+            _weaponRotator.RotateToObstacle(collision);
+            _rigidbody.isKinematic = true;
+            
+            _isShouldRotate = false;
+        }
+        else
+            _isShouldRotate = false;
+
+        _isFirstHit = false;
     }
 
     private void Bounce(Collision collision, float bounceForce, float upwardBounceForce = 0)

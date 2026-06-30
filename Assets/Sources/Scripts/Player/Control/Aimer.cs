@@ -1,4 +1,5 @@
 using UnityEngine;
+using YG;
 using Zenject;
 
 public class Aimer
@@ -16,7 +17,7 @@ public class Aimer
     private float _currentAngle;
     private bool _isFirstThrow;
 
-    public bool IsFirstThrow => _isFirstThrow;
+    public bool CanShowMenu => _isFirstThrow;
 
     [Inject]
     private void Construct(CameraBoundsInstaller cameraBoundsInstaller, CameraOffsetChanger cameraOffsetChanger, AimingArrow aimingArrow)
@@ -31,7 +32,8 @@ public class Aimer
         _animator = animator;
         _playerTransform = playerTransform;
         _cameraBoundsInstaller.SetAim(_playerTransform);
-        _isFirstThrow = true;
+
+        _isFirstThrow = YG2.saves.level == 0 ? false : true;
     }
 
     public void ChangeWeapon(Weapon weapon)
@@ -56,6 +58,10 @@ public class Aimer
             _weapon.Throw(_aimingArrow.Direction, _playerTransform.rotation.y);
             _cameraBoundsInstaller.SetAim(_weapon.transform);
             _isFirstThrow = false;
+        }
+        else
+        {
+            _cameraBoundsInstaller.SetAim(_playerTransform);
         }
 
         _cameraOffsetChanger.ClearOffset(isNeedWeaponThrow == false);

@@ -17,7 +17,6 @@ public class PlayerWeaponController
     private WeaponHandler _weaponHandler;
     private IAudioService _audioService;
 
-    private readonly CompositeDisposable _disposables = new CompositeDisposable();
     private readonly Dictionary<int, Weapon> _instantiatedWeapons = new();
 
     public Weapon CurrentWeapon => _weapon;
@@ -46,11 +45,21 @@ public class PlayerWeaponController
             {
                 ChangeWeapon(result);
             }
-        })
-        .AddTo(_disposables);
+        });
     }
     
-    public void ChangeWeapon(PlayerWeapon weaponRecord)
+    public void ActivateWeapon()
+    {
+        _weapon.ReturnToWeaponHandler();
+        _weapon.SetActiveCollider(true);
+    }
+
+    public void DeactivateWeapon()
+    {
+        _weapon.SetActiveCollider(false);
+    }
+
+    private void ChangeWeapon(PlayerWeapon weaponRecord)
     {
         _weapon.Deactivate();
 
@@ -70,17 +79,4 @@ public class PlayerWeaponController
         _aimer.ChangeWeapon(_weapon);
         _teleport.ChangeWeapon(_weapon);
     }
-
-    public void ActivateWeapon()
-    {
-        _weapon.ReturnToWeaponHandler();
-        _weapon.SetActiveCollider(true);
-    }
-
-    public void DeactivateWeapon()
-    {
-        _weapon.SetActiveCollider(false);
-    }
-
-    public void Dispose() => _disposables.Dispose();
 }

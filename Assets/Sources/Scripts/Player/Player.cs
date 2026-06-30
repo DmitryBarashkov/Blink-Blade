@@ -31,8 +31,7 @@ public class Player : MonoBehaviour
     private int _invincibleMask;
     
     private InputService _input;
-    private IAudioService _audioService;
-    private CameraBoundsInstaller _camera;
+    private IAudioService _audioService;    
     private Aimer _aimer;
     private Teleport _teleport;
     
@@ -97,7 +96,7 @@ public class Player : MonoBehaviour
 
     [Inject]
     private void Construct(InputService input, PlayerWeaponController weaponController, Teleport teleport, Aimer aimer, 
-                           int energy, IAudioService audioService, CameraBoundsInstaller camera)
+                           int energy, IAudioService audioService)
     {
         _input = input;        
         _weaponController = weaponController;
@@ -105,31 +104,21 @@ public class Player : MonoBehaviour
         _aimer = aimer;
         _energy = energy;        
         
-        _audioService = audioService;
-        _camera = camera;
+        _audioService = audioService;        
 
         _transform = transform;
         _initialPosition = _transform.position;
         _initialRotation = _transform.rotation;
     }
 
-    public void InitializeSpawnPoint(Vector3 position, Quaternion rotation)
+    public void Initialize(Vector3 position, Quaternion rotation)
     {
-        _initialPosition = _transform.position = position;
-        _initialRotation = _transform.rotation = rotation;
-    }
+        _initialPosition = position;
+        _initialRotation = rotation;
 
-    public void AddEnergy(int addCount)
-    {
-        _energy += addCount;
-        _playerStats.currentEnergy.Value = _energy;        
-    }
-
-    public void Reset()
-    {
         _transform.position = _initialPosition;
         _transform.rotation = _initialRotation;
-        
+
         _canTeleport = false;
         _isAiming = false;
         _isDead = false;
@@ -148,10 +137,15 @@ public class Player : MonoBehaviour
         _collider.enabled = true;
         _animator.SetDied(false);
         _groundChecker.gameObject.SetActive(true);
+        _aimer.Initialize(_transform, _animator);
 
         _weaponController.ActivateWeapon();
+    }
 
-        _aimer.Initialize(_transform, _animator);
+    public void AddEnergy(int addCount)
+    {
+        _energy += addCount;
+        _playerStats.currentEnergy.Value = _energy;        
     }
 
     public void Die(ContactPoint hitPoint)
@@ -163,8 +157,7 @@ public class Player : MonoBehaviour
         _effect.Perform(hitPoint);
         _audioService.PlaySound(SoundType.Hurt);
 
-        _aimer.StopAim(false);
-        _camera.SetAim(_transform);
+        _aimer.StopAim(false);        
         _weaponController.DeactivateWeapon();
 
         SetInvincibility(true);
@@ -212,7 +205,7 @@ public class Player : MonoBehaviour
         }
         else if (_energy == 0)
         {
-            _camera.SetAim(_transform);
+            _aimer.StopAim(false);
             _isAiming = false;
             Defeat(true);
         }
@@ -225,7 +218,7 @@ public class Player : MonoBehaviour
 
     private void OnMenuOpenBtnPressed()
     {
-        if (_aimer.IsFirstThrow)
+        if (_aimer.CanShowMenu)
         {
             _isAiming = false;
             _aimer.StopAim(false);

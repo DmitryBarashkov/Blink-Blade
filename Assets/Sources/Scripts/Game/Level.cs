@@ -29,6 +29,7 @@ public class Level : IDisposable
     private EnemyPanel _enemyPanel;
 
     private IReadOnlyList<ArrowTrap> _arrowTraps;
+    private ILevelData _levelData;
     
     private readonly CompositeDisposable _disposables = new CompositeDisposable();
     private readonly SerialDisposable _enemiesSubscription = new SerialDisposable();
@@ -98,7 +99,7 @@ public class Level : IDisposable
     public void Restart(bool isNeedInputActivate = true)
     {
         _enemySpawner.Reset();
-        _playerSpawner.Reset();
+        _playerSpawner.Initialize(_levelData.GetPlayerSpawnPoint());
         _enemyPanel.Reset();
 
         _levelState.Restart(_enemiesCount);
@@ -150,8 +151,10 @@ public class Level : IDisposable
 
     private void InitializeLevelData(ILevelData levelData)
     {
+        _levelData = levelData;
+        
         _enemySpawner.Initialize(levelData);
-        _playerSpawner.Initialize(levelData);
+        _playerSpawner.Initialize(levelData.GetPlayerSpawnPoint());
         _cameraController.Initialize(levelData);
         _enemyPanel.Initialize(levelData);
         _arrowTraps = levelData.GetArrowTraps();
