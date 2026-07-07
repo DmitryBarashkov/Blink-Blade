@@ -91,11 +91,10 @@ public class Player : MonoBehaviour
         {
             _aimer.PerformAim();            
         }
-        
     }
 
     [Inject]
-    private void Construct(InputService input, PlayerWeaponController weaponController, Teleport teleport, Aimer aimer, 
+    public void Construct(InputService input, PlayerWeaponController weaponController, Teleport teleport, Aimer aimer, 
                            int energy, IAudioService audioService)
     {
         _input = input;        
@@ -157,7 +156,6 @@ public class Player : MonoBehaviour
         _effect.Perform(hitPoint);
         _audioService.PlaySound(SoundType.Hurt);
 
-        _aimer.StopAim(false);        
         _weaponController.DeactivateWeapon();
 
         SetInvincibility(true);
@@ -167,14 +165,16 @@ public class Player : MonoBehaviour
 
         _isDead = true;
         _canTeleport = false;
-        _isAiming = false;
 
         Defeat();
+        StopAim();
     }
 
     public void Activate()
     {
         _collider.enabled = true;
+
+        StopAim();
         SetInvincibility(false);
     }
 
@@ -182,6 +182,12 @@ public class Player : MonoBehaviour
     {
         _isInvincible = value;
         _gameObject.layer = _isInvincible ? _invincibleMask : _alivelayerMask;
+    }
+
+    private void StopAim()
+    {
+        _aimer.StopAim(false);
+        _isAiming = false;
     }
 
     private void OnAttackButtonUp()
@@ -205,8 +211,7 @@ public class Player : MonoBehaviour
         }
         else if (_energy == 0)
         {
-            _aimer.StopAim(false);
-            _isAiming = false;
+            StopAim();
             Defeat(true);
         }
         else

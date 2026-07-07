@@ -157,6 +157,14 @@ MonoBehaviour:
       rid: 3412875898560708609
     defendingStrategy:
       rid: 3412875898560708611
+  - enemyName: Boss Teleportation
+    prefab: {fileID: 1623090471552090886, guid: 704e480bf85686445b8ba720d708003a, type: 3}
+    movementStrategy:
+      rid: 5920497412029808640
+    attackingStrategy:
+      rid: 5920497412029808644
+    defendingStrategy:
+      rid: 5920497412029808645
   references:
     version: 2
     RefIds:
@@ -267,4 +275,13 @@ MonoBehaviour:
       data: 
     - rid: 3747826719521505283
       type: {class: Patrol, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 5920497412029808640
+      type: {class: Teleportation, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 5920497412029808644
+      type: {class: MeleeAttack, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 5920497412029808645
+      type: {class: ShieldDefense, ns: , asm: Assembly-CSharp}
       data: 

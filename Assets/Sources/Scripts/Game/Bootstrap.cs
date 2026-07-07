@@ -10,8 +10,7 @@ public class Bootstrap : IInitializable
     public void Initialize()
     {
         CheckInAppPurchases();
-        
-        
+
         if (YG2.saves.isAdsDisabled)
             YG2.StickyAdActivity(false);
 

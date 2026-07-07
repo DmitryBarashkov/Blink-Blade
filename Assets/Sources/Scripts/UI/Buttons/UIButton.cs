@@ -16,7 +16,7 @@ public abstract class UIButton : MonoBehaviour
         _rectTransform = GetComponent<RectTransform>();
     }
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         _button.onClick.AddListener(HandleClick);
     }

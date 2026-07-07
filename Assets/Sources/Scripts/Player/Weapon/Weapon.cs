@@ -213,7 +213,7 @@ public class Weapon : MonoBehaviour
         _isShouldRotate = false;
         _isFirstHit = false;
 
-        enemy.Die(hitPoint);
+        enemy.TakeDamage(hitPoint);
     }
 
     private void HandleGroundCollision(Collision collision, Ground ground)

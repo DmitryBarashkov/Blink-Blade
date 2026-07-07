@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
+using Zenject.SpaceFighter;
 
 [RequireComponent(typeof(RectTransform))]
 public class EnemyPanel: MonoBehaviour
@@ -33,7 +34,7 @@ public class EnemyPanel: MonoBehaviour
 
     private void CreatePanel(ILevelData levelData)
     {
-        _initiateEnemiesCount = levelData.GetEnemySpawnPoints().Count;
+        _initiateEnemiesCount = levelData.IsBossLevel() ? levelData.GetBossHealth() : levelData.GetEnemySpawnPoints().Count;
         _icons = new List<EnemyIcon>(_initiateEnemiesCount);
 
         for (int i = 0; i < _initiateEnemiesCount; i++)

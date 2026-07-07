@@ -1070,6 +1070,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4478769390805558251, guid: 823403794b9f075488379f8776b63f25, type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -4441376419530074443, guid: 823403794b9f075488379f8776b63f25, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -1381,6 +1385,10 @@ PrefabInstance:
     - target: {fileID: -2073695289419637000, guid: 823403794b9f075488379f8776b63f25, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2009667800638731800, guid: 823403794b9f075488379f8776b63f25, type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -2009415000109752349, guid: 823403794b9f075488379f8776b63f25, type: 3}
       propertyPath: m_Layer
@@ -1813,6 +1821,10 @@ PrefabInstance:
     - target: {fileID: 2908482147368308621, guid: 823403794b9f075488379f8776b63f25, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2940658043658780822, guid: 823403794b9f075488379f8776b63f25, type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3126911690454598735, guid: 823403794b9f075488379f8776b63f25, type: 3}
       propertyPath: m_Layer
@@ -2394,6 +2406,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8391205532261993529, guid: 823403794b9f075488379f8776b63f25, type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8422684500381376393, guid: 823403794b9f075488379f8776b63f25, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -2824,7 +2840,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1a26211f44b0c46b69999f8f841859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker: {fileID: 4741767782122755644}
+  _meleeAttacker: {fileID: 0}
+  _rangedAttacker: {fileID: 4741767782122755644}
   _wallCheckDistance: 1
   _cliffForwardOffset: 0.5
   _blocker: {fileID: 0}
@@ -2842,7 +2859,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnObjectType: 1
-  _sound: 10
+  _sound: 12
 --- !u!4 &6387114058576583883 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2013033473203208722, guid: 823403794b9f075488379f8776b63f25, type: 3}

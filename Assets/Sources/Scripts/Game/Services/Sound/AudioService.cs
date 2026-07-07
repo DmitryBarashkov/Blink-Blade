@@ -7,7 +7,10 @@ using Zenject;
 public enum SoundType
 {
     BackgroundMusic,
-    AmbientSounds,
+    
+    ForestAmbientSounds,
+    DarkForestAmbientSounds,
+    CaveAmbientSounds,
     
     ButtonClick,
     ExpandPanel,
@@ -26,6 +29,7 @@ public enum SoundType
     WeaponStoneHit,
 
     FallingOnGround,
+    CastScream
 }
 
 [Serializable]
@@ -37,17 +41,17 @@ public struct SoundData
 
 public interface IAudioService
 {
+    void Activate();
+    void Deactivate();
     void PlaySound(SoundType type);
-    void PlayMusic(SoundType type);
-    void PlayAmbient(SoundType type);
+    void PlayMusic();
     void StopMusic();
+    void SetAmbientSound(SoundType type);
+    void PlayAmbient();    
     void StopAmbient();
 
     bool GetSoundOn();
-    bool GetMusicOn();
     void SetSound(bool value);
-    void SetMusic(bool value);
-
 }
 
 public class AudioService : MonoBehaviour, IAudioService
@@ -60,77 +64,100 @@ public class AudioService : MonoBehaviour, IAudioService
     [Header("Audio Clips")]
     [SerializeField] private List<SoundData> _sounds;
 
-    private bool _isSoundOn;
-    private bool _isMusicOn;
+    private bool _isSoundOn;    
+
+    private SoundType _ambientSoundType = SoundType.ForestAmbientSounds;
 
     [Inject]
     public void Construct()
     {
-        _isMusicOn = YG2.saves.isMusicOn;
         _isSoundOn = YG2.saves.isSoundOn;
     }
     
+    public void Activate()
+    {
+        _sfxSource.enabled = true;
+        _ambientSource.enabled = true;
+        _musicSource.enabled = true;
+
+        PlayAmbient();
+        PlayMusic();
+    }
+
+    public void Deactivate()
+    {
+        _sfxSource.enabled = false;
+        _ambientSource.enabled = false;
+        _musicSource.enabled = false;
+    }
+
     public bool GetSoundOn()
     {
         return _isSoundOn;
     }
 
-    public bool GetMusicOn()
-    {
-        return _isMusicOn;
-    }
-
     public void SetSound(bool value)
     {
-        _isSoundOn = YG2.saves.isSoundOn = value;
+        _isSoundOn = value;
+
+        YG2.saves.isSoundOn = value;
         YG2.SaveProgress();
 
         if (_isSoundOn)
         {
             _sfxSource.enabled = true;
-            PlayAmbient(SoundType.AmbientSounds);
+            _ambientSource.enabled = true;
+            _musicSource.enabled = true;
+            PlayAmbient();
+            PlayMusic();
         }            
         else
         {
+            _musicSource.enabled = false;
             _sfxSource.enabled = false;
+            _ambientSource.enabled = false;
             StopAmbient();
-        }
-    }
-
-    public void SetMusic(bool value)
-    {
-        _isMusicOn = YG2.saves.isMusicOn = value;
-        YG2.SaveProgress();
-
-        if (_isMusicOn)
-            PlayMusic(SoundType.BackgroundMusic);
-        else
             StopMusic();
+        }
     }
 
     public void PlaySound(SoundType type)
     {
-        AudioClip clip = GetClip(type);
-        
-        _sfxSource.PlayOneShot(clip);        
+        if (_isSoundOn)
+        {
+            AudioClip clip = GetClip(type);
+
+            _sfxSource.PlayOneShot(clip);
+        }
     }
 
-    public void PlayMusic(SoundType type)
+    public void PlayMusic()
     {
-        AudioClip clip = GetClip(type);
-        
-        _musicSource.clip = clip;
-        _musicSource.loop = true;
-        _musicSource.Play();
+        if (_isSoundOn)
+        {
+            AudioClip clip = GetClip(SoundType.BackgroundMusic);
+
+            _musicSource.clip = clip;
+            _musicSource.loop = true;
+            _musicSource.Play();
+        }
     }
 
-    public void PlayAmbient(SoundType type)
+    public void SetAmbientSound(SoundType type)
     {
-        AudioClip clip = GetClip(type);
+        _ambientSoundType = type;
+    }
+    
+    public void PlayAmbient()
+    {
+        if (_isSoundOn)
+        {
+            AudioClip clip = GetClip(_ambientSoundType);
 
-        _ambientSource.clip = clip;
-        _ambientSource.loop = true;
-        _ambientSource.Play();
+            _ambientSource.clip = clip;
+            _ambientSource.loop = true;
+            _ambientSource.Play();
+        }
     }
 
     public void StopAmbient()

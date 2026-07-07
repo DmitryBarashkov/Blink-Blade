@@ -19,10 +19,14 @@ public class LevelLoadService
     private string _currentLevelName;
 
     private int _noRepeatLevels = 3;
-        
+    private int _lastLevelNumber;
+
+    public int LastLevelNumber => _lastLevelNumber;
+
     public LevelLoadService(ZenjectSceneLoader sceneLoader)
     {
-        _sceneLoader = sceneLoader;        
+        _sceneLoader = sceneLoader;
+        _lastLevelNumber = SceneManager.sceneCountInBuildSettings - _noRepeatLevels;
     }
 
     public async UniTaskVoid LoadLevel(int levelNumber)

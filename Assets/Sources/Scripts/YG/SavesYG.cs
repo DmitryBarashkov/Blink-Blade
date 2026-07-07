@@ -9,6 +9,8 @@ namespace YG
         public int energy = 5;
         public int coins = 0;
 
+        public bool isFinishedGame = false;
+
         //Weapon
         public int weaponId = 0;
 
@@ -16,8 +18,7 @@ namespace YG
         public bool isAdsDisabled = false;
 
         // Options
-        public bool isSoundOn = true;
-        public bool isMusicOn = true;
+        public bool isSoundOn = true;        
 
         //Shop
         public List<int> purchasedItemsIds = new List<int> { 0 };

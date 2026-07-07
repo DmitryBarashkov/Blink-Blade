@@ -1,13 +1,9 @@
-using TMPro;
 using UnityEngine;
-using YG;
 
-public class LevelScreen : MonoBehaviour
+public class LevelScreen: MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI _levelText;
-
-    private void OnEnable()
+    public void SetActive(bool value)
     {
-        _levelText.text = $"Level {YG2.saves.level}";
+        gameObject.SetActive(value);
     }
 }

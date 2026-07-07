@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0.14983091, g: 0.3490566, b: 0.14983091, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.01
@@ -284,7 +284,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7d53f22039b5eba47b74dccdc78bc951, type: 2}
     - target: {fileID: 8512664335718233195, guid: 28b380e0618115d4289ad068c1ff2f4b, type: 3}
       propertyPath: _sound
-      value: 15
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 8512664335718233195, guid: 28b380e0618115d4289ad068c1ff2f4b, type: 3}
       propertyPath: _spawnObjectType
@@ -446,7 +446,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7d53f22039b5eba47b74dccdc78bc951, type: 2}
     - target: {fileID: 8512664335718233195, guid: 28b380e0618115d4289ad068c1ff2f4b, type: 3}
       propertyPath: _sound
-      value: 15
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 8512664335718233195, guid: 28b380e0618115d4289ad068c1ff2f4b, type: 3}
       propertyPath: _spawnObjectType
@@ -573,7 +573,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7d53f22039b5eba47b74dccdc78bc951, type: 2}
     - target: {fileID: 8512664335718233195, guid: 28b380e0618115d4289ad068c1ff2f4b, type: 3}
       propertyPath: _sound
-      value: 15
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 8512664335718233195, guid: 28b380e0618115d4289ad068c1ff2f4b, type: 3}
       propertyPath: _spawnObjectType
@@ -735,7 +735,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7d53f22039b5eba47b74dccdc78bc951, type: 2}
     - target: {fileID: 8512664335718233195, guid: 28b380e0618115d4289ad068c1ff2f4b, type: 3}
       propertyPath: _sound
-      value: 15
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 8512664335718233195, guid: 28b380e0618115d4289ad068c1ff2f4b, type: 3}
       propertyPath: _spawnObjectType
@@ -945,7 +945,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7d53f22039b5eba47b74dccdc78bc951, type: 2}
     - target: {fileID: 8512664335718233195, guid: 28b380e0618115d4289ad068c1ff2f4b, type: 3}
       propertyPath: _sound
-      value: 15
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 8512664335718233195, guid: 28b380e0618115d4289ad068c1ff2f4b, type: 3}
       propertyPath: _spawnObjectType
@@ -1045,6 +1045,10 @@ MonoBehaviour:
   - {fileID: 120486756}
   _arrowTraps: []
   _bounds: {fileID: 409406854}
+  _ambientSoundType: 3
+  _movingEffect: {fileID: 0}
+  _isBossLevel: 0
+  _bossHealth: 3
 --- !u!1001 &1270056659
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1115,7 +1119,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7d53f22039b5eba47b74dccdc78bc951, type: 2}
     - target: {fileID: 8512664335718233195, guid: 28b380e0618115d4289ad068c1ff2f4b, type: 3}
       propertyPath: _sound
-      value: 15
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 8512664335718233195, guid: 28b380e0618115d4289ad068c1ff2f4b, type: 3}
       propertyPath: _spawnObjectType
@@ -1342,7 +1346,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7d53f22039b5eba47b74dccdc78bc951, type: 2}
     - target: {fileID: 8512664335718233195, guid: 28b380e0618115d4289ad068c1ff2f4b, type: 3}
       propertyPath: _sound
-      value: 15
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 8512664335718233195, guid: 28b380e0618115d4289ad068c1ff2f4b, type: 3}
       propertyPath: _spawnObjectType
@@ -1489,7 +1493,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7d53f22039b5eba47b74dccdc78bc951, type: 2}
     - target: {fileID: 8512664335718233195, guid: 28b380e0618115d4289ad068c1ff2f4b, type: 3}
       propertyPath: _sound
-      value: 15
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 8512664335718233195, guid: 28b380e0618115d4289ad068c1ff2f4b, type: 3}
       propertyPath: _spawnObjectType

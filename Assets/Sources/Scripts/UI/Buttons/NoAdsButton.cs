@@ -5,7 +5,7 @@ public class NoAdsButton : UIButton
 {
     private string _buyId = "no_ads";
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
         _button.onClick.AddListener(HandleClick);
         YG2.onPurchaseSuccess += OnSuccess;

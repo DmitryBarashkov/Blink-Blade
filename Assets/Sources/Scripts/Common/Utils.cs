@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class Utils
@@ -8,5 +10,13 @@ public static class Utils
             
         fixedZPosition.z = fixedZ;
         transform.position = fixedZPosition;
+    }
+
+    public static T GetRandomElement<T>(IReadOnlyList<T> list)
+    {
+        if (list == null || list.Count == 0)
+            throw new ArgumentNullException(nameof(list));
+
+        return list[UnityEngine.Random.Range(0, list.Count)];
     }
 }

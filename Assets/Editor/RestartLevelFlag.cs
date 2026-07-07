@@ -2,7 +2,7 @@ using UnityEditor;
 
 public static class RestartLevelFlag
 {
-    private const string MenuPath = "RestartLevelAfterFinish/Enabled";
+    private const string MenuPath = "EditorFlags/RestartLevelAfterFinish/Enabled";
     private const string RestartAfterFinish = "RestartAfterFinish";
 
     [MenuItem(MenuPath)]

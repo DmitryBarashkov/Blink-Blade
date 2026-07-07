@@ -1,10 +1,11 @@
 using UnityEditor;
 using UnityEngine;
-using YG;
 
 [InitializeOnLoad]
 public class ResetYGOnPlay
 {
+    private const string SavesReset = "SavesReset";
+
     static ResetYGOnPlay()
     {
         EditorApplication.playModeStateChanged += OnPlayModeChanged;
@@ -12,14 +13,14 @@ public class ResetYGOnPlay
 
     private static void OnPlayModeChanged(PlayModeStateChange state)
     {
-        //if (state == PlayModeStateChange.ExitingEditMode)
-        //{
-        //    string path = Application.dataPath + "/PluginYourGames/Editor/SavesEditorYG2.json";
+        if (state == PlayModeStateChange.ExitingEditMode && EditorPrefs.GetBool(SavesReset))
+        {
+            string path = Application.dataPath + "/PluginYourGames/Editor/SavesEditorYG2.json";
 
-        //    if (System.IO.File.Exists(path))
-        //    {
-        //        System.IO.File.Delete(path);
-        //    }
-        //}
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
+        }
     }
 }

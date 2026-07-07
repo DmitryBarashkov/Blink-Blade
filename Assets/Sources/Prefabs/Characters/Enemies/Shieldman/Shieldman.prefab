@@ -335,7 +335,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: -5074843315612655542, guid: 823403794b9f075488379f8776b63f25, type: 3}
   m_Bones:
@@ -704,7 +704,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: -5764517047964905822, guid: 823403794b9f075488379f8776b63f25, type: 3}
   m_Bones:
@@ -936,7 +936,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: -5919393615871578326, guid: 823403794b9f075488379f8776b63f25, type: 3}
   m_Bones:
@@ -1307,7 +1307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnObjectType: 1
-  _sound: 10
+  _sound: 12
 --- !u!114 &2013925413208438228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1336,7 +1336,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1a26211f44b0c46b69999f8f841859, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attacker: {fileID: 8033887579840645680}
+  _meleeAttacker: {fileID: 8033887579840645680}
+  _rangedAttacker: {fileID: 0}
   _wallCheckDistance: 1
   _cliffForwardOffset: 0.4
   _blocker: {fileID: 4201298558575324665}
@@ -1934,7 +1935,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 7667517744132231187, guid: 823403794b9f075488379f8776b63f25, type: 3}
   m_Bones:
@@ -2934,7 +2935,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 7898184859443825153, guid: 823403794b9f075488379f8776b63f25, type: 3}
   m_Bones:
@@ -3446,7 +3447,7 @@ SkinnedMeshRenderer:
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
-  m_UpdateWhenOffscreen: 0
+  m_UpdateWhenOffscreen: 1
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 7487524454677423182, guid: 823403794b9f075488379f8776b63f25, type: 3}
   m_Bones:
@@ -4252,6 +4253,10 @@ PrefabInstance:
     - target: {fileID: 5584615960180342082, guid: a308eb25e60c8544db1a40c957e2434a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8679374567925822703, guid: a308eb25e60c8544db1a40c957e2434a, type: 3}
+      propertyPath: _sound
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

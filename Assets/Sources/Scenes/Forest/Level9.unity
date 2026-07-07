@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: 0.14983091, g: 0.3490566, b: 0.14983091, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.01
@@ -290,6 +290,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8512664335718233195, guid: 28b380e0618115d4289ad068c1ff2f4b, type: 3}
+      propertyPath: _sound
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 8582912605885775588, guid: 28b380e0618115d4289ad068c1ff2f4b, type: 3}
       propertyPath: _sound
       value: 11
@@ -487,6 +491,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8512664335718233195, guid: 28b380e0618115d4289ad068c1ff2f4b, type: 3}
+      propertyPath: _sound
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 8582912605885775588, guid: 28b380e0618115d4289ad068c1ff2f4b, type: 3}
       propertyPath: _sound
       value: 11
@@ -656,6 +664,10 @@ MonoBehaviour:
   - {fileID: 567213773}
   _arrowTraps: []
   _bounds: {fileID: 409406854}
+  _ambientSoundType: 1
+  _movingEffect: {fileID: 0}
+  _isBossLevel: 0
+  _bossHealth: 3
 --- !u!1 &1337757236
 GameObject:
   m_ObjectHideFlags: 0
@@ -1068,13 +1080,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1321986282085267896, guid: 8863caec0a4442944a70714762b43c81, type: 3}
+      propertyPath: _sound
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 1361083590752003880, guid: 8863caec0a4442944a70714762b43c81, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1749107929198500629, guid: 8863caec0a4442944a70714762b43c81, type: 3}
+      propertyPath: _sound
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 3431548246803264897, guid: 8863caec0a4442944a70714762b43c81, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 3839550494693429499, guid: 8863caec0a4442944a70714762b43c81, type: 3}
+      propertyPath: _sound
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 3884074548321037096, guid: 8863caec0a4442944a70714762b43c81, type: 3}
+      propertyPath: _sound
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4733022010880481702, guid: 8863caec0a4442944a70714762b43c81, type: 3}
       propertyPath: m_LocalScale.x
@@ -1164,6 +1192,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7524400959979791157, guid: 8863caec0a4442944a70714762b43c81, type: 3}
+      propertyPath: _sound
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 7786168694901533083, guid: 8863caec0a4442944a70714762b43c81, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.83
@@ -1171,6 +1203,14 @@ PrefabInstance:
     - target: {fileID: 7786168694901533083, guid: 8863caec0a4442944a70714762b43c81, type: 3}
       propertyPath: m_LocalPosition.y
       value: -4.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 8352503074470395572, guid: 8863caec0a4442944a70714762b43c81, type: 3}
+      propertyPath: _sound
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 9218530956021695438, guid: 8863caec0a4442944a70714762b43c81, type: 3}
+      propertyPath: _sound
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 74972341505133595, guid: 8863caec0a4442944a70714762b43c81, type: 3}

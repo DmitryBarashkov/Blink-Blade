@@ -7,7 +7,7 @@ using static UnityEngine.Object;
 public class EnemySpawner
 {
     private readonly EnemyFactory _enemyFactory;
-    private readonly List<Enemy> _enemies = new List<Enemy>();
+    private readonly List<Enemy> _enemies = new List<Enemy>();    
     private Transform _enemyContainer;
 
     [Inject]
@@ -33,17 +33,27 @@ public class EnemySpawner
                 _enemies.Clear();
             }
 
-            foreach (var spawnPoint in spawnPoints)
+            if (levelData.IsBossLevel())
             {
-                if (string.IsNullOrEmpty(spawnPoint.selectedEnemyName))
+                EnemySpawnPoint spawnPoint = Utils.GetRandomElement(spawnPoints);
+                Enemy enemy = _enemyFactory.Create(spawnPoint, _enemyContainer, levelData);
+                
+                _enemies.Add(enemy);
+            }
+            else
+            {
+                foreach (var spawnPoint in spawnPoints)
                 {
-                    Debug.LogWarning($"На точке спавна {spawnPoint.name} не задан префаб врага!");
-                    continue;
+                    if (string.IsNullOrEmpty(spawnPoint.selectedEnemyName))
+                    {
+                        Debug.LogWarning($"На точке спавна {spawnPoint.name} не задан префаб врага!");
+                        continue;
+                    }
+
+                    Enemy enemy = _enemyFactory.Create(spawnPoint, _enemyContainer, levelData);
+
+                    _enemies.Add(enemy);
                 }
-
-                Enemy enemy = _enemyFactory.Create(spawnPoint, _enemyContainer);
-
-                _enemies.Add(enemy);                        
             }
         }
     }
@@ -62,7 +72,7 @@ public class EnemySpawner
         foreach (Enemy enemy in _enemies)
         {
             if (enemy != null)
-                enemy.Reset();
+                enemy.Activate();
         }
     }
 }

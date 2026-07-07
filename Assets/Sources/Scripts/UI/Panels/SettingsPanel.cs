@@ -13,7 +13,7 @@ public class SettingsPanel : MonoBehaviour
 
     private bool _isOpen = false;
     
-    private float _expandedHeight = 440f;
+    private float _expandedHeight = 330f;
     private float _collapsedHeight = 120f;
 
     private float _duration = 0.3f;
@@ -22,8 +22,13 @@ public class SettingsPanel : MonoBehaviour
     private void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();
-        _rectTransform.sizeDelta = new Vector2(_rectTransform.sizeDelta.x, _collapsedHeight);
+    }
 
+    private void OnEnable()
+    {
+        _isOpen = false;
+
+        _rectTransform.sizeDelta = new Vector2(_rectTransform.sizeDelta.x, _collapsedHeight);
         _canvasGroup.alpha = 0f;
         SetInteraction(false);
     }

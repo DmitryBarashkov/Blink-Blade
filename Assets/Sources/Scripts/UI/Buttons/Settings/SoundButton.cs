@@ -1,18 +1,18 @@
-using Zenject;
 
 public class SoundButton : ToggleButton
 {
-    [Inject]
-    public void Construct()
+    protected override void OnEnable()
     {
-        _isOn = _audioService.GetSoundOn();        
+        base.OnEnable();
+
+        _isOn = _audioService.GetSoundOn();
+        SetSprite();
     }
 
     public override void HandleClick()
     {
         if (_isOn)
             _audioService.PlaySound(SoundType.ButtonClick);
-
 
         Toggle();
 

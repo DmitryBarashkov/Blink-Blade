@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UniRx;
+using UnityEngine;
 using YG;
 using Zenject;
 
@@ -12,15 +13,13 @@ public class Level : IDisposable
     private LevelState _levelState;
     private InputService _input;
     
-    public int EnemiesCount => _enemiesCount;
-    public int LevelNumber => _levelNumber;
-
     private int _enemiesCount;
     private int _levelNumber;
     private bool _shouldReload;
     
     private AudioService _audioService;
     private BetweenLevelScreen _menu;
+    private LevelScreen _levelUI;
     
     private ActiveLevelBridge _levelBridge;
     private PlayerSpawner _playerSpawner;
@@ -33,11 +32,16 @@ public class Level : IDisposable
     
     private readonly CompositeDisposable _disposables = new CompositeDisposable();
     private readonly SerialDisposable _enemiesSubscription = new SerialDisposable();
+    
+    public int EnemiesCount => _enemiesCount;
+    public int LevelNumber => _levelNumber;
 
     [Inject]
     public void Construct(AudioService audioService, ActiveLevelBridge levelBridge, EnemyPanel enemyPanel,
                           CameraBoundsInstaller cameraController, EnemySpawner enemySpawner, PlayerSpawner playerSpawner,
-                          LevelState levelState, InputService input, [Inject(Optional = true)] BetweenLevelScreen menu)
+                          LevelState levelState, InputService input,
+                          [Inject(Optional = true)] LevelScreen levelUI,
+                          [Inject(Optional = true)] BetweenLevelScreen menu)
     {
         _levelBridge = levelBridge;
         _enemySpawner = enemySpawner;
@@ -51,6 +55,7 @@ public class Level : IDisposable
         _menu = menu;
 
         _enemyPanel = enemyPanel;
+        _levelUI = levelUI;
 
         Initialize();
     }
@@ -60,13 +65,15 @@ public class Level : IDisposable
         if (_menu == null)
             return;
 
-        _input.Deactivate();        
+        _input.Deactivate();
+        _levelUI?.SetActive(false);
         _menu.Activate();
     }
 
     public void StartPlay()
     {
         _input.Activate();
+        _levelUI?.SetActive(true);
 
         if (_shouldReload)
         {
@@ -78,18 +85,10 @@ public class Level : IDisposable
             ActivatePlayer();
     }
 
-    public void Win()
-    {
-        _input.Deactivate();
-        _levelState.FinishLevel(true);
-        _audioService.PlaySound(SoundType.Win);
-
-        LevelFinished?.Invoke();
-    }
-
     public void Lose(bool isOutOfEnergy = false)
     {
         _input.Deactivate();
+        _levelUI?.SetActive(false);
         _levelState.FinishLevel(false, isOutOfEnergy);
         _audioService.PlaySound(SoundType.Lose);
 
@@ -106,6 +105,8 @@ public class Level : IDisposable
 
         if (isNeedInputActivate)
             _input.Activate();
+
+        _levelUI?.SetActive(true);
     }
 
     public void SetReload(bool value)
@@ -117,8 +118,7 @@ public class Level : IDisposable
 
     private void Initialize()
     {
-        _audioService.PlayAmbient(SoundType.AmbientSounds);
-        _audioService.PlayMusic(SoundType.BackgroundMusic);
+        _audioService.PlayMusic();
 
         _levelBridge.CurrentLevel
             .Where(level => level != null)
@@ -134,7 +134,7 @@ public class Level : IDisposable
     {
         _shouldReload = true;
 
-        _enemiesCount = levelData.GetEnemySpawnPoints().Count;
+        _enemiesCount = levelData.IsBossLevel() ? levelData.GetBossHealth() : levelData.GetEnemySpawnPoints().Count;
         _levelState.Restart(_enemiesCount);        
 
         _enemiesSubscription.Disposable = _levelState.CurrentEnemiesCount
@@ -143,14 +143,16 @@ public class Level : IDisposable
                 _enemyPanel.UpdateIcons(enemiesCount);
 
                 if (enemiesCount == 0)
-                {
-                    Win();
-                }
+                    Win();                
             });            
     }
 
     private void InitializeLevelData(ILevelData levelData)
     {
+
+        _audioService.SetAmbientSound(levelData.GetAmbientSoundType());
+        _audioService.Activate();        
+
         _levelData = levelData;
         
         _enemySpawner.Initialize(levelData);
@@ -179,6 +181,16 @@ public class Level : IDisposable
 
     private void ActivatePlayer()
     {
-        _playerSpawner.ActivateAfterEnergyAdded();
+        _playerSpawner.ActivatePlayer();
+    }
+
+    private void Win()
+    {
+        _input.Deactivate();
+        _levelUI?.SetActive(false);
+        _levelState.FinishLevel(true);
+        _audioService.PlaySound(SoundType.Win);
+
+        LevelFinished?.Invoke();
     }
 }

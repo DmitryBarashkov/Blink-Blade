@@ -32,7 +32,10 @@ public class NextLevelButton : EndScreenButton
     private void LoadNextLevel()
     {
         if (YG2.saves.isAdsDisabled == false)
+        {
+            _audioService.Deactivate();
             YG2.InterstitialAdvShow();
+        }
 
         _screen.Close();
         _levelService.LoadLevel(YG2.saves.level).Forget();

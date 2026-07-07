@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using Zenject;
-using static ObjectPoolService;
 
 public class Teleport
 {
@@ -36,12 +34,9 @@ public class Teleport
 
     public void Perform()
     {
-        Vector3 newPosition = GetSafePosition();
-        Vector3 centerPlayerPosition = Vector3.up * _playerHeight / 2;
-
         _playerRigidbody.velocity = Vector3.zero;
         _playerRigidbody.angularVelocity = Vector3.zero;
-        _playerTransform.position = newPosition;
+        _playerTransform.position = GetSafePosition();
 
         _weapon.ReturnToWeaponHandler();
 

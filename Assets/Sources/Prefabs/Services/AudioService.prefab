@@ -172,7 +172,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.02
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -308,37 +308,45 @@ MonoBehaviour:
   _ambientSource: {fileID: 7741396384532118047}
   _sounds:
   - Type: 0
-    Clip: {fileID: 8300000, guid: 216003b3c6ee33646ab28f22961a0e36, type: 3}
+    Clip: {fileID: 8300000, guid: 88d3106313608ea4090e3f26c37c2aea, type: 3}
   - Type: 1
-    Clip: {fileID: 8300000, guid: f157853cd974ddf438d852f0bb5e5505, type: 3}
+    Clip: {fileID: 8300000, guid: 62ddb0dffca2dc8468e5b1c5d3b79fda, type: 3}
   - Type: 2
-    Clip: {fileID: 8300000, guid: 92168badfccd6c34d9e09f4f56840dfb, type: 3}
+    Clip: {fileID: 8300000, guid: fddec0ba82c46734685dd6d06466a6ee, type: 3}
   - Type: 3
-    Clip: {fileID: 8300000, guid: 77ea3f7511f903d4cbee2a213afd7362, type: 3}
+    Clip: {fileID: 8300000, guid: da0e398908029be4eb1c32ff87719db1, type: 3}
   - Type: 4
-    Clip: {fileID: 8300000, guid: 107ef2aed9898b543b4207260103b4fb, type: 3}
+    Clip: {fileID: 8300000, guid: 925da1003b0036a4faab828529beb30c, type: 3}
   - Type: 5
-    Clip: {fileID: 8300000, guid: 4dfb4c5b6651eb4428b21a06aaeba914, type: 3}
+    Clip: {fileID: 8300000, guid: 77d499ac0bb0a93489e0d06e5c3f6b85, type: 3}
   - Type: 6
-    Clip: {fileID: 8300000, guid: eb7cc8c582f2d7f4886379171e528e36, type: 3}
+    Clip: {fileID: 8300000, guid: dd2cb09901c73f14387912779549ca43, type: 3}
   - Type: 7
-    Clip: {fileID: 8300000, guid: 8d6f8267220ef7440a6974918b5a06a6, type: 3}
+    Clip: {fileID: 8300000, guid: 3f1817b55f89a81489d2284975d509d2, type: 3}
   - Type: 8
-    Clip: {fileID: 8300000, guid: 7e4491ce60e278749b7bf7f3284d1fd2, type: 3}
+    Clip: {fileID: 8300000, guid: 5ceb42a9c3e3e4049810e38c9cdd05e0, type: 3}
   - Type: 9
-    Clip: {fileID: 8300000, guid: a09489bd1f4cd18439b5412fbd3a5c8f, type: 3}
+    Clip: {fileID: 8300000, guid: 2c4ff7c93cb510b44b9ff7a87cf8d6bc, type: 3}
   - Type: 10
-    Clip: {fileID: 8300000, guid: 6a4dcb85396ff104e9302fe31e44b5a8, type: 3}
-  - Type: 13
-    Clip: {fileID: 8300000, guid: 88c519375f71ca748b761cc81388f74e, type: 3}
+    Clip: {fileID: 8300000, guid: 5f4aae65570cb4845b285a270bcf61b3, type: 3}
   - Type: 14
-    Clip: {fileID: 8300000, guid: d4eeb627a17892d468bd4079d475b849, type: 3}
+    Clip: {fileID: 8300000, guid: a0b2f2b5177704145bb63c501fa7395e, type: 3}
   - Type: 11
-    Clip: {fileID: 8300000, guid: 232d52bb2701bb649895a7b511d6d648, type: 3}
+    Clip: {fileID: 8300000, guid: 0eb96772ee7720644bb73adeb6d9f757, type: 3}
+  - Type: 18
+    Clip: {fileID: 8300000, guid: d4683f19d8043b14ebd5a3b2b035d543, type: 3}
   - Type: 12
-    Clip: {fileID: 8300000, guid: a407db70aeacda94fb20a6cd14bcde2b, type: 3}
+    Clip: {fileID: 8300000, guid: 66ee819e9d087b04cab9a90fbfa67fb1, type: 3}
   - Type: 15
-    Clip: {fileID: 8300000, guid: c439f605a021a6343998d713b8f1cddd, type: 3}
+    Clip: {fileID: 8300000, guid: 6b7e18c53bb338641b5f6c6acbde8dc9, type: 3}
+  - Type: 16
+    Clip: {fileID: 8300000, guid: e7f48f4f55eff92458c218675de96bde, type: 3}
+  - Type: 13
+    Clip: {fileID: 8300000, guid: a9c5143b995bb0348ac6cd5bf1cfcbde, type: 3}
+  - Type: 17
+    Clip: {fileID: 8300000, guid: c242b51379408b443891d03c4d25b2a5, type: 3}
+  - Type: 19
+    Clip: {fileID: 8300000, guid: 0093b5b5dcb487f42a51cce4972ef4f0, type: 3}
 --- !u!1 &7631760825380269149
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,7 +391,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

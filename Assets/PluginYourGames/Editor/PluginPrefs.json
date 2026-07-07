@@ -2,7 +2,7 @@
     "stringPrefs": [
         {
             "key": "SelectModuleToggle_YG2",
-            "value": "AutoTranslateLangs;Leaderboards"
+            "value": "AutoTranslateLangs;Leaderboards;Review"
         }
     ],
     "intPrefs": [

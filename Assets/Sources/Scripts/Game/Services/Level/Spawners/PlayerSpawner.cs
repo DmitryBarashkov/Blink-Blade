@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Zenject;
 
@@ -28,7 +27,7 @@ public class PlayerSpawner
         }
     }
 
-    public void ActivateAfterEnergyAdded()
+    public void ActivatePlayer()
     {
         _player.Activate();
     }

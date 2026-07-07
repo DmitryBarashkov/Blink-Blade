@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 2144709184066289221, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
       propertyPath: _sound
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 2144709184066289221, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
       propertyPath: _hitEffect

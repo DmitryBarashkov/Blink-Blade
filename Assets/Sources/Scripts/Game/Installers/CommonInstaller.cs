@@ -13,16 +13,17 @@ public class CommonInstaller : MonoInstaller
     [SerializeField] private UIScreen _winGameScreen;
     [SerializeField] private UIScreen _loseGameScreen;
     [SerializeField] private UIScreen _shopGameScreen;
+    [SerializeField] private UIScreen _finishGameScreen;
     [SerializeField] private CanvasScaler[] _canvasScales;
 
     [Header("Services")]
     [SerializeField] private ObjectPoolService _objectPoolServicePrefab;
 
     [Header("Containers")]
+    [SerializeField] private Transform _levelContainer;
     [SerializeField] private Transform _enemyContainer;
     [SerializeField] private Transform _serviceContainer;
     [SerializeField] private Transform _poolContainer;
-    [SerializeField] private Transform _levelUIContainer;
     [SerializeField] private Transform _endGameContainer;  
     [SerializeField] private Transform _betweenLevelContainer;  
 
@@ -60,7 +61,7 @@ public class CommonInstaller : MonoInstaller
     {
         Container.BindInterfacesAndSelfTo<EnemyPanel>()
             .FromComponentInNewPrefab(_enemyPanelPrefab)
-            .UnderTransform(_levelUIContainer)
+            .UnderTransform(_levelContainer)
             .AsSingle()
             .NonLazy();
     }
@@ -68,11 +69,12 @@ public class CommonInstaller : MonoInstaller
     private void BindEnemies()
     {
         Container.Bind<EnemyFactory>().AsSingle();
-        Container.Bind<Patrol>().AsTransient();        
+        Container.Bind<Patrol>().AsTransient();
     }
 
     private void BindLevelServices()
     {
+        Container.BindInterfacesAndSelfTo<LevelScreen>().FromComponentInHierarchy().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<Level>().AsSingle().NonLazy();
     }
 
@@ -84,7 +86,10 @@ public class CommonInstaller : MonoInstaller
 
     private void BindUIServices()
     {
-        Container.BindInterfacesAndSelfTo<UIService>().AsSingle().WithArguments(_winGameScreen, _loseGameScreen, _shopGameScreen, _endGameContainer, _betweenLevelContainer).NonLazy();
+        Container.BindInterfacesAndSelfTo<UIService>()
+            .AsSingle()
+            .WithArguments(_winGameScreen, _loseGameScreen, _finishGameScreen, _shopGameScreen, _endGameContainer, _betweenLevelContainer)
+            .NonLazy();
         Container.Bind<CanvasScaleAdapter>().AsSingle().WithArguments(_canvasScales).NonLazy();
         Container.BindInterfacesAndSelfTo<ScreenResolutionAdapter>().AsSingle().NonLazy();
     }

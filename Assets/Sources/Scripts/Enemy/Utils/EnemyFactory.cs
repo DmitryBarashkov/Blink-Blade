@@ -6,14 +6,15 @@ public class EnemyFactory
 {
     private readonly DiContainer _container;
     private readonly EnemyDatabase _database;
+    private readonly ParticleSystem _effectPrefab;
 
     public EnemyFactory(DiContainer container, EnemyDatabase database)
     {
         _container = container;
-        _database = database;
+        _database = database;        
     }
 
-    public Enemy Create(EnemySpawnPoint spawnPoint, Transform enemyContainer)
+    public Enemy Create(EnemySpawnPoint spawnPoint, Transform enemyContainer, ILevelData levelData)
     {
         string enemyName = spawnPoint.selectedEnemyName;
         Transform enemyTransform = spawnPoint.transform;
@@ -25,7 +26,7 @@ public class EnemyFactory
                 enemyTransform.position,
                 enemyTransform.rotation,
                 enemyContainer,
-                GetClonedStrategies(enemyRecord));
+                GetEnemyServices(enemyRecord, levelData));
 
             return enemy;
         }
@@ -34,7 +35,14 @@ public class EnemyFactory
         return null;
     }
 
-    private object[] GetClonedStrategies(AssembledEnemy enemyRecord)
+    private object[] GetEnemyServices(AssembledEnemy enemyRecord, ILevelData levelData)
+    {
+        var (movement, attack, defend) = GetClonedStrategies(enemyRecord);
+
+        return new object[] { movement, attack, defend, levelData };
+    }
+    
+    private (IMovementStrategy, IAttackingStrategy, IDefendingStrategy) GetClonedStrategies(AssembledEnemy enemyRecord)
     {
         var originalMovement = enemyRecord.movementStrategy;
         string moveJson = JsonUtility.ToJson(originalMovement);
@@ -48,6 +56,6 @@ public class EnemyFactory
         string defendJson = JsonUtility.ToJson(originalAttacking);
         IDefendingStrategy cloneddefend = JsonUtility.FromJson(defendJson, originalDefending.GetType()) as IDefendingStrategy;
 
-        return new object[] { clonedMovement, clonedAttack, cloneddefend };
+        return (clonedMovement, clonedAttack, cloneddefend);
     }
 }
