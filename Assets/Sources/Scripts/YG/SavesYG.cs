@@ -8,11 +8,13 @@ namespace YG
         public int level = 0;
         public int energy = 5;
         public int coins = 0;
+        public int rating = 0;
 
         public bool isFinishedGame = false;
 
-        //Weapon
+        //Items
         public int weaponId = 0;
+        public int skinId = 0;
 
         // Ads
         public bool isAdsDisabled = false;
@@ -21,6 +23,7 @@ namespace YG
         public bool isSoundOn = true;        
 
         //Shop
-        public List<int> purchasedItemsIds = new List<int> { 0 };
+        public List<int> purchasedWeaponItemIds = new List<int> { 0 };
+        public List<int> purchasedSkinItemsIds = new List<int> { 0 };
     }
 }

@@ -4,46 +4,78 @@ using Zenject;
 
 public class ShopService
 {
-    [Inject] private PlayerStats _playerStats;
+    [Inject] private PlayerStats _playerStats;    
 
-    private readonly HashSet<int> _purchasedItemIds = new();
+    private readonly HashSet<int> _purchasedWeaponItemIds = new();
+    private readonly HashSet<int> _purchasedSkinItemIds = new();
 
     public ShopService()
     {
-        _purchasedItemIds.Clear();
+        _purchasedWeaponItemIds.Clear();
+        _purchasedSkinItemIds.Clear();
 
-        foreach (var item in YG2.saves.purchasedItemsIds)
-        {
-            _purchasedItemIds.Add(item);
-        }
+        foreach (var item in YG2.saves.purchasedWeaponItemIds)
+            _purchasedWeaponItemIds.Add(item);
+        
+        foreach (var item in YG2.saves.purchasedSkinItemsIds)
+            _purchasedSkinItemIds.Add(item);
     }
 
-    public bool IsItemPurchased(int id)
+    public bool IsWeapontemPurchased(int id)
     {
-        return _purchasedItemIds.Contains(id);
+        return _purchasedWeaponItemIds.Contains(id);
     }
 
-    public bool IsItemChosen(int id)
+    public bool IsSkinItemPurchased(int id)
+    {
+        return _purchasedSkinItemIds.Contains(id);
+    }
+
+    public bool IsWeaponChosen(int id)
     {
         return YG2.saves.weaponId == id;
     }
 
-    public void PurchaseItem(int id)
+    public bool IsSkinChosen(int id)
     {
-        if (_purchasedItemIds.Add(id))
+        return YG2.saves.skinId == id;
+    }
+
+    public void PurchaseWeapon(int id)
+    {
+        if (_purchasedWeaponItemIds.Add(id))
         {
-            YG2.saves.purchasedItemsIds.Add(id);
+            YG2.saves.purchasedWeaponItemIds.Add(id);
             YG2.SaveProgress();
 
-            ChangeChosenItem(id);
+            ChangeChosenWeaponItem(id);
         }
     }
 
-    public void ChangeChosenItem(int id)
+    public void PurchaseSkin(int id)
+    {
+        if (_purchasedSkinItemIds.Add(id))
+        {
+            YG2.saves.purchasedSkinItemsIds.Add(id);
+            YG2.SaveProgress();
+
+            ChangeChosenSkinItem(id);
+        }
+    }
+
+    public void ChangeChosenWeaponItem(int id)
     {
         _playerStats.currentWeaponId.Value = id;
-        
+                
         YG2.saves.weaponId = id;
+        YG2.SaveProgress();
+    }
+
+    public void ChangeChosenSkinItem(int id)
+    {
+        _playerStats.currentSkinId.Value = id;
+
+        YG2.saves.skinId = id;
         YG2.SaveProgress();
     }
 

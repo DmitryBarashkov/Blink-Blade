@@ -31,6 +31,10 @@ public class ArrowTrap : MonoBehaviour
     public void Activate()
     {
         _isActive = true;
+
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
+
         _coroutine = StartCoroutine(WaitCooldownForShot());
     }
 
@@ -39,9 +43,7 @@ public class ArrowTrap : MonoBehaviour
         _isActive = false;
         
         if (_coroutine != null)
-        {
             StopCoroutine(_coroutine);
-        }
     }
 
     private IEnumerator WaitCooldownForShot()

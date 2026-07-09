@@ -8,7 +8,7 @@ public class UIScreen : MonoBehaviour
     protected GameObject _gameObject;
 
     [Inject]
-    public virtual void Construct(ShopService service, WeaponDatabase database, DiContainer container)
+    public virtual void Construct(ShopService service, WeaponDatabase database, SkinDatabase skinsDatabase, DiContainer container)
     {
         _canvasGroup = GetComponent<CanvasGroup>();
         _gameObject = gameObject;

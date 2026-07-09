@@ -74,6 +74,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da5ad88aee6f6004eaa0de264e7c248c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyDatabase: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
+  _weaponDatabase: {fileID: 11400000, guid: efd8fddbcaaaf4645a81f04671acfd59, type: 2}
+  _skinDatabase: {fileID: 11400000, guid: adeb669005c6e3f4db4e434c1914954a, type: 2}
+  _audioServicePrefab: {fileID: 5073186087192148321, guid: f88da8382e7f1d34b8bb651bb944e6bb, type: 3}
   _languageFlags:
   - LanguageCode: ru
     Sprite: {fileID: 21300000, guid: b5187b86025e04e49b8bfca70962e4c7, type: 3}
@@ -81,6 +85,3 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: 4dfcfcbe3fc37fc43bff4d4c71132cd2, type: 3}
   - LanguageCode: tr
     Sprite: {fileID: 21300000, guid: f26a8e775ae3b8245b2d410a94d1d458, type: 3}
-  _enemyDatabase: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  _weaponDatabase: {fileID: 11400000, guid: efd8fddbcaaaf4645a81f04671acfd59, type: 2}
-  _audioServicePrefab: {fileID: 5073186087192148321, guid: f88da8382e7f1d34b8bb651bb944e6bb, type: 3}

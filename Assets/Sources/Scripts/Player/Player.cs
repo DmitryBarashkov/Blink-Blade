@@ -42,8 +42,6 @@ public class Player : MonoBehaviour
     private bool _isDead = false;
     private bool _isInvincible;
 
-    private int _energy;
-
     public bool IsInvincible => _isInvincible;
 
     private void Awake()
@@ -57,7 +55,6 @@ public class Player : MonoBehaviour
         _teleport.Initialize(_weaponController.CurrentWeapon, _transform, _collider, _rigidBody, _teleportEffect);
         _aimer.Initialize(_transform, _animator);
 
-        _playerStats.currentEnergy.Value = _energy;
         _gameObject = gameObject;
 
         _alivelayerMask = LayerMask.NameToLayer("Player");
@@ -94,14 +91,12 @@ public class Player : MonoBehaviour
     }
 
     [Inject]
-    public void Construct(InputService input, PlayerWeaponController weaponController, Teleport teleport, Aimer aimer, 
-                           int energy, IAudioService audioService)
+    public void Construct(InputService input, PlayerWeaponController weaponController, Teleport teleport, Aimer aimer, IAudioService audioService)
     {
         _input = input;        
         _weaponController = weaponController;
         _teleport = teleport;
-        _aimer = aimer;
-        _energy = energy;        
+        _aimer = aimer;              
         
         _audioService = audioService;        
 
@@ -118,15 +113,14 @@ public class Player : MonoBehaviour
         _transform.position = _initialPosition;
         _transform.rotation = _initialRotation;
 
+        _playerStats.currentEnergy.Value = YG2.saves.energy;
+
         _canTeleport = false;
         _isAiming = false;
         _isDead = false;
         _isInvincible = false;
 
         _gameObject.layer = _alivelayerMask;
-
-        _energy = YG2.saves.energy;
-        _playerStats.currentEnergy.Value = _energy;
 
         SetInvincibility(false);
 
@@ -139,12 +133,6 @@ public class Player : MonoBehaviour
         _aimer.Initialize(_transform, _animator);
 
         _weaponController.ActivateWeapon();
-    }
-
-    public void AddEnergy(int addCount)
-    {
-        _energy += addCount;
-        _playerStats.currentEnergy.Value = _energy;        
     }
 
     public void Die(ContactPoint hitPoint)
@@ -204,12 +192,11 @@ public class Player : MonoBehaviour
     {
         if (_canTeleport) 
         {
-            _energy--;
-            _playerStats.currentEnergy.Value = _energy;
+            _playerStats.currentEnergy.Value--;
             _canTeleport = false;
             _teleport.Perform();
         }
-        else if (_energy == 0)
+        else if (_playerStats.currentEnergy.Value == 0)
         {
             StopAim();
             Defeat(true);
@@ -266,5 +253,9 @@ public class Player : MonoBehaviour
     private void OnLevelFinished()
     {
         SetInvincibility(true);
+    }
+
+    public class Factory : PlaceholderFactory<UnityEngine.Object, Player>
+    {
     }
 }

@@ -41,6 +41,8 @@ public class LanguageButton : UIButton
     private void SetLanguage()
     {
         _image.sprite = _languages[YG2.lang];
+
+        YG2.GetLeaderboard("Score");
     }
 
     private void InitializeLanguageButtons()

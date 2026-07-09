@@ -15,8 +15,7 @@ public class MeleeAttack : IAttackingStrategy
     private float _cooldown = 1f;
 
     public void Initialize(MeleeAttacker meleeAttacker, RangedAttacker rangedAttacker, IAudioService audioService,
-                           EnemyAnimator animator,
-                           Enemy enemy, Player player, ObjectPoolService poolService)
+                           EnemyAnimator animator,Enemy enemy, ObjectPoolService poolService)
     {
         _attacker = meleeAttacker;
         _audioService = audioService;
@@ -48,7 +47,7 @@ public class MeleeAttack : IAttackingStrategy
         }
     }
 
-    private void Attack()
+    private void Attack(Player player)
     {
         _animator.SetMeleeAttack();
         _audioService.PlaySound(SoundType.SwordAttack);

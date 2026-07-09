@@ -5,13 +5,15 @@ using Zenject;
 public class PlayerInstaller : MonoInstaller
 {
     [SerializeField] private Weapon _defaultWeaponPrefab;
-    [SerializeField] private Player _playerPrefab;    
+    [SerializeField] private Player _defaultPlayerPrefab;    
     [SerializeField] private AimingArrow _aimingArrow;
     
     [Inject] private WeaponDatabase _weaponDatabase;    
+    [Inject] private SkinDatabase _skinDatabase;
     
-    private int _energy;
     private int _weaponId;
+    private int _skinId;
+    private int _energy;
 
     public override void InstallBindings()
     {
@@ -24,8 +26,9 @@ public class PlayerInstaller : MonoInstaller
 
     private void LoadPlayerData()
     {
+        _weaponId = YG2.saves.weaponId;
+        _skinId = YG2.saves.skinId;
         _energy = YG2.saves.energy;
-        _weaponId = YG2.saves.weaponId;       
     }
 
     private void BindUI()
@@ -50,16 +53,15 @@ public class PlayerInstaller : MonoInstaller
     private void BindPlayerUtils()
     {
         Container.Bind<PlayerWeaponController>().AsSingle();
-        Container.Bind<PlayerStats>().AsSingle().WithArguments(_weaponId);
+        Container.Bind<PlayerStats>().AsSingle().WithArguments(_weaponId, _skinId, _energy);
         Container.Bind<Teleport>().AsSingle();               
         Container.Bind<Aimer>().AsSingle();
     }
 
     private void BindPlayer()
     {
-        Container.BindInterfacesAndSelfTo<Player>()
-            .FromComponentInNewPrefab(_playerPrefab)
-            .AsSingle()
-            .WithArguments(_energy);            
+        Container.Bind<PlayerSpawner>().AsSingle().NonLazy();
+        Container.BindFactory<Object, Player, Player.Factory>()
+            .FromFactory<PrefabFactory<Player>>();
     }
 }

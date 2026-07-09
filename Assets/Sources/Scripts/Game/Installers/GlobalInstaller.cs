@@ -9,6 +9,7 @@ public class GlobalInstaller : MonoInstaller
     [Header("Databases")]
     [SerializeField] private EnemyDatabase _enemyDatabase;
     [SerializeField] private WeaponDatabase _weaponDatabase;
+    [SerializeField] private SkinDatabase _skinDatabase;
     [Header("Services")]
     [SerializeField] private AudioService _audioServicePrefab;
     [Header("Languages flags")]
@@ -32,6 +33,7 @@ public class GlobalInstaller : MonoInstaller
     {
         Container.Bind<EnemyDatabase>().FromInstance(_enemyDatabase).AsSingle();
         Container.Bind<WeaponDatabase>().FromInstance(_weaponDatabase).AsSingle();
+        Container.Bind<SkinDatabase>().FromInstance(_skinDatabase).AsSingle();
         Container.Bind<EnemyFactory>().AsSingle();
     }
 

@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2392260422272954187dbd6dbc9d9d65, type: 3}
+  m_Name: SkinDatabase
+  m_EditorClassIdentifier: 
+  skins:
+  - id: 0
+    prefab: {fileID: 4940015012368828455, guid: 9e02e39a6da710b44900d66442bfca07, type: 3}
+    preview: {fileID: 21300000, guid: e04a5fae32c38ad408434c8e4af05294, type: 3}
+    cost: 0
+  - id: 1
+    prefab: {fileID: 8141831045973375750, guid: c8ebf625f9e2eca4a8df6763c2c9622f, type: 3}
+    preview: {fileID: 21300000, guid: 6c6225ecb09415d499119607d5e1fc30, type: 3}
+    cost: 150
+  - id: 2
+    prefab: {fileID: 4077799161324874612, guid: e55d00bae1ef10b42b974ae1be0a467d, type: 3}
+    preview: {fileID: 21300000, guid: 99eb470d10a5bbd4ebddf3434df521be, type: 3}
+    cost: 250
+  - id: 3
+    prefab: {fileID: 3939560074016040801, guid: 9b4f04e3c72644d43b06f4b64a5f09b3, type: 3}
+    preview: {fileID: 21300000, guid: f1d0759000f99f74ea86b3eabb8050a3, type: 3}
+    cost: 400
+  - id: 4
+    prefab: {fileID: 6331810646671938296, guid: 927f489f3ce0c9248b3ad49e3cc06106, type: 3}
+    preview: {fileID: 21300000, guid: 4a97ca0757ce5134ea39961a6e83fa7d, type: 3}
+    cost: 500
+  - id: 5
+    prefab: {fileID: 3350702429184567429, guid: 5de2c76a8feed384c81e88c3c6b3aaad, type: 3}
+    preview: {fileID: 21300000, guid: f028bb28d31a50b499b88677f43cf44b, type: 3}
+    cost: 750

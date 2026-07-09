@@ -2,7 +2,7 @@ using UnityEngine;
 using YG;
 using Zenject;
 
-public class BuyButton : UIButton
+public class BuyByAdsButton : UIButton
 {
     [Inject] private ShopService _shopService;
 
@@ -16,7 +16,7 @@ public class BuyButton : UIButton
 
         YG2.RewardedAdvShow(_rewardId, () =>
         {
-            _shopService.PurchaseItem(_weaponItem.WeaponId);
+            _shopService.PurchaseWeapon(_weaponItem.WeaponId);
             _weaponItem.UpdateAfterBuy();
         });
     }

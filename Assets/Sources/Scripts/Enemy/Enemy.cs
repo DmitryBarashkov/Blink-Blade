@@ -21,8 +21,7 @@ public class Enemy : MonoBehaviour
     private int _initialHealth = 1;
     private int _health = 1;
 
-    private Transform _transform;
-    private Player _player;
+    private Transform _transform;    
     private CapsuleCollider _collider;
     private Animator _animator;
     private EnemyAnimator _enemyAnimator;
@@ -48,12 +47,11 @@ public class Enemy : MonoBehaviour
                           IAttackingStrategy attackingStrategy,
                           IDefendingStrategy defendingStrategy,
                           ILevelData levelData,                          
-                          LevelState levelState,
-                          Player player,
+                          LevelState levelState,                          
                           ObjectPoolService poolService)
     {
         _transform = transform;
-        _player = player;
+        
         _audioService = audioService;
         _poolService = poolService;
         
@@ -79,7 +77,7 @@ public class Enemy : MonoBehaviour
         _rigBuilder = GetComponent<RigBuilder>();
 
         _movementStrategy.Initialize(_transform, _collider, _enemyAnimator, _levelData, _audioService, _wallCheckDistance, _cliffForwardOffset);
-        _attackingStrategy.Initialize(_meleeAttacker, _rangedAttacker, _audioService, _enemyAnimator, this, _player, _poolService);
+        _attackingStrategy.Initialize(_meleeAttacker, _rangedAttacker, _audioService, _enemyAnimator, this, _poolService);
         _defendingStrategy.Initialize(_animator, _rigBuilder, _blocker, _shield);
     }
 
@@ -91,8 +89,6 @@ public class Enemy : MonoBehaviour
         _attackingStrategy.AttackStopped += KeepMove;
 
         _defendingStrategy.StartBlocking += KeepMove;
-
-        _player.Dead += Deactivate;
     }
 
     private void OnDisable()
@@ -103,8 +99,6 @@ public class Enemy : MonoBehaviour
 
         _defendingStrategy.StartBlocking -= KeepMove;        
         _defendingStrategy.Deactivate();
-
-        _player.Dead -= Deactivate;
     }
 
     private void Update()
@@ -126,7 +120,14 @@ public class Enemy : MonoBehaviour
         AnimatorInstance.SetDied(false);
         _collider.enabled = true;
     }
-    
+
+    public void Deactivate()
+    {
+        _attackingStrategy.Deactivate();
+        _defendingStrategy.Deactivate();
+        _collider.enabled = false;
+    }
+
     public void TakeDamage(ContactPoint hitPoint)
     {
         _health--;
@@ -156,13 +157,6 @@ public class Enemy : MonoBehaviour
     private void OnStartMoving()
     {
         _defendingStrategy.StopBlock();
-    }
-
-    private void Deactivate()
-    {
-        _attackingStrategy.Deactivate();
-        _defendingStrategy.Deactivate();        
-        _collider.enabled = false;
     }
 
     private void Die(ContactPoint hitPoint)

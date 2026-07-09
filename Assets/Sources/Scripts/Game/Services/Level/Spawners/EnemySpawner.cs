@@ -67,6 +67,15 @@ public class EnemySpawner
         }
     }
 
+    public void DeactivateEnemies()
+    {
+        foreach (Enemy enemy in _enemies)
+        {
+            if (enemy != null)
+                enemy.Deactivate();
+        }
+    }
+
     public void Reset()
     {
         foreach (Enemy enemy in _enemies)

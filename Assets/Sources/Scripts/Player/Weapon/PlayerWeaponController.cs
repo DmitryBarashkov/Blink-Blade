@@ -1,10 +1,8 @@
 using static UnityEngine.Object;
 using static WeaponDatabase;
 
-using Cysharp.Threading.Tasks;
 using Zenject;
 using UniRx;
-using System.Collections.Generic;
 
 public class PlayerWeaponController
 {
@@ -16,9 +14,7 @@ public class PlayerWeaponController
     private Aimer _aimer;
     private WeaponHandler _weaponHandler;
     private IAudioService _audioService;
-
-    private readonly Dictionary<int, Weapon> _instantiatedWeapons = new();
-
+    
     public Weapon CurrentWeapon => _weapon;
     
     [Inject]
@@ -29,9 +25,7 @@ public class PlayerWeaponController
         _weapon = weapon;
         _audioService = audioService;
         _playerStats = playerStats;
-        _database = database;
-
-        _instantiatedWeapons.Add(_playerStats.currentWeaponId.Value, weapon);
+        _database = database;        
     }
 
     public void Initialize(WeaponHandler weaponHandler)
@@ -61,20 +55,10 @@ public class PlayerWeaponController
 
     private void ChangeWeapon(PlayerWeapon weaponRecord)
     {
-        _weapon.Deactivate();
+        Destroy(_weapon.gameObject);
 
-        if (_instantiatedWeapons.TryGetValue(weaponRecord.id, out Weapon foundWeapon))
-        {
-            _weapon = foundWeapon;
-            _weapon.Activate();
-        }
-        else
-        {
-            _weapon = Instantiate(weaponRecord.prefab);
-            _weapon.Initialize(_weaponHandler, _audioService);
-
-            _instantiatedWeapons.Add(weaponRecord.id, _weapon);
-        }
+        _weapon = Instantiate(weaponRecord.prefab);
+        _weapon.Initialize(_weaponHandler, _audioService);
 
         _aimer.ChangeWeapon(_weapon);
         _teleport.ChangeWeapon(_weapon);

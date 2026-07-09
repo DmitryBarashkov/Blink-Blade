@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UniRx;
-using UnityEngine;
 using YG;
 using Zenject;
 
@@ -75,14 +74,11 @@ public class Level : IDisposable
         _input.Activate();
         _levelUI?.SetActive(true);
 
-        if (_shouldReload)
-        {
-            ActivateTraps();
-            ActivateEnemies();
-            LevelStarted?.Invoke();
-        }
-        else
-            ActivatePlayer();
+        ActivateTraps();
+        ActivateEnemies();
+        ActivatePlayer();
+
+        LevelStarted?.Invoke();
     }
 
     public void Lose(bool isOutOfEnergy = false)
@@ -92,6 +88,8 @@ public class Level : IDisposable
         _levelState.FinishLevel(false, isOutOfEnergy);
         _audioService.PlaySound(SoundType.Lose);
 
+        DeactivateEnemies();
+        DeactivateTraps();
         LevelFinished?.Invoke();
     }
 
@@ -174,9 +172,21 @@ public class Level : IDisposable
                 trap.Activate();
     }
 
+    private void DeactivateTraps()
+    {
+        if (_arrowTraps.Count > 0)
+            foreach (var trap in _arrowTraps)
+                trap.Deactivate();
+    }
+
     private void ActivateEnemies()
     {
         _enemySpawner.ActivateEnemies();
+    }
+
+    private void DeactivateEnemies()
+    {
+        _enemySpawner.DeactivateEnemies();
     }
 
     private void ActivatePlayer()
@@ -190,6 +200,9 @@ public class Level : IDisposable
         _levelUI?.SetActive(false);
         _levelState.FinishLevel(true);
         _audioService.PlaySound(SoundType.Win);
+
+        DeactivateEnemies();
+        DeactivateTraps();
 
         LevelFinished?.Invoke();
     }

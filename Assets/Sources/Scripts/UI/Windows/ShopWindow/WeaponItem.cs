@@ -9,6 +9,7 @@ public class WeaponItem : MonoBehaviour
 {
     [SerializeField] private Toggle _toggle;
     [SerializeField] private Button _buyButton;
+    [SerializeField] private Button _backgroundButton;
     [SerializeField] private Image _preview;
 
     private PlayerWeapon _weapon;
@@ -39,7 +40,7 @@ public class WeaponItem : MonoBehaviour
 
     public void SetWeapon()
     {
-        _screen.ChangeWeapon(_weapon.id);
+        _screen.ChangeChosenWeaponItem(_weapon.id);
     }
 
     public void UpdateAfterBuy()
@@ -55,6 +56,7 @@ public class WeaponItem : MonoBehaviour
 
         _buyButton.gameObject.SetActive(isPurchased == false);
         _preview.sprite = weapon.preview;
+        _backgroundButton.interactable = isPurchased == true;
     }
 
     private void InitializeToggleControl()
@@ -67,13 +69,9 @@ public class WeaponItem : MonoBehaviour
             .Subscribe(pointerEventData =>
             {
                 if (_toggle.isOn == false)
-                {
                     _toggle.SetIsOnWithoutNotify(true);
-                }
                 else
-                {
-                    SetWeapon();
-                }
+                    SetWeapon();                
             })
             .AddTo(this);
     }

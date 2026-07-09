@@ -80,7 +80,6 @@ public class CommonInstaller : MonoInstaller
 
     private void BindSpawners()
     {
-        Container.Bind<PlayerSpawner>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<EnemySpawner>().AsSingle().WithArguments(_enemyContainer).NonLazy();
     }
 

@@ -29,11 +29,9 @@ public class RangedAttack : IAttackingStrategy
 
     public void Initialize(MeleeAttacker meleeAttacker, RangedAttacker rangedAttacker, IAudioService audioService,
                            EnemyAnimator animator,
-                           Enemy enemy, Player player, ObjectPoolService poolService)
+                           Enemy enemy, ObjectPoolService poolService)
     {
         _enemyTransform = enemy.transform;
-        _playerTransform = player.transform;
-        _playerCenterPosition = Vector3.up * player.GetComponent<CapsuleCollider>().height * _playerTransform.lossyScale.y / 2;
         _enemyCenterPosition = Vector3.up * enemy.GetComponent<CapsuleCollider>().height * _enemyTransform.lossyScale.y * _aimHeightFactor;
         _poolService = poolService;
 
@@ -45,7 +43,7 @@ public class RangedAttack : IAttackingStrategy
 
     public void Activate()
     {
-        _attacker.OnPlayerInAttackArea += TryAim;
+        _attacker.OnPlayerInAttackArea += SetAim;
         _attacker.OnPlayerOutAttackArea += StopTryAim;
 
         _attacker.Activate();
@@ -58,7 +56,7 @@ public class RangedAttack : IAttackingStrategy
 
     public void Deactivate()
     {
-        _attacker.OnPlayerInAttackArea -= TryAim;
+        _attacker.OnPlayerInAttackArea -= SetAim;
         _attacker.OnPlayerOutAttackArea -= StopTryAim;
 
         _attacker.Deactivate();
@@ -69,11 +67,8 @@ public class RangedAttack : IAttackingStrategy
 
     public void Tick()
     {
-        if (_isActive == false)
+        if (_isActive == false || _playerTransform == null || _enemyTransform == null)
             return;
-
-        if (_playerTransform == null || _enemyTransform == null)
-            throw new ArgumentNullException("Attacking strategy transform");
 
         if (_attackState != AttackState.Idle)
         {
@@ -88,9 +83,20 @@ public class RangedAttack : IAttackingStrategy
 
     private void TryAim()
     {
+        if (_playerTransform == null)
+            return;
+        
         ClearAiming();
         _attackState = AttackState.TryAiming;
         _attacker.RotateToIdle();
+    }
+
+    private void SetAim(Player player)
+    {
+        _playerTransform = player.transform;
+        _playerCenterPosition = Vector3.up * player.GetComponent<CapsuleCollider>().height * _playerTransform.lossyScale.y / 2;
+
+        TryAim();
     }
 
     private void Aim()
@@ -119,6 +125,8 @@ public class RangedAttack : IAttackingStrategy
         ClearAiming();
         _attackState = AttackState.Idle;
         _attacker.ClearAim();
+        _playerTransform = null;
+        
         AttackStopped?.Invoke();
     }
 

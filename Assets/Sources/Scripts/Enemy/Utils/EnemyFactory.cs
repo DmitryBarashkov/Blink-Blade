@@ -5,8 +5,7 @@ using static EnemyDatabase;
 public class EnemyFactory
 {
     private readonly DiContainer _container;
-    private readonly EnemyDatabase _database;
-    private readonly ParticleSystem _effectPrefab;
+    private readonly EnemyDatabase _database;    
 
     public EnemyFactory(DiContainer container, EnemyDatabase database)
     {

@@ -11,7 +11,7 @@ public class RangedAttacker : EnemyAttacker
     [SerializeField] private float _aimSpeed = 2f;
 
     [Inject]
-    public void Construct(Player player)
+    public void Construct()
     {
         ResetWeight();
     }
@@ -62,8 +62,10 @@ public class RangedAttacker : EnemyAttacker
             return;
 
         Vector3 worldCenter = capsuleCollider.transform.TransformPoint(capsuleCollider.center);
-                
-        if (Physics.CheckSphere(worldCenter, capsuleCollider.radius, _layerMask))
-            TriggerAttack();
+
+        Collider[] hitColliders = Physics.OverlapSphere(worldCenter, capsuleCollider.radius, _layerMask);
+
+        if (hitColliders.Length > 0)
+            TriggerAttack(hitColliders[0].GetComponent<Player>());
     }
 }

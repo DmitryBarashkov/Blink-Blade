@@ -5,7 +5,8 @@ public class EnergyButton : EndScreenButton
 {
     [Inject] private Level _level;
     [Inject] private LevelState _levelState;
-    [Inject] private Player _player;
+    [Inject] private PlayerStats _playerStats;
+    
 
     private int _addCount = 3;
     private string _rewardId = "AddEnergyForLevel";
@@ -16,7 +17,7 @@ public class EnergyButton : EndScreenButton
 
         YG2.RewardedAdvShow(_rewardId, () =>
         {
-            _player.AddEnergy(_addCount);
+            _playerStats.currentEnergy.Value += _addCount;
 
             _screen.Close();
             _levelState.IsWin.Value = null;

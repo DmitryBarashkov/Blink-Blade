@@ -3,7 +3,7 @@ using Zenject;
 
 public class ShopEnergyButton : UIButton
 {
-    [Inject] private Player _player;
+    [Inject] private PlayerStats _playerStats;
     
     private string _rewardId = "AddPlayerEnergy";
 
@@ -13,8 +13,8 @@ public class ShopEnergyButton : UIButton
 
         YG2.RewardedAdvShow(_rewardId, () =>
         {
-            YG2.saves.energy += 1;
-            _player.AddEnergy(1);
+            YG2.saves.energy++;
+            _playerStats.currentEnergy.Value++;
         });
     }
 }

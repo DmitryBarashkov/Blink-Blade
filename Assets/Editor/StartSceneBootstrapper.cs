@@ -9,6 +9,7 @@ using YG;
 public static class StartSceneBootstrapper
 {
     private const string StartScenePath = "Assets/Sources/Scenes/Service/Loading.unity";
+    private const string PhotoScenePath = "Assets/Sources/Scenes/Service/Photo.unity";
 
     static StartSceneBootstrapper()
     {
@@ -21,7 +22,7 @@ public static class StartSceneBootstrapper
         {
             string currentScene = EditorSceneManager.GetActiveScene().path;
 
-            if (currentScene == StartScenePath) return;
+            if (currentScene == StartScenePath || currentScene == PhotoScenePath) return;
 
             int levelNumber = GetLevelNumberFromName(EditorSceneManager.GetActiveScene().name);
 

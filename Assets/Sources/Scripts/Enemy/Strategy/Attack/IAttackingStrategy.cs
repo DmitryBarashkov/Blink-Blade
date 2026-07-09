@@ -6,7 +6,7 @@ public interface IAttackingStrategy
     event Action AttackStopped;
     void Initialize(MeleeAttacker meleeAttacker, RangedAttacker rangedAttacker, IAudioService audioService, 
                     EnemyAnimator animator,
-                    Enemy enemy, Player player, ObjectPoolService poolService);
+                    Enemy enemy, ObjectPoolService poolService);
     void Activate();
     void Deactivate();
     void Tick();

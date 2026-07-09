@@ -34,9 +34,10 @@ public class WinGameScreen : MonoBehaviour
         _addEnergyButton.SetEnabled(true);
 
         YG2.saves.coins += _earnedCoins;
-        YG2.saves.level += 1;
+        YG2.saves.rating += _earnedCoins;
+        YG2.saves.level++;
         YG2.SaveProgress();
-        YG2.SetLeaderboard("Score", YG2.saves.coins);
+        YG2.SetLeaderboard("Score", YG2.saves.rating);
     }
 
     public void AddCoins(int coinsMultiplier)
@@ -53,7 +54,6 @@ public class WinGameScreen : MonoBehaviour
             .SetEase(Ease.OutQuad);
 
         YG2.saves.coins += _earnedCoins - currentCoins;
-        YG2.SaveProgress();
-        YG2.SetLeaderboard("Score", YG2.saves.coins);
+        YG2.SaveProgress();        
     }
 }

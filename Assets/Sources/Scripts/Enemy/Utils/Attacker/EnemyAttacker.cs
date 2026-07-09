@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public abstract class EnemyAttacker : MonoBehaviour
 {
-    public event Action OnPlayerInAttackArea;
+    public event Action<Player> OnPlayerInAttackArea;
     public event Action OnPlayerOutAttackArea;
     
     [SerializeField] protected EnemyWeapon _weapon;
@@ -29,7 +29,7 @@ public abstract class EnemyAttacker : MonoBehaviour
         
         if (player && player.IsInvincible == false)
         {
-            TriggerAttack();
+            TriggerAttack(player);
         }
     }
 
@@ -43,8 +43,8 @@ public abstract class EnemyAttacker : MonoBehaviour
         }
     }
 
-    protected void TriggerAttack()
+    protected void TriggerAttack(Player player)
     {
-        OnPlayerInAttackArea?.Invoke();
+        OnPlayerInAttackArea?.Invoke(player);
     }
 }
