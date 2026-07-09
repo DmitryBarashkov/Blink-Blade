@@ -1,7 +1,7 @@
-using System;
 using TMPro;
 using UnityEngine;
 using YG;
+using UniRx;
 using Zenject;
 
 public class BetweenLevelScreen : MonoBehaviour
@@ -11,19 +11,25 @@ public class BetweenLevelScreen : MonoBehaviour
     [SerializeField] private RectTransform _chooseLevelScreen;
 
     [Inject] private InputService _input;
-    
+    [Inject] private PlayerStats _playerStats;
+
     private GameObject _gameObject;
 
     private void Awake()
     {
         _gameObject = gameObject;
+
+        _playerStats.currentCoins.Subscribe((newCoins) =>
+        {
+            _coinsText.text = GetCoinText(newCoins);
+        })
+        .AddTo(this);
     }
 
     private void OnEnable()
     {
         _levelNumber.text = YG2.saves.level.ToString();
-        _coinsText.text = GetCoinText();
-
+        _coinsText.text = GetCoinText(_playerStats.currentCoins.Value);
         _input.ChooseLevelBtnPressed += ChooseLevel;
     }
 
@@ -48,10 +54,8 @@ public class BetweenLevelScreen : MonoBehaviour
             gameObject.SetActive(false);
     }
 
-    private string GetCoinText()
+    private string GetCoinText(int coins)
     {
-        int coins = YG2.saves.coins;
-
         if (coins < 1000)
             return coins.ToString();
 

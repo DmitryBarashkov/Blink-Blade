@@ -14,6 +14,7 @@ public class PlayerInstaller : MonoInstaller
     private int _weaponId;
     private int _skinId;
     private int _energy;
+    private int _coins;
 
     public override void InstallBindings()
     {
@@ -29,6 +30,7 @@ public class PlayerInstaller : MonoInstaller
         _weaponId = YG2.saves.weaponId;
         _skinId = YG2.saves.skinId;
         _energy = YG2.saves.energy;
+        _coins = YG2.saves.coins;
     }
 
     private void BindUI()
@@ -53,7 +55,7 @@ public class PlayerInstaller : MonoInstaller
     private void BindPlayerUtils()
     {
         Container.Bind<PlayerWeaponController>().AsSingle();
-        Container.Bind<PlayerStats>().AsSingle().WithArguments(_weaponId, _skinId, _energy);
+        Container.Bind<PlayerStats>().AsSingle().WithArguments(_weaponId, _skinId, _energy, _coins);
         Container.Bind<Teleport>().AsSingle();               
         Container.Bind<Aimer>().AsSingle();
     }

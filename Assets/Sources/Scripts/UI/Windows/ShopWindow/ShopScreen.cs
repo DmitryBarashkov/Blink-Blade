@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
+using UniRx;
 
 public class ShopScreen : UIScreen
 {
@@ -8,6 +9,8 @@ public class ShopScreen : UIScreen
     [SerializeField] private SkinItem _skinItemPrefab;
     [SerializeField] private Transform _weaponsContainer;
     [SerializeField] private Transform _skinsContainer;
+
+    [Inject] private PlayerStats _playerStats;
     
     private WeaponDatabase _weaponDatabase;
     private SkinDatabase _skinDatabase;
@@ -32,6 +35,12 @@ public class ShopScreen : UIScreen
 
     public override void Setup()
     {
+        _playerStats.currentCoins.Skip(1).Subscribe((newCoins) =>
+        {
+            UpdateSkinsItems();
+        })
+        .AddTo(this);
+
         UpdateItems();
         _gameObject.SetActive(true);
     }

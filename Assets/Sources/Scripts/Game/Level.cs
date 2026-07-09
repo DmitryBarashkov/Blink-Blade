@@ -14,8 +14,7 @@ public class Level : IDisposable
     
     private int _enemiesCount;
     private int _levelNumber;
-    private bool _shouldReload;
-    
+        
     private AudioService _audioService;
     private BetweenLevelScreen _menu;
     private LevelScreen _levelUI;
@@ -69,13 +68,13 @@ public class Level : IDisposable
         _menu.Activate();
     }
 
-    public void StartPlay()
+    public void StartPlay(bool isContinue = false)
     {
         _input.Activate();
         _levelUI?.SetActive(true);
 
         ActivateTraps();
-        ActivateEnemies();
+        ActivateEnemies(isContinue);
         ActivatePlayer();
 
         LevelStarted?.Invoke();
@@ -90,6 +89,7 @@ public class Level : IDisposable
 
         DeactivateEnemies();
         DeactivateTraps();
+
         LevelFinished?.Invoke();
     }
 
@@ -98,6 +98,8 @@ public class Level : IDisposable
         _enemySpawner.Reset();
         _playerSpawner.Initialize(_levelData.GetPlayerSpawnPoint());
         _enemyPanel.Reset();
+        
+        ActivateTraps();
 
         _levelState.Restart(_enemiesCount);
 
@@ -105,11 +107,6 @@ public class Level : IDisposable
             _input.Activate();
 
         _levelUI?.SetActive(true);
-    }
-
-    public void SetReload(bool value)
-    {
-        _shouldReload = value;
     }
 
     public void Dispose() => _disposables.Dispose();
@@ -130,8 +127,6 @@ public class Level : IDisposable
 
     private void InitializeLevelState(ILevelData levelData)
     {
-        _shouldReload = true;
-
         _enemiesCount = levelData.IsBossLevel() ? levelData.GetBossHealth() : levelData.GetEnemySpawnPoints().Count;
         _levelState.Restart(_enemiesCount);        
 
@@ -179,9 +174,9 @@ public class Level : IDisposable
                 trap.Deactivate();
     }
 
-    private void ActivateEnemies()
+    private void ActivateEnemies(bool isContinue)
     {
-        _enemySpawner.ActivateEnemies();
+        _enemySpawner.ActivateEnemies(isContinue);
     }
 
     private void DeactivateEnemies()

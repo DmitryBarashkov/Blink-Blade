@@ -58,12 +58,17 @@ public class EnemySpawner
         }
     }
 
-    public void ActivateEnemies()
+    public void ActivateEnemies(bool isContinue)
     {
         foreach (Enemy enemy in _enemies)
         {
             if (enemy != null)
-                enemy.Activate();
+            {
+                if (isContinue)
+                    enemy.StartWork();
+                else
+                    enemy.Activate();
+            }
         }
     }
 

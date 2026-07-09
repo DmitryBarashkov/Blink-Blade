@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6240128658431495838, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
       propertyPath: m_Name
-      value: Skin
+      value: Full_Armored
       objectReference: {fileID: 0}
     - target: {fileID: 6760663183796147236, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
       propertyPath: m_LocalPosition.x
@@ -79,6 +79,10 @@ PrefabInstance:
     - {fileID: 449354512193749081, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
     - {fileID: 7115119358115438651, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
     - {fileID: 4799819579887172804, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
+    - {fileID: 9000677648363707183, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
+    - {fileID: 9036232403904730445, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
+    - {fileID: 6171662686889503101, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
+    - {fileID: 1781948341219339111, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}

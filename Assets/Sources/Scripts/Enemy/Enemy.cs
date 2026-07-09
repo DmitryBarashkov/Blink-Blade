@@ -113,12 +113,18 @@ public class Enemy : MonoBehaviour
         _transform.rotation = _initiateRotation;
         _health = _initialHealth;
 
+        StartWork();
+
+        AnimatorInstance.SetDied(false);
+    }
+
+    public void StartWork()
+    {
+        _collider.enabled = true;
+        
         _attackingStrategy.Activate();
         _defendingStrategy.Activate();
         _movementStrategy.Activate();
-
-        AnimatorInstance.SetDied(false);
-        _collider.enabled = true;
     }
 
     public void Deactivate()

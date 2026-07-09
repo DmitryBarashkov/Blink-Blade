@@ -34,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6240128658431495838, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
       propertyPath: m_Name
-      value: Armored_Player
+      value: Heavy_Armored
       objectReference: {fileID: 0}
     - target: {fileID: 6760663183796147236, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
       propertyPath: m_LocalPosition.x
@@ -109,6 +109,9 @@ PrefabInstance:
     - {fileID: 1216440311609236447, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
     - {fileID: 7585679760079268142, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
     - {fileID: 1577650310446420157, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
+    - {fileID: 9036232403904730445, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
+    - {fileID: 6171662686889503101, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
+    - {fileID: 1781948341219339111, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
