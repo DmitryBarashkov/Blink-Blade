@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InputService
 {
@@ -15,6 +16,24 @@ public class InputService
     private bool _isActive = false;
 
     public void GetInput()
+    {
+        if (Input.touchCount > 0)
+            HandleMobileTouch();
+        else
+            HandlePCInput();        
+    }
+
+    public void Activate()
+    {
+        _isActive = true;
+    }
+
+    public void Deactivate()
+    {
+        _isActive = false;
+    }
+
+    private void HandlePCInput()
     {
         if (Input.GetButton(MenuOpen))
         {
@@ -38,13 +57,23 @@ public class InputService
         }
     }
 
-    public void Activate()
+    private void HandleMobileTouch()
     {
-        _isActive = true;
-    }
+        if (_isActive == true)
+        {
+            Touch touch = Input.GetTouch(0);
 
-    public void Deactivate()
-    {
-        _isActive = false;
+            if (touch.phase == TouchPhase.Began)
+            {
+                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                    return;
+
+                if (Input.GetButton(Attack))
+                    AttackBtnPressed?.Invoke();
+                
+                if (Input.GetButtonUp(Attack))
+                    AttackBtnUp?.Invoke();
+            }
+        }
     }
 }
