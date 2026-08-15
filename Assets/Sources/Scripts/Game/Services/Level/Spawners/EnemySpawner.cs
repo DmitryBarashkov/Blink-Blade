@@ -65,9 +65,14 @@ public class EnemySpawner
             if (enemy != null)
             {
                 if (isContinue)
-                    enemy.StartWork();
+                {
+                    if (enemy.IsDead == false)
+                        enemy.StartWork();
+                }
                 else
+                {
                     enemy.Activate();
+                }
             }
         }
     }

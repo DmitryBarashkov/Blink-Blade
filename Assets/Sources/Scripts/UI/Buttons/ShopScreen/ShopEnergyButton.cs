@@ -9,12 +9,12 @@ public class ShopEnergyButton : UIButton
 
     public override void HandleClick()
     {
-        _audioService.PlaySound(SoundType.ButtonClick);
+        Utils.ShowAdvForReward(_audioService, _rewardId, GetAward);
+    }
 
-        YG2.RewardedAdvShow(_rewardId, () =>
-        {
-            YG2.saves.energy++;
-            _playerStats.currentEnergy.Value++;
-        });
+    private void GetAward()
+    {
+        YG2.saves.energy++;
+        _playerStats.currentEnergy.Value++;
     }
 }

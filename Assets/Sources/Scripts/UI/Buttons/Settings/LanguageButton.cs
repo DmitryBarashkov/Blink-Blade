@@ -27,7 +27,7 @@ public class LanguageButton : UIButton
         _panel.LanguageChanged += SetLanguage;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
         _button.onClick.RemoveListener(HandleClick);
         _panel.LanguageChanged -= SetLanguage;

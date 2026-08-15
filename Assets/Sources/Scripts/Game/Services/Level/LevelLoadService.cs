@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using YG;
 using Zenject;
 
 public class LevelLoadService
@@ -151,7 +152,10 @@ public class LevelLoadService
         Scene loadedScene = SceneManager.GetSceneByName(sceneName);
 
         if (loadedScene.IsValid() && loadedScene.isLoaded)
+        {
             SceneManager.SetActiveScene(loadedScene);
+            YG2.GameReadyAPI();
+        }
     }
 }
 

@@ -10,15 +10,12 @@ public class AddCoinsButton : EndScreenButton
     
     public override void HandleClick()
     {
-        _audioService.PlaySound(SoundType.ButtonClick);
-        _audioService.Deactivate();
+        Utils.ShowAdvForReward(_audioService, _rewardId, GetAward);
+    }
 
-        YG2.RewardedAdvShow(_rewardId, () =>
-        {
-            _winScreen.AddCoins(_coinsFactor);
-            _audioService.Activate();
-        });
-
+    private void GetAward()
+    {
+        _winScreen.AddCoins(_coinsFactor);
         SetEnabled(false);
     }
 }

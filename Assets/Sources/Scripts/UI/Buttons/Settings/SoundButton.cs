@@ -1,4 +1,3 @@
-
 public class SoundButton : ToggleButton
 {
     protected override void OnEnable()

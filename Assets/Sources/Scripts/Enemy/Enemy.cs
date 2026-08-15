@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Blocker _blocker;
     [SerializeField] private Shield _shield;
 
+    private bool _isDead = false;
+    
     private int _initialHealth = 1;
     private int _health = 1;
 
@@ -39,7 +41,9 @@ public class Enemy : MonoBehaviour
     private IAudioService _audioService;
     private ObjectPoolService _poolService;
 
-    public EnemyAnimator AnimatorInstance => _enemyAnimator;    
+    public EnemyAnimator AnimatorInstance => _enemyAnimator;
+    public bool IsDead => _isDead;
+    
 
     [Inject]
     public void Construct(IAudioService audioService, 
@@ -112,6 +116,7 @@ public class Enemy : MonoBehaviour
         _transform.position = _initiatePosition;
         _transform.rotation = _initiateRotation;
         _health = _initialHealth;
+        _isDead = false;
 
         StartWork();
 
@@ -172,6 +177,7 @@ public class Enemy : MonoBehaviour
         _defendingStrategy.Deactivate();
 
         _collider.enabled = false;
+        _isDead = true;
 
         AnimatorInstance.SetDied(true);
 

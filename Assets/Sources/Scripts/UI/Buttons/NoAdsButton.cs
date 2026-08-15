@@ -11,7 +11,7 @@ public class NoAdsButton : UIButton
         YG2.onPurchaseSuccess += OnSuccess;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
         _button.onClick.AddListener(HandleClick);
         YG2.onPurchaseSuccess -= OnSuccess;

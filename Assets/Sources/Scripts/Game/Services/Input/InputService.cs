@@ -1,6 +1,7 @@
+using Cysharp.Threading.Tasks;
 using System;
+using System.Threading;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class InputService
 {
@@ -13,27 +14,11 @@ public class InputService
     public event Action MenuOpenBtnPressed;
     public event Action ChooseLevelBtnPressed;
 
+    private CancellationTokenSource cts;
     private bool _isActive = false;
+    private float _activateDelay = 0.1f;
 
     public void GetInput()
-    {
-        if (Input.touchCount > 0)
-            HandleMobileTouch();
-        else
-            HandlePCInput();        
-    }
-
-    public void Activate()
-    {
-        _isActive = true;
-    }
-
-    public void Deactivate()
-    {
-        _isActive = false;
-    }
-
-    private void HandlePCInput()
     {
         if (Input.GetButton(MenuOpen))
         {
@@ -47,33 +32,40 @@ public class InputService
         if (_isActive == true)
         {
             if (Input.GetButton(Attack))
-            {
                 AttackBtnPressed?.Invoke();
-            }
             if (Input.GetButtonUp(Attack))
-            {
                 AttackBtnUp?.Invoke();
-            }
+        }        
+    }
+
+    public async void Activate()
+    {
+        cts?.Cancel();
+        cts?.Dispose();
+        cts = new CancellationTokenSource();
+
+        try
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(_activateDelay),
+                                delayType: DelayType.DeltaTime,                                
+                                cancellationToken: cts.Token);
+
+            _isActive = true;
+            Debug.Log("Ввод деактивирован через UniTask.");
+        }
+        catch (OperationCanceledException)
+        {
+            Debug.Log("Деактивация ввода была отменена.");
         }
     }
 
-    private void HandleMobileTouch()
+    public void Deactivate()
     {
-        if (_isActive == true)
-        {
-            Touch touch = Input.GetTouch(0);
+        _isActive = false;
+    }
 
-            if (touch.phase == TouchPhase.Began)
-            {
-                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
-                    return;
+    private void DelayBeforeActivate()
+    {
 
-                if (Input.GetButton(Attack))
-                    AttackBtnPressed?.Invoke();
-                
-                if (Input.GetButtonUp(Attack))
-                    AttackBtnUp?.Invoke();
-            }
-        }
     }
 }

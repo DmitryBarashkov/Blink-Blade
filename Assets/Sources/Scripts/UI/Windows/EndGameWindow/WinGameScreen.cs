@@ -14,7 +14,8 @@ public class WinGameScreen : MonoBehaviour
     [SerializeField] private AddEnergyButton _addEnergyButton;
 
     [Inject] private Level _level;
-
+    [Inject] private PlayerStats _playerStats;
+    
     private int _coinsFactor = 5;
     private float _effectDuration = 1f;
     private int _earnedCoins;
@@ -38,6 +39,8 @@ public class WinGameScreen : MonoBehaviour
         YG2.saves.level++;
         YG2.SaveProgress();
         YG2.SetLeaderboard("Score", YG2.saves.rating);
+
+        _playerStats.currentCoins.Value = YG2.saves.coins;
     }
 
     public void AddCoins(int coinsMultiplier)
@@ -54,6 +57,8 @@ public class WinGameScreen : MonoBehaviour
             .SetEase(Ease.OutQuad);
 
         YG2.saves.coins += _earnedCoins - currentCoins;
-        YG2.SaveProgress();        
+        YG2.SaveProgress();
+
+        _playerStats.currentCoins.Value = YG2.saves.coins;
     }
 }

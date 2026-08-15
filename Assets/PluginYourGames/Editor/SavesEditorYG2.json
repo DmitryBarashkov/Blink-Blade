@@ -7,14 +7,14 @@
     false,
     false
   ],
-  "idSave": 23,
-  "level": 0,
-  "energy": 5,
-  "coins": 355,
-  "rating": 95,
+  "idSave": 35,
+  "level": 11,
+  "energy": 10,
+  "coins": 210,
+  "rating": 275,
   "isFinishedGame": false,
-  "weaponId": 0,
-  "skinId": 5,
+  "weaponId": 2,
+  "skinId": 2,
   "isAdsDisabled": false,
   "isSoundOn": true,
   "purchasedWeaponItemIds": [
@@ -24,12 +24,8 @@
     0,
     0,
     0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
+    1,
+    2
   ],
   "purchasedSkinItemsIds": [
     0,
@@ -38,12 +34,6 @@
     0,
     0,
     0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    5
+    2
   ]
 }

@@ -21,7 +21,7 @@ public abstract class UIButton : MonoBehaviour
         _button.onClick.AddListener(HandleClick);
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         _button.onClick.RemoveListener(HandleClick);
     }

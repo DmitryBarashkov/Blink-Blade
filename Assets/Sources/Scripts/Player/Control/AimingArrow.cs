@@ -35,11 +35,11 @@ public class AimingArrow : MonoBehaviour
     public void SetPosition(Vector3 playerPosition)
     {
         if (playerPosition == Vector3.zero)
-            throw new ArgumentNullException(nameof(playerPosition));
+            throw new ArgumentException(nameof(playerPosition));
 
         Vector3 position = playerPosition + _playerHeightOffset * Vector3.up;
         Vector2 playerCanvasPosition = Camera.main.WorldToScreenPoint(position);
-        Vector2 targetPosition = Input.mousePosition;
+        Vector2 targetPosition = Input.touchCount > 0 ? Input.GetTouch(0).position : Input.mousePosition;
         
         _direction = (targetPosition - playerCanvasPosition).normalized;
         

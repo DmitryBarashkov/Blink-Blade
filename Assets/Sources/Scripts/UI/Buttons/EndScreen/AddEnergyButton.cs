@@ -1,20 +1,21 @@
 using YG;
+using Zenject;
 
 public class AddEnergyButton : EndScreenButton
 {
-    private string _rewardId = "AddPlayerEnergy";    
+    [Inject] private PlayerStats _playerStats;
+
+    private string _rewardId = "AddPlayerEnergy"; 
 
     public override void HandleClick()
     {
-        _audioService.PlaySound(SoundType.ButtonClick);
-        _audioService.Deactivate();
+        Utils.ShowAdvForReward(_audioService, _rewardId, GetAward);
+    }
 
-        YG2.RewardedAdvShow(_rewardId, () =>
-        {
-            YG2.saves.energy += 1;
-            _audioService.Activate();
-        });
-
+    private void GetAward()
+    {
+        YG2.saves.energy += 1;
+        _playerStats.currentEnergy.Value += YG2.saves.energy;
         SetEnabled(false);
     }
 }

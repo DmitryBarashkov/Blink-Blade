@@ -1,5 +1,4 @@
 using UnityEngine;
-using YG;
 using Zenject;
 
 public class BuyByAdsButton : UIButton
@@ -12,12 +11,12 @@ public class BuyByAdsButton : UIButton
 
     public override void HandleClick()
     {
-        _audioService.PlaySound(SoundType.ButtonClick);
+        Utils.ShowAdvForReward(_audioService, _rewardId, GetAward);
+    }
 
-        YG2.RewardedAdvShow(_rewardId, () =>
-        {
-            _shopService.PurchaseWeapon(_weaponItem.WeaponId);
-            _weaponItem.UpdateAfterBuy();
-        });
+    private void GetAward()
+    {
+        _shopService.PurchaseWeapon(_weaponItem.WeaponId);
+        _weaponItem.UpdateAfterBuy();
     }
 }
