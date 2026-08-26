@@ -8,7 +8,7 @@ public class LeaderboardPlayerRow : MonoBehaviour
     [SerializeField] private GameObject _separatorPrefab;
     [SerializeField] private RectTransform _panel;
     [SerializeField] private RectTransform _itemsContainer;
-    
+
     private string _lbName = "Score";
     private LBData _lbData;
 
@@ -33,7 +33,7 @@ public class LeaderboardPlayerRow : MonoBehaviour
         if (_lbData.currentPlayer != null && _lbData.currentPlayer.rank > 0)
         {
             bool isPlayerInTop = _lbData.currentPlayer.rank <= 10;
-            int panelHeight = isPlayerInTop ? _heightWithPlayerInTop : _heightWithPlayerOutOfTop;            
+            int panelHeight = isPlayerInTop ? _heightWithPlayerInTop : _heightWithPlayerOutOfTop;
 
             if (isPlayerInTop == false)
             {

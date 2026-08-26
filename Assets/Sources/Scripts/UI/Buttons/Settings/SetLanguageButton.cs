@@ -4,8 +4,8 @@ using YG;
 
 public class SetLanguageButton : UIButton
 {
-    [SerializeField] private Image _image;    
-    
+    [SerializeField] private Image _image;
+
     private string _language;
     private LanguagePanel _panel;
 

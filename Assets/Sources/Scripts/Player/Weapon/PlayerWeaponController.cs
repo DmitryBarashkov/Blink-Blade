@@ -1,8 +1,8 @@
+using UniRx;
+using Zenject;
+
 using static UnityEngine.Object;
 using static WeaponDatabase;
-
-using Zenject;
-using UniRx;
 
 public class PlayerWeaponController
 {
@@ -14,9 +14,9 @@ public class PlayerWeaponController
     private Aimer _aimer;
     private WeaponHandler _weaponHandler;
     private IAudioService _audioService;
-    
+
     public Weapon CurrentWeapon => _weapon;
-    
+
     [Inject]
     public void Construct(Weapon weapon, IAudioService audioService, Teleport teleport, Aimer aimer, PlayerStats playerStats, WeaponDatabase database)
     {
@@ -25,7 +25,7 @@ public class PlayerWeaponController
         _weapon = weapon;
         _audioService = audioService;
         _playerStats = playerStats;
-        _database = database;        
+        _database = database;
     }
 
     public void Initialize(WeaponHandler weaponHandler)
@@ -33,7 +33,7 @@ public class PlayerWeaponController
         _weaponHandler = weaponHandler;
         _weapon.Initialize(_weaponHandler, _audioService);
 
-        _playerStats.currentWeaponId.Subscribe((newWeaponId) =>
+        _playerStats.CurrentWeaponId.Subscribe((newWeaponId) =>
         {
             if (_database.TryGetWeapon(newWeaponId, out PlayerWeapon result))
             {
@@ -41,7 +41,7 @@ public class PlayerWeaponController
             }
         });
     }
-    
+
     public void ActivateWeapon()
     {
         _weapon.ReturnToWeaponHandler();
@@ -57,7 +57,7 @@ public class PlayerWeaponController
     {
         Destroy(_weapon.gameObject);
 
-        _weapon = Instantiate(weaponRecord.prefab);
+        _weapon = Instantiate(weaponRecord.Prefab);
         _weapon.Initialize(_weaponHandler, _audioService);
 
         _aimer.ChangeWeapon(_weapon);

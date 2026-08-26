@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Teleportation : IMovementStrategy
 {
-    public event Action MovementStarted = delegate { };
-
     private Transform _transform;
     private ILevelData _levelData;
     private IAudioService _audioService;
@@ -16,16 +14,22 @@ public class Teleportation : IMovementStrategy
     private List<EnemySpawnPoint> _spawnPoints;
     private float _height;
 
-    public void Initialize(Transform transform, CapsuleCollider collider, EnemyAnimator animator, 
-                           ILevelData levelData, IAudioService audioService, 
-                           float wallCheckDistance, float cliffForwardOffset)
+    public event Action MovementStarted = () => { };
+
+    public void Initialize(Transform transform,
+                           CapsuleCollider collider,
+                           EnemyAnimator animator,
+                           ILevelData levelData,
+                           IAudioService audioService,
+                           float wallCheckDistance,
+                           float cliffForwardOffset)
     {
         _transform = transform;
-        
+
         _levelData = levelData;
         _audioService = audioService;
         _animator = animator;
-        
+
         _effect = levelData.GetMovingEffect();
 
         _height = collider.height;
@@ -57,7 +61,7 @@ public class Teleportation : IMovementStrategy
 
         _pointIndex++;
         _currentPoint = _spawnPoints[_pointIndex];
-        
+
         _effect.transform.position = _transform.position + centerPosition;
         _effect.Play();
         _audioService.PlaySound(SoundType.Teleport);

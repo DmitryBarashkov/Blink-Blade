@@ -5,8 +5,6 @@ using UnityEngine;
 [Serializable]
 public class Patrol : IMovementStrategy
 {
-    public event Action MovementStarted;
-
     private Transform _transform;
     private EnemyAnimator _animator;
     private LayerMask _groundLayer;
@@ -26,9 +24,23 @@ public class Patrol : IMovementStrategy
     private bool _shouldRotate = true;
     private bool _isActive = true;
 
-    public void Initialize(Transform transform, CapsuleCollider collider, EnemyAnimator animator, 
-                           ILevelData levelData, IAudioService audioService,
-                           float wallCheckDistance, float cliffForwardOffset)
+    public event Action MovementStarted;
+
+    public enum PatrolState
+    {
+        Waiting,
+        Rotating,
+        Moving,
+        Stopped,
+    }
+
+    public void Initialize(Transform transform,
+                           CapsuleCollider collider,
+                           EnemyAnimator animator,
+                           ILevelData levelData,
+                           IAudioService audioService,
+                           float wallCheckDistance,
+                           float cliffForwardOffset)
     {
         _transform = transform;
         _animator = animator;
@@ -157,13 +169,5 @@ public class Patrol : IMovementStrategy
         Vector3 origin = _transform.position + Vector3.up * 0.5f;
 
         return Physics.Raycast(origin, _transform.forward, _wallCheckDistance, _groundLayer);
-    }
-
-    public enum PatrolState
-    {
-        Waiting,
-        Rotating,
-        Moving,
-        Stopped
     }
 }

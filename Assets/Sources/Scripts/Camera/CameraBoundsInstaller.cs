@@ -4,12 +4,12 @@ using Zenject;
 
 public class CameraBoundsInstaller
 {
-    private readonly CinemachineVirtualCamera _camera;    
+    private readonly CinemachineVirtualCamera _camera;
 
     [Inject]
     public CameraBoundsInstaller(CinemachineVirtualCamera camera)
     {
-        _camera = camera;        
+        _camera = camera;
     }
 
     public void SetAim(Transform aim)

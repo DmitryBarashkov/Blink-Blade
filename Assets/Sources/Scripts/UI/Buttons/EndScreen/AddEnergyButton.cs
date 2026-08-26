@@ -5,7 +5,7 @@ public class AddEnergyButton : EndScreenButton
 {
     [Inject] private PlayerStats _playerStats;
 
-    private string _rewardId = "AddPlayerEnergy"; 
+    private string _rewardId = "AddPlayerEnergy";
 
     public override void HandleClick()
     {
@@ -14,8 +14,8 @@ public class AddEnergyButton : EndScreenButton
 
     private void GetAward()
     {
-        YG2.saves.energy += 1;
-        _playerStats.currentEnergy.Value += YG2.saves.energy;
+        YG2.saves.Energy += 1;
+        _playerStats.CurrentEnergy.Value += YG2.saves.Energy;
         SetEnabled(false);
     }
 }

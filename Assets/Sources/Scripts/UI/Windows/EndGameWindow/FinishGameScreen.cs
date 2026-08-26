@@ -7,9 +7,9 @@ public class FinishGameScreen : MonoBehaviour
 
     private void OnEnable()
     {
-        YG2.saves.coins += _endGameReward;
-        YG2.saves.level += 1;
+        YG2.saves.Coins += _endGameReward;
+        YG2.saves.Level += 1;
         YG2.SaveProgress();
-        YG2.SetLeaderboard("Score", YG2.saves.coins);
+        YG2.SetLeaderboard("Score", YG2.saves.Coins);
     }
 }

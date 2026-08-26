@@ -10,16 +10,16 @@ public class ChooseLevelButton : UIButton
     [SerializeField] private RectTransform _screen;
 
     [Inject] private LevelLoadService _service;
-    
+
     public override void HandleClick()
     {
         _screen.gameObject.SetActive(false);
 
-        string cleanText = Regex.Replace(_input.text.Trim(), @"[^\d]", "");
+        string cleanText = Regex.Replace(_input.text.Trim(), @"[^\d]", string.Empty);
 
         if (int.TryParse(cleanText, out int levelNumber))
         {
-            YG2.saves.level = levelNumber;
+            YG2.saves.Level = levelNumber;
             _service.LoadLevel(levelNumber).Forget();
         }
     }

@@ -1,12 +1,6 @@
 public class RangedWeapon : EnemyWeapon
 {
-    public override void Activate()
-    {
-        
-    }
+    public override void Activate() { }
 
-    public override void Deactivate()
-    {
-        
-    }
+    public override void Deactivate() { }
 }

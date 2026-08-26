@@ -64,7 +64,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: BlueThrowTraiInfinite
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2332147098122318071, guid: 932bc3046c7834c44a562286f0e747a3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

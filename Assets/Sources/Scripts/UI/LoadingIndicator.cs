@@ -7,11 +7,11 @@ public class LoadingIndicator : MonoBehaviour
     [SerializeField] private float _pulseDuration = 1f;
     [SerializeField] private float _pulseAmount = 0.2f;
 
-    private Transform _transform;    
+    private Transform _transform;
 
     private void Awake()
     {
-        _transform = transform;        
+        _transform = transform;
     }
 
     private void Start()

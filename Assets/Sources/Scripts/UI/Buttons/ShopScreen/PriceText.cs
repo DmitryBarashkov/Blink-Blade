@@ -1,11 +1,11 @@
-using YG;
 using TMPro;
 using UnityEngine;
+using YG;
 
 public class PriceText : MonoBehaviour
 {
     [SerializeField] private string _productId;
-    
+
     private TextMeshProUGUI _text;
 
     private void Awake()
@@ -31,7 +31,7 @@ public class PriceText : MonoBehaviour
                 return;
             }
         }
-                
+
         _text.text = "1 Ян";
     }
 }

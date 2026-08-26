@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 
 public class WeaponRotator
 {
@@ -11,7 +10,7 @@ public class WeaponRotator
     public WeaponRotator(Transform weaponTransform, float stickOffsetAngle)
     {
         _weaponTransform = weaponTransform;
-        _stickOffsetAngle = stickOffsetAngle;        
+        _stickOffsetAngle = stickOffsetAngle;
     }
 
     public void RotateToObstacle(Collision collision)

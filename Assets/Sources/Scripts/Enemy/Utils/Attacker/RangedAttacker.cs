@@ -34,7 +34,7 @@ public class RangedAttacker : EnemyAttacker
         _aimTarget.position = target;
 
         _bodyAimConstraint.weight = Mathf.MoveTowards(_bodyAimConstraint.weight, 1f, _aimSpeed * Time.deltaTime);
-        _headAimConstraint.weight = Mathf.MoveTowards(_bodyAimConstraint.weight, 1f, _aimSpeed * Time.deltaTime);       
+        _headAimConstraint.weight = Mathf.MoveTowards(_bodyAimConstraint.weight, 1f, _aimSpeed * Time.deltaTime);
     }
 
     public void RotateToIdle()
@@ -57,8 +57,8 @@ public class RangedAttacker : EnemyAttacker
     private void TryFindTarget()
     {
         CapsuleCollider capsuleCollider = _collider as CapsuleCollider;
-        
-        if (capsuleCollider == null) 
+
+        if (capsuleCollider == null)
             return;
 
         Vector3 worldCenter = capsuleCollider.transform.TransformPoint(capsuleCollider.center);

@@ -15,7 +15,7 @@ public class WinGameScreen : MonoBehaviour
 
     [Inject] private Level _level;
     [Inject] private PlayerStats _playerStats;
-    
+
     private int _coinsFactor = 5;
     private float _effectDuration = 1f;
     private int _earnedCoins;
@@ -24,7 +24,7 @@ public class WinGameScreen : MonoBehaviour
     {
         int enemiesCount = _level.EnemiesCount;
         int levelNumber = _level.LevelNumber;
-        
+
         _earnedCoins = enemiesCount * _coinsFactor;
 
         _enemiesCountText.text = $"x{enemiesCount}";
@@ -34,19 +34,19 @@ public class WinGameScreen : MonoBehaviour
         _addCoinsButton.SetEnabled(true);
         _addEnergyButton.SetEnabled(true);
 
-        YG2.saves.coins += _earnedCoins;
-        YG2.saves.rating += _earnedCoins;
-        YG2.saves.level++;
+        YG2.saves.Coins += _earnedCoins;
+        YG2.saves.Rating += _earnedCoins;
+        YG2.saves.Level++;
         YG2.SaveProgress();
-        YG2.SetLeaderboard("Score", YG2.saves.rating);
+        YG2.SetLeaderboard("Score", YG2.saves.Rating);
 
-        _playerStats.currentCoins.Value = YG2.saves.coins;
+        _playerStats.CurrentCoins.Value = YG2.saves.Coins;
     }
 
     public void AddCoins(int coinsMultiplier)
     {
         int currentCoins = _earnedCoins;
-        
+
         _earnedCoins *= coinsMultiplier;
 
         DOTween.To(() => currentCoins, x => currentCoins = x, _earnedCoins, _effectDuration)
@@ -56,9 +56,9 @@ public class WinGameScreen : MonoBehaviour
             })
             .SetEase(Ease.OutQuad);
 
-        YG2.saves.coins += _earnedCoins - currentCoins;
+        YG2.saves.Coins += _earnedCoins - currentCoins;
         YG2.SaveProgress();
 
-        _playerStats.currentCoins.Value = YG2.saves.coins;
+        _playerStats.CurrentCoins.Value = YG2.saves.Coins;
     }
 }

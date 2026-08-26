@@ -6,7 +6,7 @@ using Zenject;
 public abstract class UIButton : MonoBehaviour
 {
     [Inject] protected IAudioService _audioService;
-    
+
     protected Button _button;
     protected RectTransform _rectTransform;
 

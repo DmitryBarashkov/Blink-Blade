@@ -5,8 +5,8 @@ public class Teleport
 {
     private Weapon _weapon;
     private Transform _playerTransform;
-    private CapsuleCollider _safePositionCollider;    
-    private Rigidbody _playerRigidbody;    
+    private CapsuleCollider _safePositionCollider;
+    private Rigidbody _playerRigidbody;
     private ParticleSystem _effect;
     private IAudioService _audioService;
 
@@ -18,7 +18,7 @@ public class Teleport
     [Inject]
     public void Construct(IAudioService audioService)
     {
-        _audioService = audioService;        
+        _audioService = audioService;
     }
 
     public void Initialize(Weapon weapon, Transform playerTransform, CapsuleCollider collider, Rigidbody rigidbody, ParticleSystem teleportEffect)
@@ -77,7 +77,7 @@ public class Teleport
         float checkDistance = halfHeight + _verticalOffset;
 
         if (Physics.Raycast(position, Vector3.up, out RaycastHit hit, checkDistance, _obstacleMask))
-        {        
+        {
             float overlap = checkDistance - hit.distance;
 
             if (overlap > 0)
@@ -89,8 +89,8 @@ public class Teleport
 
     private Vector3 GetCorrectedFloorPosition(float halfHeight, Vector3 position)
     {
-        float checkDist = halfHeight + _horizontalOffset;        
-        
+        float checkDist = halfHeight + _horizontalOffset;
+
         if (Physics.Raycast(position, Vector3.down, out RaycastHit hit, checkDist, _obstacleMask))
         {
             position.y = hit.point.y;

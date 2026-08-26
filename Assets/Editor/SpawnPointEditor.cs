@@ -9,11 +9,11 @@ public class SpawnPointEditor : Editor
         DrawDefaultInspector();
 
         EnemySpawnPoint spawner = (target as EnemySpawnPoint);
-        SerializedProperty enemyNameProp = serializedObject.FindProperty("selectedEnemyName");
-        SerializedProperty dbProp = serializedObject.FindProperty("_database");
-        EnemyDatabase db = dbProp.objectReferenceValue as EnemyDatabase;
+        SerializedProperty enemyNameProp = serializedObject.FindProperty("SelectedEnemyName");
+        SerializedProperty dbProp = serializedObject.FindProperty("Database");
+        EnemyDatabase db = spawner.EnemyDatabase;
 
-        if (db == null || db.enemies == null || db.enemies.Count == 0)
+        if (db == null || db.Enemies == null || db.Enemies.Count == 0)
         {
             EditorGUILayout.HelpBox("Enemy Database is empty", MessageType.Warning);
             return;
@@ -22,12 +22,12 @@ public class SpawnPointEditor : Editor
         List<string> optionsList = new List<string>();
         int currentIndex = 0;
 
-        for (int i = 0; i < db.enemies.Count; i++)
+        for (int i = 0; i < db.Enemies.Count; i++)
         {
-            string name = string.IsNullOrEmpty(db.enemies[i].enemyName) ? $"Noname (Element {i})" : db.enemies[i].enemyName;
+            string name = string.IsNullOrEmpty(db.Enemies[i].EnemyName) ? $"Noname (Element {i})" : db.Enemies[i].EnemyName;
             optionsList.Add(name);
             
-            if (db.enemies[i].enemyName == enemyNameProp.stringValue)
+            if (db.Enemies[i].EnemyName == enemyNameProp.stringValue)
             {
                 currentIndex = i;
             }
@@ -40,7 +40,7 @@ public class SpawnPointEditor : Editor
 
         if (newIndex != currentIndex || string.IsNullOrEmpty(enemyNameProp.stringValue))
         {
-            enemyNameProp.stringValue = db.enemies[newIndex].enemyName;
+            enemyNameProp.stringValue = db.Enemies[newIndex].EnemyName;
             serializedObject.ApplyModifiedProperties();
         }
     }

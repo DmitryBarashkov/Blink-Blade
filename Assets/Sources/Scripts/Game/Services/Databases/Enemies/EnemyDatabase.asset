@@ -12,158 +12,158 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f136eae56597e7646964d4909b133f9b, type: 3}
   m_Name: EnemyDatabase
   m_EditorClassIdentifier: 
-  enemies:
-  - enemyName: Forest_Elf_Swordsman Idle
-    prefab: {fileID: 4722590259074940258, guid: 5fdca3c93893fcb4ab1e48a8c9de39a5, type: 3}
-    movementStrategy:
+  Enemies:
+  - EnemyName: Forest_Elf_Swordsman Idle
+    Prefab: {fileID: 4722590259074940258, guid: 5fdca3c93893fcb4ab1e48a8c9de39a5, type: 3}
+    MovementStrategy:
       rid: 3412875806881873921
-    attackingStrategy:
+    AttackingStrategy:
       rid: 3747826653048340517
-    defendingStrategy:
+    DefendingStrategy:
       rid: 3747826672688431106
-  - enemyName: Forest_Elf_Swordsman Patrol
-    prefab: {fileID: 4722590259074940258, guid: 5fdca3c93893fcb4ab1e48a8c9de39a5, type: 3}
-    movementStrategy:
+  - EnemyName: Forest_Elf_Swordsman Patrol
+    Prefab: {fileID: 4722590259074940258, guid: 5fdca3c93893fcb4ab1e48a8c9de39a5, type: 3}
+    MovementStrategy:
       rid: 3412875806881873923
-    attackingStrategy:
+    AttackingStrategy:
       rid: 3747826653048340518
-    defendingStrategy:
+    DefendingStrategy:
       rid: 3747826672688431107
-  - enemyName: Shieldman Idle
-    prefab: {fileID: 478639616586872186, guid: 81d4a52d10c19a844bbc6e4cf9083973, type: 3}
-    movementStrategy:
+  - EnemyName: Shieldman Idle
+    Prefab: {fileID: 478639616586872186, guid: 81d4a52d10c19a844bbc6e4cf9083973, type: 3}
+    MovementStrategy:
       rid: 3747826672688431104
-    attackingStrategy:
+    AttackingStrategy:
       rid: 3747826653048340518
-    defendingStrategy:
+    DefendingStrategy:
       rid: 3747826672688431108
-  - enemyName: Shieldman Patrol
-    prefab: {fileID: 478639616586872186, guid: 81d4a52d10c19a844bbc6e4cf9083973, type: 3}
-    movementStrategy:
+  - EnemyName: Shieldman Patrol
+    Prefab: {fileID: 478639616586872186, guid: 81d4a52d10c19a844bbc6e4cf9083973, type: 3}
+    MovementStrategy:
       rid: 3747826672688431105
-    attackingStrategy:
+    AttackingStrategy:
       rid: 3747826653048340518
-    defendingStrategy:
+    DefendingStrategy:
       rid: 3747826672688431109
-  - enemyName: Archer Idle
-    prefab: {fileID: 4105221787743141580, guid: 2def9359f9aa0524f8048af7f18aefdf, type: 3}
-    movementStrategy:
+  - EnemyName: Archer Idle
+    Prefab: {fileID: 4105221787743141580, guid: 2def9359f9aa0524f8048af7f18aefdf, type: 3}
+    MovementStrategy:
       rid: 3747826719521505280
-    attackingStrategy:
+    AttackingStrategy:
       rid: 3747826719521505281
-    defendingStrategy:
+    DefendingStrategy:
       rid: 3747826719521505282
-  - enemyName: Archer Patrol
-    prefab: {fileID: 4105221787743141580, guid: 2def9359f9aa0524f8048af7f18aefdf, type: 3}
-    movementStrategy:
+  - EnemyName: Archer Patrol
+    Prefab: {fileID: 4105221787743141580, guid: 2def9359f9aa0524f8048af7f18aefdf, type: 3}
+    MovementStrategy:
       rid: 3747826719521505283
-    attackingStrategy:
+    AttackingStrategy:
       rid: 3747826719521505281
-    defendingStrategy:
+    DefendingStrategy:
       rid: 3747826719521505282
-  - enemyName: Swordsman Idle
-    prefab: {fileID: 478639616586872186, guid: 64424a200b3af1d44987c4270f2c54a8, type: 3}
-    movementStrategy:
+  - EnemyName: Swordsman Idle
+    Prefab: {fileID: 478639616586872186, guid: 64424a200b3af1d44987c4270f2c54a8, type: 3}
+    MovementStrategy:
       rid: 3412875806881873924
-    attackingStrategy:
+    AttackingStrategy:
       rid: 3412875806881873925
-    defendingStrategy:
+    DefendingStrategy:
       rid: 3747826719521505282
-  - enemyName: Swordsman Patrol
-    prefab: {fileID: 478639616586872186, guid: 64424a200b3af1d44987c4270f2c54a8, type: 3}
-    movementStrategy:
+  - EnemyName: Swordsman Patrol
+    Prefab: {fileID: 478639616586872186, guid: 64424a200b3af1d44987c4270f2c54a8, type: 3}
+    MovementStrategy:
       rid: 3747826719521505283
-    attackingStrategy:
+    AttackingStrategy:
       rid: 3412875806881873926
-    defendingStrategy:
+    DefendingStrategy:
       rid: 3747826719521505282
-  - enemyName: Forest_Elf_Shieldman Idle
-    prefab: {fileID: 4722590259074940258, guid: 386f28d28be7a954c877e9ab90a9d24e, type: 3}
-    movementStrategy:
+  - EnemyName: Forest_Elf_Shieldman Idle
+    Prefab: {fileID: 4722590259074940258, guid: 386f28d28be7a954c877e9ab90a9d24e, type: 3}
+    MovementStrategy:
       rid: 3412875806881873927
-    attackingStrategy:
+    AttackingStrategy:
       rid: 3412875806881873926
-    defendingStrategy:
+    DefendingStrategy:
       rid: 3412875806881873928
-  - enemyName: Forest_Elf_Shieldman Patrol
-    prefab: {fileID: 4722590259074940258, guid: 386f28d28be7a954c877e9ab90a9d24e, type: 3}
-    movementStrategy:
+  - EnemyName: Forest_Elf_Shieldman Patrol
+    Prefab: {fileID: 4722590259074940258, guid: 386f28d28be7a954c877e9ab90a9d24e, type: 3}
+    MovementStrategy:
       rid: 3747826719521505283
-    attackingStrategy:
+    AttackingStrategy:
       rid: 3412875806881873926
-    defendingStrategy:
+    DefendingStrategy:
       rid: 3412875806881873929
-  - enemyName: Forest_Elf_Archer Idle
-    prefab: {fileID: 4722590259074940258, guid: 0670096999bd03441aada3c488dc66f5, type: 3}
-    movementStrategy:
+  - EnemyName: Forest_Elf_Archer Idle
+    Prefab: {fileID: 4722590259074940258, guid: 0670096999bd03441aada3c488dc66f5, type: 3}
+    MovementStrategy:
       rid: 3412875806881873930
-    attackingStrategy:
+    AttackingStrategy:
       rid: 3412875806881873931
-    defendingStrategy:
+    DefendingStrategy:
       rid: 3412875806881873932
-  - enemyName: Forest_Elf_Archer Patrol
-    prefab: {fileID: 4722590259074940258, guid: 0670096999bd03441aada3c488dc66f5, type: 3}
-    movementStrategy:
+  - EnemyName: Forest_Elf_Archer Patrol
+    Prefab: {fileID: 4722590259074940258, guid: 0670096999bd03441aada3c488dc66f5, type: 3}
+    MovementStrategy:
       rid: 3747826719521505283
-    attackingStrategy:
+    AttackingStrategy:
       rid: 3412875806881873933
-    defendingStrategy:
+    DefendingStrategy:
       rid: 3412875806881873934
-  - enemyName: Cave_Swordsman Idle
-    prefab: {fileID: 4530062177698052861, guid: 16926b1d473ae2540be18b16796d5ccf, type: 3}
-    movementStrategy:
+  - EnemyName: Cave_Swordsman Idle
+    Prefab: {fileID: 4530062177698052861, guid: 16926b1d473ae2540be18b16796d5ccf, type: 3}
+    MovementStrategy:
       rid: 3412875894591848448
-    attackingStrategy:
+    AttackingStrategy:
       rid: 3412875894591848449
-    defendingStrategy:
+    DefendingStrategy:
       rid: 3412875806881873934
-  - enemyName: Cave_Swordsman Patrol
-    prefab: {fileID: 4530062177698052861, guid: 16926b1d473ae2540be18b16796d5ccf, type: 3}
-    movementStrategy:
+  - EnemyName: Cave_Swordsman Patrol
+    Prefab: {fileID: 4530062177698052861, guid: 16926b1d473ae2540be18b16796d5ccf, type: 3}
+    MovementStrategy:
       rid: 3412875894591848450
-    attackingStrategy:
+    AttackingStrategy:
       rid: 3412875894591848449
-    defendingStrategy:
+    DefendingStrategy:
       rid: 3412875806881873934
-  - enemyName: Cave_Shieldman Idle
-    prefab: {fileID: 6632015827303108662, guid: e805c08ae1cb6ab45acec232145d6330, type: 3}
-    movementStrategy:
+  - EnemyName: Cave_Shieldman Idle
+    Prefab: {fileID: 6632015827303108662, guid: e805c08ae1cb6ab45acec232145d6330, type: 3}
+    MovementStrategy:
       rid: 3412875894591848451
-    attackingStrategy:
+    AttackingStrategy:
       rid: 3412875894591848449
-    defendingStrategy:
+    DefendingStrategy:
       rid: 3412875894591848452
-  - enemyName: Cave_Shieldman Patrol
-    prefab: {fileID: 6632015827303108662, guid: e805c08ae1cb6ab45acec232145d6330, type: 3}
-    movementStrategy:
+  - EnemyName: Cave_Shieldman Patrol
+    Prefab: {fileID: 6632015827303108662, guid: e805c08ae1cb6ab45acec232145d6330, type: 3}
+    MovementStrategy:
       rid: 3412875894591848453
-    attackingStrategy:
+    AttackingStrategy:
       rid: 3412875894591848449
-    defendingStrategy:
+    DefendingStrategy:
       rid: 3412875894591848452
-  - enemyName: Cave_Archer Idle
-    prefab: {fileID: 6632015827303108662, guid: f504bd495fa59aa44880d851b3ea3d93, type: 3}
-    movementStrategy:
+  - EnemyName: Cave_Archer Idle
+    Prefab: {fileID: 6632015827303108662, guid: f504bd495fa59aa44880d851b3ea3d93, type: 3}
+    MovementStrategy:
       rid: 3412875898560708608
-    attackingStrategy:
+    AttackingStrategy:
       rid: 3412875898560708609
-    defendingStrategy:
+    DefendingStrategy:
       rid: 3412875898560708612
-  - enemyName: Cave_Archer Patrol
-    prefab: {fileID: 6632015827303108662, guid: f504bd495fa59aa44880d851b3ea3d93, type: 3}
-    movementStrategy:
+  - EnemyName: Cave_Archer Patrol
+    Prefab: {fileID: 6632015827303108662, guid: f504bd495fa59aa44880d851b3ea3d93, type: 3}
+    MovementStrategy:
       rid: 3412875898560708610
-    attackingStrategy:
+    AttackingStrategy:
       rid: 3412875898560708609
-    defendingStrategy:
+    DefendingStrategy:
       rid: 3412875898560708611
-  - enemyName: Boss Teleportation
-    prefab: {fileID: 1623090471552090886, guid: 704e480bf85686445b8ba720d708003a, type: 3}
-    movementStrategy:
+  - EnemyName: Boss Teleportation
+    Prefab: {fileID: 1623090471552090886, guid: 704e480bf85686445b8ba720d708003a, type: 3}
+    MovementStrategy:
       rid: 5920497412029808640
-    attackingStrategy:
+    AttackingStrategy:
       rid: 5920497412029808644
-    defendingStrategy:
+    DefendingStrategy:
       rid: 5920497412029808645
   references:
     version: 2
@@ -187,10 +187,10 @@ MonoBehaviour:
       type: {class: Idle, ns: , asm: Assembly-CSharp}
       data: 
     - rid: 3412875806881873928
-      type: {class: ShieldDefense, ns: , asm: Assembly-CSharp}
+      type: {class: ShieldDefence, ns: , asm: Assembly-CSharp}
       data: 
     - rid: 3412875806881873929
-      type: {class: ShieldDefense, ns: , asm: Assembly-CSharp}
+      type: {class: ShieldDefence, ns: , asm: Assembly-CSharp}
       data: 
     - rid: 3412875806881873930
       type: {class: Idle, ns: , asm: Assembly-CSharp}
@@ -220,7 +220,7 @@ MonoBehaviour:
       type: {class: Idle, ns: , asm: Assembly-CSharp}
       data: 
     - rid: 3412875894591848452
-      type: {class: ShieldDefense, ns: , asm: Assembly-CSharp}
+      type: {class: ShieldDefence, ns: , asm: Assembly-CSharp}
       data: 
     - rid: 3412875894591848453
       type: {class: Patrol, ns: , asm: Assembly-CSharp}
@@ -259,10 +259,10 @@ MonoBehaviour:
       type: {class: Defenceless, ns: , asm: Assembly-CSharp}
       data: 
     - rid: 3747826672688431108
-      type: {class: ShieldDefense, ns: , asm: Assembly-CSharp}
+      type: {class: ShieldDefence, ns: , asm: Assembly-CSharp}
       data: 
     - rid: 3747826672688431109
-      type: {class: ShieldDefense, ns: , asm: Assembly-CSharp}
+      type: {class: ShieldDefence, ns: , asm: Assembly-CSharp}
       data: 
     - rid: 3747826719521505280
       type: {class: Idle, ns: , asm: Assembly-CSharp}
@@ -283,5 +283,5 @@ MonoBehaviour:
       type: {class: MeleeAttack, ns: , asm: Assembly-CSharp}
       data: 
     - rid: 5920497412029808645
-      type: {class: ShieldDefense, ns: , asm: Assembly-CSharp}
+      type: {class: ShieldDefence, ns: , asm: Assembly-CSharp}
       data: 

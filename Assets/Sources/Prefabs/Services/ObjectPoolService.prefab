@@ -45,33 +45,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _poolConfig:
-  - id: 0
-    objectType: 1
-    prefab: {fileID: 776367006317945785, guid: 9d54f7b6a6b31144b8142ff711f01bc9, type: 3}
-    poolSize: 2
-    lifeTime: 2
-  - id: 1
-    objectType: 2
-    prefab: {fileID: 1887386285058682, guid: 8507061b262ea8c48931359405404ccf, type: 3}
-    poolSize: 2
-    lifeTime: 2
-  - id: 2
-    objectType: 3
-    prefab: {fileID: 1766181604779644, guid: c0844b9ac3ed4354585e3b64cbdbb403, type: 3}
-    poolSize: 2
-    lifeTime: 2
-  - id: 3
-    objectType: 4
-    prefab: {fileID: 1861770388729636, guid: 31b11ca89c2956b4ba42264b1217c44e, type: 3}
-    poolSize: 3
-    lifeTime: 5
-  - id: 4
-    objectType: 5
-    prefab: {fileID: 1649514149693448, guid: b17da2530534eda4f9eac52e8fdc8d33, type: 3}
-    poolSize: 3
-    lifeTime: 5
-  - id: 5
-    objectType: 6
-    prefab: {fileID: 1219358074084769218, guid: a0ee4e0ef9cd2fb4fb67024763d751e5, type: 3}
-    poolSize: 10
-    lifeTime: 5
+  - Id: 0
+    ObjectType: 0
+    Prefab: {fileID: 5919406808635420205, guid: bb9ec4d8871164c41acd77ce84dc1834, type: 3}
+    PoolSize: 2
+    LifeTime: 3
+  - Id: 1
+    ObjectType: 1
+    Prefab: {fileID: 776367006317945785, guid: 9d54f7b6a6b31144b8142ff711f01bc9, type: 3}
+    PoolSize: 5
+    LifeTime: 3
+  - Id: 2
+    ObjectType: 2
+    Prefab: {fileID: 1887386285058682, guid: 8507061b262ea8c48931359405404ccf, type: 3}
+    PoolSize: 5
+    LifeTime: 3
+  - Id: 3
+    ObjectType: 3
+    Prefab: {fileID: 1766181604779644, guid: c0844b9ac3ed4354585e3b64cbdbb403, type: 3}
+    PoolSize: 5
+    LifeTime: 3
+  - Id: 4
+    ObjectType: 4
+    Prefab: {fileID: 1861770388729636, guid: 31b11ca89c2956b4ba42264b1217c44e, type: 3}
+    PoolSize: 5
+    LifeTime: 3
+  - Id: 5
+    ObjectType: 5
+    Prefab: {fileID: 1649514149693448, guid: b17da2530534eda4f9eac52e8fdc8d33, type: 3}
+    PoolSize: 5
+    LifeTime: 3
+  - Id: 6
+    ObjectType: 6
+    Prefab: {fileID: 1219358074084769218, guid: a0ee4e0ef9cd2fb4fb67024763d751e5, type: 3}
+    PoolSize: 10
+    LifeTime: 5

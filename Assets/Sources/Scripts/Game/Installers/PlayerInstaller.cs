@@ -5,12 +5,12 @@ using Zenject;
 public class PlayerInstaller : MonoInstaller
 {
     [SerializeField] private Weapon _defaultWeaponPrefab;
-    [SerializeField] private Player _defaultPlayerPrefab;    
+    [SerializeField] private Player _defaultPlayerPrefab;
     [SerializeField] private AimingArrow _aimingArrow;
-    
-    [Inject] private WeaponDatabase _weaponDatabase;    
+
+    [Inject] private WeaponDatabase _weaponDatabase;
     [Inject] private SkinDatabase _skinDatabase;
-    
+
     private int _weaponId;
     private int _skinId;
     private int _energy;
@@ -27,36 +27,36 @@ public class PlayerInstaller : MonoInstaller
 
     private void LoadPlayerData()
     {
-        _weaponId = YG2.saves.weaponId;
-        _skinId = YG2.saves.skinId;
-        _energy = YG2.saves.energy;
-        _coins = YG2.saves.coins;
+        _weaponId = YG2.saves.WeaponId;
+        _skinId = YG2.saves.SkinId;
+        _energy = YG2.saves.Energy;
+        _coins = YG2.saves.Coins;
     }
 
     private void BindUI()
     {
-        Container.BindInstance(_aimingArrow).AsSingle();        
+        Container.BindInstance(_aimingArrow).AsSingle();
     }
 
     private void BindWeapon()
     {
         if (_weaponDatabase.TryGetWeapon(_weaponId, out var weapon))
             Container.Bind<Weapon>()
-                .FromComponentInNewPrefab(weapon.prefab)
+                .FromComponentInNewPrefab(weapon.Prefab)
                 .AsSingle()
                 .NonLazy();
         else
             Container.Bind<Weapon>()
                 .FromComponentInNewPrefab(_defaultWeaponPrefab)
                 .AsSingle()
-                .NonLazy();            
+                .NonLazy();
     }
 
     private void BindPlayerUtils()
     {
         Container.Bind<PlayerWeaponController>().AsSingle();
         Container.Bind<PlayerStats>().AsSingle().WithArguments(_weaponId, _skinId, _energy, _coins);
-        Container.Bind<Teleport>().AsSingle();               
+        Container.Bind<Teleport>().AsSingle();
         Container.Bind<Aimer>().AsSingle();
     }
 

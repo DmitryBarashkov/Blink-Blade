@@ -5,7 +5,7 @@ public class ChooseWeaponButton : UIButton
 {
     [SerializeField] private Toggle _toggle;
     [SerializeField] private WeaponItem _item;
-    
+
     public override void HandleClick()
     {
         _audioService.PlaySound(SoundType.ButtonClick);

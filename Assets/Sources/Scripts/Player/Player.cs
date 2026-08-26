@@ -1,4 +1,5 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 using YG;
 using Zenject;
@@ -9,38 +10,38 @@ using Zenject;
 [RequireComponent(typeof(HitEffectSpawner))]
 public class Player : MonoBehaviour
 {
-    public event Action Dead;
-
     [SerializeField] private ParticleSystem _teleportEffect;
     [SerializeField] private WeaponHandler _weaponHandler;
     [SerializeField] private GroundChecker _groundChecker;
 
     [Inject] private PlayerStats _playerStats;
     [Inject] private Level _level;
-    
+
     private Transform _transform;
     private Vector3 _initialPosition;
     private Quaternion _initialRotation;
     private GameObject _gameObject;
-        
+
     private PlayerAnimator _animator;
     private Rigidbody _rigidBody;
     private CapsuleCollider _collider;
-    private HitEffectSpawner _effect;    
+    private HitEffectSpawner _effect;
     private int _alivelayerMask;
     private int _invincibleMask;
-    
+
     private InputService _input;
-    private IAudioService _audioService;    
+    private IAudioService _audioService;
     private Aimer _aimer;
     private Teleport _teleport;
-    
+
     private PlayerWeaponController _weaponController;
 
     private bool _canTeleport = false;
     private bool _isAiming = false;
     private bool _isDead = false;
     private bool _isInvincible;
+
+    public event Action Dead;
 
     public bool IsInvincible => _isInvincible;
 
@@ -86,19 +87,19 @@ public class Player : MonoBehaviour
 
         if (_isAiming)
         {
-            _aimer.PerformAim();            
+            _aimer.PerformAim();
         }
     }
 
     [Inject]
     public void Construct(InputService input, PlayerWeaponController weaponController, Teleport teleport, Aimer aimer, IAudioService audioService)
     {
-        _input = input;        
+        _input = input;
         _weaponController = weaponController;
         _teleport = teleport;
-        _aimer = aimer;              
-        
-        _audioService = audioService;        
+        _aimer = aimer;
+
+        _audioService = audioService;
 
         _transform = transform;
         _initialPosition = _transform.position;
@@ -113,7 +114,7 @@ public class Player : MonoBehaviour
         _transform.position = _initialPosition;
         _transform.rotation = _initialRotation;
 
-        _playerStats.currentEnergy.Value = YG2.saves.energy;
+        _playerStats.CurrentEnergy.Value = YG2.saves.Energy;
 
         _canTeleport = false;
         _isAiming = false;
@@ -140,8 +141,10 @@ public class Player : MonoBehaviour
         Dead?.Invoke();
 
         _input.Deactivate();
-        
-        _effect.Perform(hitPoint);
+
+        if (EditorPrefs.GetBool("EnabledBlood"))
+            _effect.Perform(hitPoint);
+
         _audioService.PlaySound(SoundType.Hurt);
 
         _weaponController.DeactivateWeapon();
@@ -190,13 +193,13 @@ public class Player : MonoBehaviour
 
     private void OnAttackButtonPressed()
     {
-        if (_canTeleport) 
+        if (_canTeleport)
         {
-            _playerStats.currentEnergy.Value--;
+            _playerStats.CurrentEnergy.Value--;
             _canTeleport = false;
             _teleport.Perform();
         }
-        else if (_playerStats.currentEnergy.Value == 0)
+        else if (_playerStats.CurrentEnergy.Value == 0)
         {
             StopAim();
             Defeat(true);
@@ -205,7 +208,7 @@ public class Player : MonoBehaviour
         {
             _aimer.StartAim();
             _isAiming = true;
-        }              
+        }
     }
 
     private void OnMenuOpenBtnPressed()

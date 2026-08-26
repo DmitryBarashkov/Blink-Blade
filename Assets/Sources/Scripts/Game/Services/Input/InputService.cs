@@ -1,6 +1,6 @@
-using Cysharp.Threading.Tasks;
 using System;
 using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class InputService
@@ -9,25 +9,22 @@ public class InputService
     private const string MenuOpen = "Cancel";
     private const string ChooseLevelMenu = "ChooseLevel";
 
+    private CancellationTokenSource cts;
+    private bool _isActive = false;
+    private float _activateDelay = 0.1f;
+
     public event Action AttackBtnPressed;
     public event Action AttackBtnUp;
     public event Action MenuOpenBtnPressed;
     public event Action ChooseLevelBtnPressed;
 
-    private CancellationTokenSource cts;
-    private bool _isActive = false;
-    private float _activateDelay = 0.1f;
-
     public void GetInput()
     {
         if (Input.GetButton(MenuOpen))
-        {
             MenuOpenBtnPressed?.Invoke();
-        }
+
         if (Input.GetButton(ChooseLevelMenu))
-        {
             ChooseLevelBtnPressed?.Invoke();
-        }
 
         if (_isActive == true)
         {
@@ -35,7 +32,7 @@ public class InputService
                 AttackBtnPressed?.Invoke();
             if (Input.GetButtonUp(Attack))
                 AttackBtnUp?.Invoke();
-        }        
+        }
     }
 
     public async void Activate()
@@ -46,9 +43,10 @@ public class InputService
 
         try
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(_activateDelay),
-                                delayType: DelayType.DeltaTime,                                
-                                cancellationToken: cts.Token);
+            await UniTask.Delay(
+                TimeSpan.FromSeconds(_activateDelay),
+                delayType: DelayType.DeltaTime,
+                cancellationToken: cts.Token);
 
             _isActive = true;
             Debug.Log("Ввод деактивирован через UniTask.");
@@ -62,10 +60,5 @@ public class InputService
     public void Deactivate()
     {
         _isActive = false;
-    }
-
-    private void DelayBeforeActivate()
-    {
-
     }
 }

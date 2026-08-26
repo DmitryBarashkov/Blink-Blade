@@ -6,27 +6,27 @@ public enum GroundType
 {
     Grass,
     Wood,
-    Stone
+    Stone,
 }
 
 [CreateAssetMenu(fileName = "GroundTypeDatabase", menuName = "Config/Ground Type Database")]
-public class GroundTypeDatabase : ScriptableObject
+public class GroundTypesDatabase : ScriptableObject
 {
+    [Header("GroundType")]
+    public List<GroundTypeRecord> GroundTypes;
+
     [Serializable]
     public struct GroundTypeRecord
     {
-        public GroundType type;
-        public float bounceForce;
+        public GroundType Type;
+        public float BounceForce;
     }
-
-    [Header("GroundType")]
-    public List<GroundTypeRecord> groundTypes;
 
     public bool TryGetGroundType(GroundType type, out GroundTypeRecord result)
     {
-        foreach (var groundType in groundTypes)
+        foreach (var groundType in GroundTypes)
         {
-            if (type == groundType.type)
+            if (type == groundType.Type)
             {
                 result = groundType;
                 return true;

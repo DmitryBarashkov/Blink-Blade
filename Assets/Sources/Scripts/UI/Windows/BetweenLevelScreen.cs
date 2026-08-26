@@ -1,7 +1,7 @@
 using TMPro;
+using UniRx;
 using UnityEngine;
 using YG;
-using UniRx;
 using Zenject;
 
 public class BetweenLevelScreen : MonoBehaviour
@@ -19,7 +19,7 @@ public class BetweenLevelScreen : MonoBehaviour
     {
         _gameObject = gameObject;
 
-        _playerStats.currentCoins.Subscribe((newCoins) =>
+        _playerStats.CurrentCoins.Subscribe((newCoins) =>
         {
             _coinsText.text = GetCoinText(newCoins);
         })
@@ -28,8 +28,8 @@ public class BetweenLevelScreen : MonoBehaviour
 
     private void OnEnable()
     {
-        _levelNumber.text = YG2.saves.level.ToString();
-        _coinsText.text = GetCoinText(_playerStats.currentCoins.Value);
+        _levelNumber.text = YG2.saves.Level.ToString();
+        _coinsText.text = GetCoinText(_playerStats.CurrentCoins.Value);
         _input.ChooseLevelBtnPressed += ChooseLevel;
     }
 
@@ -62,13 +62,13 @@ public class BetweenLevelScreen : MonoBehaviour
         if (coins < 1000000)
         {
             float rounded = Mathf.Floor((coins / 1000f) * 10f) / 10f;
-            
+
             return (coins / 1000f).ToString("F1") + "k";
         }
         else
         {
             float rounded = Mathf.Floor((coins / 100000f) * 10f) / 10f;
-            
+
             return (coins / 1000000f).ToString("F1") + "m";
         }
     }

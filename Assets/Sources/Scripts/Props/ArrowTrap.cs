@@ -5,16 +5,16 @@ using Zenject;
 public class ArrowTrap : MonoBehaviour
 {
     [SerializeField] private float _cooldown = 2f;
-    
+
     private ObjectPoolService _poolService;
     private IAudioService _audioService;
     private Transform _transform;
     private Coroutine _coroutine;
 
-    private float _shootForce = 15f;    
+    private float _shootForce = 15f;
     private float _offset = 0.5f;
-    
-    private bool _isActive;    
+
+    private bool _isActive;
 
     [Inject]
     public void Construct(ObjectPoolService poolService, IAudioService audioService)
@@ -41,7 +41,7 @@ public class ArrowTrap : MonoBehaviour
     public void Deactivate()
     {
         _isActive = false;
-        
+
         if (_coroutine != null)
             StopCoroutine(_coroutine);
     }
@@ -59,7 +59,7 @@ public class ArrowTrap : MonoBehaviour
     private void Shoot()
     {
         _audioService.PlaySound(SoundType.BowShot);
-                
+
         GameObject arrow = _poolService.Get(ObjectPoolService.PoolObjectTypes.Arrow, _transform.position + (_transform.forward * _offset), _transform.rotation);
         Rigidbody rigidbody = arrow.GetComponent<Rigidbody>();
 

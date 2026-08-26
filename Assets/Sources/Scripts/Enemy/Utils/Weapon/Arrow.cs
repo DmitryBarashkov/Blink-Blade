@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Zenject;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -24,11 +23,11 @@ public class Arrow : MonoBehaviour
     {
         _poolService = poolService;
     }
-    
+
     private void Awake()
     {
         _transform = transform;
-        
+
         _mesh = GetComponent<MeshRenderer>();
         _collider = GetComponent<Collider>();
         _gameObject = gameObject;
@@ -45,8 +44,8 @@ public class Arrow : MonoBehaviour
     private void OnEnable()
     {
         _isActive = true;
-        
-        _crackEffect.Stop();        
+
+        _crackEffect.Stop();
         _flyEffect.Play();
         _trailEffect.emitting = true;
 
@@ -65,14 +64,11 @@ public class Arrow : MonoBehaviour
         HitEffectSpawner effect = collision.collider.GetComponent<HitEffectSpawner>();
         ContactPoint hitPoint = collision.contacts[0];
 
-        if (effect != null)
+        if (effect != null && player == null)
             effect.Perform(hitPoint);
-        
 
         if (player != null && player.IsInvincible == false)
-        {
             player.Die(hitPoint);
-        }
 
         _mesh.enabled = false;
         _collider.enabled = false;

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoadingBar : MonoBehaviour
+public class LoadingPanel : MonoBehaviour
 {
     [Header("Ссылки на UI элементы")]
     [SerializeField] private Image _backgroundImage;
@@ -35,7 +35,7 @@ public class LoadingBar : MonoBehaviour
             realImageWidth = containerWidth;
         else
             realImageWidth = containerHeight * spriteAspect;
-        
+
         Vector2 size = _loadingBar.sizeDelta;
 
         size.x = realImageWidth;

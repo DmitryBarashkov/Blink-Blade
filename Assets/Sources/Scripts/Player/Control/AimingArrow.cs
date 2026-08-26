@@ -7,7 +7,7 @@ public class AimingArrow : MonoBehaviour
     [SerializeField] private float _offset = 50f;
     [SerializeField] private float _playerHeightOffset = 1.2f;
 
-    private RectTransform _rectTransform;    
+    private RectTransform _rectTransform;
     private Vector2 _direction;
     private float _maxWidth;
 
@@ -40,9 +40,9 @@ public class AimingArrow : MonoBehaviour
         Vector3 position = playerPosition + _playerHeightOffset * Vector3.up;
         Vector2 playerCanvasPosition = Camera.main.WorldToScreenPoint(position);
         Vector2 targetPosition = Input.touchCount > 0 ? Input.GetTouch(0).position : Input.mousePosition;
-        
+
         _direction = (targetPosition - playerCanvasPosition).normalized;
-        
+
         float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
         float scaledOffset = _offset * _rectTransform.lossyScale.x;
 

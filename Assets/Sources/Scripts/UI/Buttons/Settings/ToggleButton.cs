@@ -16,6 +16,6 @@ public abstract class ToggleButton : UIButton
 
     protected void SetSprite()
     {
-        _image.sprite = _isOn ? _onSprite : _offSprite;        
-    }    
+        _image.sprite = _isOn ? _onSprite : _offSprite;
+    }
 }

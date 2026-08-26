@@ -1,16 +1,14 @@
-using System;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
-using Zenject.SpaceFighter;
 
 [RequireComponent(typeof(RectTransform))]
-public class EnemyPanel: MonoBehaviour
+public class EnemyPanel : MonoBehaviour
 {
     [SerializeField] private EnemyIcon _iconPrefab;
 
     private List<EnemyIcon> _icons;
-    private CompositeDisposable _disposables = new CompositeDisposable();    
+    private CompositeDisposable _disposables = new CompositeDisposable();
 
     private int _initiateEnemiesCount;
 
@@ -27,9 +25,9 @@ public class EnemyPanel: MonoBehaviour
 
     public void Reset()
     {
-        _disposables.Clear();        
-        
-        _icons.ForEach((icon) => icon.Reset());        
+        _disposables.Clear();
+
+        _icons.ForEach((icon) => icon.Reset());
     }
 
     private void CreatePanel(ILevelData levelData)

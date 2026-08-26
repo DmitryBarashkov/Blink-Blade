@@ -36,11 +36,11 @@ namespace YG.Example
             //string coinsKey = "coins";
             //int coins = YG2.GetState(coinsKey);
 
-            //if (id == "50")
+            //if (Id == "50")
             //    YG2.SetState(coinsKey, coins + 50);
-            //else if (id == "250")
+            //else if (Id == "250")
             //    YG2.SetState(coinsKey, coins + 250);
-            //else if (id == "1500")
+            //else if (Id == "1500")
             //    YG2.SetState(coinsKey, coins + 1500);
         }
 

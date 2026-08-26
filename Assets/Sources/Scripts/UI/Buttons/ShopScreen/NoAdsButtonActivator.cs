@@ -7,6 +7,6 @@ public class NoAdsButtonActivator : MonoBehaviour
 
     private void OnEnable()
     {
-        _buttonContainer.gameObject.SetActive(YG2.saves.isAdsDisabled == false);
+        _buttonContainer.gameObject.SetActive(YG2.saves.IsAdsDisabled == false);
     }
 }

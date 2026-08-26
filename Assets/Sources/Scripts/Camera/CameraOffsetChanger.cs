@@ -1,12 +1,12 @@
-using Cinemachine;
 using System;
+using Cinemachine;
 using UnityEngine;
 using Zenject;
 
 public class CameraOffsetChanger
 {
     private CinemachineTransposer _transposer;
-    
+
     private float _smoothTime = 0.75f;
     private float _offsetHorizontal = 4f;
     private float _offsetUp = 3f;
@@ -34,9 +34,9 @@ public class CameraOffsetChanger
             throw new ArgumentNullException(nameof(direction));
 
         float positionX = direction.x * _offsetHorizontal;
-        float PositionY = direction.y > 0 ? direction.y * _offsetUp : direction.y * _offsetDown;
+        float positionY = direction.y > 0 ? direction.y * _offsetUp : direction.y * _offsetDown;
 
-        _targetOffset = new Vector3(positionX, PositionY, _initialOffsetZ);
+        _targetOffset = new Vector3(positionX, positionY, _initialOffsetZ);
         _transposer.m_FollowOffset = Vector3.SmoothDamp(_transposer.m_FollowOffset, _targetOffset, ref _offsetVelocity, _smoothTime);
     }
 

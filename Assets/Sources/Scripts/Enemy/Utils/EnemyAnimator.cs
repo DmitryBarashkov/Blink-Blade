@@ -1,11 +1,8 @@
-using System;
 using UnityEngine;
 
 public class EnemyAnimator : CharacterAnimator
 {
-    public EnemyAnimator(Animator animator) : base(animator)
-    {
-    }
+    public EnemyAnimator(Animator animator) : base(animator) { }
 
     public void SetMeleeAttack()
     {
@@ -36,11 +33,11 @@ public class EnemyAnimator : CharacterAnimator
     {
         public class Params
         {
-            public static readonly int MeleeAttack = Animator.StringToHash(nameof(MeleeAttack));         
-            public static readonly int RangedAttack = Animator.StringToHash(nameof(RangedAttack));         
-            public static readonly int Cast = Animator.StringToHash(nameof(Cast));      
-            public static readonly int IsWalking = Animator.StringToHash(nameof(IsWalking));                             
-            public static readonly int IsAiming = Animator.StringToHash(nameof(IsAiming));                           
+            public static readonly int MeleeAttack = Animator.StringToHash(nameof(MeleeAttack));
+            public static readonly int RangedAttack = Animator.StringToHash(nameof(RangedAttack));
+            public static readonly int Cast = Animator.StringToHash(nameof(Cast));
+            public static readonly int IsWalking = Animator.StringToHash(nameof(IsWalking));
+            public static readonly int IsAiming = Animator.StringToHash(nameof(IsAiming));
         }
     }
 }

@@ -8,10 +8,10 @@ public class Aimer
     private CameraOffsetChanger _cameraOffsetChanger;
     private Transform _playerTransform;
     private AimingArrow _aimingArrow;
-    private PlayerAnimator _animator;    
-    private Weapon _weapon;    
+    private PlayerAnimator _animator;
+    private Weapon _weapon;
 
-    private float _maxTurnAngle = 100f;    
+    private float _maxTurnAngle = 100f;
 
     private Vector3 _targetDir;
     private float _currentAngle;
@@ -20,7 +20,7 @@ public class Aimer
     public bool CanShowMenu => _isFirstThrow;
 
     [Inject]
-    private void Construct(CameraBoundsInstaller cameraBoundsInstaller, CameraOffsetChanger cameraOffsetChanger, AimingArrow aimingArrow)
+    public void Construct(CameraBoundsInstaller cameraBoundsInstaller, CameraOffsetChanger cameraOffsetChanger, AimingArrow aimingArrow)
     {
         _cameraBoundsInstaller = cameraBoundsInstaller;
         _cameraOffsetChanger = cameraOffsetChanger;
@@ -33,7 +33,7 @@ public class Aimer
         _playerTransform = playerTransform;
         _cameraBoundsInstaller.SetAim(_playerTransform);
 
-        _isFirstThrow = YG2.saves.level == 0 ? false : true;
+        _isFirstThrow = YG2.saves.Level == 0 ? false : true;
     }
 
     public void ChangeWeapon(Weapon weapon)

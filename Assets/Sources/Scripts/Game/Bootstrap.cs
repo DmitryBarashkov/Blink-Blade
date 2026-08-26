@@ -1,17 +1,17 @@
-using UnityEngine.SceneManagement;
-using Zenject;
-using YG;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using YG;
+using Zenject;
 
 public class Bootstrap : IInitializable
 {
-    [Inject] private LevelLoadService _levelService;    
-    
+    [Inject] private LevelLoadService _levelService;
+
     public void Initialize()
     {
         CheckInAppPurchases();
 
-        if (YG2.saves.isAdsDisabled)
+        if (YG2.saves.IsAdsDisabled)
             YG2.StickyAdActivity(false);
 
         if (SceneManager.GetActiveScene().buildIndex != 0)
@@ -33,14 +33,14 @@ public class Bootstrap : IInitializable
         {
             Debug.LogError("Consumed ads");
 
-            YG2.saves.isAdsDisabled = true;
+            YG2.saves.IsAdsDisabled = true;
             YG2.SaveProgress();
         }
     }
 
     private void StartLevel()
     {
-        int levelnumber = YG2.saves.level;
+        int levelnumber = YG2.saves.Level;
 
         if (levelnumber == 0)
             _levelService.LoadTutorialLevel();

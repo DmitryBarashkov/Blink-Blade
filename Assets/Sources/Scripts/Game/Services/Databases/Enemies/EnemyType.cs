@@ -2,11 +2,11 @@ public enum EnemyType
 {
     Swordsman,
     Shieldman,
-    Archer
+    Archer,
 }
 
 public enum BehaviourType
 {
     Idle,
-    Patrol
+    Patrol,
 }

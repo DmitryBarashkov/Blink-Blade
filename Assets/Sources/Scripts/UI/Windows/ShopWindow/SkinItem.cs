@@ -2,7 +2,6 @@ using System;
 using TMPro;
 using UniRx;
 using UniRx.Triggers;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using YG;
@@ -32,22 +31,22 @@ public class SkinItem : MonoBehaviour
     {
         _screen = screen;
         _skin = skin;
-        _buyButtonText.text = skin.cost.ToString();
-        SkinId = skin.id;
-        Cost = skin.cost;
-        
+        _buyButtonText.text = skin.Cost.ToString();
+        SkinId = skin.Id;
+        Cost = skin.Cost;
+
         InitializeItem(skin, isPurchased, isChosen);
         InitializeToggleControl();
     }
 
     public void SetToggle(bool value)
     {
-        _toggle.SetIsOnWithoutNotify(value);        
+        _toggle.SetIsOnWithoutNotify(value);
     }
 
     public void SetSkin()
     {
-        _screen.ChangeChosenSkinItem(_skin.id);
+        _screen.ChangeChosenSkinItem(_skin.Id);
     }
 
     public void UpdateAfterBuy()
@@ -62,8 +61,8 @@ public class SkinItem : MonoBehaviour
         SetToggle(isChosen);
 
         _buyButton.gameObject.SetActive(isPurchased == false);
-        _buyButton.interactable = YG2.saves.coins >= skin.cost;
-        _preview.sprite = skin.preview;
+        _buyButton.interactable = YG2.saves.Coins >= skin.Cost;
+        _preview.sprite = skin.Preview;
         _backgroundButton.interactable = isPurchased == true;
     }
 
@@ -74,7 +73,7 @@ public class SkinItem : MonoBehaviour
 
         _toggleSubscription?.Dispose();
 
-        _toggleSubscription = 
+        _toggleSubscription =
             _toggle.gameObject.AddComponent<ObservablePointerClickTrigger>()
             .OnPointerClickAsObservable()
             .Subscribe(pointerEventData =>
@@ -82,7 +81,7 @@ public class SkinItem : MonoBehaviour
                 if (_toggle.isOn == false)
                     _toggle.SetIsOnWithoutNotify(true);
                 else
-                    SetSkin();                
+                    SetSkin();
             })
             .AddTo(this);
     }

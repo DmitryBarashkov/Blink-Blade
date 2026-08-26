@@ -10,16 +10,16 @@ public class LevelInstaller : MonoInstaller, ILevelData
     [SerializeField] private CameraBounds _bounds;
     [SerializeField] private SoundType _ambientSoundType = SoundType.ForestAmbientSounds;
 
-    [Header(("Boss Level Settings"))]
+    [Header("Boss Level Settings")]
     [SerializeField] private ParticleSystem _movingEffect;
     [SerializeField] private bool _isBossLevel = false;
     [SerializeField] private int _bossHealth = 3;
 
-    [Inject] private ActiveLevelBridge _levelBridge;
+    [Inject] private LevelBridge _levelBridge;
 
     public override void InstallBindings()
     {
-        Container.Bind<CameraBounds>().FromComponentsInHierarchy().AsSingle();        
+        Container.Bind<CameraBounds>().FromComponentsInHierarchy().AsSingle();
 
         Container.Bind<HitEffectSpawner>()
             .FromComponentsInHierarchy()

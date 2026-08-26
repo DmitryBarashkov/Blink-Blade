@@ -2,9 +2,7 @@ using UnityEngine;
 
 public class PlayerAnimator : CharacterAnimator
 {
-    public PlayerAnimator(Animator animator) : base(animator)
-    {
-    }
+    public PlayerAnimator(Animator animator) : base(animator) { }
 
     public void SetAiming(bool value)
     {

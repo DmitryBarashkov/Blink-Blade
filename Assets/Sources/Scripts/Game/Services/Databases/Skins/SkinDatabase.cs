@@ -5,23 +5,23 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SkinDatabase", menuName = "Config/Skins Database")]
 public class SkinDatabase : ScriptableObject
 {
+    [Header("Player Skins")]
+    public List<PlayerSkin> Skins;
+
     [Serializable]
     public struct PlayerSkin
     {
-        public int id;
-        public Player prefab;
-        public Sprite preview;
-        public int cost;
+        public int Id;
+        public Player Prefab;
+        public Sprite Preview;
+        public int Cost;
     }
-
-    [Header("Player Skins")]
-    public List<PlayerSkin> skins;
 
     public bool TryGetSkin(int id, out PlayerSkin result)
     {
-        foreach (var skin in skins)
+        foreach (var skin in Skins)
         {
-            if (skin.id == id)
+            if (skin.Id == id)
             {
                 result = skin;
                 return true;

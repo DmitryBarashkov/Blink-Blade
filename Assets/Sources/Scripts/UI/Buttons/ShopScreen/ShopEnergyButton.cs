@@ -4,7 +4,7 @@ using Zenject;
 public class ShopEnergyButton : UIButton
 {
     [Inject] private PlayerStats _playerStats;
-    
+
     private string _rewardId = "AddPlayerEnergy";
 
     public override void HandleClick()
@@ -14,7 +14,7 @@ public class ShopEnergyButton : UIButton
 
     private void GetAward()
     {
-        YG2.saves.energy++;
-        _playerStats.currentEnergy.Value++;
+        YG2.saves.Energy++;
+        _playerStats.CurrentEnergy.Value++;
     }
 }

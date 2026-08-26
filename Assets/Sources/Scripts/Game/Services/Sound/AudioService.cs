@@ -7,11 +7,11 @@ using Zenject;
 public enum SoundType
 {
     BackgroundMusic,
-    
+
     ForestAmbientSounds,
     DarkForestAmbientSounds,
     CaveAmbientSounds,
-    
+
     ButtonClick,
     ExpandPanel,
     Win,
@@ -29,14 +29,7 @@ public enum SoundType
     WeaponStoneHit,
 
     FallingOnGround,
-    CastScream
-}
-
-[Serializable]
-public struct SoundData
-{
-    public SoundType Type;
-    public AudioClip Clip;
+    CastScream,
 }
 
 public interface IAudioService
@@ -47,11 +40,18 @@ public interface IAudioService
     void PlayMusic();
     void StopMusic();
     void SetAmbientSound(SoundType type);
-    void PlayAmbient();    
+    void PlayAmbient();
     void StopAmbient();
 
     bool GetSoundOn();
     void SetSound(bool value);
+}
+
+[Serializable]
+public struct SoundData
+{
+    public SoundType Type;
+    public AudioClip Clip;
 }
 
 public class AudioService : MonoBehaviour, IAudioService
@@ -64,16 +64,16 @@ public class AudioService : MonoBehaviour, IAudioService
     [Header("Audio Clips")]
     [SerializeField] private List<SoundData> _sounds;
 
-    private bool _isSoundOn;    
+    private bool _isSoundOn;
 
     private SoundType _ambientSoundType = SoundType.ForestAmbientSounds;
 
     [Inject]
     public void Construct()
     {
-        _isSoundOn = YG2.saves.isSoundOn;
+        _isSoundOn = YG2.saves.IsSoundOn;
     }
-    
+
     public void Activate()
     {
         _sfxSource.enabled = true;
@@ -100,7 +100,7 @@ public class AudioService : MonoBehaviour, IAudioService
     {
         _isSoundOn = value;
 
-        YG2.saves.isSoundOn = value;
+        YG2.saves.IsSoundOn = value;
         YG2.SaveProgress();
 
         if (_isSoundOn)
@@ -110,7 +110,7 @@ public class AudioService : MonoBehaviour, IAudioService
             _musicSource.enabled = true;
             PlayAmbient();
             PlayMusic();
-        }            
+        }
         else
         {
             _musicSource.enabled = false;
@@ -147,7 +147,7 @@ public class AudioService : MonoBehaviour, IAudioService
     {
         _ambientSoundType = type;
     }
-    
+
     public void PlayAmbient()
     {
         if (_isSoundOn)
@@ -173,11 +173,9 @@ public class AudioService : MonoBehaviour, IAudioService
     private AudioClip GetClip(SoundType type)
     {
         var sound = _sounds.Find(s => s.Type == type);
-        
+
         if (sound.Clip == null)
-        {
             Debug.Log($"AudioClip для звука {type} не назначен в инспекторе префаба!");
-        }
 
         return sound.Clip;
     }

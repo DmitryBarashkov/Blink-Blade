@@ -4,12 +4,12 @@ using Zenject;
 public class UIInstaller : MonoInstaller
 {
     [Header("Buttons")]
-    [SerializeField] private SoundButton _soundButton;    
+    [SerializeField] private SoundButton _soundButton;
     [SerializeField] private ShopButton _shopButtonPrefab;
     [SerializeField] private LanguageButton _languageButton;
 
     [Header("Containers")]
-    [SerializeField] private RectTransform _settingsContainer;    
+    [SerializeField] private RectTransform _settingsContainer;
     [SerializeField] private RectTransform _betweenLevelContainer;
     [SerializeField] private RectTransform _shopButtonContainer;
 

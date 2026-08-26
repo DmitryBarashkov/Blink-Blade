@@ -1,5 +1,5 @@
-using UnityEngine;
 using Cinemachine;
+using UnityEngine;
 using Zenject;
 
 public class CameraResizer
@@ -13,13 +13,13 @@ public class CameraResizer
     private Vector3 _albumFollowOffset = new Vector3(0, 1f, -10f);
 
     [Inject]
-    private void Construct(CinemachineVirtualCamera camera)
+    public void Construct(CinemachineVirtualCamera camera)
     {
         _camera = camera;
         _transposer = _camera.GetCinemachineComponent<CinemachineTransposer>();
         AdjustCameraSize();
     }
-    
+
     public void AdjustCameraSize()
     {
         if (_camera == null)

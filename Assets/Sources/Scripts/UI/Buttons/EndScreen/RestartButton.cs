@@ -1,4 +1,3 @@
-using YG;
 using Zenject;
 
 public class RestartButton : EndScreenButton

@@ -33,17 +33,17 @@ public class EnemyDatabaseEditor : Editor
     {
         serializedObject.Update();
 
-        SerializedProperty enemiesProp = serializedObject.FindProperty("enemies");
+        SerializedProperty enemiesProp = serializedObject.FindProperty("Enemies");
         EditorGUILayout.LabelField("Enemies", EditorStyles.boldLabel);
 
         for (int i = 0; i < enemiesProp.arraySize; i++)
         {
             SerializedProperty element = enemiesProp.GetArrayElementAtIndex(i);
-            SerializedProperty nameProp = element.FindPropertyRelative("enemyName");
-            SerializedProperty prefabProp = element.FindPropertyRelative("prefab");
-            SerializedProperty movingStrategyProp = element.FindPropertyRelative("movementStrategy");
-            SerializedProperty attackingStrategyProp = element.FindPropertyRelative("attackingStrategy");
-            SerializedProperty defendingStrategyProp = element.FindPropertyRelative("defendingStrategy");
+            SerializedProperty nameProp = element.FindPropertyRelative("EnemyName");
+            SerializedProperty prefabProp = element.FindPropertyRelative("Prefab");
+            SerializedProperty movingStrategyProp = element.FindPropertyRelative("MovementStrategy");
+            SerializedProperty attackingStrategyProp = element.FindPropertyRelative("AttackingStrategy");
+            SerializedProperty defendingStrategyProp = element.FindPropertyRelative("DefendingStrategy");
 
             bool hasPrefabError = prefabProp.objectReferenceValue == null;
             bool hasMoveError = movingStrategyProp.managedReferenceValue == null;

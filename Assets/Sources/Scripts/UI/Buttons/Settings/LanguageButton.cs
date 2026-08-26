@@ -9,7 +9,7 @@ public class LanguageButton : UIButton
     [SerializeField] private Image _image;
     [SerializeField] private LanguagePanel _panel;
     [SerializeField] private SetLanguageButton _setLanguageButton;
-    
+
     private Dictionary<string, Sprite> _languages;
 
     [Inject]

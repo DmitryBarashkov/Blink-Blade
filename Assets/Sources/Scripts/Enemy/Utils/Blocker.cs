@@ -4,9 +4,6 @@ using UnityEngine.Animations.Rigging;
 
 public class Blocker : MonoBehaviour
 {
-    public event Action OnWeaponInBlockingArea;  
-    public event Action OnWeaponOutBlockingArea;  
-    
     [Header("Компоненты Rigging")]
     [SerializeField] private MultiAimConstraint _bodyAimConstraint;
     [SerializeField] private Transform _aimTarget;
@@ -16,6 +13,9 @@ public class Blocker : MonoBehaviour
 
     private Transform _playerWeaponTransform;
     private bool _isWeaponInZone = false;
+
+    public event Action OnWeaponInBlockingArea;
+    public event Action OnWeaponOutBlockingArea;
 
     private void Awake()
     {
@@ -43,7 +43,7 @@ public class Blocker : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Weapon weapon = other.GetComponent<Weapon>();
-        
+
         if (weapon != null)
         {
             _playerWeaponTransform = other.transform;

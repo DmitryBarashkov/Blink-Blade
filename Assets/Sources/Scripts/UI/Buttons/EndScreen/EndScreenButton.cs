@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-    
+
 public abstract class EndScreenButton : UIButton, IPointerClickHandler
 {
     [SerializeField] private TextMeshProUGUI _caption;
@@ -19,7 +19,7 @@ public abstract class EndScreenButton : UIButton, IPointerClickHandler
     {
         if (_button == null)
             return;
-        
+
         _button.interactable = isEnabled;
 
         if (_caption != null)

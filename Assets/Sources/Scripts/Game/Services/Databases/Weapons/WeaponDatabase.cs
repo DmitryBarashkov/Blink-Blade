@@ -5,22 +5,22 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "WeaponDatabase", menuName = "Config/Weapon Database")]
 public class WeaponDatabase : ScriptableObject
 {
+    [Header("Player Weapons")]
+    public List<PlayerWeapon> Weapons;
+
     [Serializable]
     public struct PlayerWeapon
     {
-        public int id;
-        public Weapon prefab;
-        public Sprite preview;
+        public int Id;
+        public Weapon Prefab;
+        public Sprite Preview;
     }
-
-    [Header("Player Weapons")]
-    public List<PlayerWeapon> weapons;
 
     public bool TryGetWeapon(int id, out PlayerWeapon result)
     {
-        foreach (var weapon in weapons)
+        foreach (var weapon in Weapons)
         {
-            if (weapon.id == id)
+            if (weapon.Id == id)
             {
                 result = weapon;
                 return true;

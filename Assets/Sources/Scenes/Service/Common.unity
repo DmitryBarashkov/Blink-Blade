@@ -1492,7 +1492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultWeaponPrefab: {fileID: 1410676327612514590, guid: d0f02300a2f7c3048a178fb9abe53650, type: 3}
-  _defaultPlayerPrefab: {fileID: 0}
+  _defaultPlayerPrefab: {fileID: 4940015012368828455, guid: 9e02e39a6da710b44900d66442bfca07, type: 3}
   _aimingArrow: {fileID: 1724280205}
 --- !u!1 &1068939012
 GameObject:

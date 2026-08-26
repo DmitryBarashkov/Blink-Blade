@@ -26,7 +26,7 @@ public static class StartSceneBootstrapper
 
             int levelNumber = GetLevelNumberFromName(EditorSceneManager.GetActiveScene().name);
 
-            YG2.saves.level = levelNumber;
+            YG2.saves.Level = levelNumber;
             YG2.SaveProgress();
 
             EditorPrefs.SetString("LeftScenePath", currentScene);

@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class MeleeAttack : IAttackingStrategy
 {
-    public event Action AttackStarted;
-    public event Action AttackStopped;
-
     private MeleeAttacker _attacker;
     private IAudioService _audioService;
     private EnemyAnimator _animator;
@@ -14,8 +11,15 @@ public class MeleeAttack : IAttackingStrategy
     private float _cooldownTimer = 0f;
     private float _cooldown = 1f;
 
-    public void Initialize(MeleeAttacker meleeAttacker, RangedAttacker rangedAttacker, IAudioService audioService,
-                           EnemyAnimator animator,Enemy enemy, ObjectPoolService poolService)
+    public event Action AttackStarted;
+    public event Action AttackStopped;
+
+    public void Initialize(MeleeAttacker meleeAttacker,
+                           RangedAttacker rangedAttacker,
+                           IAudioService audioService,
+                           EnemyAnimator animator,
+                           Enemy enemy,
+                           ObjectPoolService poolService)
     {
         _attacker = meleeAttacker;
         _audioService = audioService;
@@ -30,17 +34,17 @@ public class MeleeAttack : IAttackingStrategy
 
     public void Deactivate()
     {
-        _attacker.OnPlayerInAttackArea -= Attack;        
+        _attacker.OnPlayerInAttackArea -= Attack;
         _attacker.Deactivate();
     }
 
-    public void Tick() 
-    { 
+    public void Tick()
+    {
         if (_isActive)
         {
             _cooldownTimer += Time.deltaTime;
 
-            if (_cooldownTimer >=  _cooldown)
+            if (_cooldownTimer >= _cooldown)
             {
                 StopAttack();
             }
@@ -52,7 +56,7 @@ public class MeleeAttack : IAttackingStrategy
         _animator.SetMeleeAttack();
         _audioService.PlaySound(SoundType.SwordAttack);
         _isActive = true;
-        
+
         AttackStarted?.Invoke();
     }
 

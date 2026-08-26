@@ -9,7 +9,7 @@ public class CommonInstaller : MonoInstaller
     [SerializeField] private CinemachineVirtualCamera _camera;
 
     [Header("UI")]
-    [SerializeField] private EnemyPanel _enemyPanelPrefab;     
+    [SerializeField] private EnemyPanel _enemyPanelPrefab;
     [SerializeField] private UIScreen _winGameScreen;
     [SerializeField] private UIScreen _loseGameScreen;
     [SerializeField] private UIScreen _shopGameScreen;
@@ -24,8 +24,8 @@ public class CommonInstaller : MonoInstaller
     [SerializeField] private Transform _enemyContainer;
     [SerializeField] private Transform _serviceContainer;
     [SerializeField] private Transform _poolContainer;
-    [SerializeField] private Transform _endGameContainer;  
-    [SerializeField] private Transform _betweenLevelContainer;  
+    [SerializeField] private Transform _endGameContainer;
+    [SerializeField] private Transform _betweenLevelContainer;
 
     public override void InstallBindings()
     {
@@ -40,7 +40,7 @@ public class CommonInstaller : MonoInstaller
 
     private void BindServices()
     {
-        Container.BindInterfacesAndSelfTo<ShopService>().AsSingle().NonLazy();        
+        Container.BindInterfacesAndSelfTo<ShopService>().AsSingle().NonLazy();
 
         Container.BindInterfacesAndSelfTo<ObjectPoolService>()
             .FromComponentInNewPrefab(_objectPoolServicePrefab)

@@ -1,6 +1,6 @@
 using UniRx;
 
-public class ActiveLevelBridge
+public class LevelBridge
 {
     public ReactiveProperty<ILevelData> CurrentLevel { get; } = new ReactiveProperty<ILevelData>();
 }

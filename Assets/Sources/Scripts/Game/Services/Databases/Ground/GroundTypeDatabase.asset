@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7e293e37a5e0d54685a93305a6f5c9f, type: 3}
   m_Name: GroundTypeDatabase
   m_EditorClassIdentifier: 
-  groundTypes:
-  - type: 0
-    bounceForce: -1
-  - type: 1
-    bounceForce: 0
-  - type: 2
-    bounceForce: 8
+  GroundTypes:
+  - Type: 0
+    BounceForce: -1
+  - Type: 1
+    BounceForce: 0
+  - Type: 2
+    BounceForce: 8

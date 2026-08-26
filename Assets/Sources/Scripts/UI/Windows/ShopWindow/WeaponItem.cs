@@ -27,20 +27,20 @@ public class WeaponItem : MonoBehaviour
     {
         _screen = screen;
         _weapon = weapon;
-        WeaponId = weapon.id;
-        
+        WeaponId = weapon.Id;
+
         InitializeItem(weapon, isPurchased, isChosen);
         InitializeToggleControl();
     }
 
     public void SetToggle(bool value)
     {
-        _toggle.SetIsOnWithoutNotify(value);        
+        _toggle.SetIsOnWithoutNotify(value);
     }
 
     public void SetWeapon()
     {
-        _screen.ChangeChosenWeaponItem(_weapon.id);
+        _screen.ChangeChosenWeaponItem(_weapon.Id);
     }
 
     public void UpdateAfterBuy()
@@ -55,7 +55,7 @@ public class WeaponItem : MonoBehaviour
         SetToggle(isChosen);
 
         _buyButton.gameObject.SetActive(isPurchased == false);
-        _preview.sprite = weapon.preview;
+        _preview.sprite = weapon.Preview;
         _backgroundButton.interactable = isPurchased == true;
     }
 
@@ -63,7 +63,7 @@ public class WeaponItem : MonoBehaviour
     {
         _toggleSubscription?.Dispose();
 
-        _toggleSubscription = 
+        _toggleSubscription =
             _toggle.gameObject.AddComponent<ObservablePointerClickTrigger>()
             .OnPointerClickAsObservable()
             .Subscribe(pointerEventData =>
@@ -71,7 +71,7 @@ public class WeaponItem : MonoBehaviour
                 if (_toggle.isOn == false)
                     _toggle.SetIsOnWithoutNotify(true);
                 else
-                    SetWeapon();                
+                    SetWeapon();
             })
             .AddTo(this);
     }

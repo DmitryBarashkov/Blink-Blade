@@ -1,10 +1,10 @@
 using UnityEngine;
-using static GroundTypeDatabase;
+using static GroundTypesDatabase;
 
 public class Ground : MonoBehaviour
 {
     [SerializeField] private GroundType _type;
-    [SerializeField] private GroundTypeDatabase _database;
+    [SerializeField] private GroundTypesDatabase _database;
 
     private float _bounceForce;
 
@@ -13,6 +13,6 @@ public class Ground : MonoBehaviour
     private void Awake()
     {
         if (_database.TryGetGroundType(_type, out GroundTypeRecord result))
-            _bounceForce = result.bounceForce;
+            _bounceForce = result.BounceForce;
     }
 }

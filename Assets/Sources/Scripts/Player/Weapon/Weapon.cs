@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -19,10 +20,10 @@ public class Weapon : MonoBehaviour
     private IAudioService _audioService;
     private WeaponRotator _weaponRotator;
 
-    private Vector3 _startWeaponPosition;    
+    private Vector3 _startWeaponPosition;
     private Quaternion _startWeaponRotation;
-    
-    private float _fixedZ = 0;    
+
+    private float _fixedZ = 0;
     private float _throwForce = 15f;
     private float _bounceRotationForce = 1200f;
     private float _movementThreshold = 20f;
@@ -49,9 +50,7 @@ public class Weapon : MonoBehaviour
     private void Update()
     {
         if (_isShouldRotate)
-        {
             _transform.Rotate(0, 0, _rotateAngle * Time.deltaTime, Space.Self);
-        }
 
         _isIdle = _rigidbody.velocity.sqrMagnitude < _movementThreshold;
 
@@ -89,7 +88,17 @@ public class Weapon : MonoBehaviour
             ResetEffects();
 
             if (effect != null)
-                effect.Perform(hitPoint);
+            {
+                if (enemy != null)
+                {
+                    if (EditorPrefs.GetBool("EnabledBlood"))
+                        effect.Perform(hitPoint);
+                }
+                else
+                {
+                    effect.Perform(hitPoint);
+                }
+            }
 
             if (ground != null)
             {
@@ -99,7 +108,7 @@ public class Weapon : MonoBehaviour
 
             if (enemy != null)
             {
-                HandleEnemyCollision(enemy, hitPoint);
+                HandleEnemyCollision(enemy);
                 return;
             }
 
@@ -122,7 +131,7 @@ public class Weapon : MonoBehaviour
         _audioService = audioService;
         _transform = transform;
         _gameObject = gameObject;
-        
+
         _transform.SetParent(_weaponHandler.transform);
         _transform.localPosition = _startWeaponPosition = _transform.position;
         _transform.localRotation = _startWeaponRotation = _transform.rotation;
@@ -147,7 +156,7 @@ public class Weapon : MonoBehaviour
         _transform.SetParent(_weaponHandler.transform);
         _transform.localPosition = _startWeaponPosition;
         _transform.localRotation = _startWeaponRotation;
-                
+
         if (_rigidbody.isKinematic == false)
         {
             ResetVelocity();
@@ -163,16 +172,14 @@ public class Weapon : MonoBehaviour
         _weaponRotator.ResetRotation(rotationAngle);
 
         if (_spinSpeed == 0)
-        {
             _weaponRotator.RotateBladeForward(direction);
-        }
 
         _isThrown = true;
         _isShouldRotate = true;
         _isFirstHit = true;
 
         PerformEffects();
-        
+
         _audioService.PlaySound(SoundType.ThrowWeapon);
 
         _rigidbody.isKinematic = false;
@@ -186,7 +193,7 @@ public class Weapon : MonoBehaviour
     public void SetActiveCollider(bool value)
     {
         if (_collider != null)
-        _collider.enabled = value;
+            _collider.enabled = value;
     }
 
     public void Activate()
@@ -208,12 +215,12 @@ public class Weapon : MonoBehaviour
         Bounce(collision, shield.BounceForce, shield.BounceUpForce);
     }
 
-    private void HandleEnemyCollision(Enemy enemy, ContactPoint hitPoint)
+    private void HandleEnemyCollision(Enemy enemy)
     {
         _isShouldRotate = false;
         _isFirstHit = false;
 
-        enemy.TakeDamage(hitPoint);
+        enemy.TakeDamage();
     }
 
     private void HandleGroundCollision(Collision collision, Ground ground)
@@ -229,11 +236,13 @@ public class Weapon : MonoBehaviour
 
             _weaponRotator.RotateToObstacle(collision);
             _rigidbody.isKinematic = true;
-            
+
             _isShouldRotate = false;
         }
         else
+        {
             _isShouldRotate = false;
+        }
 
         _isFirstHit = false;
     }
@@ -265,8 +274,8 @@ public class Weapon : MonoBehaviour
             ResetVelocity();
 
             _rigidbody.AddForce(weaponBounceForce, ForceMode.Impulse);
-        }        
-        
+        }
+
         _rotateAngle = -_bounceRotationForce;
         _isShouldRotate = true;
     }

@@ -1,24 +1,25 @@
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
 using Zenject;
-using UniRx;
 
 public class ShopScreen : UIScreen
 {
+    private readonly List<WeaponItem> _weaponItems = new();
+    private readonly List<SkinItem> _skinItems = new();
+
     [SerializeField] private WeaponItem _weaponItemPrefab;
     [SerializeField] private SkinItem _skinItemPrefab;
     [SerializeField] private Transform _weaponsContainer;
-    [SerializeField] private Transform _skinsContainer;
+    [SerializeField] Transform _skinsContainer;
 
     [Inject] private PlayerStats _playerStats;
-    
+
     private WeaponDatabase _weaponDatabase;
     private SkinDatabase _skinDatabase;
     private ShopService _service;
     private DiContainer _diContainer;
-    
-    private readonly List<WeaponItem> _weaponItems = new();
-    private readonly List<SkinItem> _skinItems = new();
+
     private int _chosenWeaponItemId;
     private int _chosenSkinItemId;
 
@@ -35,7 +36,7 @@ public class ShopScreen : UIScreen
 
     public override void Setup()
     {
-        _playerStats.currentCoins.Skip(1).Subscribe((newCoins) =>
+        _playerStats.CurrentCoins.Skip(1).Subscribe((newCoins) =>
         {
             UpdateSkinsItems();
         })
@@ -77,9 +78,7 @@ public class ShopScreen : UIScreen
         if (_skinItems.Count == 0)
             FillSkinsItems();
         else
-        {
             UpdateSkinsItems();
-        }
     }
 
     private void UpdateWeaponList(int newId)
@@ -88,7 +87,7 @@ public class ShopScreen : UIScreen
         {
             if (item.WeaponId == newId)
                 item.SetToggle(true);
-            
+
             if (item.WeaponId == _chosenWeaponItemId)
                 item.SetToggle(false);
         }
@@ -99,8 +98,8 @@ public class ShopScreen : UIScreen
         foreach (SkinItem item in _skinItems)
         {
             if (item.SkinId == newId)
-                item.SetToggle(true);            
-            
+                item.SetToggle(true);
+
             if (item.SkinId == _chosenSkinItemId)
                 item.SetToggle(false);
         }
@@ -108,10 +107,10 @@ public class ShopScreen : UIScreen
 
     private void FillWeaponItems()
     {
-        foreach (var item in _weaponDatabase.weapons)
+        foreach (var item in _weaponDatabase.Weapons)
         {
             WeaponItem weaponItem = _diContainer.InstantiatePrefabForComponent<WeaponItem>(_weaponItemPrefab, _weaponsContainer);
-            int id = item.id;
+            int id = item.Id;
             bool isChosen = _service.IsWeaponChosen(id);
 
             if (isChosen)
@@ -124,10 +123,10 @@ public class ShopScreen : UIScreen
 
     private void FillSkinsItems()
     {
-        foreach (var item in _skinDatabase.skins)
+        foreach (var item in _skinDatabase.Skins)
         {
             SkinItem skinItem = _diContainer.InstantiatePrefabForComponent<SkinItem>(_skinItemPrefab, _skinsContainer);
-            int id = item.id;
+            int id = item.Id;
             bool isChosen = _service.IsSkinChosen(id);
 
             if (isChosen)
@@ -140,16 +139,14 @@ public class ShopScreen : UIScreen
 
     private void UpdateSkinsItems()
     {
-        foreach (var item in _skinDatabase.skins)
+        foreach (var item in _skinDatabase.Skins)
         {
-            int id = item.id;
+            int id = item.Id;
             bool isChosen = _service.IsSkinChosen(id);
             bool isPurchased = _service.IsSkinItemPurchased(id);
 
             if (isPurchased == false)
-            {
                 _skinItems[id].Initialize(this, item, isPurchased, isChosen);
-            }
         }
     }
 }

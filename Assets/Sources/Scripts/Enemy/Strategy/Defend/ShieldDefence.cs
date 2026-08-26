@@ -3,15 +3,15 @@ using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
 [Serializable]
-public class ShieldDefense : IDefendingStrategy
+public class ShieldDefence : IDefendingStrategy
 {
-    public event Action StartBlocking;
-
     private Blocker _blocker;
     private Shield _shield;
 
     private RigBuilder _rigBuilder;
     private ShieldEnemyAnimator _animator;
+
+    public event Action StartBlocking;
 
     public void Initialize(Animator animator, RigBuilder rigBuilder, Blocker blocker, Shield shield)
     {
@@ -26,7 +26,7 @@ public class ShieldDefense : IDefendingStrategy
         _blocker.OnWeaponInBlockingArea += StartBlock;
         _blocker.OnWeaponOutBlockingArea += StopBlock;
         _blocker.Reset();
-        
+
         StopBlock();
 
         _shield.OnHitWeapon += ShieldImpact;

@@ -14,15 +14,15 @@ public class BuyByCoinsButton : UIButton
     {
         _audioService.PlaySound(SoundType.ButtonClick);
 
-        YG2.saves.coins -= _skinItem.Cost;
+        YG2.saves.Coins -= _skinItem.Cost;
 
-        if (YG2.saves.coins < 0)
-            throw new ArgumentOutOfRangeException(nameof(YG2.saves.coins));
+        if (YG2.saves.Coins < 0)
+            throw new ArgumentOutOfRangeException(nameof(YG2.saves.Coins));
 
         YG2.SaveProgress();
 
-        _playerStats.currentCoins.Value = YG2.saves.coins;
-        
+        _playerStats.CurrentCoins.Value = YG2.saves.Coins;
+
         _shopService.PurchaseSkin(_skinItem.SkinId);
         _skinItem.UpdateAfterBuy();
     }

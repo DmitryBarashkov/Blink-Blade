@@ -1,12 +1,11 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using YG;
 
 [RequireComponent(typeof(CanvasGroup))]
 public class EndGameScreen : UIScreen, IPointerClickHandler
 {
-    [SerializeField] ParticleSystem _effect;
+    [SerializeField] private ParticleSystem _effect;
 
     private float _duration = 1.5f;
 
@@ -23,7 +22,9 @@ public class EndGameScreen : UIScreen, IPointerClickHandler
             _effect.Play();
         }
         else
+        {
             FadeIn(_duration);
+        }
     }
 
     public void Close() => _gameObject.SetActive(false);

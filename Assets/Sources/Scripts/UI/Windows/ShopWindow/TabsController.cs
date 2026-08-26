@@ -24,7 +24,7 @@ public class TabsController : MonoBehaviour
 
     private void SelectTab(int tabIndex)
     {
-        if (tabIndex < 0 || tabIndex >= _categoryPanels.Length) 
+        if (tabIndex < 0 || tabIndex >= _categoryPanels.Length)
             return;
 
         for (int i = 0; i < _categoryPanels.Length; i++)

@@ -4,14 +4,14 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public abstract class EnemyAttacker : MonoBehaviour
 {
-    public event Action<Player> OnPlayerInAttackArea;
-    public event Action OnPlayerOutAttackArea;
-    
     [SerializeField] protected EnemyWeapon _weapon;
 
     protected Collider _collider;
 
     protected LayerMask _layerMask;
+
+    public event Action<Player> OnPlayerInAttackArea;
+    public event Action OnPlayerOutAttackArea;
 
     private void Awake()
     {
@@ -20,13 +20,13 @@ public abstract class EnemyAttacker : MonoBehaviour
     }
 
     public abstract void Activate();
-    
+
     public abstract void Deactivate();
 
     private void OnTriggerEnter(Collider other)
     {
         Player player = other.GetComponent<Player>();
-        
+
         if (player && player.IsInvincible == false)
         {
             TriggerAttack(player);
@@ -36,7 +36,7 @@ public abstract class EnemyAttacker : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         Player player = other.GetComponent<Player>();
-        
+
         if (player && player.IsInvincible == false)
         {
             OnPlayerOutAttackArea?.Invoke();

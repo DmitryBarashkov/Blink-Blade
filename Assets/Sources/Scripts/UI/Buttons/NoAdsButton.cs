@@ -1,5 +1,4 @@
 using YG;
-using UnityEngine;
 
 public class NoAdsButton : UIButton
 {
@@ -20,7 +19,7 @@ public class NoAdsButton : UIButton
     public override void HandleClick()
     {
         _audioService.PlaySound(SoundType.ButtonClick);
-        
+
         YG2.BuyPayments(_buyId);
     }
 
@@ -28,7 +27,7 @@ public class NoAdsButton : UIButton
     {
         if (id == "no_ads")
         {
-            YG2.saves.isAdsDisabled = true;
+            YG2.saves.IsAdsDisabled = true;
             YG2.StickyAdActivity(false);
             YG2.SaveProgress();
 

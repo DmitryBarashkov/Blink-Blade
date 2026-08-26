@@ -4,7 +4,7 @@ using UnityEngine;
 public class MeleeWeapon : EnemyWeapon
 {
     private BoxCollider _collider;
-    
+
     private void Awake()
     {
         _collider = GetComponent<BoxCollider>();
@@ -19,10 +19,10 @@ public class MeleeWeapon : EnemyWeapon
     {
         _collider.enabled = false;
     }
-    
+
     private void OnCollisionEnter(Collision collision)
     {
-        Player player = collision.collider.GetComponent<Player>();        
+        Player player = collision.collider.GetComponent<Player>();
 
         if (player != null && player.IsInvincible == false)
         {

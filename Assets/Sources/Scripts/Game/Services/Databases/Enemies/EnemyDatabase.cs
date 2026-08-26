@@ -5,24 +5,24 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyDatabase", menuName = "Config/Enemy Database")]
 public class EnemyDatabase : ScriptableObject
 {
+    [Header("Assembled Enemies")]
+    public List<AssembledEnemy> Enemies;
+
     [Serializable]
     public struct AssembledEnemy
     {
-        public string enemyName;
-        public Enemy prefab;
-        [SerializeReference] public IMovementStrategy movementStrategy;
-        [SerializeReference] public IAttackingStrategy attackingStrategy;
-        [SerializeReference] public IDefendingStrategy defendingStrategy;
+        public string EnemyName;
+        public Enemy Prefab;
+        [SerializeReference] public IMovementStrategy MovementStrategy;
+        [SerializeReference] public IAttackingStrategy AttackingStrategy;
+        [SerializeReference] public IDefendingStrategy DefendingStrategy;
     }
-
-    [Header("Assembled Enemies")]
-    public List<AssembledEnemy> enemies;
 
     public bool TryGetEnemy(string name, out AssembledEnemy result)
     {
-        foreach (var enemy in enemies)
+        foreach (var enemy in Enemies)
         {
-            if (enemy.enemyName == name)
+            if (enemy.EnemyName == name)
             {
                 result = enemy;
                 return true;

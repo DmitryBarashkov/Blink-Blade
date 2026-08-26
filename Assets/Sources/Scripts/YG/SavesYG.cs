@@ -5,25 +5,25 @@ namespace YG
     public partial class SavesYG
     {
         // Player
-        public int level = 0;
-        public int energy = 5;
-        public int coins = 0;
-        public int rating = 0;
+        public int Level = 0;
+        public int Energy = 5;
+        public int Coins = 0;
+        public int Rating = 0;
 
-        public bool isFinishedGame = false;
+        public bool IsFinishedGame = false;
 
-        //Items
-        public int weaponId = 0;
-        public int skinId = 0;
+        // Items
+        public int WeaponId = 0;
+        public int SkinId = 0;
 
         // Ads
-        public bool isAdsDisabled = false;
+        public bool IsAdsDisabled = false;
 
         // Options
-        public bool isSoundOn = true;        
+        public bool IsSoundOn = true;
 
-        //Shop
-        public List<int> purchasedWeaponItemIds = new List<int> { 0 };
-        public List<int> purchasedSkinItemsIds = new List<int> { 0 };
+        // Shop
+        public List<int> PurchasedWeaponItemIds = new List<int> { 0 };
+        public List<int> PurchasedSkinItemsIds = new List<int> { 0 };
     }
 }

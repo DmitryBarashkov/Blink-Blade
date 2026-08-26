@@ -1,4 +1,3 @@
-using System;
 using UnityEditor;
 using YG;
 using Zenject;
@@ -14,7 +13,7 @@ public class NextLevelButton : EndScreenButton
     {
         _audioService.PlaySound(SoundType.ButtonClick);
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         if (EditorPrefs.GetBool(RestartAfterFinish))
         {
             _screen.Close();
@@ -24,20 +23,20 @@ public class NextLevelButton : EndScreenButton
         {
             LoadNextLevel();
         }
-        #else
+#else
             LoadNextLevel();
-        #endif
+#endif
     }
 
     private void LoadNextLevel()
     {
-        if (YG2.saves.isAdsDisabled == false)
+        if (YG2.saves.IsAdsDisabled == false)
         {
             _audioService.Deactivate();
             YG2.InterstitialAdvShow();
         }
 
         _screen.Close();
-        _levelService.LoadLevel(YG2.saves.level).Forget();
+        _levelService.LoadLevel(YG2.saves.Level).Forget();
     }
 }

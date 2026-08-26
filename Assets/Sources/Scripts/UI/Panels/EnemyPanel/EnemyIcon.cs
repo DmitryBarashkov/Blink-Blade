@@ -1,14 +1,14 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
-public class EnemyIcon: MonoBehaviour
+public class EnemyIcon : MonoBehaviour
 {
     [SerializeField] private Image _crossImage;
 
     private Image _iconImage;
     private Transform _iconTransform;
-    
+
     private GameObject _crossGameObject;
     private Transform _crossTransform;
 
@@ -22,7 +22,7 @@ public class EnemyIcon: MonoBehaviour
 
     private void Awake()
     {
-        _iconImage = GetComponent<Image>();        
+        _iconImage = GetComponent<Image>();
 
         _iconTransform = _iconImage.transform;
         _crossGameObject = _crossImage.gameObject;
@@ -34,12 +34,12 @@ public class EnemyIcon: MonoBehaviour
         IsMarked = false;
 
         _crossGameObject.SetActive(false);
-        
+
         _iconImage.color = Color.white;
 
         _crossTransform.localScale = Vector3.one;
     }
-    
+
     public void MarkAsDead()
     {
         IsMarked = true;
@@ -51,6 +51,6 @@ public class EnemyIcon: MonoBehaviour
         _crossTransform.localScale = Vector3.one * _scaleFactor;
         _crossTransform.DOScale(Vector3.one, _scaleEffectDuration).SetEase(Ease.OutBack);
 
-        _iconTransform.DOShakePosition(_shakeEffectDuration, _shakeStrength);        
+        _iconTransform.DOShakePosition(_shakeEffectDuration, _shakeStrength);
     }
 }

@@ -3,9 +3,9 @@ using Zenject;
 
 public class EnergyButtonActivator : MonoBehaviour
 {
-    [SerializeField] RectTransform _energyPanel;
+    [SerializeField] private RectTransform _energyPanel;
 
-    [Inject] LevelState _levelState;
+    [Inject] private LevelState _levelState;
 
     private void OnEnable()
     {

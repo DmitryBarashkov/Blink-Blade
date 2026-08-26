@@ -6,8 +6,6 @@ using Zenject;
 
 public class LanguagePanel : MonoBehaviour
 {
-    public event UnityAction LanguageChanged;
-    
     [SerializeField] private CanvasGroup _canvasGroup;
 
     [Inject] private AudioService _audioService;
@@ -21,6 +19,8 @@ public class LanguagePanel : MonoBehaviour
 
     private float _duration = 0.3f;
     private Ease _easeType = Ease.InOutQuad;
+
+    public event UnityAction LanguageChanged;
 
     private void Awake()
     {

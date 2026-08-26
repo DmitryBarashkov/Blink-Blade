@@ -1,4 +1,3 @@
-using UnityEngine;
 using Zenject;
 
 public class StartButton : UIButton
@@ -8,7 +7,7 @@ public class StartButton : UIButton
 
     public override void HandleClick()
     {
-        if (_screen != null)        
+        if (_screen != null)
             _screen.Deactivate();
 
         _level.StartPlay();

@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class RangedAttack : IAttackingStrategy
 {
-    public event Action AttackStarted;
-    public event Action AttackStopped;
-
     private ObjectPoolService _poolService;
 
     private RangedAttacker _attacker;
@@ -27,9 +24,23 @@ public class RangedAttack : IAttackingStrategy
     private LayerMask _obstacleLayer;
     private Vector3 _lockTargetPosition;
 
-    public void Initialize(MeleeAttacker meleeAttacker, RangedAttacker rangedAttacker, IAudioService audioService,
+    public event Action AttackStarted;
+    public event Action AttackStopped;
+
+    private enum AttackState
+    {
+        Idle,
+        TryAiming,
+        Aiming,
+        Shoot,
+    }
+
+    public void Initialize(MeleeAttacker meleeAttacker,
+                           RangedAttacker rangedAttacker,
+                           IAudioService audioService,
                            EnemyAnimator animator,
-                           Enemy enemy, ObjectPoolService poolService)
+                           Enemy enemy,
+                           ObjectPoolService poolService)
     {
         _enemyTransform = enemy.transform;
         _enemyCenterPosition = Vector3.up * enemy.GetComponent<CapsuleCollider>().height * _enemyTransform.lossyScale.y * _aimHeightFactor;
@@ -51,7 +62,6 @@ public class RangedAttack : IAttackingStrategy
         _isActive = true;
         _animator.SetAiming(false);
         _cooldownTimer = 0;
-
     }
 
     public void Deactivate()
@@ -85,7 +95,7 @@ public class RangedAttack : IAttackingStrategy
     {
         if (_playerTransform == null)
             return;
-        
+
         ClearAiming();
         _attackState = AttackState.TryAiming;
         _attacker.RotateToIdle();
@@ -126,7 +136,7 @@ public class RangedAttack : IAttackingStrategy
         _attackState = AttackState.Idle;
         _attacker.ClearAim();
         _playerTransform = null;
-        
+
         AttackStopped?.Invoke();
     }
 
@@ -168,9 +178,7 @@ public class RangedAttack : IAttackingStrategy
         float angleToPlayer = Vector3.Angle(lookDirection, directionToPlayer);
 
         if (angleToPlayer > _viewAngle / 2f)
-        {
             return false;
-        }
 
         float distance = Vector3.Distance(startPos, targetPos);
         RaycastHit hit;
@@ -178,13 +186,5 @@ public class RangedAttack : IAttackingStrategy
         Debug.DrawLine(startPos, targetPos, Color.red);
 
         return Physics.SphereCast(startPos, _checkHitRadius, directionToPlayer.normalized, out hit, distance, _obstacleLayer) == false;
-    }
-
-    private enum AttackState
-    {
-        Idle,
-        TryAiming,
-        Aiming,
-        Shoot
     }
 }

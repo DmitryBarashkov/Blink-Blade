@@ -5,8 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(HitEffectSpawner))]
 public class Shield : MonoBehaviour
 {
-    public event Action OnHitWeapon;
-
     private Collider _collider;
     private Coroutine _coroutine;
 
@@ -16,8 +14,10 @@ public class Shield : MonoBehaviour
     private float _bounceForce = 5f;
     private float _bounceUpForce = 3f;
 
+    public event Action OnHitWeapon;
+
     public float BounceForce => _bounceForce;
-    public float BounceUpForce=>  _bounceUpForce;
+    public float BounceUpForce => _bounceUpForce;
 
     private void Awake()
     {

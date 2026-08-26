@@ -6,20 +6,20 @@ using Zenject;
 
 public class Level : IDisposable
 {
-    public event Action LevelFinished;
-    public event Action LevelStarted;
-    
+    private readonly CompositeDisposable _disposables = new CompositeDisposable();
+    private readonly SerialDisposable _enemiesSubscription = new SerialDisposable();
+
     private LevelState _levelState;
     private InputService _input;
-    
+
     private int _enemiesCount;
     private int _levelNumber;
-        
+
     private AudioService _audioService;
     private BetweenLevelScreen _menu;
     private LevelScreen _levelUI;
-    
-    private ActiveLevelBridge _levelBridge;
+
+    private LevelBridge _levelBridge;
     private PlayerSpawner _playerSpawner;
     private EnemySpawner _enemySpawner;
     private CameraBoundsInstaller _cameraController;
@@ -27,27 +27,32 @@ public class Level : IDisposable
 
     private IReadOnlyList<ArrowTrap> _arrowTraps;
     private ILevelData _levelData;
-    
-    private readonly CompositeDisposable _disposables = new CompositeDisposable();
-    private readonly SerialDisposable _enemiesSubscription = new SerialDisposable();
-    
+
+    public event Action LevelFinished;
+    public event Action LevelStarted;
+
     public int EnemiesCount => _enemiesCount;
     public int LevelNumber => _levelNumber;
 
     [Inject]
-    public void Construct(AudioService audioService, ActiveLevelBridge levelBridge, EnemyPanel enemyPanel,
-                          CameraBoundsInstaller cameraController, EnemySpawner enemySpawner, PlayerSpawner playerSpawner,
-                          LevelState levelState, InputService input,
+    public void Construct(AudioService audioService,
+                          LevelBridge levelBridge,
+                          EnemyPanel enemyPanel,
+                          CameraBoundsInstaller cameraController,
+                          EnemySpawner enemySpawner,
+                          PlayerSpawner playerSpawner,
+                          LevelState levelState,
+                          InputService input,
                           [Inject(Optional = true)] LevelScreen levelUI,
                           [Inject(Optional = true)] BetweenLevelScreen menu)
     {
         _levelBridge = levelBridge;
         _enemySpawner = enemySpawner;
         _playerSpawner = playerSpawner;
-        _cameraController = cameraController;        
+        _cameraController = cameraController;
 
-        _levelNumber = YG2.saves.level;
-        _audioService = audioService;        
+        _levelNumber = YG2.saves.Level;
+        _audioService = audioService;
         _levelState = levelState;
         _input = input;
         _menu = menu;
@@ -98,7 +103,7 @@ public class Level : IDisposable
         _enemySpawner.Reset();
         _playerSpawner.Initialize(_levelData.GetPlayerSpawnPoint());
         _enemyPanel.Reset();
-        
+
         ActivateTraps();
 
         _levelState.Restart(_enemiesCount);
@@ -128,7 +133,7 @@ public class Level : IDisposable
     private void InitializeLevelState(ILevelData levelData)
     {
         _enemiesCount = levelData.IsBossLevel() ? levelData.GetBossHealth() : levelData.GetEnemySpawnPoints().Count;
-        _levelState.Restart(_enemiesCount);        
+        _levelState.Restart(_enemiesCount);
 
         _enemiesSubscription.Disposable = _levelState.CurrentEnemiesCount
             .Subscribe(enemiesCount =>
@@ -136,24 +141,23 @@ public class Level : IDisposable
                 _enemyPanel.UpdateIcons(enemiesCount);
 
                 if (enemiesCount == 0)
-                    Win();                
-            });            
+                    Win();
+            });
     }
 
     private void InitializeLevelData(ILevelData levelData)
     {
-
         _audioService.SetAmbientSound(levelData.GetAmbientSoundType());
-        _audioService.Activate();        
+        _audioService.Activate();
 
         _levelData = levelData;
-        
+
         _enemySpawner.Initialize(levelData);
         _playerSpawner.Initialize(levelData.GetPlayerSpawnPoint());
         _cameraController.Initialize(levelData);
         _enemyPanel.Initialize(levelData);
         _arrowTraps = levelData.GetArrowTraps();
-        _levelNumber = YG2.saves.level;
+        _levelNumber = YG2.saves.Level;
 
         YG2.GetLeaderboard("Score");
 

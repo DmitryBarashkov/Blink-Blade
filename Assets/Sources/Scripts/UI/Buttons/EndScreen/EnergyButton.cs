@@ -1,11 +1,10 @@
-using YG;
 using Zenject;
 
 public class EnergyButton : EndScreenButton
 {
     [Inject] private Level _level;
     [Inject] private LevelState _levelState;
-    [Inject] private PlayerStats _playerStats;    
+    [Inject] private PlayerStats _playerStats;
 
     private int _addCount = 3;
     private string _rewardId = "AddEnergyForLevel";
@@ -17,7 +16,7 @@ public class EnergyButton : EndScreenButton
 
     private void GetAward()
     {
-        _playerStats.currentEnergy.Value += _addCount;
+        _playerStats.CurrentEnergy.Value += _addCount;
 
         _screen.Close();
         _levelState.IsWin.Value = null;

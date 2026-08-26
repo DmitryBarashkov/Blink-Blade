@@ -1,6 +1,6 @@
+using UniRx;
 using UnityEngine;
 using Zenject;
-using UniRx;
 
 using static SkinDatabase;
 using static UnityEngine.Object;
@@ -10,7 +10,7 @@ public class PlayerSpawner
     [Inject] private Player.Factory _playerFactory;
     [Inject] private PlayerStats _stats;
     [Inject] private SkinDatabase _database;
-    
+
     private Player _player;
     private PlayerSpawnPoint _spawnPoint;
 
@@ -26,7 +26,9 @@ public class PlayerSpawner
                 SubscribeOnChangePlayerSkin();
         }
         else
+        {
             Debug.LogError("--- [PLAYER SPAWNER] There is no PlayerSpawnPoint on scene!");
+        }
     }
 
     public void ActivatePlayer()
@@ -36,7 +38,7 @@ public class PlayerSpawner
 
     private void SubscribeOnChangePlayerSkin()
     {
-        _stats.currentSkinId.Subscribe((skinId) =>
+        _stats.CurrentSkinId.Subscribe((skinId) =>
         {
             if (_database.TryGetSkin(skinId, out PlayerSkin result))
             {
@@ -50,7 +52,7 @@ public class PlayerSpawner
         if (_player != null)
             Destroy(_player.gameObject);
 
-        _player = _playerFactory.Create(skin.prefab);
+        _player = _playerFactory.Create(skin.Prefab);
         InitializePlayer();
     }
 

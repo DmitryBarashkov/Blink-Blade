@@ -42,7 +42,7 @@ public class GlobalInstaller : MonoInstaller
         Container.Bind<LevelLoadService>().AsSingle();
         Container.Bind<LevelState>().AsSingle().NonLazy();
         Container.Bind<InputService>().AsSingle();
-        Container.Bind<ActiveLevelBridge>().AsSingle();
+        Container.Bind<LevelBridge>().AsSingle();
 
         Container.BindInterfacesAndSelfTo<AudioService>()
             .FromComponentInNewPrefab(_audioServicePrefab)

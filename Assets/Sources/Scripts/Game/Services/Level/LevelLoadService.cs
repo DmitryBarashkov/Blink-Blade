@@ -1,7 +1,6 @@
-using Cysharp.Threading.Tasks;
 using System;
 using System.Threading.Tasks;
-using UniRx;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using YG;
@@ -9,26 +8,26 @@ using Zenject;
 
 public class LevelLoadService
 {
-    private readonly ZenjectSceneLoader _sceneLoader;    
+    private readonly ZenjectSceneLoader _sceneLoader;
 
     private string _commonSceneName = "Common";
     private string _loadingSceneName = "Loading";
 
     private int _loadingSceneIndex = 0;
     private int _commonSceneIndex = 1;
-    
+
     private string _currentLevelName;
 
     private int _noRepeatLevels = 3;
     private int _lastLevelNumber;
-
-    public int LastLevelNumber => _lastLevelNumber;
 
     public LevelLoadService(ZenjectSceneLoader sceneLoader)
     {
         _sceneLoader = sceneLoader;
         _lastLevelNumber = SceneManager.sceneCountInBuildSettings - _noRepeatLevels;
     }
+
+    public int LastLevelNumber => _lastLevelNumber;
 
     public async UniTaskVoid LoadLevel(int levelNumber)
     {
@@ -88,7 +87,7 @@ public class LevelLoadService
             return;
 
         Scene sceneForUnload = SceneManager.GetSceneByName(levelName);
-        
+
         if (!sceneForUnload.isLoaded)
             return;
 
@@ -143,7 +142,6 @@ public class LevelLoadService
             return $"Level{levelNumber}";
         }
 
-
         return $"Level{levelForLoad}";
     }
 
@@ -158,5 +156,3 @@ public class LevelLoadService
         }
     }
 }
-
-

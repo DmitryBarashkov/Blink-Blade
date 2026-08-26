@@ -1,5 +1,4 @@
 using UnityEngine;
-using YG;
 
 public class AddCoinsButton : EndScreenButton
 {
@@ -7,7 +6,7 @@ public class AddCoinsButton : EndScreenButton
 
     private string _rewardId = "MultiplyCoins";
     private int _coinsFactor = 2;
-    
+
     public override void HandleClick()
     {
         Utils.ShowAdvForReward(_audioService, _rewardId, GetAward);

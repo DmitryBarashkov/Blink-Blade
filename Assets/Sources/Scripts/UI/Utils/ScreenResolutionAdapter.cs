@@ -5,7 +5,7 @@ public class ScreenResolutionAdapter : ITickable
 {
     private CanvasScaleAdapter _canvasAdapter;
     private CameraResizer _cameraResizer;
-    
+
     private int _lastWidth;
     private int _lastHeight;
     private ScreenOrientation _lastOrientation;
@@ -15,7 +15,7 @@ public class ScreenResolutionAdapter : ITickable
     {
         _cameraResizer = cameraResizer;
         _canvasAdapter = canvasScaleAdapter;
-        
+
         ResetTrackedValues();
     }
 

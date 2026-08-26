@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LevelScreen: MonoBehaviour
+public class LevelScreen : MonoBehaviour
 {
     public void SetActive(bool value)
     {

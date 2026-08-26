@@ -8,11 +8,11 @@ public class SettingsPanel : MonoBehaviour
     [SerializeField] private CanvasGroup _canvasGroup;
 
     [Inject] private AudioService _audioService;
-    
+
     private RectTransform _rectTransform;
 
     private bool _isOpen = false;
-    
+
     private float _expandedHeight = 330f;
     private float _collapsedHeight = 120f;
 
@@ -38,8 +38,8 @@ public class SettingsPanel : MonoBehaviour
         _audioService.PlaySound(SoundType.ExpandPanel);
         _rectTransform.DOKill();
         _canvasGroup.DOKill();
-        
-        if (_gearIcon != null) 
+
+        if (_gearIcon != null)
             _gearIcon.DOKill();
 
         if (!_isOpen)
@@ -47,7 +47,7 @@ public class SettingsPanel : MonoBehaviour
             _rectTransform.DOSizeDelta(new Vector2(_rectTransform.sizeDelta.x, _expandedHeight), _duration).SetEase(_easeType);
             _canvasGroup.DOFade(1f, _duration);
 
-            if (_gearIcon != null) 
+            if (_gearIcon != null)
                 _gearIcon.DORotate(new Vector3(0, 0, -180f), _duration, RotateMode.FastBeyond360);
 
             SetInteraction(true);
@@ -58,7 +58,7 @@ public class SettingsPanel : MonoBehaviour
             _rectTransform.DOSizeDelta(new Vector2(_rectTransform.sizeDelta.x, _collapsedHeight), _duration).SetEase(_easeType);
             _canvasGroup.DOFade(0f, _duration);
 
-            if (_gearIcon != null) 
+            if (_gearIcon != null)
                 _gearIcon.DORotate(Vector3.zero, _duration);
 
             SetInteraction(false);

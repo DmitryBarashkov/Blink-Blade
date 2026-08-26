@@ -1,10 +1,9 @@
-using Cysharp.Threading.Tasks;
 using TMPro;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
-using UniRx;
 using YG;
+using Zenject;
 
 public class EnergyBar : MonoBehaviour
 {
@@ -16,14 +15,14 @@ public class EnergyBar : MonoBehaviour
 
     private float minFillAmount = 0.25f;
     private float maxFillAmount = 1;
-    
+
     private float _maxEnergy;
 
     private void Awake()
     {
         SetMaxEnergy();
 
-        _playerStats.currentEnergy.Subscribe((currentEnergy) =>
+        _playerStats.CurrentEnergy.Subscribe((currentEnergy) =>
         {
             _valueText.text = currentEnergy.ToString();
 
@@ -52,6 +51,6 @@ public class EnergyBar : MonoBehaviour
 
     private void SetMaxEnergy()
     {
-        _maxEnergy = YG2.saves.energy;
+        _maxEnergy = YG2.saves.Energy;
     }
 }
