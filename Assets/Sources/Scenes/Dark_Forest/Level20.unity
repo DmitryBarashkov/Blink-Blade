@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Forest_Elf_Shieldman Idle
 --- !u!1001 &152975373
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -369,7 +369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Forest_Elf_Swordsman Patrol
 --- !u!1001 &198770919
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1238,7 +1238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Forest_Elf_Shieldman Idle
 --- !u!1001 &1421403849
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1346,7 +1346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Forest_Elf_Archer Patrol
 --- !u!1001 &1553702890
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1926,7 +1926,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Forest_Elf_Archer Idle
 --- !u!4 &2055269569
 Transform:
   m_ObjectHideFlags: 0
@@ -2049,7 +2049,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Forest_Elf_Archer Idle
 --- !u!108 &368117134638392026 stripped
 Light:
   m_CorrespondingSourceObject: {fileID: 4780932697043751646, guid: e749dacb47d060848927263274347cdb, type: 3}

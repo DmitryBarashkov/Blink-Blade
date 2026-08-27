@@ -283,7 +283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Cave_Shieldman Patrol
 --- !u!114 &409406854 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6509849812846524107, guid: dd9cac0c99bcb1a46916f1bc935ec965, type: 3}
@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Cave_Shieldman Patrol
 --- !u!4 &559593879
 Transform:
   m_ObjectHideFlags: 0
@@ -367,7 +367,7 @@ Transform:
   m_GameObject: {fileID: 576026720}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.09, y: -2.49, z: 0}
+  m_LocalPosition: {x: 0.09, y: -6.109, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -386,7 +386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Cave_Shieldman Patrol
 --- !u!1001 &684743959
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -721,7 +721,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Cave_Archer Idle
 --- !u!1 &874375065
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,7 +767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Forest_Elf_Archer Idle
 --- !u!1 &1013302324
 GameObject:
   m_ObjectHideFlags: 0
@@ -802,6 +802,7 @@ Transform:
   - {fileID: 329088210}
   - {fileID: 559593879}
   - {fileID: 576026721}
+  - {fileID: 1604205004}
   - {fileID: 1927224355}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -973,6 +974,7 @@ MonoBehaviour:
   - {fileID: 576026722}
   - {fileID: 1927224356}
   - {fileID: 559593878}
+  - {fileID: 1604205005}
   _arrowTraps:
   - {fileID: 1220502360}
   - {fileID: 2064188210}
@@ -1537,6 +1539,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _type: 2
   _database: {fileID: 11400000, guid: 688ac5ccc385f4f46ab64bd8e354f031, type: 2}
+--- !u!1 &1604205003
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1604205004}
+  - component: {fileID: 1604205005}
+  m_Layer: 0
+  m_Name: EnemySpawnPoint (37)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1604205004
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604205003}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.09, y: -2.49, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1013302325}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &1604205005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604205003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
+  SelectedEnemyName: Cave_Archer Patrol
 --- !u!1 &1682852989
 GameObject:
   m_ObjectHideFlags: 0
@@ -1698,7 +1746,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Cave_Swordsman Patrol
 --- !u!1 &2005677597
 GameObject:
   m_ObjectHideFlags: 0

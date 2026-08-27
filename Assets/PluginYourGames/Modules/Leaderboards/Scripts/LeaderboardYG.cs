@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using YG.Insides;
 using YG.Utils.LB;
-using System.Collections.Generic;
 
 #if Localization_yg
 using YG.Utils.Lang;
@@ -223,7 +222,7 @@ namespace YG
                 if (lb.players[i].uniqueID == YG2.player.id)
                 {
                     players[i].data.currentPlayer = true;
-                    
+
                     var leaderBoardItem = playerObj.GetComponent<LeaderboardItem>();
 
                     if (leaderBoardItem != null)

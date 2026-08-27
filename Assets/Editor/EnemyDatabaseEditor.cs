@@ -52,8 +52,8 @@ public class EnemyDatabaseEditor : Editor
             bool hasAnyError = hasPrefabError || hasMoveError || hasAttackError;
 
             Color originalColor = GUI.backgroundColor;
-            
-            if (hasAnyError) 
+
+            if (hasAnyError)
                 GUI.backgroundColor = new Color(1f, 0.75f, 0.75f);
 
             EditorGUILayout.BeginVertical(GUI.skin.box);
@@ -85,14 +85,17 @@ public class EnemyDatabaseEditor : Editor
                 {
                     EditorGUILayout.HelpBox("Ошибка: Choose prefab!", MessageType.Error);
                 }
+
                 if (hasMoveError)
                 {
                     EditorGUILayout.HelpBox("Ошибка: Choose moving strategy", MessageType.Warning);
                 }
+
                 if (hasAttackError)
                 {
                     EditorGUILayout.HelpBox("Ошибка: Choose attacking strategy", MessageType.Info);
                 }
+
                 if (hasDefendError)
                 {
                     EditorGUILayout.HelpBox("Ошибка: Choose defending strategy", MessageType.Info);
@@ -135,7 +138,8 @@ public class EnemyDatabaseEditor : Editor
         {
             GenericMenu menu = new GenericMenu();
 
-            menu.AddItem(new GUIContent("None"), strategyProp.managedReferenceValue == null, () => {
+            menu.AddItem(new GUIContent("None"), strategyProp.managedReferenceValue == null, () =>
+            {
                 strategyProp.managedReferenceValue = null;
                 strategyProp.serializedObject.ApplyModifiedProperties();
                 EditorUtility.SetDirty(strategyProp.serializedObject.targetObject);
@@ -144,14 +148,17 @@ public class EnemyDatabaseEditor : Editor
             foreach (var type in types)
             {
                 bool isCurrent = strategyProp.managedReferenceValue != null && strategyProp.managedReferenceValue.GetType() == type;
-                menu.AddItem(new GUIContent(type.Name), isCurrent, () => {
+                menu.AddItem(new GUIContent(type.Name), isCurrent, () =>
+                {
                     strategyProp.managedReferenceValue = Activator.CreateInstance(type);
                     strategyProp.serializedObject.ApplyModifiedProperties();
                     EditorUtility.SetDirty(strategyProp.serializedObject.targetObject);
                 });
             }
+
             menu.ShowAsContext();
         }
+
         EditorGUILayout.EndHorizontal();
 
         if (strategyProp.managedReferenceValue != null)
@@ -166,7 +173,7 @@ public class EnemyDatabaseEditor : Editor
     {
         if (prefabProp.objectReferenceValue == null)
         {
-            nameProp.stringValue = "";
+            nameProp.stringValue = string.Empty;
             return;
         }
 

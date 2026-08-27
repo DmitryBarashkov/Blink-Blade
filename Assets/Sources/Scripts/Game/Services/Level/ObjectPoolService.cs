@@ -7,8 +7,8 @@ using Zenject;
 
 public class ObjectPoolService : MonoBehaviour
 {
-    private readonly Dictionary<int, Queue<GameObject>> _pools = new();
-    private readonly Dictionary<PoolObjectTypes, PoolType> _typeToConfigMap = new();
+    private readonly Dictionary<int, Queue<GameObject>> _pools = new ();
+    private readonly Dictionary<PoolObjectTypes, PoolType> _typeToConfigMap = new ();
 
     [SerializeField] private List<PoolType> _poolConfig;
 

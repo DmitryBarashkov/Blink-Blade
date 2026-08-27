@@ -4,8 +4,8 @@ using Zenject;
 
 public class ShopService
 {
-    private readonly HashSet<int> _purchasedWeaponItemIds = new();
-    private readonly HashSet<int> _purchasedSkinItemIds = new();
+    private readonly HashSet<int> _purchasedWeaponItemIds = new ();
+    private readonly HashSet<int> _purchasedSkinItemIds = new ();
 
     [Inject] private PlayerStats _playerStats;
 

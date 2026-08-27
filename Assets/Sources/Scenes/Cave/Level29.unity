@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Cave_Archer Idle
 --- !u!1001 &527191973
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -402,7 +402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Cave_Archer Idle
 --- !u!1 &559593877
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,7 +433,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Cave_Shieldman Idle
 --- !u!4 &559593879
 Transform:
   m_ObjectHideFlags: 0
@@ -707,7 +707,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Cave_Shieldman Idle
 --- !u!1001 &1093682905
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -869,7 +869,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Cave_Archer Idle
 --- !u!1001 &1142710643
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -996,7 +996,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Cave_Shieldman Patrol
 --- !u!1 &1178007409
 GameObject:
   m_ObjectHideFlags: 0
@@ -1286,7 +1286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Cave_Archer Idle
 --- !u!1001 &1482216103
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1379,7 +1379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Cave_Archer Idle
 --- !u!4 &1515146943
 Transform:
   m_ObjectHideFlags: 0
@@ -1440,7 +1440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Cave_Shieldman Patrol
 --- !u!1 &1682852989
 GameObject:
   m_ObjectHideFlags: 0

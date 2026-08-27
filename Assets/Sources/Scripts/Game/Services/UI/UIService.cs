@@ -11,7 +11,7 @@ public class UIService : IInitializable, IDisposable
     private readonly LevelLoadService _loadService;
     private readonly DiContainer _container;
 
-    private readonly Dictionary<Component, GameObject> _cachedWindows = new();
+    private readonly Dictionary<Component, GameObject> _cachedWindows = new ();
     private readonly CompositeDisposable _disposables = new CompositeDisposable();
 
     private readonly UIScreen _winScreenPrefab;
@@ -24,15 +24,16 @@ public class UIService : IInitializable, IDisposable
 
     private float _showDelay = 0.5f;
 
-    public UIService(LevelState levelState,
-                     DiContainer container,
-                     LevelLoadService loadService,
-                     UIScreen winScreenPrefab,
-                     UIScreen loseScreenPrefab,
-                     UIScreen finishScreenPrefab,
-                     [Inject(Optional = true)] UIScreen shopScreenPrefab,
-                     Transform endGameContainer,
-                     Transform shopContainer)
+    public UIService(
+        LevelState levelState,
+        DiContainer container,
+        LevelLoadService loadService,
+        UIScreen winScreenPrefab,
+        UIScreen loseScreenPrefab,
+        UIScreen finishScreenPrefab,
+        [Inject(Optional = true)] UIScreen shopScreenPrefab,
+        Transform endGameContainer,
+        Transform shopContainer)
     {
         _levelState = levelState;
         _loadService = loadService;

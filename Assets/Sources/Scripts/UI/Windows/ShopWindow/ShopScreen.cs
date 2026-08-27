@@ -5,13 +5,13 @@ using Zenject;
 
 public class ShopScreen : UIScreen
 {
-    private readonly List<WeaponItem> _weaponItems = new();
-    private readonly List<SkinItem> _skinItems = new();
+    private readonly List<WeaponItem> _weaponItems = new ();
+    private readonly List<SkinItem> _skinItems = new ();
 
     [SerializeField] private WeaponItem _weaponItemPrefab;
     [SerializeField] private SkinItem _skinItemPrefab;
     [SerializeField] private Transform _weaponsContainer;
-    [SerializeField] Transform _skinsContainer;
+    [SerializeField] private Transform _skinsContainer;
 
     [Inject] private PlayerStats _playerStats;
 

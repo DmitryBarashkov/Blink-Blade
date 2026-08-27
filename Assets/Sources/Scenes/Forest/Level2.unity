@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Shieldman Patrol
 --- !u!1001 &965207678
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -467,7 +467,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Swordsman Idle
 --- !u!1 &1413086122
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,7 +578,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Swordsman Idle
 --- !u!1 &1901276864
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,7 +624,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  SelectedEnemyName: Swordsman Idle
 --- !u!1 &2005677597
 GameObject:
   m_ObjectHideFlags: 0
