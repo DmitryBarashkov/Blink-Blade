@@ -84,6 +84,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8733894884918024496, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
+      propertyPath: m_UseCustomVertexStreams
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8733894884918024496, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
+      propertyPath: m_VertexStreams.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8733894884918024496, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
+      propertyPath: m_VertexStreams.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8733894884918024496, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}
+      propertyPath: m_VertexStreams.Array.data[2]
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 560258251020429197, guid: 0070c7cf7edabed459c855f8f34e8cab, type: 3}

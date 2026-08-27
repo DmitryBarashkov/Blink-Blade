@@ -12,14 +12,16 @@ public class MeleeAttack : IAttackingStrategy
     private float _cooldown = 1f;
 
     public event Action AttackStarted;
+
     public event Action AttackStopped;
 
-    public void Initialize(MeleeAttacker meleeAttacker,
-                           RangedAttacker rangedAttacker,
-                           IAudioService audioService,
-                           EnemyAnimator animator,
-                           Enemy enemy,
-                           ObjectPoolService poolService)
+    public void Initialize(
+        MeleeAttacker meleeAttacker,
+        RangedAttacker rangedAttacker,
+        IAudioService audioService,
+        EnemyAnimator animator,
+        Enemy enemy,
+        ObjectPoolService poolService)
     {
         _attacker = meleeAttacker;
         _audioService = audioService;

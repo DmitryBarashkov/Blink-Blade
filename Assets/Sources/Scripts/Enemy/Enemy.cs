@@ -42,16 +42,18 @@ public class Enemy : MonoBehaviour
     private ObjectPoolService _poolService;
 
     public EnemyAnimator AnimatorInstance => _enemyAnimator;
+
     public bool IsDead => _isDead;
 
     [Inject]
-    public void Construct(IAudioService audioService,
-                          IMovementStrategy movementStrategy,
-                          IAttackingStrategy attackingStrategy,
-                          IDefendingStrategy defendingStrategy,
-                          ILevelData levelData,
-                          LevelState levelState,
-                          ObjectPoolService poolService)
+    public void Construct(
+        IAudioService audioService,
+        IMovementStrategy movementStrategy,
+        IAttackingStrategy attackingStrategy,
+        IDefendingStrategy defendingStrategy,
+        ILevelData levelData,
+        LevelState levelState,
+        ObjectPoolService poolService)
     {
         _transform = transform;
 
@@ -78,8 +80,6 @@ public class Enemy : MonoBehaviour
         _enemyAnimator = new EnemyAnimator(GetComponent<Animator>());
         _collider = GetComponent<CapsuleCollider>();
         _rigBuilder = GetComponent<RigBuilder>();
-
-
 
         _movementStrategy.Initialize(_transform, _collider, _enemyAnimator, _levelData, _audioService, _wallCheckDistance, _cliffForwardOffset);
         _attackingStrategy.Initialize(_meleeAttacker, _rangedAttacker, _audioService, _enemyAnimator, this, _poolService);
@@ -119,24 +119,30 @@ public class Enemy : MonoBehaviour
         _health = _initialHealth;
         _isDead = false;
 
-        StartWork();
-
-        AnimatorInstance.SetDied(false);
-    }
-
-    public void StartWork()
-    {
         _collider.enabled = true;
 
         _attackingStrategy.Activate();
         _defendingStrategy.Activate();
         _movementStrategy.Activate();
+
+        AnimatorInstance.SetDied(false);
+    }
+
+    public void ContinueWork()
+    {
+        _collider.enabled = true;
+
+        _attackingStrategy.Activate();
+        _defendingStrategy.Activate();
+
+        _movementStrategy.KeepMoving();
     }
 
     public void Deactivate()
     {
         _attackingStrategy.Deactivate();
         _defendingStrategy.Deactivate();
+        _movementStrategy.Deactivate();
         _collider.enabled = false;
     }
 

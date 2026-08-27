@@ -67,7 +67,9 @@ public class EnemySpawner
                 if (isContinue)
                 {
                     if (enemy.IsDead == false)
-                        enemy.StartWork();
+                    {
+                        enemy.ContinueWork();
+                    }
                 }
                 else
                 {
@@ -91,7 +93,9 @@ public class EnemySpawner
         foreach (Enemy enemy in _enemies)
         {
             if (enemy != null)
+            {
                 enemy.Activate();
+            }
         }
     }
 }

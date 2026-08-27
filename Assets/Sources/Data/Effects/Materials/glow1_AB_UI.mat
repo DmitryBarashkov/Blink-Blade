@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: cloud_2x2_soft_AB
+  m_Name: glow1_AB_UI
   m_Shader: {fileID: 4800000, guid: ecfa8f5732b504ef98fba10aa18d0326, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -34,7 +34,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: b2d3219cb3376ad4cb92ef5b4dbc191b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0c63df2441b920749a21981dd80fe6a5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -46,7 +46,7 @@ Material:
     - _CameraNearFadeDistance: 1
     - _ColorMask: 15
     - _ColorMode: 0
-    - _Cull: 2
+    - _Cull: 0
     - _Cutoff: 0.5
     - _DistortionBlend: 0.5
     - _DistortionEnabled: 0

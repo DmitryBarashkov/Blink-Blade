@@ -16,13 +16,14 @@ public class Teleportation : IMovementStrategy
 
     public event Action MovementStarted = () => { };
 
-    public void Initialize(Transform transform,
-                           CapsuleCollider collider,
-                           EnemyAnimator animator,
-                           ILevelData levelData,
-                           IAudioService audioService,
-                           float wallCheckDistance,
-                           float cliffForwardOffset)
+    public void Initialize(
+        Transform transform,
+        CapsuleCollider collider,
+        EnemyAnimator animator,
+        ILevelData levelData,
+        IAudioService audioService,
+        float wallCheckDistance,
+        float cliffForwardOffset)
     {
         _transform = transform;
 
@@ -33,12 +34,14 @@ public class Teleportation : IMovementStrategy
         _effect = levelData.GetMovingEffect();
 
         _height = collider.height;
+
+        _pointIndex = 0;
+        _spawnPoints = _levelData.GetEnemySpawnPoints() as List<EnemySpawnPoint>;
     }
 
     public void Activate()
     {
         _pointIndex = 0;
-        _spawnPoints = _levelData.GetEnemySpawnPoints() as List<EnemySpawnPoint>;
         _currentPoint = _spawnPoints[_pointIndex];
 
         MoveToPosition();
@@ -49,11 +52,13 @@ public class Teleportation : IMovementStrategy
 
     public void Deactivate()
     {
-        _currentPoint = null;
-        _spawnPoints = null;
+        // Ignore
     }
 
-    public void KeepMoving() { }
+    public void KeepMoving()
+    {
+        // Ignore
+    }
 
     public void Perform()
     {
@@ -72,9 +77,15 @@ public class Teleportation : IMovementStrategy
         _audioService.PlaySound(SoundType.CastScream);
     }
 
-    public void Stop() { }
+    public void Stop()
+    {
+        // Ignore
+    }
 
-    public void Tick() { }
+    public void Tick()
+    {
+        // Ignore
+    }
 
     private void MoveToPosition()
     {

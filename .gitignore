@@ -101,3 +101,4 @@ InitTestScene*.unity*
 /Assets/WebGL Template
 /*.sln
 /*.vsconfig
+/Assets/Analyzers

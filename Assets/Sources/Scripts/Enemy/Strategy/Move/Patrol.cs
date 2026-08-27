@@ -1,5 +1,5 @@
-using DG.Tweening;
 using System;
+using DG.Tweening;
 using UnityEngine;
 
 [Serializable]
@@ -34,13 +34,14 @@ public class Patrol : IMovementStrategy
         Stopped,
     }
 
-    public void Initialize(Transform transform,
-                           CapsuleCollider collider,
-                           EnemyAnimator animator,
-                           ILevelData levelData,
-                           IAudioService audioService,
-                           float wallCheckDistance,
-                           float cliffForwardOffset)
+    public void Initialize(
+        Transform transform,
+        CapsuleCollider collider,
+        EnemyAnimator animator,
+        ILevelData levelData,
+        IAudioService audioService,
+        float wallCheckDistance,
+        float cliffForwardOffset)
     {
         _transform = transform;
         _animator = animator;
@@ -83,16 +84,17 @@ public class Patrol : IMovementStrategy
         }
     }
 
-    public void Perform() { }
+    public void Perform()
+    {
+        // Ignore
+    }
 
     public void KeepMoving()
     {
-        if (_isActive)
-        {
-            _waitTimer = 0f;
-            _patrolState = PatrolState.Waiting;
-            _shouldRotate = IsHittingWall() || IsAtCliff();
-        }
+        _isActive = true;
+        _waitTimer = 0f;
+        _patrolState = PatrolState.Waiting;
+        _shouldRotate = IsHittingWall() || IsAtCliff();
     }
 
     public void Stop()

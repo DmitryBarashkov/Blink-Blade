@@ -5,8 +5,8 @@ namespace YG
     public partial class SavesYG
     {
         // Player
-        public int Level = 30;
-        public int Energy = 50;
+        public int Level = 0;
+        public int Energy = 5;
         public int Coins = 0;
         public int Rating = 0;
 

@@ -29,22 +29,25 @@ public class Level : IDisposable
     private ILevelData _levelData;
 
     public event Action LevelFinished;
+
     public event Action LevelStarted;
 
     public int EnemiesCount => _enemiesCount;
+
     public int LevelNumber => _levelNumber;
 
     [Inject]
-    public void Construct(AudioService audioService,
-                          LevelBridge levelBridge,
-                          EnemyPanel enemyPanel,
-                          CameraBoundsInstaller cameraController,
-                          EnemySpawner enemySpawner,
-                          PlayerSpawner playerSpawner,
-                          LevelState levelState,
-                          InputService input,
-                          [Inject(Optional = true)] LevelScreen levelUI,
-                          [Inject(Optional = true)] BetweenLevelScreen menu)
+    public void Construct(
+        AudioService audioService,
+        LevelBridge levelBridge,
+        EnemyPanel enemyPanel,
+        CameraBoundsInstaller cameraController,
+        EnemySpawner enemySpawner,
+        PlayerSpawner playerSpawner,
+        LevelState levelState,
+        InputService input,
+        [Inject(Optional = true)] LevelScreen levelUI,
+        [Inject(Optional = true)] BetweenLevelScreen menu)
     {
         _levelBridge = levelBridge;
         _enemySpawner = enemySpawner;
@@ -167,15 +170,19 @@ public class Level : IDisposable
     private void ActivateTraps()
     {
         if (_arrowTraps.Count > 0)
+        {
             foreach (var trap in _arrowTraps)
                 trap.Activate();
+        }
     }
 
     private void DeactivateTraps()
     {
         if (_arrowTraps.Count > 0)
+        {
             foreach (var trap in _arrowTraps)
                 trap.Deactivate();
+        }
     }
 
     private void ActivateEnemies(bool isContinue)

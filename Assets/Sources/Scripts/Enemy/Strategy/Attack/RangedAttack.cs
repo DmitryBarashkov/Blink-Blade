@@ -25,6 +25,7 @@ public class RangedAttack : IAttackingStrategy
     private Vector3 _lockTargetPosition;
 
     public event Action AttackStarted;
+
     public event Action AttackStopped;
 
     private enum AttackState
@@ -35,12 +36,13 @@ public class RangedAttack : IAttackingStrategy
         Shoot,
     }
 
-    public void Initialize(MeleeAttacker meleeAttacker,
-                           RangedAttacker rangedAttacker,
-                           IAudioService audioService,
-                           EnemyAnimator animator,
-                           Enemy enemy,
-                           ObjectPoolService poolService)
+    public void Initialize(
+        MeleeAttacker meleeAttacker,
+        RangedAttacker rangedAttacker,
+        IAudioService audioService,
+        EnemyAnimator animator,
+        Enemy enemy,
+        ObjectPoolService poolService)
     {
         _enemyTransform = enemy.transform;
         _enemyCenterPosition = Vector3.up * enemy.GetComponent<CapsuleCollider>().height * _enemyTransform.lossyScale.y * _aimHeightFactor;

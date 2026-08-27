@@ -7,20 +7,30 @@
     false,
     false
   ],
-  "idSave": 2,
-  "Level": 31,
-  "Energy": 50,
-  "Coins": 500,
-  "Rating": 0,
-  "IsFinishedGame": true,
+  "idSave": 7,
+  "Level": 3,
+  "Energy": 5,
+  "Coins": 45,
+  "Rating": 45,
+  "IsFinishedGame": false,
   "WeaponId": 0,
   "SkinId": 0,
   "IsAdsDisabled": false,
   "IsSoundOn": true,
   "PurchasedWeaponItemIds": [
+    0,
+    0,
+    0,
+    0,
+    0,
     0
   ],
   "PurchasedSkinItemsIds": [
+    0,
+    0,
+    0,
+    0,
+    0,
     0
   ]
 }
