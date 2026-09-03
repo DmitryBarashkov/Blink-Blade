@@ -13,7 +13,7 @@ public class GlobalInstaller : MonoInstaller
     [Header("Services")]
     [SerializeField] private AudioService _audioServicePrefab;
     [Header("Languages flags")]
-    [SerializeField] private List<LanguageSpritePair> _languageFlags;
+    [SerializeField] List<LanguageSpritePair> _languageFlags;
 
     public override void InstallBindings()
     {

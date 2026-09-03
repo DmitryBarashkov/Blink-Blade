@@ -32,28 +32,6 @@ public enum SoundType
     CastScream,
 }
 
-public interface IAudioService
-{
-    void Activate();
-    void Deactivate();
-    void PlaySound(SoundType type);
-    void PlayMusic();
-    void StopMusic();
-    void SetAmbientSound(SoundType type);
-    void PlayAmbient();
-    void StopAmbient();
-
-    bool GetSoundOn();
-    void SetSound(bool value);
-}
-
-[Serializable]
-public struct SoundData
-{
-    public SoundType Type;
-    public AudioClip Clip;
-}
-
 public class AudioService : MonoBehaviour, IAudioService
 {
     [Header("Sources")]
@@ -178,5 +156,12 @@ public class AudioService : MonoBehaviour, IAudioService
             Debug.Log($"AudioClip для звука {type} не назначен в инспекторе префаба!");
 
         return sound.Clip;
+    }
+
+    [Serializable]
+    public struct SoundData
+    {
+        public SoundType Type;
+        public AudioClip Clip;
     }
 }
