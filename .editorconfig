@@ -1,0 +1,11 @@
+root = true
+
+[**/*.cs]
+generated_code = true
+dotnet_analyzer_diagnostic.severity = none
+dotnet_diagnostic.severity = none
+
+[Assets/Sources/Scripts/**/*.cs]
+generated_code = false
+dotnet_analyzer_diagnostic.severity = default
+dotnet_diagnostic.severity = default
