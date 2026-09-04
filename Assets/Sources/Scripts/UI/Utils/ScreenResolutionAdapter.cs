@@ -11,19 +11,12 @@ public class ScreenResolutionAdapter : ITickable
     private ScreenOrientation _lastOrientation;
 
     [Inject]
-    private void Construct(CanvasScaleAdapter canvasScaleAdapter, CameraResizer cameraResizer)
+    public void Construct(CanvasScaleAdapter canvasScaleAdapter, CameraResizer cameraResizer)
     {
         _cameraResizer = cameraResizer;
         _canvasAdapter = canvasScaleAdapter;
 
         ResetTrackedValues();
-    }
-
-    private void ResetTrackedValues()
-    {
-        _lastWidth = Screen.width;
-        _lastHeight = Screen.height;
-        _lastOrientation = Screen.orientation;
     }
 
     public void Tick()
@@ -35,5 +28,12 @@ public class ScreenResolutionAdapter : ITickable
             _cameraResizer.AdjustCameraSize();
             _canvasAdapter.ApplyScaleMode();
         }
+    }
+
+    private void ResetTrackedValues()
+    {
+        _lastWidth = Screen.width;
+        _lastHeight = Screen.height;
+        _lastOrientation = Screen.orientation;
     }
 }

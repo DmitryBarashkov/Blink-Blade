@@ -17,6 +17,7 @@ public class Shield : MonoBehaviour
     public event Action OnHitWeapon;
 
     public float BounceForce => _bounceForce;
+
     public float BounceUpForce => _bounceUpForce;
 
     private void Awake()

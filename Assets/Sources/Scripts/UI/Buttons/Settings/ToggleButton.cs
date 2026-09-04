@@ -3,11 +3,11 @@ using UnityEngine.UI;
 
 public abstract class ToggleButton : UIButton
 {
+    protected bool _isOn;
+
     [SerializeField] private Sprite _onSprite;
     [SerializeField] private Sprite _offSprite;
     [SerializeField] private Image _image;
-
-    protected bool _isOn;
 
     protected void Toggle()
     {

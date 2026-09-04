@@ -8,16 +8,6 @@ public class EnemyDatabase : ScriptableObject
     [Header("Assembled Enemies")]
     public List<AssembledEnemy> Enemies;
 
-    [Serializable]
-    public struct AssembledEnemy
-    {
-        public string EnemyName;
-        public Enemy Prefab;
-        [SerializeReference] public IMovementStrategy MovementStrategy;
-        [SerializeReference] public IAttackingStrategy AttackingStrategy;
-        [SerializeReference] public IDefendingStrategy DefendingStrategy;
-    }
-
     public bool TryGetEnemy(string name, out AssembledEnemy result)
     {
         foreach (var enemy in Enemies)
@@ -31,5 +21,15 @@ public class EnemyDatabase : ScriptableObject
 
         result = default;
         return false;
+    }
+
+    [Serializable]
+    public struct AssembledEnemy
+    {
+        public string EnemyName;
+        public Enemy Prefab;
+        [SerializeReference] public IMovementStrategy MovementStrategy;
+        [SerializeReference] public IAttackingStrategy AttackingStrategy;
+        [SerializeReference] public IDefendingStrategy DefendingStrategy;
     }
 }

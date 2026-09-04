@@ -1,3 +1,5 @@
 using UnityEngine;
 
-public class CameraBounds : MonoBehaviour { }
+public class CameraBounds : MonoBehaviour
+{
+}

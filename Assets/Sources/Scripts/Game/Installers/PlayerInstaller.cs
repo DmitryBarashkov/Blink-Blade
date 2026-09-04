@@ -41,15 +41,19 @@ public class PlayerInstaller : MonoInstaller
     private void BindWeapon()
     {
         if (_weaponDatabase.TryGetWeapon(_weaponId, out var weapon))
+        {
             Container.Bind<Weapon>()
                 .FromComponentInNewPrefab(weapon.Prefab)
                 .AsSingle()
                 .NonLazy();
+        }
         else
+        {
             Container.Bind<Weapon>()
                 .FromComponentInNewPrefab(_defaultWeaponPrefab)
                 .AsSingle()
                 .NonLazy();
+        }
     }
 
     private void BindPlayerUtils()

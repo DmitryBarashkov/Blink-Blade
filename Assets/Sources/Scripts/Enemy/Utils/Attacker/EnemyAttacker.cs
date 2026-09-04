@@ -11,6 +11,7 @@ public abstract class EnemyAttacker : MonoBehaviour
     protected LayerMask _layerMask;
 
     public event Action<Player> OnPlayerInAttackArea;
+
     public event Action OnPlayerOutAttackArea;
 
     private void Awake()
@@ -22,6 +23,11 @@ public abstract class EnemyAttacker : MonoBehaviour
     public abstract void Activate();
 
     public abstract void Deactivate();
+
+    protected void TriggerAttack(Player player)
+    {
+        OnPlayerInAttackArea?.Invoke(player);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -41,10 +47,5 @@ public abstract class EnemyAttacker : MonoBehaviour
         {
             OnPlayerOutAttackArea?.Invoke();
         }
-    }
-
-    protected void TriggerAttack(Player player)
-    {
-        OnPlayerInAttackArea?.Invoke(player);
     }
 }

@@ -8,15 +8,6 @@ public class SkinDatabase : ScriptableObject
     [Header("Player Skins")]
     public List<PlayerSkin> Skins;
 
-    [Serializable]
-    public struct PlayerSkin
-    {
-        public int Id;
-        public Player Prefab;
-        public Sprite Preview;
-        public int Cost;
-    }
-
     public bool TryGetSkin(int id, out PlayerSkin result)
     {
         foreach (var skin in Skins)
@@ -30,5 +21,14 @@ public class SkinDatabase : ScriptableObject
 
         result = default;
         return false;
+    }
+
+    [Serializable]
+    public struct PlayerSkin
+    {
+        public int Id;
+        public Player Prefab;
+        public Sprite Preview;
+        public int Cost;
     }
 }

@@ -20,6 +20,7 @@ public class SkinItem : MonoBehaviour
     private IDisposable _toggleSubscription;
 
     public int SkinId { get; private set; }
+
     public int Cost { get; private set; }
 
     private void OnDestroy()

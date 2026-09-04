@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class ShieldEnemyAnimator : EnemyAnimator
 {
-    public ShieldEnemyAnimator(Animator animator) : base(animator)
+    public ShieldEnemyAnimator(Animator animator)
+        : base(animator)
     {
     }
 

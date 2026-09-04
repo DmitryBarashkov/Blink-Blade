@@ -30,6 +30,23 @@ public class EnemyPanel : MonoBehaviour
         _icons.ForEach((icon) => icon.Reset());
     }
 
+    public void UpdateIcons(int enemiesCount)
+    {
+        if (_initiateEnemiesCount == enemiesCount)
+            return;
+
+        for (int i = 0; i < _icons.Count; i++)
+        {
+            EnemyIcon enemyIcon = _icons[i];
+
+            if (enemyIcon.IsMarked == false)
+            {
+                enemyIcon.MarkAsDead();
+                break;
+            }
+        }
+    }
+
     private void CreatePanel(ILevelData levelData)
     {
         _initiateEnemiesCount = levelData.IsBossLevel() ? levelData.GetBossHealth() : levelData.GetEnemySpawnPoints().Count;
@@ -46,24 +63,9 @@ public class EnemyPanel : MonoBehaviour
     private void ClearPanel()
     {
         if (_icons != null && _icons.Count > 0)
+        {
             foreach (EnemyIcon icon in _icons)
                 Destroy(icon.gameObject);
-    }
-
-    public void UpdateIcons(int enemiesCount)
-    {
-        if (_initiateEnemiesCount == enemiesCount)
-            return;
-
-        for (int i = 0; i < _icons.Count; i++)
-        {
-            EnemyIcon enemyIcon = _icons[i];
-
-            if (enemyIcon.IsMarked == false)
-            {
-                enemyIcon.MarkAsDead();
-                break;
-            }
         }
     }
 }

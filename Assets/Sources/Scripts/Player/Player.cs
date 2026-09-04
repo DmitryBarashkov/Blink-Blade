@@ -45,6 +45,21 @@ public class Player : MonoBehaviour
 
     public bool IsInvincible => _isInvincible;
 
+    [Inject]
+    public void Construct(InputService input, PlayerWeaponController weaponController, Teleport teleport, Aimer aimer, IAudioService audioService)
+    {
+        _input = input;
+        _weaponController = weaponController;
+        _teleport = teleport;
+        _aimer = aimer;
+
+        _audioService = audioService;
+
+        _transform = transform;
+        _initialPosition = _transform.position;
+        _initialRotation = _transform.rotation;
+    }
+
     private void Awake()
     {
         _animator = new PlayerAnimator(GetComponent<Animator>());
@@ -89,21 +104,6 @@ public class Player : MonoBehaviour
         {
             _aimer.PerformAim();
         }
-    }
-
-    [Inject]
-    public void Construct(InputService input, PlayerWeaponController weaponController, Teleport teleport, Aimer aimer, IAudioService audioService)
-    {
-        _input = input;
-        _weaponController = weaponController;
-        _teleport = teleport;
-        _aimer = aimer;
-
-        _audioService = audioService;
-
-        _transform = transform;
-        _initialPosition = _transform.position;
-        _initialRotation = _transform.rotation;
     }
 
     public void Initialize(Vector3 position, Quaternion rotation)

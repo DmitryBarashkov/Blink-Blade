@@ -28,16 +28,6 @@ public class ObjectPoolService : MonoBehaviour
         Arrow,
     }
 
-    [Serializable]
-    public struct PoolType
-    {
-        public int Id;
-        public PoolObjectTypes ObjectType;
-        public GameObject Prefab;
-        public int PoolSize;
-        public float LifeTime;
-    }
-
     [Inject]
     public void Construct(Transform poolContainer, DiContainer container)
     {
@@ -48,32 +38,6 @@ public class ObjectPoolService : MonoBehaviour
     private void Awake()
     {
         InitPools();
-    }
-
-    private void InitPools()
-    {
-        foreach (var config in _poolConfig)
-        {
-            _pools[config.Id] = new Queue<GameObject>();
-            _typeToConfigMap[config.ObjectType] = config;
-
-            for (int i = 0; i < config.PoolSize; i++)
-            {
-                CreateNewObject(config);
-            }
-        }
-    }
-
-    private GameObject CreateNewObject(PoolType poolType)
-    {
-        GameObject obj = _container.InstantiatePrefab(poolType.Prefab);
-
-        obj.SetActive(false);
-        obj.transform.SetParent(_poolContainer);
-
-        _pools[poolType.Id].Enqueue(obj);
-
-        return obj;
     }
 
     public GameObject Get(PoolObjectTypes objectType, Vector3 position, Quaternion rotation)
@@ -101,19 +65,6 @@ public class ObjectPoolService : MonoBehaviour
             ReleaseAfterLifeTimeEnds(id, obj, lifeTime, this.GetCancellationTokenOnDestroy()).Forget();
 
         return obj;
-    }
-
-    private async UniTaskVoid ReleaseAfterLifeTimeEnds(int id, GameObject obj, float lifeTime, CancellationToken token)
-    {
-        bool isCanceled = await UniTask.Delay(
-            TimeSpan.FromSeconds(lifeTime),
-            delayTiming: PlayerLoopTiming.Update,
-            cancellationToken: token).SuppressCancellationThrow();
-
-        if (isCanceled || obj == null || obj.activeSelf == false)
-            return;
-
-        Release(id, obj);
     }
 
     public void Release(int id, GameObject obj)
@@ -144,5 +95,54 @@ public class ObjectPoolService : MonoBehaviour
 
         if (_pools[id].Contains(obj) == false)
             _pools[id].Enqueue(obj);
+    }
+
+    private void InitPools()
+    {
+        foreach (var config in _poolConfig)
+        {
+            _pools[config.Id] = new Queue<GameObject>();
+            _typeToConfigMap[config.ObjectType] = config;
+
+            for (int i = 0; i < config.PoolSize; i++)
+            {
+                CreateNewObject(config);
+            }
+        }
+    }
+
+    private GameObject CreateNewObject(PoolType poolType)
+    {
+        GameObject obj = _container.InstantiatePrefab(poolType.Prefab);
+
+        obj.SetActive(false);
+        obj.transform.SetParent(_poolContainer);
+
+        _pools[poolType.Id].Enqueue(obj);
+
+        return obj;
+    }
+
+    private async UniTaskVoid ReleaseAfterLifeTimeEnds(int id, GameObject obj, float lifeTime, CancellationToken token)
+    {
+        bool isCanceled = await UniTask.Delay(
+            TimeSpan.FromSeconds(lifeTime),
+            delayTiming: PlayerLoopTiming.Update,
+            cancellationToken: token).SuppressCancellationThrow();
+
+        if (isCanceled || obj == null || obj.activeSelf == false)
+            return;
+
+        Release(id, obj);
+    }
+
+    [Serializable]
+    public struct PoolType
+    {
+        public int Id;
+        public PoolObjectTypes ObjectType;
+        public GameObject Prefab;
+        public int PoolSize;
+        public float LifeTime;
     }
 }

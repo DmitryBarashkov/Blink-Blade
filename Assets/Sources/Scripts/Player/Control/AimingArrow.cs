@@ -14,7 +14,7 @@ public class AimingArrow : MonoBehaviour
     public Vector2 Direction => _direction;
 
     [Inject]
-    private void Construct()
+    public void Construct()
     {
         _rectTransform = GetComponent<RectTransform>();
         _maxWidth = _rectTransform.sizeDelta.x;
@@ -37,7 +37,7 @@ public class AimingArrow : MonoBehaviour
         if (playerPosition == Vector3.zero)
             throw new ArgumentException(nameof(playerPosition));
 
-        Vector3 position = playerPosition + _playerHeightOffset * Vector3.up;
+        Vector3 position = playerPosition + (_playerHeightOffset * Vector3.up);
         Vector2 playerCanvasPosition = Camera.main.WorldToScreenPoint(position);
         Vector2 targetPosition = Input.touchCount > 0 ? Input.GetTouch(0).position : Input.mousePosition;
 
@@ -46,7 +46,7 @@ public class AimingArrow : MonoBehaviour
         float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
         float scaledOffset = _offset * _rectTransform.lossyScale.x;
 
-        _rectTransform.position = playerCanvasPosition + _direction * scaledOffset;
+        _rectTransform.position = playerCanvasPosition + (_direction * scaledOffset);
         _rectTransform.rotation = Quaternion.Euler(0, 0, angle);
 
         float distance = (targetPosition - playerCanvasPosition).magnitude;

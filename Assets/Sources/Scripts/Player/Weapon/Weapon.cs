@@ -72,59 +72,6 @@ public class Weapon : MonoBehaviour
             StopCoroutine(_coroutine);
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (_isShouldRotate && _isFirstHit)
-            _weaponRotator.RotateToObstacle(collision);
-
-        if (_isThrown && IsIdle == false)
-        {
-            Enemy enemy = collision.collider.GetComponent<Enemy>();
-            Shield shield = collision.collider.GetComponent<Shield>();
-            HitEffectSpawner effect = collision.collider.GetComponent<HitEffectSpawner>();
-            Ground ground = collision.collider.GetComponent<Ground>();
-            ContactPoint hitPoint = collision.contacts[0];
-
-            ResetEffects();
-
-            if (effect != null)
-            {
-                if (enemy != null)
-                {
-                    if (EditorPrefs.GetBool("EnabledBlood"))
-                        effect.Perform(hitPoint);
-                }
-                else
-                {
-                    effect.Perform(hitPoint);
-                }
-            }
-
-            if (ground != null)
-            {
-                HandleGroundCollision(collision, ground);
-                return;
-            }
-
-            if (enemy != null)
-            {
-                HandleEnemyCollision(enemy);
-                return;
-            }
-
-            if (shield != null)
-            {
-                HandleShieldCollision(collision, shield, hitPoint);
-                return;
-            }
-
-            _isShouldRotate = false;
-            _isFirstHit = false;
-        }
-        else
-            _isShouldRotate = false;
-    }
-
     public void Initialize(WeaponHandler weaponHandler, IAudioService audioService)
     {
         _weaponHandler = weaponHandler;
@@ -204,6 +151,61 @@ public class Weapon : MonoBehaviour
     public void Deactivate()
     {
         _gameObject.SetActive(false);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (_isShouldRotate && _isFirstHit)
+            _weaponRotator.RotateToObstacle(collision);
+
+        if (_isThrown && IsIdle == false)
+        {
+            Enemy enemy = collision.collider.GetComponent<Enemy>();
+            Shield shield = collision.collider.GetComponent<Shield>();
+            HitEffectSpawner effect = collision.collider.GetComponent<HitEffectSpawner>();
+            Ground ground = collision.collider.GetComponent<Ground>();
+            ContactPoint hitPoint = collision.contacts[0];
+
+            ResetEffects();
+
+            if (effect != null)
+            {
+                if (enemy != null)
+                {
+                    if (EditorPrefs.GetBool("EnabledBlood"))
+                        effect.Perform(hitPoint);
+                }
+                else
+                {
+                    effect.Perform(hitPoint);
+                }
+            }
+
+            if (ground != null)
+            {
+                HandleGroundCollision(collision, ground);
+                return;
+            }
+
+            if (enemy != null)
+            {
+                HandleEnemyCollision(enemy);
+                return;
+            }
+
+            if (shield != null)
+            {
+                HandleShieldCollision(collision, shield, hitPoint);
+                return;
+            }
+
+            _isShouldRotate = false;
+            _isFirstHit = false;
+        }
+        else
+        {
+            _isShouldRotate = false;
+        }
     }
 
     private void HandleShieldCollision(Collision collision, Shield shield, ContactPoint hitPoint)

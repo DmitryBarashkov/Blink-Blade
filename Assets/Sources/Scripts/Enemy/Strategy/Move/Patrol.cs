@@ -168,7 +168,7 @@ public class Patrol : IMovementStrategy
 
     private bool IsHittingWall()
     {
-        Vector3 origin = _transform.position + Vector3.up * 0.5f;
+        Vector3 origin = _transform.position + (Vector3.up * 0.5f);
 
         return Physics.Raycast(origin, _transform.forward, _wallCheckDistance, _groundLayer);
     }

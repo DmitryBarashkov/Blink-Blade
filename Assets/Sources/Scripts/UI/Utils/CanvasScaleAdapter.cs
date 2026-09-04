@@ -9,7 +9,7 @@ public class CanvasScaleAdapter
     private Vector2 _albumResolution = new Vector2(1920, 1080);
 
     [Inject]
-    private void Construct(CanvasScaler[] canvasScalers)
+    public void Construct(CanvasScaler[] canvasScalers)
     {
         _canvasScalers = canvasScalers;
         ApplyScaleMode();

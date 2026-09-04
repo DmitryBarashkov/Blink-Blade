@@ -15,13 +15,6 @@ public class GroundTypesDatabase : ScriptableObject
     [Header("GroundType")]
     public List<GroundTypeRecord> GroundTypes;
 
-    [Serializable]
-    public struct GroundTypeRecord
-    {
-        public GroundType Type;
-        public float BounceForce;
-    }
-
     public bool TryGetGroundType(GroundType type, out GroundTypeRecord result)
     {
         foreach (var groundType in GroundTypes)
@@ -35,5 +28,12 @@ public class GroundTypesDatabase : ScriptableObject
 
         result = default;
         return false;
+    }
+
+    [Serializable]
+    public struct GroundTypeRecord
+    {
+        public GroundType Type;
+        public float BounceForce;
     }
 }

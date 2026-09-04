@@ -23,8 +23,10 @@ public class Bootstrap : IInitializable
     private void CheckInAppPurchases()
     {
         foreach (var purchase in YG2.purchases)
+        {
             if (purchase.consumed == false)
                 GetAward(purchase.id);
+        }
     }
 
     private void GetAward(string id)

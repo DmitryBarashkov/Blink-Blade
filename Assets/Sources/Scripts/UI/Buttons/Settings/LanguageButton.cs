@@ -13,7 +13,7 @@ public class LanguageButton : UIButton
     private Dictionary<string, Sprite> _languages;
 
     [Inject]
-    private void Construct([Inject(Id = "Languages")] Dictionary<string, Sprite> languages)
+    public void Construct([Inject(Id = "Languages")] Dictionary<string, Sprite> languages)
     {
         _languages = languages;
 

@@ -1,3 +1,5 @@
 using UnityEngine;
 
-public class PlayerSpawnPoint : MonoBehaviour { }
+public class PlayerSpawnPoint : MonoBehaviour
+{
+}

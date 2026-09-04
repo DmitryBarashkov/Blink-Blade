@@ -13,6 +13,7 @@
     <Rule Id="SA1124" Action="None" />  
     <Rule Id="SA1602" Action="None" />  
     <Rule Id="SA1601" Action="None" />  
-    <Rule Id="SA1308" Action="None" />      
+    <Rule Id="SA1308" Action="None" />  
+    <Rule Id="SA1401" Action="None" />
   </Rules>
 </RuleSet>

@@ -14,8 +14,11 @@ public class InputService
     private float _activateDelay = 0.1f;
 
     public event Action AttackBtnPressed;
+
     public event Action AttackBtnUp;
+
     public event Action MenuOpenBtnPressed;
+
     public event Action ChooseLevelBtnPressed;
 
     public void GetInput()

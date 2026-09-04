@@ -15,6 +15,7 @@ public class Blocker : MonoBehaviour
     private bool _isWeaponInZone = false;
 
     public event Action OnWeaponInBlockingArea;
+
     public event Action OnWeaponOutBlockingArea;
 
     private void Awake()

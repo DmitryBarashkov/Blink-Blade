@@ -8,14 +8,6 @@ public class WeaponDatabase : ScriptableObject
     [Header("Player Weapons")]
     public List<PlayerWeapon> Weapons;
 
-    [Serializable]
-    public struct PlayerWeapon
-    {
-        public int Id;
-        public Weapon Prefab;
-        public Sprite Preview;
-    }
-
     public bool TryGetWeapon(int id, out PlayerWeapon result)
     {
         foreach (var weapon in Weapons)
@@ -29,5 +21,13 @@ public class WeaponDatabase : ScriptableObject
 
         result = default;
         return false;
+    }
+
+    [Serializable]
+    public struct PlayerWeapon
+    {
+        public int Id;
+        public Weapon Prefab;
+        public Sprite Preview;
     }
 }

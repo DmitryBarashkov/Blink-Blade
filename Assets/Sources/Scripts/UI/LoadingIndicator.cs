@@ -20,7 +20,7 @@ public class LoadingIndicator : MonoBehaviour
             .SetLoops(-1, LoopType.Incremental)
             .SetEase(Ease.Linear);
 
-        _transform.DOScale(transform.localScale + Vector3.one * _pulseAmount, _pulseDuration)
+        _transform.DOScale(transform.localScale + (Vector3.one * _pulseAmount), _pulseDuration)
             .SetLoops(-1, LoopType.Yoyo)
             .SetEase(Ease.InOutSine);
     }

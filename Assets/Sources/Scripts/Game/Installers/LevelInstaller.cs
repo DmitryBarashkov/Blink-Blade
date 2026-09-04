@@ -29,6 +29,7 @@ public class LevelInstaller : MonoInstaller, ILevelData
     }
 
     public IReadOnlyList<EnemySpawnPoint> GetEnemySpawnPoints() => _enemySpawnPoints;
+
     public PlayerSpawnPoint GetPlayerSpawnPoint() => _playerSpawnPoint;
 
     public EnemySpawnPoint GetCurrentEnemySpawnPoint(Transform spawnPointTransform)
@@ -43,10 +44,15 @@ public class LevelInstaller : MonoInstaller, ILevelData
     }
 
     public IReadOnlyList<ArrowTrap> GetArrowTraps() => _arrowTraps;
+
     public CameraBounds GetCameraBounds() => _bounds;
+
     public bool IsBossLevel() => _isBossLevel;
+
     public int GetBossHealth() => _bossHealth;
+
     public ParticleSystem GetMovingEffect() => _movingEffect;
+
     public SoundType GetAmbientSoundType() => _ambientSoundType;
 
     private void OnDestroy()

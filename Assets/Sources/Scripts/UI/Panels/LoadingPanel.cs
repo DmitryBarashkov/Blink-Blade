@@ -17,7 +17,7 @@ public class LoadingPanel : MonoBehaviour
         AdjustLoadingBarWidth();
     }
 
-    public void AdjustLoadingBarWidth()
+    private void AdjustLoadingBarWidth()
     {
         if (_backgroundImage == null || _backgroundImage.sprite == null || _loadingBar == null)
             return;

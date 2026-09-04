@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 public abstract class EndScreenButton : UIButton, IPointerClickHandler
 {
+    [SerializeField] protected EndGameScreen _screen;
+
     [SerializeField] private TextMeshProUGUI _caption;
     [SerializeField] private List<Image> _icons;
-
-    [SerializeField] protected EndGameScreen _screen;
 
     [Header("Settings")]
     [SerializeField] private Color _disabledTextColor;

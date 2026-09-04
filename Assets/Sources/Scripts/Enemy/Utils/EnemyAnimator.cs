@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class EnemyAnimator : CharacterAnimator
 {
-    public EnemyAnimator(Animator animator) : base(animator) { }
+    public EnemyAnimator(Animator animator)
+        : base(animator)
+    {
+    }
 
     public void SetMeleeAttack()
     {

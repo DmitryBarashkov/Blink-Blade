@@ -13,7 +13,11 @@ public class UIScreen : MonoBehaviour
         _gameObject = gameObject;
     }
 
-    public virtual void Setup() { }
+    public virtual void Setup()
+    {
+    }
 
-    public class Factory : PlaceholderFactory<Transform, GameObject, UIScreen> { }
+    public class Factory : PlaceholderFactory<Transform, GameObject, UIScreen>
+    {
+    }
 }
