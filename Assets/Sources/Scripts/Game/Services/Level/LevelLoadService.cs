@@ -112,14 +112,13 @@ public class LevelLoadService
         ActivateScene(levelName);
     }
 
-    private void LoadSingleScene(string levelName)
+    private async void LoadSingleScene(string levelName)
     {
         _currentLevelName = levelName;
 
-        _sceneLoader.LoadSceneAsync(levelName, LoadSceneMode.Single, container =>
-        {
-            ActivateScene(levelName);
-        });
+        await _sceneLoader.LoadSceneAsync(levelName, LoadSceneMode.Single);
+
+        ActivateScene(levelName);
     }
 
     private string GetSceneName(int levelForLoad)

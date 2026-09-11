@@ -142,8 +142,14 @@ public class Player : MonoBehaviour
 
         _input.Deactivate();
 
+#if UNITY_EDITOR
         if (EditorPrefs.GetBool("EnabledBlood"))
+#else
+    if (true) 
+#endif
+        {
             _effect.Perform(hitPoint);
+        }
 
         _audioService.PlaySound(SoundType.Hurt);
 

@@ -172,8 +172,14 @@ public class Weapon : MonoBehaviour
             {
                 if (enemy != null)
                 {
+                #if UNITY_EDITOR
                     if (EditorPrefs.GetBool("EnabledBlood"))
+                #else
+                        if (true) 
+                #endif
+                    {
                         effect.Perform(hitPoint);
+                    }
                 }
                 else
                 {
