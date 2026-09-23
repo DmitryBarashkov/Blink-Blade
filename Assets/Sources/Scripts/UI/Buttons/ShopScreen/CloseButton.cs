@@ -1,12 +1,16 @@
+using BlinkBlade.Game;
 using UnityEngine;
 
-public class CloseButton : UIButton
+namespace BlinkBlade.UI
 {
-    [SerializeField] private ShopScreen _shopGameScreen;
-
-    public override void HandleClick()
+    public class CloseButton : UIButton
     {
-        _audioService.PlaySound(SoundType.ButtonClick);
-        _shopGameScreen.Close();
+        [SerializeField] private ShopScreen _shopGameScreen;
+
+        public override void HandleClick()
+        {
+            _audioService.PlaySound(SoundType.ButtonClick);
+            _shopGameScreen.Close();
+        }
     }
 }

@@ -166,8 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Cave_Swordsman Idle
+  _enemy: {fileID: 4530062177698052861, guid: 16926b1d473ae2540be18b16796d5ccf, type: 3}
 --- !u!1 &120486754
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,8 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Cave_Swordsman Patrol
+  _enemy: {fileID: 4530062177698052861, guid: 096a305aaf35b0b4ca67641a1c5af0f0, type: 3}
 --- !u!1001 &152975373
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -374,8 +372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Cave_Shieldman Patrol
+  _enemy: {fileID: 6632015827303108662, guid: 2cb2bad843eba824a88b8f6d9f8c12b3, type: 3}
 --- !u!1001 &313101999
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -492,17 +489,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _type: 2
   _database: {fileID: 11400000, guid: 688ac5ccc385f4f46ab64bd8e354f031, type: 2}
---- !u!114 &409406854 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6509849812846524107, guid: dd9cac0c99bcb1a46916f1bc935ec965, type: 3}
-  m_PrefabInstance: {fileID: 797489269}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aed86813f13a894fa3cdb7419d62ce0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &438740421
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -663,8 +649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Cave_Archer Idle
+  _enemy: {fileID: 6632015827303108662, guid: f504bd495fa59aa44880d851b3ea3d93, type: 3}
 --- !u!1001 &684743959
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -838,6 +823,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd9cac0c99bcb1a46916f1bc935ec965, type: 3}
+--- !u!60 &797489270 stripped
+PolygonCollider2D:
+  m_CorrespondingSourceObject: {fileID: 1533745459770342555, guid: dd9cac0c99bcb1a46916f1bc935ec965, type: 3}
+  m_PrefabInstance: {fileID: 797489269}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1013302324
 GameObject:
   m_ObjectHideFlags: 0
@@ -1044,7 +1034,7 @@ MonoBehaviour:
   - {fileID: 1291911893}
   - {fileID: 120486756}
   _arrowTraps: []
-  _bounds: {fileID: 409406854}
+  _bounds: {fileID: 797489270}
   _ambientSoundType: 3
   _movingEffect: {fileID: 0}
   _isBossLevel: 0
@@ -1209,8 +1199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Cave_Swordsman Idle
+  _enemy: {fileID: 4530062177698052861, guid: 16926b1d473ae2540be18b16796d5ccf, type: 3}
 --- !u!1 &1413086122
 GameObject:
   m_ObjectHideFlags: 0
@@ -1646,8 +1635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Cave_Swordsman Idle
+  _enemy: {fileID: 4530062177698052861, guid: 16926b1d473ae2540be18b16796d5ccf, type: 3}
 --- !u!1001 &6588111075831270633
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1747,7 +1735,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7d53f22039b5eba47b74dccdc78bc951, type: 2}
     - target: {fileID: 3839550494693429499, guid: 8863caec0a4442944a70714762b43c81, type: 3}
       propertyPath: _sound
-      value: 15
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 3839550494693429499, guid: 8863caec0a4442944a70714762b43c81, type: 3}
       propertyPath: _spawnObjectType
@@ -1879,7 +1867,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 28a72e810b6ada94d9e2d08836a1919b, type: 2}
     - target: {fileID: 7524400959979791157, guid: 8863caec0a4442944a70714762b43c81, type: 3}
       propertyPath: _sound
-      value: 15
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 7524400959979791157, guid: 8863caec0a4442944a70714762b43c81, type: 3}
       propertyPath: _spawnObjectType
@@ -1895,7 +1883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8352503074470395572, guid: 8863caec0a4442944a70714762b43c81, type: 3}
       propertyPath: _sound
-      value: 15
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 8352503074470395572, guid: 8863caec0a4442944a70714762b43c81, type: 3}
       propertyPath: _spawnObjectType
@@ -1911,7 +1899,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 28a72e810b6ada94d9e2d08836a1919b, type: 2}
     - target: {fileID: 9218530956021695438, guid: 8863caec0a4442944a70714762b43c81, type: 3}
       propertyPath: _sound
-      value: 15
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 9218530956021695438, guid: 8863caec0a4442944a70714762b43c81, type: 3}
       propertyPath: _spawnObjectType

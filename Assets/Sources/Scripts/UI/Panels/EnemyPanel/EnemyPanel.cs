@@ -1,71 +1,75 @@
 using System.Collections.Generic;
+using BlinkBlade.Game;
 using UniRx;
 using UnityEngine;
 
-[RequireComponent(typeof(RectTransform))]
-public class EnemyPanel : MonoBehaviour
+namespace BlinkBlade.UI
 {
-    [SerializeField] private EnemyIcon _iconPrefab;
-
-    private List<EnemyIcon> _icons;
-    private CompositeDisposable _disposables = new CompositeDisposable();
-
-    private int _initiateEnemiesCount;
-
-    private void OnDestroy()
+    [RequireComponent(typeof(RectTransform))]
+    public class EnemyPanel : MonoBehaviour
     {
-        _disposables.Dispose();
-    }
+        [SerializeField] private EnemyIcon _iconPrefab;
 
-    public void Initialize(ILevelData levelData)
-    {
-        ClearPanel();
-        CreatePanel(levelData);
-    }
+        private List<EnemyIcon> _icons;
+        private CompositeDisposable _disposables = new CompositeDisposable();
 
-    public void Reset()
-    {
-        _disposables.Clear();
+        private int _initiateEnemiesCount;
 
-        _icons.ForEach((icon) => icon.Reset());
-    }
-
-    public void UpdateIcons(int enemiesCount)
-    {
-        if (_initiateEnemiesCount == enemiesCount)
-            return;
-
-        for (int i = 0; i < _icons.Count; i++)
+        private void OnDestroy()
         {
-            EnemyIcon enemyIcon = _icons[i];
+            _disposables.Dispose();
+        }
 
-            if (enemyIcon.IsMarked == false)
+        public void Initialize(ILevelData levelData)
+        {
+            ClearPanel();
+            CreatePanel(levelData);
+        }
+
+        public void Reset()
+        {
+            _disposables.Clear();
+
+            _icons.ForEach((icon) => icon.Reset());
+        }
+
+        public void UpdateIcons(int enemiesCount)
+        {
+            if (_initiateEnemiesCount == enemiesCount)
+                return;
+
+            for (int i = 0; i < _icons.Count; i++)
             {
-                enemyIcon.MarkAsDead();
-                break;
+                EnemyIcon enemyIcon = _icons[i];
+
+                if (enemyIcon.IsMarked == false)
+                {
+                    enemyIcon.MarkAsDead();
+                    break;
+                }
             }
         }
-    }
 
-    private void CreatePanel(ILevelData levelData)
-    {
-        _initiateEnemiesCount = levelData.IsBossLevel() ? levelData.GetBossHealth() : levelData.GetEnemySpawnPoints().Count;
-        _icons = new List<EnemyIcon>(_initiateEnemiesCount);
-
-        for (int i = 0; i < _initiateEnemiesCount; i++)
+        private void CreatePanel(ILevelData levelData)
         {
-            EnemyIcon icon = Instantiate(_iconPrefab, this.transform, false);
+            _initiateEnemiesCount = levelData.IsBossLevel() ? levelData.GetBossHealth() : levelData.GetEnemySpawnPoints().Count;
+            _icons = new List<EnemyIcon>(_initiateEnemiesCount);
 
-            _icons.Add(icon);
+            for (int i = 0; i < _initiateEnemiesCount; i++)
+            {
+                EnemyIcon icon = Instantiate(_iconPrefab, this.transform, false);
+
+                _icons.Add(icon);
+            }
         }
-    }
 
-    private void ClearPanel()
-    {
-        if (_icons != null && _icons.Count > 0)
+        private void ClearPanel()
         {
-            foreach (EnemyIcon icon in _icons)
-                Destroy(icon.gameObject);
+            if (_icons != null && _icons.Count > 0)
+            {
+                foreach (EnemyIcon icon in _icons)
+                    Destroy(icon.gameObject);
+            }
         }
     }
 }

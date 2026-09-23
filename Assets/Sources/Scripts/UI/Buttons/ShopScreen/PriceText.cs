@@ -2,36 +2,39 @@ using TMPro;
 using UnityEngine;
 using YG;
 
-public class PriceText : MonoBehaviour
+namespace BlinkBlade.UI
 {
-    [SerializeField] private string _productId;
-
-    private TextMeshProUGUI _text;
-
-    private void Awake()
+    public class PriceText : MonoBehaviour
     {
-        _text = GetComponent<TextMeshProUGUI>();
-    }
+        [SerializeField] private string _productId;
 
-    private void OnEnable()
-    {
-        if (YG2.purchases.Length > 0)
+        private TextMeshProUGUI _text;
+
+        private void Awake()
         {
-            UpdatePriceUI();
+            _text = GetComponent<TextMeshProUGUI>();
         }
-    }
 
-    private void UpdatePriceUI()
-    {
-        foreach (var purchase in YG2.purchases)
+        private void OnEnable()
         {
-            if (purchase.id == _productId)
+            if (YG2.purchases.Length > 0)
             {
-                _text.text = purchase.price;
-                return;
+                UpdatePriceUI();
             }
         }
 
-        _text.text = "1 Ян";
+        private void UpdatePriceUI()
+        {
+            foreach (var purchase in YG2.purchases)
+            {
+                if (purchase.id == _productId)
+                {
+                    _text.text = purchase.price;
+                    return;
+                }
+            }
+
+            _text.text = "1 Ян";
+        }
     }
 }

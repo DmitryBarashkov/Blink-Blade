@@ -4,49 +4,52 @@ using UnityEngine.UI;
 using YG;
 using Zenject;
 
-public class LanguageButton : UIButton
+namespace BlinkBlade.UI
 {
-    [SerializeField] private Image _image;
-    [SerializeField] private LanguagePanel _panel;
-    [SerializeField] private SetLanguageButton _setLanguageButton;
-
-    private Dictionary<string, Sprite> _languages;
-
-    [Inject]
-    public void Construct([Inject(Id = "Languages")] Dictionary<string, Sprite> languages)
+    public class LanguageButton : UIButton
     {
-        _languages = languages;
+        [SerializeField] private Image _image;
+        [SerializeField] private LanguagePanel _panel;
+        [SerializeField] private SetLanguageButton _setLanguageButton;
 
-        SetLanguage();
-        InitializeLanguageButtons();
-    }
+        private Dictionary<string, Sprite> _languages;
 
-    protected override void OnEnable()
-    {
-        _button.onClick.AddListener(HandleClick);
-        _panel.LanguageChanged += SetLanguage;
-    }
+        [Inject]
+        public void Construct([Inject(Id = "Languages")] Dictionary<string, Sprite> languages)
+        {
+            _languages = languages;
 
-    protected override void OnDisable()
-    {
-        _button.onClick.RemoveListener(HandleClick);
-        _panel.LanguageChanged -= SetLanguage;
-    }
+            SetLanguage();
+            InitializeLanguageButtons();
+        }
 
-    public override void HandleClick()
-    {
-        _panel.ToggleMenu();
-    }
+        protected override void OnEnable()
+        {
+            _button.onClick.AddListener(HandleClick);
+            _panel.LanguageChanged += SetLanguage;
+        }
 
-    private void SetLanguage()
-    {
-        _image.sprite = _languages[YG2.lang];
+        protected override void OnDisable()
+        {
+            _button.onClick.RemoveListener(HandleClick);
+            _panel.LanguageChanged -= SetLanguage;
+        }
 
-        YG2.GetLeaderboard("Score");
-    }
+        public override void HandleClick()
+        {
+            _panel.ToggleMenu();
+        }
 
-    private void InitializeLanguageButtons()
-    {
-        _panel.CreateSetLanguageButtons(_setLanguageButton, YG2.lang, _languages);
+        private void SetLanguage()
+        {
+            _image.sprite = _languages[YG2.lang];
+
+            YG2.GetLeaderboard("Score");
+        }
+
+        private void InitializeLanguageButtons()
+        {
+            _panel.CreateSetLanguageButtons(_setLanguageButton, YG2.lang, _languages);
+        }
     }
 }

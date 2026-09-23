@@ -2,32 +2,35 @@ using Cinemachine;
 using UnityEngine;
 using Zenject;
 
-public class CameraResizer
+namespace BlinkBlade.Camera
 {
-    private CinemachineVirtualCamera _camera;
-    private CinemachineTransposer _transposer;
-
-    private float _portraitOrthoSize = 10f;
-    private float _albumOrthoSize = 4f;
-    private Vector3 _portraitFollowOffset = new Vector3(0, 6f, -10f);
-    private Vector3 _albumFollowOffset = new Vector3(0, 1f, -10f);
-
-    [Inject]
-    public void Construct(CinemachineVirtualCamera camera)
+    public class CameraResizer
     {
-        _camera = camera;
-        _transposer = _camera.GetCinemachineComponent<CinemachineTransposer>();
-        AdjustCameraSize();
-    }
+        private CinemachineVirtualCamera _camera;
+        private CinemachineTransposer _transposer;
 
-    public void AdjustCameraSize()
-    {
-        if (_camera == null)
-            return;
+        private float _portraitOrthoSize = 10f;
+        private float _albumOrthoSize = 4f;
+        private Vector3 _portraitFollowOffset = new Vector3(0, 6f, -10f);
+        private Vector3 _albumFollowOffset = new Vector3(0, 1f, -10f);
 
-        bool isPortrait = Screen.width < Screen.height;
+        [Inject]
+        public void Construct(CinemachineVirtualCamera camera)
+        {
+            _camera = camera;
+            _transposer = _camera.GetCinemachineComponent<CinemachineTransposer>();
+            AdjustCameraSize();
+        }
 
-        _camera.m_Lens.OrthographicSize = isPortrait ? _portraitOrthoSize : _albumOrthoSize;
-        _transposer.m_FollowOffset = isPortrait ? _portraitFollowOffset : _albumFollowOffset;
+        public void AdjustCameraSize()
+        {
+            if (_camera == null)
+                return;
+
+            bool isPortrait = Screen.width < Screen.height;
+
+            _camera.m_Lens.OrthographicSize = isPortrait ? _portraitOrthoSize : _albumOrthoSize;
+            _transposer.m_FollowOffset = isPortrait ? _portraitFollowOffset : _albumFollowOffset;
+        }
     }
 }

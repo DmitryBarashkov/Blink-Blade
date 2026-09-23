@@ -1,78 +1,34 @@
-using System;
-using UniRx;
-using UniRx.Triggers;
-using UnityEngine;
-using UnityEngine.UI;
-using static WeaponDatabase;
+using BlinkBlade.Game;
+using Zenject;
 
-public class WeaponItem : MonoBehaviour
+namespace BlinkBlade.UI
 {
-    [SerializeField] private Toggle _toggle;
-    [SerializeField] private Button _buyButton;
-    [SerializeField] private Button _backgroundButton;
-    [SerializeField] private Image _preview;
-
-    private PlayerWeapon _weapon;
-    private ShopScreen _screen;
-    private IDisposable _toggleSubscription;
-
-    public int WeaponId { get; private set; }
-
-    private void OnDestroy()
+    public class WeaponItem : ShopItem
     {
-        _toggleSubscription?.Dispose();
-    }
+        [Inject]
+        public override void Construct(ShopService shopService)
+        {
+            _shopService = shopService;
 
-    public void Initialize(ShopScreen screen, PlayerWeapon weapon, bool isPurchased, bool isChosen)
-    {
-        _screen = screen;
-        _weapon = weapon;
-        WeaponId = weapon.Id;
+            Id = _equip.Id;
+            Cost = _equip.Cost;
+            IsChosen = _shopService.IsWeaponChosen(Id);
+            IsPurchased = _shopService.IsWeaponItemPurchased(Id);
 
-        InitializeItem(weapon, isPurchased, isChosen);
-        InitializeToggleControl();
-    }
+            if (_buyButtonText != null)
+                _buyButtonText.text = _equip.Cost.ToString();
 
-    public void SetToggle(bool value)
-    {
-        _toggle.SetIsOnWithoutNotify(value);
-    }
+            InitializeItem();
+            InitializeToggleControl();
+        }
 
-    public void SetWeapon()
-    {
-        _screen.ChangeChosenWeaponItem(_weapon.Id);
-    }
+        public override void UpdateItem()
+        {
+            IsChosen = _shopService.IsWeaponChosen(Id);
+            IsPurchased = _shopService.IsWeaponItemPurchased(Id);
 
-    public void UpdateAfterBuy()
-    {
-        InitializeItem(_weapon, true, true);
-        SetWeapon();
-    }
-
-    private void InitializeItem(PlayerWeapon weapon, bool isPurchased, bool isChosen)
-    {
-        _toggle.gameObject.SetActive(isPurchased);
-        SetToggle(isChosen);
-
-        _buyButton.gameObject.SetActive(isPurchased == false);
-        _preview.sprite = weapon.Preview;
-        _backgroundButton.interactable = isPurchased == true;
-    }
-
-    private void InitializeToggleControl()
-    {
-        _toggleSubscription?.Dispose();
-
-        _toggleSubscription =
-            _toggle.gameObject.AddComponent<ObservablePointerClickTrigger>()
-            .OnPointerClickAsObservable()
-            .Subscribe(pointerEventData =>
-            {
-                if (_toggle.isOn == false)
-                    _toggle.SetIsOnWithoutNotify(true);
-                else
-                    SetWeapon();
-            })
-            .AddTo(this);
+            InitializeItem();
+            InitializeToggleControl();
+        }
     }
 }

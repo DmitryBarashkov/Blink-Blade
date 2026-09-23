@@ -2,39 +2,42 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(CanvasGroup))]
-public class EndGameScreen : UIScreen, IPointerClickHandler
+namespace BlinkBlade.UI
 {
-    [SerializeField] private ParticleSystem _effect;
-
-    private float _duration = 1.5f;
-
-    public override void Setup()
+    [RequireComponent(typeof(CanvasGroup))]
+    public class EndGameScreen : UIScreen, IPointerClickHandler
     {
-        _gameObject.SetActive(true);
-        _canvasGroup.interactable = false;
-        Canvas.ForceUpdateCanvases();
+        [SerializeField] private ParticleSystem _effect;
 
-        if (_effect != null)
+        private float _duration = 1.5f;
+
+        public override void Setup()
         {
-            _canvasGroup.interactable = true;
-            _canvasGroup.alpha = 1;
-            _effect.Play();
+            _gameObject.SetActive(true);
+            _canvasGroup.interactable = false;
+            Canvas.ForceUpdateCanvases();
+
+            if (_effect != null)
+            {
+                _canvasGroup.interactable = true;
+                _canvasGroup.alpha = 1;
+                _effect.Play();
+            }
+            else
+            {
+                FadeIn(_duration);
+            }
         }
-        else
+
+        public void Close() => _gameObject.SetActive(false);
+
+        public void OnPointerClick(PointerEventData eventData) => _canvasGroup.DOComplete();
+
+        private void FadeIn(float duration)
         {
-            FadeIn(_duration);
+            _canvasGroup.alpha = 0;
+            _canvasGroup.DOFade(1, duration).SetUpdate(true)
+                .OnComplete(() => _canvasGroup.interactable = true);
         }
-    }
-
-    public void Close() => _gameObject.SetActive(false);
-
-    public void OnPointerClick(PointerEventData eventData) => _canvasGroup.DOComplete();
-
-    private void FadeIn(float duration)
-    {
-        _canvasGroup.alpha = 0;
-        _canvasGroup.DOFade(1, duration).SetUpdate(true)
-            .OnComplete(() => _canvasGroup.interactable = true);
     }
 }

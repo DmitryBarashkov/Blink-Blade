@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public class LevelScreen : MonoBehaviour
+namespace BlinkBlade.UI
 {
-    public void SetActive(bool value)
+    public class LevelScreen : MonoBehaviour
     {
-        gameObject.SetActive(value);
+        public void SetActive(bool value)
+        {
+            gameObject.SetActive(value);
+        }
     }
 }

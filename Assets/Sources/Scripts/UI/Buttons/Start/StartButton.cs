@@ -1,15 +1,19 @@
+using BlinkBlade.Game;
 using Zenject;
 
-public class StartButton : UIButton
+namespace BlinkBlade.UI
 {
-    [Inject] private BetweenLevelScreen _screen;
-    [Inject] private Level _level;
-
-    public override void HandleClick()
+    public class StartButton : UIButton
     {
-        if (_screen != null)
-            _screen.Deactivate();
+        [Inject] private BetweenLevelScreen _screen;
+        [Inject] private Level _level;
 
-        _level.StartPlay();
+        public override void HandleClick()
+        {
+            if (_screen != null)
+                _screen.Deactivate();
+
+            _level.StartPlay();
+        }
     }
 }

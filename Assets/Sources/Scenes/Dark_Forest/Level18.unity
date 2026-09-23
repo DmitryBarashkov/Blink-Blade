@@ -260,8 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  _enemy: {fileID: 4722590259074940258, guid: 30d491a8bd9e9e5438f6f18a3cf1cd03, type: 3}
 --- !u!1001 &198770919
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -356,17 +355,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3443574802551404248, guid: 28b380e0618115d4289ad068c1ff2f4b, type: 3}
   m_PrefabInstance: {fileID: 198770919}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &409406854 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6509849812846524107, guid: dd9cac0c99bcb1a46916f1bc935ec965, type: 3}
-  m_PrefabInstance: {fileID: 797489269}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aed86813f13a894fa3cdb7419d62ce0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &473987083
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -505,6 +493,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd9cac0c99bcb1a46916f1bc935ec965, type: 3}
+--- !u!60 &797489270 stripped
+PolygonCollider2D:
+  m_CorrespondingSourceObject: {fileID: 1533745459770342555, guid: dd9cac0c99bcb1a46916f1bc935ec965, type: 3}
+  m_PrefabInstance: {fileID: 797489269}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &828957417
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -688,7 +681,7 @@ MonoBehaviour:
   - {fileID: 1957816309}
   - {fileID: 1580216094}
   - {fileID: 473987084}
-  _bounds: {fileID: 409406854}
+  _bounds: {fileID: 797489270}
   _ambientSoundType: 2
   _movingEffect: {fileID: 0}
   _isBossLevel: 0
@@ -802,8 +795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  _enemy: {fileID: 4722590259074940258, guid: 30d491a8bd9e9e5438f6f18a3cf1cd03, type: 3}
 --- !u!1001 &1461529227
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -929,8 +921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Patrol
+  _enemy: {fileID: 4722590259074940258, guid: 30d491a8bd9e9e5438f6f18a3cf1cd03, type: 3}
 --- !u!1001 &1553702890
 PrefabInstance:
   m_ObjectHideFlags: 0

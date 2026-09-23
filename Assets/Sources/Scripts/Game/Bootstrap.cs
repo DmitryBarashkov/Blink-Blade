@@ -3,50 +3,53 @@ using UnityEngine.SceneManagement;
 using YG;
 using Zenject;
 
-public class Bootstrap : IInitializable
+namespace BlinkBlade.Game
 {
-    [Inject] private LevelLoadService _levelService;
-
-    public void Initialize()
+    public class Bootstrap : IInitializable
     {
-        CheckInAppPurchases();
+        [Inject] private LevelLoadService _levelService;
 
-        if (YG2.saves.IsAdsDisabled)
-            YG2.StickyAdActivity(false);
-
-        if (SceneManager.GetActiveScene().buildIndex != 0)
-            return;
-
-        StartLevel();
-    }
-
-    private void CheckInAppPurchases()
-    {
-        foreach (var purchase in YG2.purchases)
+        public void Initialize()
         {
-            if (purchase.consumed == false)
-                GetAward(purchase.id);
-        }
-    }
+            CheckInAppPurchases();
 
-    private void GetAward(string id)
-    {
-        if (id == "no_ads")
+            if (YG2.saves.IsAdsDisabled)
+                YG2.StickyAdActivity(false);
+
+            if (SceneManager.GetActiveScene().buildIndex != 0)
+                return;
+
+            StartLevel();
+        }
+
+        private void CheckInAppPurchases()
         {
-            Debug.LogError("Consumed ads");
-
-            YG2.saves.IsAdsDisabled = true;
-            YG2.SaveProgress();
+            foreach (var purchase in YG2.purchases)
+            {
+                if (purchase.consumed == false)
+                    GetAward(purchase.id);
+            }
         }
-    }
 
-    private void StartLevel()
-    {
-        int levelnumber = YG2.saves.Level;
+        private void GetAward(string id)
+        {
+            if (id == "no_ads")
+            {
+                Debug.LogError("Consumed ads");
 
-        if (levelnumber == 0)
-            _levelService.LoadTutorialLevel();
-        else
-            _levelService.LoadLevel(levelnumber).Forget();
+                YG2.saves.IsAdsDisabled = true;
+                YG2.SaveProgress();
+            }
+        }
+
+        private void StartLevel()
+        {
+            int levelNumber = YG2.saves.Level;
+
+            if (levelNumber == 0)
+                _levelService.LoadTutorialLevel();
+            else
+                _levelService.LoadLevel(levelNumber).Forget();
+        }
     }
 }

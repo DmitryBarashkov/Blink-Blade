@@ -310,17 +310,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3443574802551404248, guid: 28b380e0618115d4289ad068c1ff2f4b, type: 3}
   m_PrefabInstance: {fileID: 258968107}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &409406854 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6509849812846524107, guid: dd9cac0c99bcb1a46916f1bc935ec965, type: 3}
-  m_PrefabInstance: {fileID: 797489269}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aed86813f13a894fa3cdb7419d62ce0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &466016478
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -459,8 +448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Swordsman Idle
+  _enemy: {fileID: 4722590259074940258, guid: 5fdca3c93893fcb4ab1e48a8c9de39a5, type: 3}
 --- !u!1001 &797489269
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -518,6 +506,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd9cac0c99bcb1a46916f1bc935ec965, type: 3}
+--- !u!60 &797489270 stripped
+PolygonCollider2D:
+  m_CorrespondingSourceObject: {fileID: 1533745459770342555, guid: dd9cac0c99bcb1a46916f1bc935ec965, type: 3}
+  m_PrefabInstance: {fileID: 797489269}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &930267970
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,8 +540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Archer Idle
+  _enemy: {fileID: 4722590259074940258, guid: 0670096999bd03441aada3c488dc66f5, type: 3}
 --- !u!4 &930267972
 Transform:
   m_ObjectHideFlags: 0
@@ -608,8 +600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Forest_Elf_Shieldman Patrol
+  _enemy: {fileID: 4722590259074940258, guid: 0d3fc7fec7d0a8c43b9ed9212a566343, type: 3}
 --- !u!1 &1013302324
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,7 +689,7 @@ MonoBehaviour:
   - {fileID: 1663800412}
   - {fileID: 574796594}
   _arrowTraps: []
-  _bounds: {fileID: 409406854}
+  _bounds: {fileID: 797489270}
   _ambientSoundType: 2
   _movingEffect: {fileID: 0}
   _isBossLevel: 0
@@ -747,8 +738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Archer Idle
+  _enemy: {fileID: 4722590259074940258, guid: 0670096999bd03441aada3c488dc66f5, type: 3}
 --- !u!1 &1413086122
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,8 +848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Archer Patrol
+  _enemy: {fileID: 4722590259074940258, guid: 0eb8715e634f2a641aea6158fdd2c9ec, type: 3}
 --- !u!1 &1682852989
 GameObject:
   m_ObjectHideFlags: 0

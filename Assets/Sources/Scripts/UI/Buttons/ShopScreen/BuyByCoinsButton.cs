@@ -1,29 +1,36 @@
 using System;
+
+using BlinkBlade.Game;
+using BlinkBlade.Players;
+
 using UnityEngine;
 using YG;
 using Zenject;
 
-public class BuyByCoinsButton : UIButton
+namespace BlinkBlade.UI
 {
-    [Inject] private ShopService _shopService;
-    [Inject] private PlayerStats _playerStats;
-
-    [SerializeField] private SkinItem _skinItem;
-
-    public override void HandleClick()
+    public class BuyByCoinsButton : UIButton
     {
-        _audioService.PlaySound(SoundType.ButtonClick);
+        [Inject] private ShopService _shopService;
+        [Inject] private PlayerStats _playerStats;
 
-        YG2.saves.Coins -= _skinItem.Cost;
+        [SerializeField] private ShopItem _shopItem;
 
-        if (YG2.saves.Coins < 0)
-            throw new ArgumentOutOfRangeException(nameof(YG2.saves.Coins));
+        public override void HandleClick()
+        {
+            _audioService.PlaySound(SoundType.ButtonClick);
 
-        YG2.SaveProgress();
+            YG2.saves.Coins -= _shopItem.Cost;
 
-        _playerStats.CurrentCoins.Value = YG2.saves.Coins;
+            if (YG2.saves.Coins < 0)
+                throw new ArgumentOutOfRangeException(nameof(YG2.saves.Coins));
 
-        _shopService.PurchaseSkin(_skinItem.SkinId);
-        _skinItem.UpdateAfterBuy();
+            YG2.SaveProgress();
+
+            _playerStats.CurrentCoins.Value = YG2.saves.Coins;
+
+            _shopService.PurchaseItem(_shopItem);
+            _shopItem.UpdateAfterBuy();
+        }
     }
 }

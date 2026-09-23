@@ -1,16 +1,20 @@
+using BlinkBlade.UI;
 using UnityEngine;
 using Zenject;
 
-public class TutorialInstaller : MonoInstaller
+namespace BlinkBlade.Game
 {
-    public override void InstallBindings()
+    public class TutorialInstaller : MonoInstaller
     {
-        Container.BindFactory<Transform, GameObject, UIScreen, UIScreen.Factory>()
-            .FromMethod((container, parent, prefab) =>
-            {
-                GameObject screen = container.InstantiatePrefab(prefab, parent);
+        public override void InstallBindings()
+        {
+            Container.BindFactory<Transform, GameObject, UIScreen, UIScreen.Factory>()
+                .FromMethod((container, parent, prefab) =>
+                {
+                    GameObject screen = container.InstantiatePrefab(prefab, parent);
 
-                return screen.GetComponent<UIScreen>();
-            });
+                    return screen.GetComponent<UIScreen>();
+                });
+        }
     }
 }

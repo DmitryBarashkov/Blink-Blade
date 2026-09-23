@@ -4,39 +4,42 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public abstract class EndScreenButton : UIButton, IPointerClickHandler
+namespace BlinkBlade.UI
 {
-    [SerializeField] protected EndGameScreen _screen;
-
-    [SerializeField] private TextMeshProUGUI _caption;
-    [SerializeField] private List<Image> _icons;
-
-    [Header("Settings")]
-    [SerializeField] private Color _disabledTextColor;
-    [SerializeField] private Color _disabledIconColor;
-
-    public void SetEnabled(bool isEnabled)
+    public abstract class EndScreenButton : UIButton, IPointerClickHandler
     {
-        if (_button == null)
-            return;
+        [SerializeField] protected EndGameScreen _screen;
 
-        _button.interactable = isEnabled;
+        [SerializeField] private TextMeshProUGUI _caption;
+        [SerializeField] private List<Image> _icons;
 
-        if (_caption != null)
-            _caption.color = isEnabled ? Color.white : _disabledTextColor;
+        [Header("Settings")]
+        [SerializeField] private Color _disabledTextColor;
+        [SerializeField] private Color _disabledIconColor;
 
-        if (_icons.Count > 0)
+        public void SetEnabled(bool isEnabled)
         {
-            _icons.ForEach((image) =>
-            {
-                image.color = isEnabled ? Color.white : _disabledIconColor;
-            });
-        }
-    }
+            if (_button == null)
+                return;
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (_screen != null)
-            _screen.OnPointerClick(eventData);
+            _button.interactable = isEnabled;
+
+            if (_caption != null)
+                _caption.color = isEnabled ? Color.white : _disabledTextColor;
+
+            if (_icons.Count > 0)
+            {
+                _icons.ForEach((image) =>
+                {
+                    image.color = isEnabled ? Color.white : _disabledIconColor;
+                });
+            }
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (_screen != null)
+                _screen.OnPointerClick(eventData);
+        }
     }
 }

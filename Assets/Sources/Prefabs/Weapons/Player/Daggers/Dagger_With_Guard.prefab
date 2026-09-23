@@ -143,6 +143,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: de1c20f1fd9a93a4fb9055cf73b10395, type: 3}
       insertIndex: -1
       addedObject: {fileID: 623643412027218452}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: de1c20f1fd9a93a4fb9055cf73b10395, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4091525257450450034}
   m_SourcePrefab: {fileID: 100100000, guid: de1c20f1fd9a93a4fb9055cf73b10395, type: 3}
 --- !u!4 &6195975950144897240 stripped
 Transform:
@@ -193,11 +196,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e4b9bf0047bd247890b71b60de1fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stickOffsetAngle: 0
   _throwEffect: {fileID: 0}
   _trailEffect: {fileID: 5151613916778923393}
+  _stickOffsetAngle: 0
   _trailDuration: 0.1
   _spinSpeed: 0
+  _throwForce: 15
+  _movementThreshold: 20
+  _bounceRotationForce: 1200
 --- !u!65 &623643412027218452
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -219,3 +225,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.15283261, y: 0.6183363, z: 0.041375764}
   m_Center: {x: 0.00985478, y: 0.1602881, z: -0.00068578456}
+--- !u!114 &4091525257450450034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6825020380222085730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f10ca1d5c8207e4e968b0a00add3c6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 8
+  _cost: 150
+  _preview: {fileID: 21300000, guid: 706db35bbdeb6a54a87576348ea68dc7, type: 3}

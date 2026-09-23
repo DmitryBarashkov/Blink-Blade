@@ -1,81 +1,85 @@
 using System.Collections.Generic;
+using BlinkBlade.Players;
+using BlinkBlade.UI;
 using YG;
 using Zenject;
 
-public class ShopService
+namespace BlinkBlade.Game
 {
-    private readonly HashSet<int> _purchasedWeaponItemIds = new ();
-    private readonly HashSet<int> _purchasedSkinItemIds = new ();
-
-    [Inject] private PlayerStats _playerStats;
-
-    public ShopService()
+    public class ShopService
     {
-        _purchasedWeaponItemIds.Clear();
-        _purchasedSkinItemIds.Clear();
+        private readonly HashSet<int> PurchasedWeaponItemIds = new ();
+        private readonly HashSet<int> PurchasedSkinItemIds = new ();
 
-        foreach (var item in YG2.saves.PurchasedWeaponItemIds)
-            _purchasedWeaponItemIds.Add(item);
+        [Inject] private PlayerStats _playerStats;
 
-        foreach (var item in YG2.saves.PurchasedSkinItemsIds)
-            _purchasedSkinItemIds.Add(item);
-    }
-
-    public bool IsWeapontemPurchased(int id)
-    {
-        return _purchasedWeaponItemIds.Contains(id);
-    }
-
-    public bool IsSkinItemPurchased(int id)
-    {
-        return _purchasedSkinItemIds.Contains(id);
-    }
-
-    public bool IsWeaponChosen(int id)
-    {
-        return YG2.saves.WeaponId == id;
-    }
-
-    public bool IsSkinChosen(int id)
-    {
-        return YG2.saves.SkinId == id;
-    }
-
-    public void PurchaseWeapon(int id)
-    {
-        if (_purchasedWeaponItemIds.Add(id))
+        public ShopService()
         {
-            YG2.saves.PurchasedWeaponItemIds.Add(id);
-            YG2.SaveProgress();
+            PurchasedWeaponItemIds.Clear();
+            PurchasedSkinItemIds.Clear();
 
-            ChangeChosenWeaponItem(id);
+            foreach (var item in YG2.saves.PurchasedWeaponItemIds)
+                PurchasedWeaponItemIds.Add(item);
+
+            foreach (var item in YG2.saves.PurchasedSkinItemsIds)
+                PurchasedSkinItemIds.Add(item);
         }
-    }
 
-    public void PurchaseSkin(int id)
-    {
-        if (_purchasedSkinItemIds.Add(id))
+        public bool IsWeaponItemPurchased(int id)
         {
-            YG2.saves.PurchasedSkinItemsIds.Add(id);
-            YG2.SaveProgress();
-
-            ChangeChosenSkinItem(id);
+            return PurchasedWeaponItemIds.Contains(id);
         }
-    }
 
-    public void ChangeChosenWeaponItem(int id)
-    {
-        _playerStats.CurrentWeaponId.Value = id;
+        public bool IsSkinItemPurchased(int id)
+        {
+            return PurchasedSkinItemIds.Contains(id);
+        }
 
-        YG2.saves.WeaponId = id;
-        YG2.SaveProgress();
-    }
+        public bool IsWeaponChosen(int id)
+        {
+            return YG2.saves.WeaponId == id;
+        }
 
-    public void ChangeChosenSkinItem(int id)
-    {
-        _playerStats.CurrentSkinId.Value = id;
+        public bool IsSkinChosen(int id)
+        {
+            return YG2.saves.SkinId == id;
+        }
 
-        YG2.saves.SkinId = id;
-        YG2.SaveProgress();
+        public void PurchaseItem(ShopItem item)
+        {
+            if (item is WeaponItem)
+            {
+                YG2.saves.PurchasedWeaponItemIds.Add(item.Id);
+                PurchasedWeaponItemIds.Add(item.Id);
+                YG2.SaveProgress();
+
+                ChangeChosenWeaponItem(item.Id);
+            }
+
+            if (item is SkinItem)
+            {
+                YG2.saves.PurchasedSkinItemsIds.Add(item.Id);
+                PurchasedSkinItemIds.Add(item.Id);
+                YG2.SaveProgress();
+
+                ChangeChosenSkinItem(item.Id);
+            }
+        }
+
+        public void ChangeChosenWeaponItem(int id)
+        {
+            _playerStats.CurrentWeaponId.Value = id;
+
+            YG2.saves.WeaponId = id;
+            YG2.SaveProgress();
+        }
+
+        public void ChangeChosenSkinItem(int id)
+        {
+            _playerStats.CurrentSkinId.Value = id;
+
+            YG2.saves.SkinId = id;
+            YG2.SaveProgress();
+        }
     }
 }

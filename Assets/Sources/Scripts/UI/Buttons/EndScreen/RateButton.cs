@@ -1,9 +1,12 @@
 using YG;
 
-public class RateButton : EndScreenButton
+namespace BlinkBlade.UI
 {
-    public override void HandleClick()
+    public class RateButton : EndScreenButton
     {
-        YG2.ReviewShow();
+        public override void HandleClick()
+        {
+            YG2.ReviewShow();
+        }
     }
 }

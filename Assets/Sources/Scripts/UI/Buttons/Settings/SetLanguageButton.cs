@@ -1,32 +1,36 @@
+using BlinkBlade.Game;
 using UnityEngine;
 using UnityEngine.UI;
 using YG;
 
-public class SetLanguageButton : UIButton
+namespace BlinkBlade.UI
 {
-    [SerializeField] private Image _image;
-
-    private string _language;
-    private LanguagePanel _panel;
-
-    public void Initialize(string language, Sprite sprite, LanguagePanel panel, AudioService audioService)
+    public class SetLanguageButton : UIButton
     {
-        _audioService = audioService;
-        _language = language;
-        _image.sprite = sprite;
-        _panel = panel;
-    }
+        [SerializeField] private Image _image;
 
-    public override void HandleClick()
-    {
-        YG2.SwitchLanguage(_language);
+        private string _language;
+        private LanguagePanel _panel;
 
-        _panel.ChangeLanguage(_language);
-        _panel.ToggleMenu();
-    }
+        public void Initialize(string language, Sprite sprite, LanguagePanel panel, IAudioService audioService)
+        {
+            _audioService = audioService;
+            _language = language;
+            _image.sprite = sprite;
+            _panel = panel;
+        }
 
-    public string GetLanguageKey()
-    {
-        return _language;
+        public override void HandleClick()
+        {
+            YG2.SwitchLanguage(_language);
+
+            _panel.ChangeLanguage(_language);
+            _panel.ToggleMenu();
+        }
+
+        public string GetLanguageKey()
+        {
+            return _language;
+        }
     }
 }

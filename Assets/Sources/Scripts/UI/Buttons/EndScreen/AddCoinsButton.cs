@@ -1,20 +1,24 @@
+using BlinkBlade.Common;
 using UnityEngine;
 
-public class AddCoinsButton : EndScreenButton
+namespace BlinkBlade.UI
 {
-    [SerializeField] private WinGameScreen _winScreen;
-
-    private string _rewardId = "MultiplyCoins";
-    private int _coinsFactor = 2;
-
-    public override void HandleClick()
+    public class AddCoinsButton : EndScreenButton
     {
-        Utils.ShowAdvForReward(_audioService, _rewardId, GetAward);
-    }
+        [SerializeField] private WinGameScreen _winScreen;
 
-    private void GetAward()
-    {
-        _winScreen.AddCoins(_coinsFactor);
-        SetEnabled(false);
+        private string _rewardId = "MultiplyCoins";
+        private int _coinsFactor = 2;
+
+        public override void HandleClick()
+        {
+            CommonFunctions.ShowAdvForReward(_audioService, _rewardId, GetAward);
+        }
+
+        private void GetAward()
+        {
+            _winScreen.AddCoins(_coinsFactor);
+            SetEnabled(false);
+        }
     }
 }

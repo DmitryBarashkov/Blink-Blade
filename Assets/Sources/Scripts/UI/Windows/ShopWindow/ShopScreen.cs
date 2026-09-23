@@ -1,152 +1,180 @@
 using System.Collections.Generic;
+using BlinkBlade.Game;
+using BlinkBlade.Players;
 using UniRx;
 using UnityEngine;
 using Zenject;
 
-public class ShopScreen : UIScreen
+namespace BlinkBlade.UI
 {
-    private readonly List<WeaponItem> _weaponItems = new ();
-    private readonly List<SkinItem> _skinItems = new ();
-
-    [SerializeField] private WeaponItem _weaponItemPrefab;
-    [SerializeField] private SkinItem _skinItemPrefab;
-    [SerializeField] private Transform _weaponsContainer;
-    [SerializeField] private Transform _skinsContainer;
-
-    [Inject] private PlayerStats _playerStats;
-
-    private WeaponDatabase _weaponDatabase;
-    private SkinDatabase _skinDatabase;
-    private ShopService _service;
-    private DiContainer _diContainer;
-
-    private int _chosenWeaponItemId;
-    private int _chosenSkinItemId;
-
-    [Inject]
-    public override void Construct(ShopService service, WeaponDatabase weaponDatabase, SkinDatabase skinDatabase, DiContainer container)
+    public class ShopScreen : UIScreen
     {
-        base.Construct(service, weaponDatabase, skinDatabase, container);
+        private readonly SerialDisposable ChangeCoinsSubscription = new SerialDisposable();
+        private readonly SerialDisposable ChangeSkinSubscription = new SerialDisposable();
+        private readonly SerialDisposable ChangeWeaponSubscription = new SerialDisposable();
 
-        _skinDatabase = skinDatabase;
-        _weaponDatabase = weaponDatabase;
-        _service = service;
-        _diContainer = container;
-    }
+        [SerializeField] private List<WeaponItem> _weaponPrefabs;
+        [SerializeField] private List<SkinItem> _skinPrefabs;
+        [SerializeField] private Transform _weaponsContainer;
+        [SerializeField] private Transform _skinsContainer;
 
-    public override void Setup()
-    {
-        _playerStats.CurrentCoins.Skip(1).Subscribe((newCoins) =>
+        [Inject] private PlayerStats _playerStats;
+
+        private List<WeaponItem> _weapons = new ();
+        private List<SkinItem> _skins = new ();
+
+        private ShopService _service;
+        private DiContainer _diContainer;
+
+        private int _chosenWeaponItemId;
+        private int _chosenSkinItemId;
+
+        [Inject]
+        public override void Construct(ShopService service, DiContainer container)
         {
-            UpdateSkinsItems();
-        })
-        .AddTo(this);
+            base.Construct(service, container);
 
-        UpdateItems();
-        _gameObject.SetActive(true);
-    }
-
-    public void Close() => _gameObject.SetActive(false);
-
-    public void ChangeChosenWeaponItem(int id)
-    {
-        if (_chosenWeaponItemId == id)
-            return;
-
-        _service.ChangeChosenWeaponItem(id);
-        UpdateWeaponList(id);
-
-        _chosenWeaponItemId = id;
-    }
-
-    public void ChangeChosenSkinItem(int id)
-    {
-        if (_chosenSkinItemId == id)
-            return;
-
-        _service.ChangeChosenSkinItem(id);
-        UpdateSkinList(id);
-
-        _chosenSkinItemId = id;
-    }
-
-    private void UpdateItems()
-    {
-        if (_weaponItems.Count == 0)
-            FillWeaponItems();
-
-        if (_skinItems.Count == 0)
-            FillSkinsItems();
-        else
-            UpdateSkinsItems();
-    }
-
-    private void UpdateWeaponList(int newId)
-    {
-        foreach (WeaponItem item in _weaponItems)
-        {
-            if (item.WeaponId == newId)
-                item.SetToggle(true);
-
-            if (item.WeaponId == _chosenWeaponItemId)
-                item.SetToggle(false);
+            _service = service;
+            _diContainer = container;
         }
-    }
 
-    private void UpdateSkinList(int newId)
-    {
-        foreach (SkinItem item in _skinItems)
+        public override void Setup()
         {
-            if (item.SkinId == newId)
-                item.SetToggle(true);
+            ChangeCoinsSubscription.Disposable = _playerStats.CurrentCoins.Skip(1).Subscribe((newCoins) =>
+            {
+                UpdateSkinItems();
+                UpdateWeaponItems();
+            });
 
-            if (item.SkinId == _chosenSkinItemId)
-                item.SetToggle(false);
+            ChangeSkinSubscription.Disposable = _playerStats.CurrentSkinId.Skip(1).Subscribe((newId) =>
+            {
+                ChangeChosenSkinItem(newId);
+                UpdateSkinItems();
+            });
+
+            ChangeWeaponSubscription.Disposable = _playerStats.CurrentWeaponId.Skip(1).Subscribe((newId) =>
+            {
+                ChangeChosenWeaponItem(newId);
+                UpdateWeaponItems();
+            });
+
+            FillItems();
+
+            _gameObject.SetActive(true);
         }
-    }
 
-    private void FillWeaponItems()
-    {
-        foreach (var item in _weaponDatabase.Weapons)
+        public void Close() => _gameObject.SetActive(false);
+
+        private void ChangeChosenWeaponItem(int id)
         {
-            WeaponItem weaponItem = _diContainer.InstantiatePrefabForComponent<WeaponItem>(_weaponItemPrefab, _weaponsContainer);
-            int id = item.Id;
-            bool isChosen = _service.IsWeaponChosen(id);
+            if (_chosenWeaponItemId == id)
+                return;
 
-            if (isChosen)
-                _chosenWeaponItemId = id;
+            _service.ChangeChosenWeaponItem(id);
+            UpdateWeaponList(id);
 
-            weaponItem.Initialize(this, item, _service.IsWeapontemPurchased(id), isChosen);
-            _weaponItems.Add(weaponItem);
+            _chosenWeaponItemId = id;
         }
-    }
 
-    private void FillSkinsItems()
-    {
-        foreach (var item in _skinDatabase.Skins)
+        private void ChangeChosenSkinItem(int id)
         {
-            SkinItem skinItem = _diContainer.InstantiatePrefabForComponent<SkinItem>(_skinItemPrefab, _skinsContainer);
-            int id = item.Id;
-            bool isChosen = _service.IsSkinChosen(id);
+            if (_chosenSkinItemId == id)
+                return;
 
-            if (isChosen)
-                _chosenSkinItemId = id;
+            _service.ChangeChosenSkinItem(id);
+            UpdateSkinList(id);
 
-            skinItem.Initialize(this, item, _service.IsSkinItemPurchased(id), isChosen);
-            _skinItems.Add(skinItem);
+            _chosenSkinItemId = id;
         }
-    }
 
-    private void UpdateSkinsItems()
-    {
-        foreach (var item in _skinDatabase.Skins)
+        private void FillItems()
         {
-            int id = item.Id;
-            bool isChosen = _service.IsSkinChosen(id);
-            bool isPurchased = _service.IsSkinItemPurchased(id);
+            if (_weapons.Count == 0)
+                FillWeaponItems();
+            else
+                UpdateWeaponItems();
 
-            if (isPurchased == false)
-                _skinItems[id].Initialize(this, item, isPurchased, isChosen);
+            if (_skins.Count == 0)
+                FillSkinItems();
+            else
+                UpdateSkinItems();
+        }
+
+        private void UpdateWeaponList(int newId)
+        {
+            foreach (ShopItem item in _weapons)
+            {
+                if (item.Id == newId)
+                    item.SetToggle(true);
+
+                if (item.Id == _chosenWeaponItemId)
+                    item.SetToggle(false);
+            }
+        }
+
+        private void UpdateSkinList(int newId)
+        {
+            foreach (SkinItem item in _skins)
+            {
+                if (item.Id == newId)
+                    item.SetToggle(true);
+
+                if (item.Id == _chosenSkinItemId)
+                    item.SetToggle(false);
+            }
+        }
+
+        private void FillWeaponItems()
+        {
+            foreach (WeaponItem item in _weaponPrefabs)
+            {
+                WeaponItem weaponItem = _diContainer.InstantiatePrefabForComponent<WeaponItem>(item, _weaponsContainer);
+                int id = weaponItem.Id;
+                bool isChosen = weaponItem.IsChosen;
+
+                if (isChosen)
+                    _chosenWeaponItemId = id;
+
+                _weapons.Add(weaponItem);
+            }
+        }
+
+        private void FillSkinItems()
+        {
+            foreach (SkinItem item in _skinPrefabs)
+            {
+                SkinItem skinItem = _diContainer.InstantiatePrefabForComponent<SkinItem>(item, _skinsContainer);
+                int id = skinItem.Id;
+                bool isChosen = skinItem.IsChosen;
+
+                if (isChosen)
+                    _chosenSkinItemId = id;
+
+                _skins.Add(skinItem);
+            }
+        }
+
+        private void UpdateSkinItems()
+        {
+            foreach (SkinItem item in _skins)
+            {
+                item.UpdateItem();
+            }
+        }
+
+        private void UpdateWeaponItems()
+        {
+            foreach (WeaponItem item in _weapons)
+            {
+                item.UpdateItem();
+            }
+        }
+
+        private void OnDestroy()
+        {
+            ChangeCoinsSubscription.Dispose();
+            ChangeSkinSubscription.Dispose();
+            ChangeWeaponSubscription.Dispose();
         }
     }
 }

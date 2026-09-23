@@ -1,30 +1,34 @@
+using BlinkBlade.Game;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-[RequireComponent(typeof(Button))]
-public abstract class UIButton : MonoBehaviour
+namespace BlinkBlade.UI
 {
-    [Inject] protected IAudioService _audioService;
-
-    protected Button _button;
-    protected RectTransform _rectTransform;
-
-    private void Awake()
+    [RequireComponent(typeof(Button))]
+    public abstract class UIButton : MonoBehaviour
     {
-        _button = GetComponent<Button>();
-        _rectTransform = GetComponent<RectTransform>();
-    }
+        [Inject] protected IAudioService _audioService;
 
-    protected virtual void OnEnable()
-    {
-        _button.onClick.AddListener(HandleClick);
-    }
+        protected Button _button;
+        protected RectTransform _rectTransform;
 
-    protected virtual void OnDisable()
-    {
-        _button.onClick.RemoveListener(HandleClick);
-    }
+        private void Awake()
+        {
+            _button = GetComponent<Button>();
+            _rectTransform = GetComponent<RectTransform>();
+        }
 
-    public abstract void HandleClick();
+        protected virtual void OnEnable()
+        {
+            _button.onClick.AddListener(HandleClick);
+        }
+
+        protected virtual void OnDisable()
+        {
+            _button.onClick.RemoveListener(HandleClick);
+        }
+
+        public abstract void HandleClick();
+    }
 }

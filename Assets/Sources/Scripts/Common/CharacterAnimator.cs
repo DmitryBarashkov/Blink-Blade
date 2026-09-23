@@ -1,26 +1,29 @@
 using UnityEngine;
 
-public abstract class CharacterAnimator
+namespace BlinkBlade.Common
 {
-    private Animator _animator;
-
-    public CharacterAnimator(Animator animator)
+    public abstract class CharacterAnimator
     {
-        _animator = animator;
-    }
+        private Animator _animator;
 
-    public Animator AnimatorComponent => _animator;
-
-    public void SetDied(bool value)
-    {
-        AnimatorComponent.SetBool(CharacterAnimatorData.Params.IsDied, value);
-    }
-
-    public class CharacterAnimatorData
-    {
-        public class Params
+        public CharacterAnimator(Animator animator)
         {
-            public static readonly int IsDied = Animator.StringToHash(nameof(IsDied));
+            _animator = animator;
+        }
+
+        public Animator AnimatorComponent => _animator;
+
+        public void SetDied(bool value)
+        {
+            AnimatorComponent.SetBool(CharacterAnimatorData.Params.IsDied, value);
+        }
+
+        public class CharacterAnimatorData
+        {
+            public class Params
+            {
+                public static readonly int IsDied = Animator.StringToHash(nameof(IsDied));
+            }
         }
     }
 }

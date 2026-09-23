@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -715658569188761963}
   - component: {fileID: 8326079178017485970}
   - component: {fileID: 3570619403239826084}
+  - component: {fileID: 436420095359071130}
   m_Layer: 12
   m_Name: Two_Sided_Axe
   m_TagString: Untagged
@@ -126,11 +127,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e4b9bf0047bd247890b71b60de1fc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stickOffsetAngle: 50
   _throwEffect: {fileID: 2481048976850756070}
   _trailEffect: {fileID: 0}
+  _stickOffsetAngle: 50
   _trailDuration: 0.1
   _spinSpeed: 500
+  _throwForce: 15
+  _movementThreshold: 20
+  _bounceRotationForce: 1200
 --- !u!65 &3570619403239826084
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -152,6 +156,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.3351476, y: 0.58536106, z: 0.06419124}
   m_Center: {x: 0.00000004156275, y: 0.14910242, z: -0.000000017615845}
+--- !u!114 &436420095359071130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2632763220744858231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f10ca1d5c8207e4e968b0a00add3c6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _id: 5
+  _cost: 150
+  _preview: {fileID: 21300000, guid: dc15af5fd2e61cb4b906bd21ba427aa7, type: 3}
 --- !u!1001 &3589765452983347126
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -138,7 +138,7 @@ MonoBehaviour:
       hi: 
   InterstitialAdv:
     showFirstAdv: 1
-    interAdvInterval: 30
+    interAdvInterval: 120
     postponeCallByFail: 0
     postponeCallTimer: 10
     labelAdvSimLabel: 0

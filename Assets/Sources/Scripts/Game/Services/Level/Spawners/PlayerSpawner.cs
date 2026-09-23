@@ -1,63 +1,76 @@
+using System.Collections.Generic;
+using BlinkBlade.Players;
 using UniRx;
 using UnityEngine;
 using Zenject;
 
-using static SkinDatabase;
 using static UnityEngine.Object;
 
-public class PlayerSpawner
+namespace BlinkBlade.Game
 {
-    [Inject] private Player.Factory _playerFactory;
-    [Inject] private PlayerStats _stats;
-    [Inject] private SkinDatabase _database;
-
-    private Player _player;
-    private PlayerSpawnPoint _spawnPoint;
-
-    public void Initialize(PlayerSpawnPoint spawnPoint)
+    public class PlayerSpawner
     {
-        if (spawnPoint != null)
-        {
-            _spawnPoint = spawnPoint;
+        private readonly CompositeDisposable Disposables = new CompositeDisposable();
 
-            if (_player != null)
-                InitializePlayer();
-            else
-                SubscribeOnChangePlayerSkin();
-        }
-        else
-        {
-            Debug.LogError("--- [PLAYER SPAWNER] There is no PlayerSpawnPoint on scene!");
-        }
-    }
+        [Inject] private Player.Factory _playerFactory;
+        [Inject] private PlayerStats _stats;
+        [Inject(Id = "Skins")] private List<PlayerEquipment> _skins;
 
-    public void ActivatePlayer()
-    {
-        _player.Activate();
-    }
+        private Player _player;
+        private PlayerSpawnPoint _spawnPoint;
 
-    private void SubscribeOnChangePlayerSkin()
-    {
-        _stats.CurrentSkinId.Subscribe((skinId) =>
+        public void Initialize(PlayerSpawnPoint spawnPoint)
         {
-            if (_database.TryGetSkin(skinId, out PlayerSkin result))
+            if (spawnPoint != null)
             {
-                ChangePlayerSkin(result);
+                _spawnPoint = spawnPoint;
+
+                if (_player != null)
+                    InitializePlayer();
+                else
+                    SubscribeOnChangePlayerSkin();
             }
-        });
-    }
+            else
+            {
+                Debug.LogError("--- [PLAYER SPAWNER] There is no PlayerSpawnPoint on scene!");
+            }
+        }
 
-    private void ChangePlayerSkin(PlayerSkin skin)
-    {
-        if (_player != null)
-            Destroy(_player.gameObject);
+        public void ActivatePlayer()
+        {
+            _player.Activate();
+        }
 
-        _player = _playerFactory.Create(skin.Prefab);
-        InitializePlayer();
-    }
+        private void SubscribeOnChangePlayerSkin()
+        {
+            _stats.CurrentSkinId.Subscribe((skinId) =>
+            {
+                Player skin = _skins[skinId].GetComponent<Player>();
 
-    private void InitializePlayer()
-    {
-        _player.Initialize(_spawnPoint.transform.position, _spawnPoint.transform.rotation);
+                if (skin != null)
+                {
+                    ChangePlayerSkin(skin);
+                }
+            }).AddTo(Disposables);
+        }
+
+        private void ChangePlayerSkin(Player skin)
+        {
+            if (_player != null)
+                Destroy(_player.gameObject);
+
+            _player = _playerFactory.Create(skin);
+            InitializePlayer();
+        }
+
+        private void InitializePlayer()
+        {
+            _player.Initialize(_spawnPoint.transform.position, _spawnPoint.transform.rotation);
+        }
+
+        private void OnDestroy()
+        {
+            Disposables.Clear();
+        }
     }
 }

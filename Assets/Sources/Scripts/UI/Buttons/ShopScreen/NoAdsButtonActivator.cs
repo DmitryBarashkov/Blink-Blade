@@ -1,12 +1,15 @@
 using UnityEngine;
 using YG;
 
-public class NoAdsButtonActivator : MonoBehaviour
+namespace BlinkBlade.UI
 {
-    [SerializeField] private RectTransform _buttonContainer;
-
-    private void OnEnable()
+    public class NoAdsButtonActivator : MonoBehaviour
     {
-        _buttonContainer.gameObject.SetActive(YG2.saves.IsAdsDisabled == false);
+        [SerializeField] private RectTransform _buttonContainer;
+
+        private void OnEnable()
+        {
+            _buttonContainer.gameObject.SetActive(YG2.saves.IsAdsDisabled == false);
+        }
     }
 }

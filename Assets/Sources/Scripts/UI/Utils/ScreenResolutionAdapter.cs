@@ -1,39 +1,43 @@
+using BlinkBlade.Camera;
 using UnityEngine;
 using Zenject;
 
-public class ScreenResolutionAdapter : ITickable
+namespace BlinkBlade.UI
 {
-    private CanvasScaleAdapter _canvasAdapter;
-    private CameraResizer _cameraResizer;
-
-    private int _lastWidth;
-    private int _lastHeight;
-    private ScreenOrientation _lastOrientation;
-
-    [Inject]
-    public void Construct(CanvasScaleAdapter canvasScaleAdapter, CameraResizer cameraResizer)
+    public class ScreenResolutionAdapter : ITickable
     {
-        _cameraResizer = cameraResizer;
-        _canvasAdapter = canvasScaleAdapter;
+        private CanvasScaleAdapter _canvasAdapter;
+        private CameraResizer _cameraResizer;
 
-        ResetTrackedValues();
-    }
+        private int _lastWidth;
+        private int _lastHeight;
+        private ScreenOrientation _lastOrientation;
 
-    public void Tick()
-    {
-        if (Screen.width != _lastWidth || Screen.height != _lastHeight || Screen.orientation != _lastOrientation)
+        [Inject]
+        public void Construct(CanvasScaleAdapter canvasScaleAdapter, CameraResizer cameraResizer)
         {
+            _cameraResizer = cameraResizer;
+            _canvasAdapter = canvasScaleAdapter;
+
             ResetTrackedValues();
-
-            _cameraResizer.AdjustCameraSize();
-            _canvasAdapter.ApplyScaleMode();
         }
-    }
 
-    private void ResetTrackedValues()
-    {
-        _lastWidth = Screen.width;
-        _lastHeight = Screen.height;
-        _lastOrientation = Screen.orientation;
+        public void Tick()
+        {
+            if (Screen.width != _lastWidth || Screen.height != _lastHeight || Screen.orientation != _lastOrientation)
+            {
+                ResetTrackedValues();
+
+                _cameraResizer.AdjustCameraSize();
+                _canvasAdapter.ApplyScaleMode();
+            }
+        }
+
+        private void ResetTrackedValues()
+        {
+            _lastWidth = Screen.width;
+            _lastHeight = Screen.height;
+            _lastOrientation = Screen.orientation;
+        }
     }
 }

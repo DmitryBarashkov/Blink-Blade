@@ -1,115 +1,111 @@
 using System;
 using System.Collections.Generic;
+using BlinkBlade.UI;
 using UniRx;
 using UnityEngine;
 using YG;
 using Zenject;
 
-public class UIService : IInitializable, IDisposable
+namespace BlinkBlade.Game
 {
-    private readonly LevelState _levelState;
-    private readonly LevelLoadService _loadService;
-    private readonly DiContainer _container;
-
-    private readonly Dictionary<Component, GameObject> _cachedWindows = new ();
-    private readonly CompositeDisposable _disposables = new CompositeDisposable();
-
-    private readonly UIScreen _winScreenPrefab;
-    private readonly UIScreen _loseScreenPrefab;
-    private readonly UIScreen _shopScreenPrefab;
-    private readonly UIScreen _finishScreenPrefab;
-
-    private Transform _endGameContainer;
-    private Transform _shopContainer;
-
-    private float _showDelay = 0.5f;
-
-    public UIService(
-        LevelState levelState,
-        DiContainer container,
-        LevelLoadService loadService,
-        UIScreen winScreenPrefab,
-        UIScreen loseScreenPrefab,
-        UIScreen finishScreenPrefab,
-        [Inject(Optional = true)] UIScreen shopScreenPrefab,
-        Transform endGameContainer,
-        Transform shopContainer)
+    public class UIService : IInitializable, IDisposable
     {
-        _levelState = levelState;
-        _loadService = loadService;
-        _container = container;
-        _winScreenPrefab = winScreenPrefab;
-        _loseScreenPrefab = loseScreenPrefab;
-        _finishScreenPrefab = finishScreenPrefab;
-        _shopScreenPrefab = shopScreenPrefab;
-        _endGameContainer = endGameContainer;
-        _shopContainer = shopContainer;
-    }
+        private readonly LevelState LevelState;
+        private readonly LevelLoadService LoadService;
+        private readonly DiContainer Container;
 
-    public void Initialize()
-    {
-        _levelState.IsWin
-            .Delay(TimeSpan.FromSeconds(_showDelay), Scheduler.MainThreadIgnoreTimeScale)
-            .ObserveOnMainThread()
-            .Subscribe(isWin =>
-            {
-                if (isWin.HasValue)
-                    OnLevelFinished(isWin ?? false);
-            }).AddTo(_disposables);
-    }
+        private readonly Dictionary<Component, GameObject> CachedWindows = new ();
+        private readonly CompositeDisposable Disposables = new CompositeDisposable();
 
-    public void ShowShop()
-    {
-        GameObject shop = GetOrCreateWindow(_shopScreenPrefab, _shopContainer);
-        ShopScreen screen = shop.GetComponent<ShopScreen>();
+        private UIScreen _winScreenPrefab;
+        private UIScreen _loseScreenPrefab;
+        private UIScreen _shopScreenPrefab;
+        private UIScreen _finishScreenPrefab;
 
-        screen.Setup();
-    }
+        private Transform _endGameContainer;
+        private Transform _shopContainer;
 
-    public void Dispose() => _disposables.Dispose();
+        private float _showDelay = 0.5f;
 
-    private void OnLevelFinished(bool isWin)
-    {
-        UIScreen targetPrefab = GetEndGameScreen(isWin);
-        GameObject window = GetOrCreateWindow(targetPrefab, _endGameContainer);
-        UIScreen endGameScreen = window.GetComponent<EndGameScreen>();
-
-        endGameScreen.Setup();
-    }
-
-    private GameObject GetOrCreateWindow(UIScreen prefab, Transform container)
-    {
-        if (_cachedWindows.TryGetValue(prefab, out GameObject activeWindow))
-            return activeWindow;
-
-        GameObject spawnedInstance = _container.InstantiatePrefab(prefab, container);
-
-        _cachedWindows[prefab] = spawnedInstance;
-
-        return spawnedInstance;
-    }
-
-    private UIScreen GetEndGameScreen(bool isWin)
-    {
-        UIScreen targetPrefab = isWin ? _winScreenPrefab : _loseScreenPrefab;
-
-        if (isWin == false)
+        public UIService(
+            LevelState levelState,
+            DiContainer container,
+            LevelLoadService loadService,
+            UIScreen winScreenPrefab,
+            UIScreen loseScreenPrefab,
+            UIScreen finishScreenPrefab,
+            [Inject(Optional = true)] UIScreen shopScreenPrefab,
+            Transform endGameContainer,
+            Transform shopContainer)
         {
-            return _loseScreenPrefab;
+            LevelState = levelState;
+            LoadService = loadService;
+            Container = container;
+            _winScreenPrefab = winScreenPrefab;
+            _loseScreenPrefab = loseScreenPrefab;
+            _finishScreenPrefab = finishScreenPrefab;
+            _shopScreenPrefab = shopScreenPrefab;
+            _endGameContainer = endGameContainer;
+            _shopContainer = shopContainer;
         }
-        else
+
+        public void Initialize()
         {
-            if (YG2.saves.Level == _loadService.LastLevelNumber && YG2.saves.IsFinishedGame == false && YG2.reviewCanShow)
+            LevelState.IsWin
+                .Delay(TimeSpan.FromSeconds(_showDelay), Scheduler.MainThreadIgnoreTimeScale)
+                .ObserveOnMainThread()
+                .Subscribe(isWin =>
+                {
+                    if (isWin.HasValue)
+                        OnLevelFinished(isWin ?? false);
+                }).AddTo(Disposables);
+        }
+
+        public void ShowShop()
+        {
+            GameObject shop = GetOrCreateWindow(_shopScreenPrefab, _shopContainer);
+            ShopScreen screen = shop.GetComponent<ShopScreen>();
+
+            screen.Setup();
+        }
+
+        public void Dispose() => Disposables.Dispose();
+
+        private void OnLevelFinished(bool isWin)
+        {
+            UIScreen targetPrefab = GetEndGameScreen(isWin);
+            GameObject window = GetOrCreateWindow(targetPrefab, _endGameContainer);
+            UIScreen endGameScreen = window.GetComponent<EndGameScreen>();
+
+            endGameScreen.Setup();
+        }
+
+        private GameObject GetOrCreateWindow(UIScreen prefab, Transform container)
+        {
+            if (CachedWindows.TryGetValue(prefab, out GameObject activeWindow))
+                return activeWindow;
+
+            GameObject spawnedInstance = Container.InstantiatePrefab(prefab, container);
+
+            CachedWindows[prefab] = spawnedInstance;
+
+            return spawnedInstance;
+        }
+
+        private UIScreen GetEndGameScreen(bool isWin)
+        {
+            if (isWin == false)
+                return _loseScreenPrefab;
+
+            if (YG2.saves.Level == LoadService.LastLevelNumber && YG2.saves.IsFinishedGame == false)
             {
                 YG2.saves.IsFinishedGame = true;
                 YG2.SaveProgress();
 
                 return _finishScreenPrefab;
             }
-            else
-            {
-                return _winScreenPrefab;
-            }
+
+            return _winScreenPrefab;
         }
     }
 }

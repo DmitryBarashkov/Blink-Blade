@@ -7,7 +7,7 @@ namespace YG
         // Player
         public int Level = 0;
         public int Energy = 5;
-        public int Coins = 0;
+        public int Coins = 250;
         public int Rating = 0;
 
         public bool IsFinishedGame = false;

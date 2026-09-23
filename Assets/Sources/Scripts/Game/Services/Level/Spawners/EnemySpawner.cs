@@ -1,100 +1,106 @@
 using System.Collections.Generic;
+
+using BlinkBlade.Common;
+using BlinkBlade.Enemies;
+
 using UnityEngine;
 using Zenject;
 
 using static UnityEngine.Object;
 
-public class EnemySpawner
+namespace BlinkBlade.Game
 {
-    private readonly EnemyFactory _enemyFactory;
-    private readonly List<Enemy> _enemies = new List<Enemy>();
-    private Transform _enemyContainer;
-
-    [Inject]
-    public EnemySpawner(EnemyFactory enemyFactory, Transform enemyContainer)
+    public class EnemySpawner
     {
-        _enemyFactory = enemyFactory;
-        _enemyContainer = enemyContainer;
-    }
+        private readonly EnemyFactory EnemyFactory;
+        private readonly List<Enemy> Enemies = new List<Enemy>();
+        private Transform _enemyContainer;
 
-    public void Initialize(ILevelData levelData)
-    {
-        if (levelData != null)
+        [Inject]
+        public EnemySpawner(EnemyFactory enemyFactory, Transform enemyContainer)
         {
-            IReadOnlyList<EnemySpawnPoint> spawnPoints = levelData.GetEnemySpawnPoints();
-
-            if (_enemies.Count > 0)
-            {
-                foreach (Enemy enemy in _enemies)
-                {
-                    Destroy(enemy.gameObject);
-                }
-
-                _enemies.Clear();
-            }
-
-            if (levelData.IsBossLevel())
-            {
-                EnemySpawnPoint spawnPoint = Utils.GetRandomElement(spawnPoints);
-                Enemy enemy = _enemyFactory.Create(spawnPoint, _enemyContainer, levelData);
-
-                _enemies.Add(enemy);
-            }
-            else
-            {
-                foreach (var spawnPoint in spawnPoints)
-                {
-                    if (string.IsNullOrEmpty(spawnPoint.SelectedEnemyName))
-                    {
-                        Debug.LogWarning($"На точке спавна {spawnPoint.name} не задан префаб врага!");
-                        continue;
-                    }
-
-                    Enemy enemy = _enemyFactory.Create(spawnPoint, _enemyContainer, levelData);
-
-                    _enemies.Add(enemy);
-                }
-            }
+            EnemyFactory = enemyFactory;
+            _enemyContainer = enemyContainer;
         }
-    }
 
-    public void ActivateEnemies(bool isContinue)
-    {
-        foreach (Enemy enemy in _enemies)
+        public void Initialize(ILevelData levelData)
         {
-            if (enemy != null)
+            if (levelData != null)
             {
-                if (isContinue)
+                IReadOnlyList<EnemySpawnPoint> spawnPoints = levelData.GetEnemySpawnPoints();
+
+                if (Enemies.Count > 0)
                 {
-                    if (enemy.IsDead == false)
+                    foreach (Enemy enemy in Enemies)
                     {
-                        enemy.ContinueWork();
+                        Destroy(enemy.gameObject);
                     }
+
+                    Enemies.Clear();
+                }
+
+                if (levelData.IsBossLevel())
+                {
+                    Enemy enemy = EnemyFactory.Create(spawnPoints[0], _enemyContainer, levelData);
+
+                    Enemies.Add(enemy);
                 }
                 else
                 {
-                    enemy.Activate();
+                    foreach (var spawnPoint in spawnPoints)
+                    {
+                        if (spawnPoint.Enemy == null)
+                        {
+                            Debug.LogWarning($"На точке спавна {spawnPoint.name} не задан префаб врага!");
+                            continue;
+                        }
+
+                        Enemy enemy = EnemyFactory.Create(spawnPoint, _enemyContainer, levelData);
+
+                        Enemies.Add(enemy);
+                    }
                 }
             }
         }
-    }
 
-    public void DeactivateEnemies()
-    {
-        foreach (Enemy enemy in _enemies)
+        public void ActivateEnemies(bool isContinue)
         {
-            if (enemy != null)
-                enemy.Deactivate();
-        }
-    }
-
-    public void Reset()
-    {
-        foreach (Enemy enemy in _enemies)
-        {
-            if (enemy != null)
+            foreach (Enemy enemy in Enemies)
             {
-                enemy.Activate();
+                if (enemy != null)
+                {
+                    if (isContinue)
+                    {
+                        if (enemy.IsDead == false)
+                        {
+                            enemy.ContinueWork();
+                        }
+                    }
+                    else
+                    {
+                        enemy.Activate();
+                    }
+                }
+            }
+        }
+
+        public void DeactivateEnemies()
+        {
+            foreach (Enemy enemy in Enemies)
+            {
+                if (enemy != null)
+                    enemy.Deactivate();
+            }
+        }
+
+        public void Reset()
+        {
+            foreach (Enemy enemy in Enemies)
+            {
+                if (enemy != null)
+                {
+                    enemy.Activate();
+                }
             }
         }
     }

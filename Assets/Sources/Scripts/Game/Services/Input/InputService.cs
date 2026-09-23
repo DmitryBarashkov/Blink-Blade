@@ -3,65 +3,68 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class InputService
+namespace BlinkBlade.Game
 {
-    private const string Attack = "Fire1";
-    private const string MenuOpen = "Cancel";
-    private const string ChooseLevelMenu = "ChooseLevel";
-
-    private CancellationTokenSource cts;
-    private bool _isActive = false;
-    private float _activateDelay = 0.1f;
-
-    public event Action AttackBtnPressed;
-
-    public event Action AttackBtnUp;
-
-    public event Action MenuOpenBtnPressed;
-
-    public event Action ChooseLevelBtnPressed;
-
-    public void GetInput()
+    public class InputService
     {
-        if (Input.GetButton(MenuOpen))
-            MenuOpenBtnPressed?.Invoke();
+        private const string Attack = "Fire1";
+        private const string MenuOpen = "Cancel";
+        private const string ChooseLevelMenu = "ChooseLevel";
 
-        if (Input.GetButton(ChooseLevelMenu))
-            ChooseLevelBtnPressed?.Invoke();
+        private CancellationTokenSource _token;
+        private bool _isActive = false;
+        private float _activateDelay = 0.1f;
 
-        if (_isActive == true)
+        public event Action AttackBtnPressed;
+
+        public event Action AttackBtnUp;
+
+        public event Action MenuOpenBtnPressed;
+
+        public event Action ChooseLevelBtnPressed;
+
+        public void GetInput()
         {
-            if (Input.GetButton(Attack))
-                AttackBtnPressed?.Invoke();
-            if (Input.GetButtonUp(Attack))
-                AttackBtnUp?.Invoke();
+            if (Input.GetButton(MenuOpen))
+                MenuOpenBtnPressed?.Invoke();
+
+            if (Input.GetButton(ChooseLevelMenu))
+                ChooseLevelBtnPressed?.Invoke();
+
+            if (_isActive == true)
+            {
+                if (Input.GetButton(Attack))
+                    AttackBtnPressed?.Invoke();
+                if (Input.GetButtonUp(Attack))
+                    AttackBtnUp?.Invoke();
+            }
         }
-    }
 
-    public async void Activate()
-    {
-        cts?.Cancel();
-        cts?.Dispose();
-        cts = new CancellationTokenSource();
-
-        try
+        public async void Activate()
         {
-            await UniTask.Delay(
-                TimeSpan.FromSeconds(_activateDelay),
-                delayType: DelayType.DeltaTime,
-                cancellationToken: cts.Token);
+            _token?.Cancel();
+            _token?.Dispose();
+            _token = new CancellationTokenSource();
 
-            _isActive = true;
-            Debug.Log("Ввод деактивирован через UniTask.");
+            try
+            {
+                await UniTask.Delay(
+                    TimeSpan.FromSeconds(_activateDelay),
+                    delayType: DelayType.DeltaTime,
+                    cancellationToken: _token.Token);
+
+                _isActive = true;
+                Debug.Log("Ввод деактивирован через UniTask.");
+            }
+            catch (OperationCanceledException)
+            {
+                Debug.Log("Деактивация ввода была отменена.");
+            }
         }
-        catch (OperationCanceledException)
+
+        public void Deactivate()
         {
-            Debug.Log("Деактивация ввода была отменена.");
+            _isActive = false;
         }
-    }
-
-    public void Deactivate()
-    {
-        _isActive = false;
     }
 }

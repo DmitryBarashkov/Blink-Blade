@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using YG.Insides;
 using YG.Utils.LB;
+using BlinkBlade.UI;
+
 
 #if Localization_yg
 using YG.Utils.Lang;

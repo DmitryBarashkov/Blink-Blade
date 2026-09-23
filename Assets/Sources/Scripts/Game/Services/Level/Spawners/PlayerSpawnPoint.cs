@@ -1,5 +1,8 @@
 using UnityEngine;
 
-public class PlayerSpawnPoint : MonoBehaviour
+namespace BlinkBlade.Game
 {
+    public class PlayerSpawnPoint : MonoBehaviour
+    {
+    }
 }

@@ -1,30 +1,18 @@
 {
-  "intExample": 5,
-  "strExample": "Hello!",
-  "boolExample": [
-    false,
-    false,
-    false,
-    false
-  ],
-  "idSave": 3,
-  "Level": 25,
+  "idSave": 2,
+  "Level": 2,
   "Energy": 5,
-  "Coins": 0,
-  "Rating": 0,
+  "Coins": 275,
+  "Rating": 25,
   "IsFinishedGame": false,
   "WeaponId": 0,
   "SkinId": 0,
   "IsAdsDisabled": false,
   "IsSoundOn": true,
   "PurchasedWeaponItemIds": [
-    0,
-    0,
     0
   ],
   "PurchasedSkinItemsIds": [
-    0,
-    0,
     0
   ]
 }

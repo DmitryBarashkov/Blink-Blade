@@ -1,23 +1,27 @@
 using System.Collections.Generic;
+using BlinkBlade.Props;
 using UnityEngine;
 
-public interface ILevelData
+namespace BlinkBlade.Game
 {
-    IReadOnlyList<EnemySpawnPoint> GetEnemySpawnPoints();
+    public interface ILevelData
+    {
+        IReadOnlyList<EnemySpawnPoint> GetEnemySpawnPoints();
 
-    EnemySpawnPoint GetCurrentEnemySpawnPoint(Transform spawnPointTransform);
+        EnemySpawnPoint GetCurrentEnemySpawnPoint(Transform spawnPointTransform);
 
-    PlayerSpawnPoint GetPlayerSpawnPoint();
+        PlayerSpawnPoint GetPlayerSpawnPoint();
 
-    CameraBounds GetCameraBounds();
+        PolygonCollider2D GetCameraBounds();
 
-    IReadOnlyList<ArrowTrap> GetArrowTraps();
+        IReadOnlyList<ArrowTrap> GetArrowTraps();
 
-    bool IsBossLevel();
+        bool IsBossLevel();
 
-    int GetBossHealth();
+        int GetBossHealth();
 
-    ParticleSystem GetMovingEffect();
+        ParticleSystem GetMovingEffect();
 
-    SoundType GetAmbientSoundType();
+        SoundType GetAmbientSoundType();
+    }
 }

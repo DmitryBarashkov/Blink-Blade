@@ -1,32 +1,36 @@
+using BlinkBlade.Game;
 using Cinemachine;
 using UnityEngine;
 using Zenject;
 
-public class CameraBoundsInstaller
+namespace BlinkBlade.Camera
 {
-    private readonly CinemachineVirtualCamera _camera;
-
-    [Inject]
-    public CameraBoundsInstaller(CinemachineVirtualCamera camera)
+    public class CameraBoundsInstaller
     {
-        _camera = camera;
-    }
+        private readonly CinemachineVirtualCamera Camera;
 
-    public void SetAim(Transform aim)
-    {
-        _camera.LookAt = aim;
-        _camera.Follow = aim;
-    }
-
-    public void Initialize(ILevelData levelData)
-    {
-        CameraBounds bounds = levelData.GetCameraBounds();
-        CinemachineConfiner2D confiner = _camera.GetComponent<CinemachineConfiner2D>();
-
-        if (confiner != null && bounds != null)
+        [Inject]
+        public CameraBoundsInstaller(CinemachineVirtualCamera camera)
         {
-            confiner.m_BoundingShape2D = bounds.GetComponent<Collider2D>();
-            confiner.InvalidateCache();
+            Camera = camera;
+        }
+
+        public void SetAim(Transform aim)
+        {
+            Camera.LookAt = aim;
+            Camera.Follow = aim;
+        }
+
+        public void Initialize(ILevelData levelData)
+        {
+            PolygonCollider2D bounds = levelData.GetCameraBounds();
+            CinemachineConfiner2D confiner = Camera.GetComponent<CinemachineConfiner2D>();
+
+            if (confiner != null && bounds != null)
+            {
+                confiner.m_BoundingShape2D = bounds.GetComponent<Collider2D>();
+                confiner.InvalidateCache();
+            }
         }
     }
 }

@@ -166,19 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Boss Teleportation
---- !u!114 &409406854 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6509849812846524107, guid: dd9cac0c99bcb1a46916f1bc935ec965, type: 3}
-  m_PrefabInstance: {fileID: 797489269}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aed86813f13a894fa3cdb7419d62ce0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _enemy: {fileID: 1623090471552090886, guid: 704e480bf85686445b8ba720d708003a, type: 3}
 --- !u!1001 &464265420
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -352,8 +340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Boss Teleportation
+  _enemy: {fileID: 1623090471552090886, guid: 704e480bf85686445b8ba720d708003a, type: 3}
 --- !u!1001 &640615370
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -601,6 +588,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd9cac0c99bcb1a46916f1bc935ec965, type: 3}
+--- !u!60 &797489270 stripped
+PolygonCollider2D:
+  m_CorrespondingSourceObject: {fileID: 1533745459770342555, guid: dd9cac0c99bcb1a46916f1bc935ec965, type: 3}
+  m_PrefabInstance: {fileID: 797489269}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &883621953
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,8 +669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Boss Teleportation
+  _enemy: {fileID: 1623090471552090886, guid: 704e480bf85686445b8ba720d708003a, type: 3}
 --- !u!1 &1013302324
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,7 +843,7 @@ MonoBehaviour:
   _arrowTraps:
   - {fileID: 1723880829}
   - {fileID: 1142710644}
-  _bounds: {fileID: 409406854}
+  _bounds: {fileID: 797489270}
   _ambientSoundType: 3
   _movingEffect: {fileID: 494746467}
   _isBossLevel: 1
@@ -1082,8 +1073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Boss Teleportation
+  _enemy: {fileID: 1623090471552090886, guid: 704e480bf85686445b8ba720d708003a, type: 3}
 --- !u!1001 &1447564712
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1190,8 +1180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Boss Teleportation
+  _enemy: {fileID: 1623090471552090886, guid: 704e480bf85686445b8ba720d708003a, type: 3}
 --- !u!1001 &1482216103
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1451,8 +1440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Boss Teleportation
+  _enemy: {fileID: 1623090471552090886, guid: 704e480bf85686445b8ba720d708003a, type: 3}
 --- !u!1001 &1723880827
 PrefabInstance:
   m_ObjectHideFlags: 0

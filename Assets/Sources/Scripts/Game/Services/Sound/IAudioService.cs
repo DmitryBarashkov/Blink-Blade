@@ -1,22 +1,25 @@
-public interface IAudioService
+namespace BlinkBlade.Game
 {
-    void Activate();
+    public interface IAudioService
+    {
+        void Activate();
 
-    void Deactivate();
+        void Deactivate();
 
-    void PlaySound(SoundType type);
+        void PlaySound(SoundType type);
 
-    void PlayMusic();
+        void PlayMusic();
 
-    void StopMusic();
+        void StopMusic();
 
-    void SetAmbientSound(SoundType type);
+        void SetAmbientSound(SoundType type);
 
-    void PlayAmbient();
+        void PlayAmbient();
 
-    void StopAmbient();
+        void StopAmbient();
 
-    bool GetSoundOn();
+        bool GetSoundOn();
 
-    void SetSound(bool value);
+        void SetSound(bool value);
+    }
 }

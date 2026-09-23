@@ -1,17 +1,20 @@
 using UnityEngine;
 
-public class InputReader
+namespace BlinkBlade.Game
 {
-    private const string MouseXAxis = "Mouse X";
-    private const string MouseYAxis = "Mouse Y";
-
-    public float GetMouseXAxis()
+    public class InputReader
     {
-        return Input.GetAxis(MouseXAxis);
-    }
+        private const string MouseXAxis = "Mouse X";
+        private const string MouseYAxis = "Mouse Y";
 
-    public float GetMouseYAxis()
-    {
-        return Input.GetAxis(MouseYAxis);
+        public float GetMouseXAxis()
+        {
+            return Input.GetAxis(MouseXAxis);
+        }
+
+        public float GetMouseYAxis()
+        {
+            return Input.GetAxis(MouseYAxis);
+        }
     }
 }

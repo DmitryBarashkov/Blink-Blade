@@ -1,6 +1,9 @@
 using UniRx;
 
-public class LevelBridge
+namespace BlinkBlade.Game
 {
-    public ReactiveProperty<ILevelData> CurrentLevel { get; } = new ReactiveProperty<ILevelData>();
+    public class LevelBridge
+    {
+        public ReactiveProperty<ILevelData> CurrentLevel { get; } = new ReactiveProperty<ILevelData>();
+    }
 }

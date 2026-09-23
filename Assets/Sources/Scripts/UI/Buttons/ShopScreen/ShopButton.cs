@@ -1,18 +1,22 @@
+using BlinkBlade.Game;
 using Zenject;
 
-public class ShopButton : UIButton
+namespace BlinkBlade.UI
 {
-    private UIService _uiService;
-
-    [Inject]
-    public void Construct(UIService uiService)
+    public class ShopButton : UIButton
     {
-        _uiService = uiService;
-    }
+        private UIService _uiService;
 
-    public override void HandleClick()
-    {
-        _audioService.PlaySound(SoundType.ButtonClick);
-        _uiService.ShowShop();
+        [Inject]
+        public void Construct(UIService uiService)
+        {
+            _uiService = uiService;
+        }
+
+        public override void HandleClick()
+        {
+            _audioService.PlaySound(SoundType.ButtonClick);
+            _uiService.ShowShop();
+        }
     }
 }

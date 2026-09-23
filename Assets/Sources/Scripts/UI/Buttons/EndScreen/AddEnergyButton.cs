@@ -1,21 +1,26 @@
+using BlinkBlade.Common;
+using BlinkBlade.Players;
 using YG;
 using Zenject;
 
-public class AddEnergyButton : EndScreenButton
+namespace BlinkBlade.UI
 {
-    [Inject] private PlayerStats _playerStats;
-
-    private string _rewardId = "AddPlayerEnergy";
-
-    public override void HandleClick()
+    public class AddEnergyButton : EndScreenButton
     {
-        Utils.ShowAdvForReward(_audioService, _rewardId, GetAward);
-    }
+        [Inject] private PlayerStats _playerStats;
 
-    private void GetAward()
-    {
-        YG2.saves.Energy += 1;
-        _playerStats.CurrentEnergy.Value += YG2.saves.Energy;
-        SetEnabled(false);
+        private string _rewardId = "AddPlayerEnergy";
+
+        public override void HandleClick()
+        {
+            CommonFunctions.ShowAdvForReward(_audioService, _rewardId, GetAward);
+        }
+
+        private void GetAward()
+        {
+            YG2.saves.Energy += 1;
+            _playerStats.CurrentEnergy.Value += YG2.saves.Energy;
+            SetEnabled(false);
+        }
     }
 }

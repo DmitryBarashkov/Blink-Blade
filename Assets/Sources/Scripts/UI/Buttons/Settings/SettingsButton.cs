@@ -1,11 +1,14 @@
 using UnityEngine;
 
-public class SettingsButton : UIButton
+namespace BlinkBlade.UI
 {
-    [SerializeField] private SettingsPanel _panel;
-
-    public override void HandleClick()
+    public class SettingsButton : UIButton
     {
-        _panel.ToggleMenu();
+        [SerializeField] private SettingsPanel _panel;
+
+        public override void HandleClick()
+        {
+            _panel.ToggleMenu();
+        }
     }
 }

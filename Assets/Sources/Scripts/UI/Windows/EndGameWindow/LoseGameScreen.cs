@@ -1,15 +1,19 @@
+using BlinkBlade.Game;
 using TMPro;
 using UnityEngine;
 using Zenject;
 
-public class LoseGameScreen : MonoBehaviour
+namespace BlinkBlade.UI
 {
-    [SerializeField] private TextMeshProUGUI _levelNumber;
-
-    [Inject] private Level _level;
-
-    private void OnEnable()
+    public class LoseGameScreen : MonoBehaviour
     {
-        _levelNumber.text = _level.LevelNumber.ToString();
+        [SerializeField] private TextMeshProUGUI _levelNumber;
+
+        [Inject] private Level _level;
+
+        private void OnEnable()
+        {
+            _levelNumber.text = _level.LevelNumber.ToString();
+        }
     }
 }

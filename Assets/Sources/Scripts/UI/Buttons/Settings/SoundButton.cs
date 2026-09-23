@@ -1,22 +1,31 @@
-public class SoundButton : ToggleButton
+using BlinkBlade.Game;
+
+namespace BlinkBlade.UI
 {
-    protected override void OnEnable()
+    public class SoundButton : ToggleButton
     {
-        base.OnEnable();
+        public SoundButton()
+        {
+        }
 
-        _isOn = _audioService.GetSoundOn();
-        SetSprite();
-    }
+        protected override void OnEnable()
+        {
+            base.OnEnable();
 
-    public override void HandleClick()
-    {
-        if (_isOn)
-            _audioService.PlaySound(SoundType.ButtonClick);
+            _isOn = _audioService.GetSoundOn();
+            SetSprite();
+        }
 
-        Toggle();
+        public override void HandleClick()
+        {
+            if (_isOn)
+                _audioService.PlaySound(SoundType.ButtonClick);
 
-        _audioService.SetSound(_isOn);
+            Toggle();
 
-        SetSprite();
+            _audioService.SetSound(_isOn);
+
+            SetSprite();
+        }
     }
 }

@@ -1,101 +1,105 @@
+using System;
 using System.Collections.Generic;
+using BlinkBlade.Game;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Events;
 using Zenject;
 
-public class LanguagePanel : MonoBehaviour
+namespace BlinkBlade.UI
 {
-    [SerializeField] private CanvasGroup _canvasGroup;
-
-    [Inject] private AudioService _audioService;
-
-    private RectTransform _rectTransform;
-
-    private bool _isOpen = false;
-
-    private float _expandedWidth = 330f;
-    private float _collapsedWidth = 0;
-
-    private float _duration = 0.3f;
-    private Ease _easeType = Ease.InOutQuad;
-
-    public event UnityAction LanguageChanged;
-
-    private void Awake()
+    public class LanguagePanel : MonoBehaviour
     {
-        _rectTransform = GetComponent<RectTransform>();
-        _rectTransform.sizeDelta = new Vector2(_collapsedWidth, _rectTransform.sizeDelta.y);
+        private const float ExpandedWidth = 330f;
+        private const float CollapsedWidth = 0;
 
-        _canvasGroup.alpha = 0f;
-        SetInteraction(false);
-    }
+        [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private float _animationDuration = 0.3f;
 
-    public void ToggleMenu()
-    {
-        _audioService.PlaySound(SoundType.ExpandPanel);
-        _rectTransform.DOKill();
-        _canvasGroup.DOKill();
+        [Inject] private IAudioService _audioService;
 
-        if (!_isOpen)
+        private RectTransform _rectTransform;
+
+        private bool _isOpen = false;
+
+        private Ease _easeType = Ease.InOutQuad;
+
+        public event Action LanguageChanged;
+
+        private void Awake()
         {
-            _rectTransform.DOSizeDelta(new Vector2(_expandedWidth, _rectTransform.sizeDelta.y), _duration).SetEase(_easeType);
-            _canvasGroup.DOFade(1f, _duration);
+            _rectTransform = GetComponent<RectTransform>();
+            _rectTransform.sizeDelta = new Vector2(CollapsedWidth, _rectTransform.sizeDelta.y);
 
-            SetInteraction(true);
-            _isOpen = true;
-        }
-        else
-        {
-            _rectTransform.DOSizeDelta(new Vector2(_collapsedWidth, _rectTransform.sizeDelta.y), _duration).SetEase(_easeType);
-            _canvasGroup.DOFade(0f, _duration);
-
+            _canvasGroup.alpha = 0f;
             SetInteraction(false);
-            _isOpen = false;
         }
-    }
 
-    public void CreateSetLanguageButtons(SetLanguageButton prefab, string currentLanguage, Dictionary<string, Sprite> languages)
-    {
-        SetLanguageButton firstButton = Instantiate(prefab, this.transform);
-
-        firstButton.Initialize(currentLanguage, languages[currentLanguage], this, _audioService);
-
-        foreach (var language in languages)
+        public void ToggleMenu()
         {
-            if (language.Key == currentLanguage)
-                continue;
+            _audioService.PlaySound(SoundType.ExpandPanel);
+            _rectTransform.DOKill();
+            _canvasGroup.DOKill();
 
-            SetLanguageButton setLanguageButton = Instantiate(prefab, this.transform);
-
-            setLanguageButton.Initialize(language.Key, language.Value, this, _audioService);
-        }
-    }
-
-    public void ChangeLanguage(string language)
-    {
-        LanguageChanged?.Invoke();
-
-        SortSetLanguageButtons(language);
-    }
-
-    private void SortSetLanguageButtons(string language)
-    {
-        SetLanguageButton[] buttons = GetComponentsInChildren<SetLanguageButton>();
-
-        for (int i = 0; i < buttons.Length; i++)
-        {
-            if (buttons[i].GetLanguageKey() == language)
+            if (!_isOpen)
             {
-                buttons[i].transform.SetAsFirstSibling();
-                break;
+                _rectTransform.DOSizeDelta(new Vector2(ExpandedWidth, _rectTransform.sizeDelta.y), _animationDuration).SetEase(_easeType);
+                _canvasGroup.DOFade(1f, _animationDuration);
+
+                SetInteraction(true);
+                _isOpen = true;
+            }
+            else
+            {
+                _rectTransform.DOSizeDelta(new Vector2(CollapsedWidth, _rectTransform.sizeDelta.y), _animationDuration).SetEase(_easeType);
+                _canvasGroup.DOFade(0f, _animationDuration);
+
+                SetInteraction(false);
+                _isOpen = false;
             }
         }
-    }
 
-    private void SetInteraction(bool state)
-    {
-        _canvasGroup.interactable = state;
-        _canvasGroup.blocksRaycasts = state;
+        public void CreateSetLanguageButtons(SetLanguageButton prefab, string currentLanguage, Dictionary<string, Sprite> languages)
+        {
+            SetLanguageButton firstButton = Instantiate(prefab, this.transform);
+
+            firstButton.Initialize(currentLanguage, languages[currentLanguage], this, _audioService);
+
+            foreach (var language in languages)
+            {
+                if (language.Key == currentLanguage)
+                    continue;
+
+                SetLanguageButton setLanguageButton = Instantiate(prefab, this.transform);
+
+                setLanguageButton.Initialize(language.Key, language.Value, this, _audioService);
+            }
+        }
+
+        public void ChangeLanguage(string language)
+        {
+            LanguageChanged?.Invoke();
+
+            SortSetLanguageButtons(language);
+        }
+
+        private void SortSetLanguageButtons(string language)
+        {
+            SetLanguageButton[] buttons = GetComponentsInChildren<SetLanguageButton>();
+
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                if (buttons[i].GetLanguageKey() == language)
+                {
+                    buttons[i].transform.SetAsFirstSibling();
+                    break;
+                }
+            }
+        }
+
+        private void SetInteraction(bool state)
+        {
+            _canvasGroup.interactable = state;
+            _canvasGroup.blocksRaycasts = state;
+        }
     }
 }

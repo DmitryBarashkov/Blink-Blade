@@ -398,19 +398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Cave_Archer Patrol
---- !u!114 &409406854 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6509849812846524107, guid: dd9cac0c99bcb1a46916f1bc935ec965, type: 3}
-  m_PrefabInstance: {fileID: 797489269}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aed86813f13a894fa3cdb7419d62ce0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _enemy: {fileID: 6632015827303108662, guid: c230129fb655d52479caac5478f244ce, type: 3}
 --- !u!1 &576026720
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,8 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Cave_Shieldman Patrol
+  _enemy: {fileID: 6632015827303108662, guid: 2cb2bad843eba824a88b8f6d9f8c12b3, type: 3}
 --- !u!1001 &585143099
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -746,6 +733,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd9cac0c99bcb1a46916f1bc935ec965, type: 3}
+--- !u!60 &797489270 stripped
+PolygonCollider2D:
+  m_CorrespondingSourceObject: {fileID: 1533745459770342555, guid: dd9cac0c99bcb1a46916f1bc935ec965, type: 3}
+  m_PrefabInstance: {fileID: 797489269}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &846743516
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -871,8 +863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Cave_Shieldman Patrol
+  _enemy: {fileID: 6632015827303108662, guid: 2cb2bad843eba824a88b8f6d9f8c12b3, type: 3}
 --- !u!1 &1013302324
 GameObject:
   m_ObjectHideFlags: 0
@@ -1192,7 +1183,7 @@ MonoBehaviour:
   - {fileID: 846743518}
   - {fileID: 1220502360}
   - {fileID: 2064188210}
-  _bounds: {fileID: 409406854}
+  _bounds: {fileID: 797489270}
   _ambientSoundType: 3
   _movingEffect: {fileID: 0}
   _isBossLevel: 0

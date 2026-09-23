@@ -1,37 +1,41 @@
+using BlinkBlade.Game;
 using YG;
 
-public class NoAdsButton : UIButton
+namespace BlinkBlade.UI
 {
-    private string _buyId = "no_ads";
-
-    protected override void OnEnable()
+    public class NoAdsButton : UIButton
     {
-        _button.onClick.AddListener(HandleClick);
-        YG2.onPurchaseSuccess += OnSuccess;
-    }
+        private string _buyId = "no_ads";
 
-    protected override void OnDisable()
-    {
-        _button.onClick.AddListener(HandleClick);
-        YG2.onPurchaseSuccess -= OnSuccess;
-    }
-
-    public override void HandleClick()
-    {
-        _audioService.PlaySound(SoundType.ButtonClick);
-
-        YG2.BuyPayments(_buyId);
-    }
-
-    private void OnSuccess(string id)
-    {
-        if (id == "no_ads")
+        protected override void OnEnable()
         {
-            YG2.saves.IsAdsDisabled = true;
-            YG2.StickyAdActivity(false);
-            YG2.SaveProgress();
+            _button.onClick.AddListener(HandleClick);
+            YG2.onPurchaseSuccess += OnSuccess;
+        }
 
-            gameObject.SetActive(false);
+        protected override void OnDisable()
+        {
+            _button.onClick.RemoveListener(HandleClick);
+            YG2.onPurchaseSuccess -= OnSuccess;
+        }
+
+        public override void HandleClick()
+        {
+            _audioService.PlaySound(SoundType.ButtonClick);
+
+            YG2.BuyPayments(_buyId);
+        }
+
+        private void OnSuccess(string id)
+        {
+            if (id == "no_ads")
+            {
+                YG2.saves.IsAdsDisabled = true;
+                YG2.StickyAdActivity(false);
+                YG2.SaveProgress();
+
+                gameObject.SetActive(false);
+            }
         }
     }
 }

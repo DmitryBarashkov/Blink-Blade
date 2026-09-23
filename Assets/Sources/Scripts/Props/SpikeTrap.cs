@@ -1,16 +1,18 @@
+using BlinkBlade.Players;
 using UnityEngine;
 
-public class SpikeTrap : MonoBehaviour
+namespace BlinkBlade.Props
 {
-    private void OnCollisionEnter(Collision collision)
+    public class SpikeTrap : MonoBehaviour
     {
-        Player player = collision.collider.GetComponent<Player>();
-
-        ContactPoint hitPoint = collision.contacts[0];
-
-        if (player != null && player.IsInvincible == false)
+        private void OnCollisionEnter(Collision collision)
         {
-            player.Die(hitPoint);
+            Player player = collision.collider.GetComponent<Player>();
+
+            ContactPoint hitPoint = collision.contacts[0];
+
+            if (player != null && player.IsInvincible == false)
+                player.Die(hitPoint);
         }
     }
 }

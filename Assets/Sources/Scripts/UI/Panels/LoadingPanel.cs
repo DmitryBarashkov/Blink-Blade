@@ -1,44 +1,47 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoadingPanel : MonoBehaviour
+namespace BlinkBlade.UI
 {
-    [Header("Ссылки на UI элементы")]
-    [SerializeField] private Image _backgroundImage;
-    [SerializeField] private RectTransform _loadingBar;
-
-    private void Start()
+    public class LoadingPanel : MonoBehaviour
     {
-        AdjustLoadingBarWidth();
-    }
+        [Header("Ссылки на UI элементы")]
+        [SerializeField] private Image _backgroundImage;
+        [SerializeField] private RectTransform _loadingBar;
 
-    private void OnRectTransformDimensionsChange()
-    {
-        AdjustLoadingBarWidth();
-    }
+        private void Start()
+        {
+            AdjustLoadingBarWidth();
+        }
 
-    private void AdjustLoadingBarWidth()
-    {
-        if (_backgroundImage == null || _backgroundImage.sprite == null || _loadingBar == null)
-            return;
+        private void OnRectTransformDimensionsChange()
+        {
+            AdjustLoadingBarWidth();
+        }
 
-        RectTransform imageRect = _backgroundImage.rectTransform;
-        float containerWidth = imageRect.rect.width;
-        float containerHeight = imageRect.rect.height;
-        float spriteWidth = _backgroundImage.sprite.rect.width;
-        float spriteHeight = _backgroundImage.sprite.rect.height;
-        float spriteAspect = spriteWidth / spriteHeight;
-        float containerAspect = containerWidth / containerHeight;
-        float realImageWidth;
+        private void AdjustLoadingBarWidth()
+        {
+            if (_backgroundImage == null || _backgroundImage.sprite == null || _loadingBar == null)
+                return;
 
-        if (spriteAspect > containerAspect)
-            realImageWidth = containerWidth;
-        else
-            realImageWidth = containerHeight * spriteAspect;
+            RectTransform imageRect = _backgroundImage.rectTransform;
+            float containerWidth = imageRect.rect.width;
+            float containerHeight = imageRect.rect.height;
+            float spriteWidth = _backgroundImage.sprite.rect.width;
+            float spriteHeight = _backgroundImage.sprite.rect.height;
+            float spriteAspect = spriteWidth / spriteHeight;
+            float containerAspect = containerWidth / containerHeight;
+            float realImageWidth;
 
-        Vector2 size = _loadingBar.sizeDelta;
+            if (spriteAspect > containerAspect)
+                realImageWidth = containerWidth;
+            else
+                realImageWidth = containerHeight * spriteAspect;
 
-        size.x = realImageWidth;
-        _loadingBar.sizeDelta = size;
+            Vector2 size = _loadingBar.sizeDelta;
+
+            size.x = realImageWidth;
+            _loadingBar.sizeDelta = size;
+        }
     }
 }

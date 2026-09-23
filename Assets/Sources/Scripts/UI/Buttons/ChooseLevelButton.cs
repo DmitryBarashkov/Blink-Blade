@@ -1,26 +1,30 @@
 using System.Text.RegularExpressions;
+using BlinkBlade.Game;
 using TMPro;
 using UnityEngine;
 using YG;
 using Zenject;
 
-public class ChooseLevelButton : UIButton
+namespace BlinkBlade.UI
 {
-    [SerializeField] private TextMeshProUGUI _input;
-    [SerializeField] private RectTransform _screen;
-
-    [Inject] private LevelLoadService _service;
-
-    public override void HandleClick()
+    public class ChooseLevelButton : UIButton
     {
-        _screen.gameObject.SetActive(false);
+        [SerializeField] private TextMeshProUGUI _input;
+        [SerializeField] private RectTransform _screen;
 
-        string cleanText = Regex.Replace(_input.text.Trim(), @"[^\d]", string.Empty);
+        [Inject] private LevelLoadService _service;
 
-        if (int.TryParse(cleanText, out int levelNumber))
+        public override void HandleClick()
         {
-            YG2.saves.Level = levelNumber;
-            _service.LoadLevel(levelNumber).Forget();
+            _screen.gameObject.SetActive(false);
+
+            string cleanText = Regex.Replace(_input.text.Trim(), @"[^\d]", string.Empty);
+
+            if (int.TryParse(cleanText, out int levelNumber))
+            {
+                YG2.saves.Level = levelNumber;
+                _service.LoadLevel(levelNumber).Forget();
+            }
         }
     }
 }

@@ -1,16 +1,21 @@
+using BlinkBlade.Game;
+
 using Zenject;
 
-public class RestartButton : EndScreenButton
+namespace BlinkBlade.UI
 {
-    [Inject] private Level _level;
-    [Inject] private LevelState _levelState;
-
-    public override void HandleClick()
+    public class RestartButton : EndScreenButton
     {
-        _audioService.PlaySound(SoundType.ButtonClick);
+        [Inject] private Level _level;
+        [Inject] private LevelState _levelState;
 
-        _level.Restart();
-        _screen.Close();
-        _levelState.EnergyUsed.Value = false;
+        public override void HandleClick()
+        {
+            _audioService.PlaySound(SoundType.ButtonClick);
+
+            _level.Restart();
+            _screen.Close();
+            _levelState.EnergyUsed.Value = false;
+        }
     }
 }

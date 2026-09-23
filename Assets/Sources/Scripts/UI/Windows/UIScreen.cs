@@ -1,23 +1,28 @@
+using BlinkBlade.Game;
+
 using UnityEngine;
 using Zenject;
 
-public class UIScreen : MonoBehaviour
+namespace BlinkBlade.UI
 {
-    protected CanvasGroup _canvasGroup;
-    protected GameObject _gameObject;
-
-    [Inject]
-    public virtual void Construct(ShopService service, WeaponDatabase database, SkinDatabase skinsDatabase, DiContainer container)
+    public class UIScreen : MonoBehaviour
     {
-        _canvasGroup = GetComponent<CanvasGroup>();
-        _gameObject = gameObject;
-    }
+        protected CanvasGroup _canvasGroup;
+        protected GameObject _gameObject;
 
-    public virtual void Setup()
-    {
-    }
+        [Inject]
+        public virtual void Construct(ShopService service, DiContainer container)
+        {
+            _canvasGroup = GetComponent<CanvasGroup>();
+            _gameObject = gameObject;
+        }
 
-    public class Factory : PlaceholderFactory<Transform, GameObject, UIScreen>
-    {
+        public virtual void Setup()
+        {
+        }
+
+        public class Factory : PlaceholderFactory<Transform, GameObject, UIScreen>
+        {
+        }
     }
 }

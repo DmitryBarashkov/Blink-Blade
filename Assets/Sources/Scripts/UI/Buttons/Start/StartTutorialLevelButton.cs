@@ -1,17 +1,21 @@
+using BlinkBlade.Game;
 using UnityEngine;
 using Zenject;
 
-public class StartTutorialLevelButton : UIButton
+namespace BlinkBlade.UI
 {
-    [SerializeField] private Canvas _tutorialCanvas;
-
-    [Inject] private Level _level;
-
-    public override void HandleClick()
+    public class StartTutorialLevelButton : UIButton
     {
-        if (_tutorialCanvas != null)
-            _tutorialCanvas.gameObject.SetActive(false);
+        [SerializeField] private Canvas _tutorialCanvas;
 
-        _level.StartPlay();
+        [Inject] private Level _level;
+
+        public override void HandleClick()
+        {
+            if (_tutorialCanvas != null)
+                _tutorialCanvas.gameObject.SetActive(false);
+
+            _level.StartPlay();
+        }
     }
 }

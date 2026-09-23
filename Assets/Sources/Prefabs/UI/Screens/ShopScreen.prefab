@@ -845,7 +845,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7662156008144338787}
   - component: {fileID: 6371049023182167883}
-  - component: {fileID: 1280599503143786718}
   m_Layer: 0
   m_Name: EnergyItem
   m_TagString: Untagged
@@ -882,22 +881,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2143050399731543613}
   m_CullTransparentMesh: 1
---- !u!114 &1280599503143786718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2143050399731543613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d9f8212bc85aa243917f5a05c40f7c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _toggle: {fileID: 0}
-  _buyButton: {fileID: 4599333209769491200}
-  _backgroundButton: {fileID: 0}
-  _preview: {fileID: 0}
 --- !u!1 &2232317413115949386
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,7 +891,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2653888942688651249}
   - component: {fileID: 9133236050689868016}
-  - component: {fileID: 6049003398545199562}
   m_Layer: 0
   m_Name: NoAdsItem
   m_TagString: Untagged
@@ -945,22 +927,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2232317413115949386}
   m_CullTransparentMesh: 1
---- !u!114 &6049003398545199562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2232317413115949386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d9f8212bc85aa243917f5a05c40f7c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _toggle: {fileID: 0}
-  _buyButton: {fileID: 807396163552912853}
-  _backgroundButton: {fileID: 0}
-  _preview: {fileID: 0}
 --- !u!1 &2753088724625590460
 GameObject:
   m_ObjectHideFlags: 0
@@ -1238,7 +1204,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 591138871863e48df8a5590b1cd3be86, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e5df9017c4a24ae47a04a17d8a4aaa00, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2466,8 +2432,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fce904359570c8541b084b9b2ce6dec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponItemPrefab: {fileID: 4324018354730338524, guid: f683c416db58b534d8915d9613177029, type: 3}
-  _skinItemPrefab: {fileID: 1934531719803311592, guid: ea224e60a624ac94a928706c4e143c98, type: 3}
+  _weaponPrefabs:
+  - {fileID: 8657452476390765410, guid: f683c416db58b534d8915d9613177029, type: 3}
+  - {fileID: 8657452476390765410, guid: eb1f2686392fdba4b84747eba42cf361, type: 3}
+  - {fileID: 8657452476390765410, guid: aba646cc9981a604f86698f1b689582d, type: 3}
+  - {fileID: 8657452476390765410, guid: 011bc849a5f37494e9812f00a3862d20, type: 3}
+  - {fileID: 8657452476390765410, guid: 165e36887cf4b0749a585dd492cefc81, type: 3}
+  - {fileID: 8657452476390765410, guid: c0963f2ded2e19749a2482354ffa0dad, type: 3}
+  - {fileID: 8657452476390765410, guid: ab1cccc85cc4529489e81b1274044fe8, type: 3}
+  - {fileID: 8657452476390765410, guid: 864d31dac4e986543bc0d4a365028f2c, type: 3}
+  - {fileID: 8657452476390765410, guid: 1038b1eaf8fe2014fb13279409885b15, type: 3}
+  - {fileID: 8657452476390765410, guid: 050588bca50355d46b78b60061cf8d18, type: 3}
+  - {fileID: 8657452476390765410, guid: 3dd8f0a127c31604e9806a0153f6701d, type: 3}
+  _skinPrefabs:
+  - {fileID: 6853255269145468757, guid: ba7aecc33b193404db21daa45fe3bf14, type: 3}
+  - {fileID: 6853255269145468757, guid: 7f1a60f4dcc076f41b82e72eb1142d38, type: 3}
+  - {fileID: 6853255269145468757, guid: 9ea62f8c1191d0842b74786433c4b60f, type: 3}
+  - {fileID: 6853255269145468757, guid: 1d7baf08d75c5c1438f050552c2bd517, type: 3}
+  - {fileID: 6853255269145468757, guid: b2a816fea63372f4db23526c8184250c, type: 3}
+  - {fileID: 6853255269145468757, guid: 4a9af79c7168f1d4b9bf890eeb27dfb7, type: 3}
   _weaponsContainer: {fileID: 5019656624616693879}
   _skinsContainer: {fileID: 58514477410028009}
 --- !u!1 &5015334862206125994
@@ -2870,8 +2853,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 61479b88836bb4f97935511db14b098b, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: e5df9017c4a24ae47a04a17d8a4aaa00, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

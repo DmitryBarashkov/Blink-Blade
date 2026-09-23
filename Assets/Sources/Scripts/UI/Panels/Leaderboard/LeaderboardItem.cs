@@ -1,13 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LeaderboardItem : MonoBehaviour
+namespace BlinkBlade.UI
 {
-    [SerializeField] private Image _highlightImage;
-
-    public void HighlightPlayer()
+    public class LeaderboardItem : MonoBehaviour
     {
-        if (_highlightImage)
-            _highlightImage.enabled = true;
+        [SerializeField] private Image _highlightImage;
+
+        public void HighlightPlayer()
+        {
+            if (_highlightImage)
+                _highlightImage.enabled = true;
+        }
     }
 }

@@ -1,22 +1,27 @@
+using BlinkBlade.Common;
+using BlinkBlade.Game;
 using UnityEngine;
 using Zenject;
 
-public class BuyByAdsButton : UIButton
+namespace BlinkBlade.UI
 {
-    [Inject] private ShopService _shopService;
-
-    [SerializeField] private WeaponItem _weaponItem;
-
-    private string _rewardId = "BuyNewWeapon";
-
-    public override void HandleClick()
+    public class BuyByAdsButton : UIButton
     {
-        Utils.ShowAdvForReward(_audioService, _rewardId, GetAward);
-    }
+        [Inject] private ShopService _shopService;
 
-    private void GetAward()
-    {
-        _shopService.PurchaseWeapon(_weaponItem.WeaponId);
-        _weaponItem.UpdateAfterBuy();
+        [SerializeField] private ShopItem _weaponItem;
+
+        private string _rewardId = "BuyNewWeapon";
+
+        public override void HandleClick()
+        {
+            CommonFunctions.ShowAdvForReward(_audioService, _rewardId, GetAward);
+        }
+
+        private void GetAward()
+        {
+            _shopService.PurchaseItem(_weaponItem);
+            _weaponItem.UpdateAfterBuy();
+        }
     }
 }

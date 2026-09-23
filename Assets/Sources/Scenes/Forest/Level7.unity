@@ -166,8 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Shieldman Patrol
+  _enemy: {fileID: 478639616586872186, guid: cbd5a3552116ceb49a39521f9d3cfcd1, type: 3}
 --- !u!1001 &200350455
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -239,17 +238,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc7e7908afe49f24193ba9937309c02e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &409406854 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6509849812846524107, guid: dd9cac0c99bcb1a46916f1bc935ec965, type: 3}
-  m_PrefabInstance: {fileID: 797489269}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aed86813f13a894fa3cdb7419d62ce0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &567698459
@@ -387,6 +375,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd9cac0c99bcb1a46916f1bc935ec965, type: 3}
+--- !u!60 &797489270 stripped
+PolygonCollider2D:
+  m_CorrespondingSourceObject: {fileID: 1533745459770342555, guid: dd9cac0c99bcb1a46916f1bc935ec965, type: 3}
+  m_PrefabInstance: {fileID: 797489269}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1013302324
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,7 +468,7 @@ MonoBehaviour:
   - {fileID: 1788292557}
   - {fileID: 567698461}
   - {fileID: 1773489711}
-  _bounds: {fileID: 409406854}
+  _bounds: {fileID: 797489270}
   _ambientSoundType: 1
   _movingEffect: {fileID: 0}
   _isBossLevel: 0
@@ -770,8 +763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Swordsman Idle
+  _enemy: {fileID: 478639616586872186, guid: 64424a200b3af1d44987c4270f2c54a8, type: 3}
 --- !u!1 &1938200423
 GameObject:
   m_ObjectHideFlags: 0
@@ -816,8 +808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Swordsman Idle
+  _enemy: {fileID: 478639616586872186, guid: 64424a200b3af1d44987c4270f2c54a8, type: 3}
 --- !u!1 &2005677597
 GameObject:
   m_ObjectHideFlags: 0

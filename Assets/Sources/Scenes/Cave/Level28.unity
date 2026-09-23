@@ -268,17 +268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc7e7908afe49f24193ba9937309c02e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &409406854 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6509849812846524107, guid: dd9cac0c99bcb1a46916f1bc935ec965, type: 3}
-  m_PrefabInstance: {fileID: 797489269}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aed86813f13a894fa3cdb7419d62ce0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &430760637
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -424,8 +413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Cave_Shieldman Patrol
+  _enemy: {fileID: 6632015827303108662, guid: 2cb2bad843eba824a88b8f6d9f8c12b3, type: 3}
 --- !u!4 &559593879
 Transform:
   m_ObjectHideFlags: 0
@@ -601,8 +589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Cave_Shieldman Idle
+  _enemy: {fileID: 6632015827303108662, guid: e805c08ae1cb6ab45acec232145d6330, type: 3}
 --- !u!1 &763791036
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,8 +634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Cave_Archer Patrol
+  _enemy: {fileID: 4105221787743141580, guid: 2b64fc0064903f04a9a1368dbe73021d, type: 3}
 --- !u!1001 &797489269
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -706,6 +692,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd9cac0c99bcb1a46916f1bc935ec965, type: 3}
+--- !u!60 &797489270 stripped
+PolygonCollider2D:
+  m_CorrespondingSourceObject: {fileID: 1533745459770342555, guid: dd9cac0c99bcb1a46916f1bc935ec965, type: 3}
+  m_PrefabInstance: {fileID: 797489269}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1013302324
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,7 +904,7 @@ MonoBehaviour:
   - {fileID: 216953785}
   - {fileID: 1784947056}
   - {fileID: 82666313}
-  _bounds: {fileID: 409406854}
+  _bounds: {fileID: 797489270}
   _ambientSoundType: 3
   _movingEffect: {fileID: 0}
   _isBossLevel: 0
@@ -962,8 +953,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Cave_Swordsman Patrol
+  _enemy: {fileID: 4530062177698052861, guid: 096a305aaf35b0b4ca67641a1c5af0f0, type: 3}
 --- !u!1 &1376313271
 GameObject:
   m_ObjectHideFlags: 0
@@ -1008,8 +998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da30a93408c63d46b05a2aa5dbd407c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Database: {fileID: 11400000, guid: 3b78bf7f46000cb489e7a6c3524550a0, type: 2}
-  SelectedEnemyName: Cave_Swordsman Patrol
+  _enemy: {fileID: 4530062177698052861, guid: 096a305aaf35b0b4ca67641a1c5af0f0, type: 3}
 --- !u!1 &1413086122
 GameObject:
   m_ObjectHideFlags: 0
