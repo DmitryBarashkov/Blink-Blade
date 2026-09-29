@@ -10,7 +10,7 @@ namespace BlinkBlade.UI
         [SerializeField] private RectTransform _gearIcon;
         [SerializeField] private CanvasGroup _canvasGroup;
 
-        [Inject] private AudioService _audioService;
+        [Inject] private IAudioService _audioService;
 
         private RectTransform _rectTransform;
 

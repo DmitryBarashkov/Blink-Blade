@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using BlinkBlade.Game;
 using UnityEngine;
@@ -67,9 +68,13 @@ namespace BlinkBlade.Props
 
             Vector3 arrowStartPosition = _transform.position + (_transform.forward * _offset);
             GameObject arrow = _poolService.Get(ObjectPoolService.PoolObjectTypes.Arrow, arrowStartPosition, _transform.rotation);
+
+            if (arrow == null)
+                throw new ArgumentNullException(nameof(arrow));
+
             Rigidbody rigidbody = arrow.GetComponent<Rigidbody>();
 
-            if (arrow != null && rigidbody != null)
+            if (rigidbody != null)
             {
                 rigidbody.velocity = Vector3.zero;
                 rigidbody.angularVelocity = Vector3.zero;

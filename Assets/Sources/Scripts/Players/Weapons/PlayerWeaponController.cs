@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BlinkBlade.Game;
 using UniRx;
@@ -7,7 +8,7 @@ using static UnityEngine.Object;
 
 namespace BlinkBlade.Players
 {
-    public class PlayerWeaponController
+    public class PlayerWeaponController : IDisposable
     {
         private readonly CompositeDisposable Disposables = new CompositeDisposable();
 
@@ -66,6 +67,11 @@ namespace BlinkBlade.Players
             _weapon.SetActiveCollider(false);
         }
 
+        public void Dispose()
+        {
+            Disposables.Dispose();
+        }
+
         private void ChangeWeapon(Weapon weapon)
         {
             Destroy(_weapon.gameObject);
@@ -75,11 +81,6 @@ namespace BlinkBlade.Players
 
             _aimer.ChangeWeapon(_weapon);
             _teleport.ChangeWeapon(_weapon);
-        }
-
-        private void OnDestroy()
-        {
-            Disposables.Clear();
         }
     }
 }

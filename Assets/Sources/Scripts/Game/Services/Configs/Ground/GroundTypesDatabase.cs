@@ -4,18 +4,11 @@ using UnityEngine;
 
 namespace BlinkBlade.Game
 {
-    public enum GroundType
-    {
-        Grass,
-        Wood,
-        Stone,
-    }
-
     [CreateAssetMenu(fileName = "GroundTypeDatabase", menuName = "Config/Ground Type Database")]
     public class GroundTypesDatabase : ScriptableObject
     {
         [Header("GroundType")]
-        public List<GroundTypeRecord> GroundTypes;
+        private readonly List<GroundTypeRecord> GroundTypes;
 
         public bool TryGetGroundType(GroundType type, out GroundTypeRecord result)
         {

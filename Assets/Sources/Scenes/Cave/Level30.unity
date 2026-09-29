@@ -517,7 +517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb5107088663e274b9e80a4577c376e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 2
+  _type: 0
   _database: {fileID: 11400000, guid: 688ac5ccc385f4f46ab64bd8e354f031, type: 2}
 --- !u!1001 &797489269
 PrefabInstance:
@@ -1027,7 +1027,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb5107088663e274b9e80a4577c376e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 2
+  _type: 0
   _database: {fileID: 11400000, guid: 688ac5ccc385f4f46ab64bd8e354f031, type: 2}
 --- !u!1 &1442626329
 GameObject:
@@ -1357,7 +1357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb5107088663e274b9e80a4577c376e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 2
+  _type: 0
   _database: {fileID: 11400000, guid: 688ac5ccc385f4f46ab64bd8e354f031, type: 2}
 --- !u!1 &1682852989
 GameObject:
@@ -1636,7 +1636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb5107088663e274b9e80a4577c376e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 2
+  _type: 0
   _database: {fileID: 11400000, guid: 688ac5ccc385f4f46ab64bd8e354f031, type: 2}
 --- !u!1001 &1784521465
 PrefabInstance:
@@ -1752,7 +1752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb5107088663e274b9e80a4577c376e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 2
+  _type: 0
   _database: {fileID: 11400000, guid: 688ac5ccc385f4f46ab64bd8e354f031, type: 2}
 --- !u!1 &1860757942 stripped
 GameObject:
@@ -1931,7 +1931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb5107088663e274b9e80a4577c376e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 2
+  _type: 0
   _database: {fileID: 11400000, guid: 688ac5ccc385f4f46ab64bd8e354f031, type: 2}
 --- !u!1001 &6588111075831270633
 PrefabInstance:

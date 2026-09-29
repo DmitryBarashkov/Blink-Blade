@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BlinkBlade.Players;
 using UniRx;
@@ -8,7 +9,7 @@ using static UnityEngine.Object;
 
 namespace BlinkBlade.Game
 {
-    public class PlayerSpawner
+    public class PlayerSpawner : IDisposable
     {
         private readonly CompositeDisposable Disposables = new CompositeDisposable();
 
@@ -41,6 +42,11 @@ namespace BlinkBlade.Game
             _player.Activate();
         }
 
+        public void Dispose()
+        {
+            Disposables.Dispose();
+        }
+
         private void SubscribeOnChangePlayerSkin()
         {
             _stats.CurrentSkinId.Subscribe((skinId) =>
@@ -66,11 +72,6 @@ namespace BlinkBlade.Game
         private void InitializePlayer()
         {
             _player.Initialize(_spawnPoint.transform.position, _spawnPoint.transform.rotation);
-        }
-
-        private void OnDestroy()
-        {
-            Disposables.Clear();
         }
     }
 }
