@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace BlinkBlade.Game
 {
@@ -8,11 +9,12 @@ namespace BlinkBlade.Game
     public class GroundTypesDatabase : ScriptableObject
     {
         [Header("GroundType")]
-        private readonly List<GroundTypeRecord> GroundTypes;
+        [FormerlySerializedAs("GroundTypes")]
+        [SerializeField] private List<GroundTypeRecord> _groundTypes;
 
         public bool TryGetGroundType(GroundType type, out GroundTypeRecord result)
         {
-            foreach (var groundType in GroundTypes)
+            foreach (var groundType in _groundTypes)
             {
                 if (type == groundType.Type)
                 {

@@ -1,9 +1,9 @@
 {
-  "idSave": 2,
-  "Level": 2,
+  "idSave": 1,
+  "Level": 1,
   "Energy": 5,
-  "Coins": 275,
-  "Rating": 25,
+  "Coins": 260,
+  "Rating": 10,
   "IsFinishedGame": false,
   "WeaponId": 0,
   "SkinId": 0,
