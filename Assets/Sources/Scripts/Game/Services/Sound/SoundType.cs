@@ -1,27 +1,30 @@
-public enum SoundType
+namespace BlinkBlade.Game
 {
-    BackgroundMusic,
+    public enum SoundType
+    {
+        BackgroundMusic,
 
-    ForestAmbientSounds,
-    DarkForestAmbientSounds,
-    CaveAmbientSounds,
+        ForestAmbientSounds,
+        DarkForestAmbientSounds,
+        CaveAmbientSounds,
 
-    ButtonClick,
-    ExpandPanel,
-    Win,
-    Lose,
+        ButtonClick,
+        ExpandPanel,
+        Win,
+        Lose,
 
-    ThrowWeapon,
-    SwordAttack,
-    ArcherStartAim,
-    Teleport,
-    Hurt,
-    WeaponGrassHit,
-    BowShot,
-    WeaponMetalHit,
-    WeaponWoodHit,
-    WeaponStoneHit,
+        ThrowWeapon,
+        SwordAttack,
+        ArcherStartAim,
+        Teleport,
+        Hurt,
+        WeaponGrassHit,
+        BowShot,
+        WeaponMetalHit,
+        WeaponWoodHit,
+        WeaponStoneHit,
 
-    FallingOnGround,
-    CastScream,
+        FallingOnGround,
+        CastScream,
+    }
 }

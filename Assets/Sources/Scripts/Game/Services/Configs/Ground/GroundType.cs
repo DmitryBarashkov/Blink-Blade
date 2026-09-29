@@ -1,6 +1,9 @@
-public enum GroundType
+namespace BlinkBlade.Game
 {
-    Grass,
-    Wood,
-    Stone,
+    public enum GroundType
+    {
+        Grass,
+        Wood,
+        Stone,
+    }
 }
