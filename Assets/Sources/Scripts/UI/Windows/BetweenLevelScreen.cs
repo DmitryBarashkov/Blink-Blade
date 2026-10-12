@@ -14,6 +14,7 @@ namespace BlinkBlade.UI
         [SerializeField] private TextMeshProUGUI _levelNumber;
         [SerializeField] private TextMeshProUGUI _coinsText;
         [SerializeField] private RectTransform _chooseLevelScreen;
+        [SerializeField] private RectTransform _leaderboardPanel;
 
         [Inject] private InputService _input;
         [Inject] private PlayerStats _playerStats;
@@ -36,6 +37,7 @@ namespace BlinkBlade.UI
             _levelNumber.text = YG2.saves.Level.ToString();
             _coinsText.text = GetCoinText(_playerStats.CurrentCoins.Value);
             _input.ChooseLevelBtnPressed += ChooseLevel;
+            _leaderboardPanel.gameObject.SetActive(YG2.platform == "YandexGames");
         }
 
         private void OnDisable()

@@ -1,10 +1,13 @@
-using BlinkBlade.Common;
+using BlinkBlade.Game;
 using UnityEngine;
+using Zenject;
 
 namespace BlinkBlade.UI
 {
     public class AddCoinsButton : EndScreenButton
     {
+        [Inject] private AdService _adService;
+
         [SerializeField] private WinGameScreen _winScreen;
 
         private string _rewardId = "MultiplyCoins";
@@ -12,7 +15,7 @@ namespace BlinkBlade.UI
 
         public override void HandleClick()
         {
-            CommonFunctions.ShowAdvForReward(_audioService, _rewardId, GetAward);
+            _adService.ShowAdvForReward(_rewardId, GetAward);
         }
 
         private void GetAward()

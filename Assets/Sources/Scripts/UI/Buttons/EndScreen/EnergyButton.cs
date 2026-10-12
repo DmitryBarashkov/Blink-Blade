@@ -10,13 +10,14 @@ namespace BlinkBlade.UI
         [Inject] private Level _level;
         [Inject] private LevelState _levelState;
         [Inject] private PlayerStats _playerStats;
+        [Inject] private AdService _adService;
 
         private int _addCount = 3;
         private string _rewardId = "AddEnergyForLevel";
 
         public override void HandleClick()
         {
-            CommonFunctions.ShowAdvForReward(_audioService, _rewardId, GetAward);
+            _adService.ShowAdvForReward(_rewardId, GetAward);
         }
 
         private void GetAward()

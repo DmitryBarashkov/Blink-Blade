@@ -50,6 +50,8 @@ namespace BlinkBlade.Game
                 .UnderTransformGroup("GlobalServices")
                 .AsSingle()
                 .NonLazy();
+
+            Container.BindInterfacesAndSelfTo<AdService>().AsSingle().NonLazy();
         }
 
         private void BindLanguages()

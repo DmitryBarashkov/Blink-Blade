@@ -8,6 +8,7 @@ namespace BlinkBlade.UI
     public class BuyByAdsButton : UIButton
     {
         [Inject] private ShopService _shopService;
+        [Inject] private AdService _adService;
 
         [SerializeField] private ShopItem _weaponItem;
 
@@ -15,7 +16,7 @@ namespace BlinkBlade.UI
 
         public override void HandleClick()
         {
-            CommonFunctions.ShowAdvForReward(_audioService, _rewardId, GetAward);
+            _adService.ShowAdvForReward(_rewardId, GetAward);
         }
 
         private void GetAward()

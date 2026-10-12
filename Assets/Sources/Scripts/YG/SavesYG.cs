@@ -18,6 +18,7 @@ namespace YG
 
         // Ads
         public bool IsAdsDisabled = false;
+        public long RewardedAdvCooldownEndTime = 0;
 
         // Options
         public bool IsSoundOn = true;

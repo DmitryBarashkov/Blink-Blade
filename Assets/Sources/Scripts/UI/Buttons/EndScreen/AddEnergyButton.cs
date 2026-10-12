@@ -1,4 +1,5 @@
 using BlinkBlade.Common;
+using BlinkBlade.Game;
 using BlinkBlade.Players;
 using YG;
 using Zenject;
@@ -8,12 +9,13 @@ namespace BlinkBlade.UI
     public class AddEnergyButton : EndScreenButton
     {
         [Inject] private PlayerStats _playerStats;
+        [Inject] private AdService _adService;
 
         private string _rewardId = "AddPlayerEnergy";
 
         public override void HandleClick()
         {
-            CommonFunctions.ShowAdvForReward(_audioService, _rewardId, GetAward);
+            _adService.ShowAdvForReward(_rewardId, GetAward);
         }
 
         private void GetAward()

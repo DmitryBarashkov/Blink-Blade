@@ -4695,6 +4695,7 @@ MonoBehaviour:
   _levelNumber: {fileID: 2966919831980625715}
   _coinsText: {fileID: 8185994047205216065}
   _chooseLevelScreen: {fileID: 952382078}
+  _leaderboardPanel: {fileID: 557852016}
 --- !u!1 &6460637950463130838
 GameObject:
   m_ObjectHideFlags: 0

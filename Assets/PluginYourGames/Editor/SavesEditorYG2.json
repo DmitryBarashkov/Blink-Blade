@@ -1,13 +1,14 @@
 {
-  "idSave": 1,
+  "idSave": 3,
   "Level": 1,
-  "Energy": 5,
+  "Energy": 6,
   "Coins": 260,
   "Rating": 10,
   "IsFinishedGame": false,
   "WeaponId": 0,
   "SkinId": 0,
   "IsAdsDisabled": false,
+  "RewardedAdvCooldownEndTime": 0,
   "IsSoundOn": true,
   "PurchasedWeaponItemIds": [
     0

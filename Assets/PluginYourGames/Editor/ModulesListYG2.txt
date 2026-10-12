@@ -6,5 +6,6 @@ Localization v1.02
 Payments v1.02
 Review v1.0
 RewardedAdv v1.011
+ServerTime v1.02
 StickyAdv v1.0
 Storage v1.021

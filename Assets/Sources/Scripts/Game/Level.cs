@@ -79,6 +79,7 @@ namespace BlinkBlade.Game
             _input.Deactivate();
             _levelUI?.SetActive(false);
             _menu.Activate();
+            YG2.GameplayStop();
         }
 
         public void StartPlay(bool isContinue = false)
@@ -91,6 +92,7 @@ namespace BlinkBlade.Game
             ActivatePlayer();
 
             LevelStarted?.Invoke();
+            YG2.GameplayStart();
         }
 
         public void Lose(bool isOutOfEnergy = false)
@@ -104,6 +106,7 @@ namespace BlinkBlade.Game
             DeactivateTraps();
 
             LevelFinished?.Invoke();
+            YG2.GameplayStop();
         }
 
         public void Restart(bool isNeedInputActivate = true)
