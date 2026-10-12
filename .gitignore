@@ -102,3 +102,5 @@ InitTestScene*.unity*
 /*.sln
 /*.vsconfig
 /Assets/Analyzers
+/YGBuild
+/CGBuild
