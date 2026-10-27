@@ -1,0 +1,345 @@
+using System;
+using System.Collections;
+
+using BlinkBlade.Common;
+using BlinkBlade.Enemies;
+using BlinkBlade.Game;
+using BlinkBlade.Props;
+
+using UnityEditor;
+using UnityEngine;
+
+namespace BlinkBlade.Players
+{
+    [RequireComponent(typeof(Rigidbody))]
+    public class Weapon : MonoBehaviour
+    {
+        private const float FixedZ = 0;
+
+        [SerializeField] private ParticleSystem _throwEffect;
+        [SerializeField] private TrailRenderer _trailEffect;
+        [SerializeField] private float _stickOffsetAngle = 50f;
+        [SerializeField] private float _trailDuration = 0.1f;
+        [SerializeField] private float _spinSpeed = 500f;
+        [SerializeField] private float _throwForce = 15f;
+        [SerializeField] private float _movementThreshold = 20f;
+        [SerializeField] private float _bounceRotationForce = 1200f;
+
+        private GameObject _gameObject;
+        private Rigidbody _rigidbody;
+        private Collider _collider;
+        private Transform _transform;
+        private WeaponHandler _handler;
+        private IAudioService _audioService;
+        private WeaponRotator _rotator;
+        private WeaponState _state;
+
+        private Vector3 _startWeaponPosition;
+        private Quaternion _startWeaponRotation;
+
+        private int _activeLayer;
+        private int _passiveLayer;
+        private bool _isShouldRotate = false;
+        private bool _isFirstHit;
+        private float _rotateAngle;
+        private Coroutine _coroutine;
+
+        private enum WeaponState
+        {
+            Idle,
+            Thrown,
+        }
+
+        private void Awake()
+        {
+            _transform = transform;
+            _gameObject = gameObject;
+
+            _rigidbody = GetComponent<Rigidbody>();
+            _collider = GetComponent<Collider>();
+        }
+
+        private void Update()
+        {
+            if (_isShouldRotate)
+                _transform.Rotate(0, 0, _rotateAngle * Time.deltaTime, Space.Self);
+        }
+
+        private void FixedUpdate()
+        {
+            if (_rigidbody.velocity.sqrMagnitude < _movementThreshold)
+            {
+                _state = WeaponState.Idle;
+                _gameObject.layer = _passiveLayer;
+            }
+            else
+            {
+                _state = WeaponState.Thrown;
+                _gameObject.layer = _activeLayer;
+            }
+        }
+
+        private void LateUpdate()
+        {
+            if (transform.position.z != FixedZ && _rigidbody.isKinematic == false)
+                CommonFunctions.FixPositionZ(_transform);
+        }
+
+        private void OnDisable()
+        {
+            if (_coroutine != null)
+                StopCoroutine(_coroutine);
+        }
+
+        public void Initialize(WeaponHandler weaponHandler, IAudioService audioService)
+        {
+            _handler = weaponHandler;
+            _audioService = audioService;
+            _transform = transform;
+            _gameObject = gameObject;
+
+            _transform.SetParent(_handler.transform);
+            _transform.localPosition = _startWeaponPosition = _transform.position;
+            _transform.localRotation = _startWeaponRotation = _transform.rotation;
+
+            _rotator = new WeaponRotator(_transform, _stickOffsetAngle);
+
+            _activeLayer = LayerMask.NameToLayer("PlayerWeaponActive");
+            _passiveLayer = LayerMask.NameToLayer("PlayerWeaponPassive");
+            _gameObject.layer = _passiveLayer;
+
+            _rotateAngle = _spinSpeed;
+            _bounceRotationForce = _spinSpeed > 0 ? _spinSpeed : _bounceRotationForce;
+        }
+
+        public void ReturnToWeaponHandler()
+        {
+            ResetEffects();
+
+            _isShouldRotate = false;
+
+            _transform.SetParent(_handler.transform);
+            _transform.localPosition = _startWeaponPosition;
+            _transform.localRotation = _startWeaponRotation;
+
+            if (_rigidbody.isKinematic == false)
+            {
+                ResetVelocity();
+                _rigidbody.isKinematic = true;
+            }
+        }
+
+        public void Throw(Vector3 direction, float rotationAngle)
+        {
+            if (direction == Vector3.zero)
+                throw new ArgumentNullException(nameof(direction));
+
+            _rotator.ResetRotation(rotationAngle);
+
+            if (_spinSpeed == 0)
+                _rotator.RotateBladeForward(direction);
+
+            _isShouldRotate = true;
+            _isFirstHit = true;
+
+            PerformEffects();
+
+            _audioService.PlaySound(SoundType.ThrowWeapon);
+
+            _rigidbody.isKinematic = false;
+            _rigidbody.transform.SetParent(null);
+
+            _rigidbody.AddForce(direction * _throwForce, ForceMode.Impulse);
+
+            _rotateAngle = _spinSpeed;
+        }
+
+        public void SetActiveCollider(bool value)
+        {
+            if (_collider != null)
+                _collider.enabled = value;
+        }
+
+        public void Activate()
+        {
+            _gameObject.SetActive(true);
+        }
+
+        public void Deactivate()
+        {
+            _gameObject.SetActive(false);
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (_isShouldRotate && _isFirstHit)
+                _rotator.RotateToObstacle(collision);
+
+            if (_state == WeaponState.Thrown)
+            {
+                Enemy enemy = collision.collider.GetComponent<Enemy>();
+                Shield shield = collision.collider.GetComponent<Shield>();
+                HitEffectSpawner effect = collision.collider.GetComponent<HitEffectSpawner>();
+                Ground ground = collision.collider.GetComponent<Ground>();
+                ContactPoint hitPoint = collision.contacts[0];
+
+                ResetEffects();
+
+                if (effect != null)
+                {
+                    if (enemy != null)
+                    {
+#if UNITY_EDITOR
+                        if (EditorPrefs.GetBool("EnabledBlood"))
+#else
+                        if (true) 
+#endif
+                        {
+                            effect.Perform(hitPoint);
+                        }
+                    }
+                    else
+                    {
+                        effect.Perform(hitPoint);
+                    }
+                }
+
+                if (ground != null)
+                {
+                    HandleGroundCollision(collision, ground);
+                    return;
+                }
+
+                if (enemy != null)
+                {
+                    HandleEnemyCollision(enemy);
+                    return;
+                }
+
+                if (shield != null)
+                {
+                    HandleShieldCollision(collision, shield, hitPoint);
+                    return;
+                }
+
+                _isShouldRotate = false;
+                _isFirstHit = false;
+            }
+            else
+            {
+                _isShouldRotate = false;
+            }
+        }
+
+        private void HandleShieldCollision(Collision collision, Shield shield, ContactPoint hitPoint)
+        {
+            _isShouldRotate = true;
+            _isFirstHit = false;
+
+            shield.HandleCollision(hitPoint);
+            Bounce(collision, shield.BounceForce, shield.BounceUpForce);
+        }
+
+        private void HandleEnemyCollision(Enemy enemy)
+        {
+            _isShouldRotate = false;
+            _isFirstHit = false;
+
+            enemy.TakeDamage();
+        }
+
+        private void HandleGroundCollision(Collision collision, Ground ground)
+        {
+            if (ground.BounceForce > 0 && _isFirstHit)
+            {
+                _isShouldRotate = true;
+                Bounce(collision, ground.BounceForce);
+            }
+            else if (ground.BounceForce == 0)
+            {
+                ResetVelocity();
+
+                _rotator.RotateToObstacle(collision);
+                _rigidbody.isKinematic = true;
+
+                _isShouldRotate = false;
+            }
+            else
+            {
+                _isShouldRotate = false;
+            }
+
+            _isFirstHit = false;
+        }
+
+        private void Bounce(Collision collision, float bounceForce, float upwardBounceForce = 0)
+        {
+            ContactPoint hitPoint = collision.contacts[0];
+            Vector3 bounceDirection = hitPoint.normal;
+
+            if (upwardBounceForce > 0)
+            {
+                bounceDirection.y = 0;
+                bounceDirection.Normalize();
+                ResetVelocity();
+                bounceDirection += Vector3.up * (upwardBounceForce / bounceForce);
+                bounceDirection.Normalize();
+                _rigidbody.AddForce(bounceDirection * bounceForce, ForceMode.Impulse);
+            }
+            else
+            {
+                Vector3 incomingVelocity = collision.relativeVelocity * -1f;
+
+                incomingVelocity.z = 0f;
+
+                float incomingSpeed = incomingVelocity.magnitude;
+                Vector3 reflectedDirection = Vector3.Reflect(incomingVelocity.normalized, bounceDirection).normalized;
+                Vector3 weaponBounceForce = reflectedDirection * bounceForce;
+
+                ResetVelocity();
+
+                _rigidbody.AddForce(weaponBounceForce, ForceMode.Impulse);
+            }
+
+            _rotateAngle = -_bounceRotationForce;
+            _isShouldRotate = true;
+        }
+
+        private void ResetVelocity()
+        {
+            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.angularVelocity = Vector3.zero;
+        }
+
+        private void PerformEffects()
+        {
+            if (_throwEffect != null)
+                _throwEffect.Play(true);
+
+            if (_trailEffect != null)
+            {
+                _trailEffect.emitting = true;
+                _coroutine = StartCoroutine(ShowTrail());
+            }
+        }
+
+        private IEnumerator ShowTrail()
+        {
+            yield return new WaitForSeconds(_trailDuration);
+
+            _trailEffect.emitting = false;
+        }
+
+        private void ResetEffects()
+        {
+            if (_throwEffect != null)
+            {
+                _throwEffect.Clear();
+                _throwEffect.Stop();
+            }
+
+            if (_trailEffect != null)
+                _trailEffect.emitting = false;
+        }
+    }
+}

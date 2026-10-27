@@ -104,3 +104,4 @@ InitTestScene*.unity*
 /Assets/Analyzers
 /YGBuild
 /CGBuild
+/Assets/Analyzers.meta
