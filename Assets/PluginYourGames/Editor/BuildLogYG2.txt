@@ -1,3 +1,0 @@
-﻿Build path: E:/UnityProjects/Teleport/CGBuild
-Build number: 135
-PluginYG version: 2.0092
