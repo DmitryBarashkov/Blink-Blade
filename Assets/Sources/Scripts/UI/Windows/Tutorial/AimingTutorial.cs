@@ -1,3 +1,4 @@
+using System;
 using BlinkBlade.Game;
 using DG.Tweening;
 using UniRx;
@@ -9,8 +10,6 @@ namespace BlinkBlade.UI
 {
     public class AimingTutorial : MonoBehaviour
     {
-        [Inject] private LevelState _state;
-
         [Header("UI Элементы")]
         [SerializeField] private RectTransform _handTransform;
         [SerializeField] private RectTransform _arrowTransform;
@@ -19,8 +18,8 @@ namespace BlinkBlade.UI
 
         [Header("Настройки позиций")]
         [SerializeField] private Vector3 _clickScale = new Vector3(0.85f, 0.85f, 0.85f);
-        [SerializeField] private float _handTargetX = 148f;
-        [SerializeField] private float _handTargetY = 145f;
+        [SerializeField] private float _handTargetX = 10f;
+        [SerializeField] private float _handTargetY = 10f;
 
         [Header("Тайминги")]
         [SerializeField] private float _clickDuration = 0.3f;
@@ -29,11 +28,20 @@ namespace BlinkBlade.UI
         [SerializeField] private float _loopDelay = 1f;
 
         private Sequence _tutorialSequence;
-        private Vector3 _initialPosition;
+        private Vector2 _initialPosition;
+
+        private float _albumArrowYPosition = 630f;
+        private float _albumHandYPosition = 600f;
+        private float _portraitArrowYPosition = 570f;
+        private float _portraitHandYPosition = 540f;
+
+        private int _lastWidth;
+        private int _lastHeight;
+        private ScreenOrientation _lastOrientation;
 
         private void Awake()
         {
-            _initialPosition = _handTransform.localPosition;
+            _initialPosition = _handTransform.anchoredPosition;
         }
 
         private void OnEnable()
@@ -44,6 +52,12 @@ namespace BlinkBlade.UI
         private void OnDisable()
         {
             StopAnimation();
+        }
+
+        private void Update()
+        {
+            if (Screen.width != _lastWidth || Screen.height != _lastHeight || Screen.orientation != _lastOrientation)
+                ApplyNewOffsets();
         }
 
         private void OnDestroy()
@@ -58,12 +72,12 @@ namespace BlinkBlade.UI
 
         private void PlayAimTutorial()
         {
-            Vector3 handStartPos = _initialPosition;
+            Vector2 handStartPos = _initialPosition;
 
             _tutorialSequence?.Kill();
             _tutorialSequence = DOTween.Sequence();
 
-            _handTransform.localPosition = _initialPosition;
+            _handTransform.anchoredPosition = _initialPosition;
 
             _handTransform.localScale = Vector3.one;
             _arrowTransform.localScale = Vector3.zero;
@@ -78,8 +92,7 @@ namespace BlinkBlade.UI
             float targetYHand = handStartPos.y + _handTargetY;
 
             _tutorialSequence.Join(_arrowTransform.DOScale(Vector3.one, _animationDuration).SetEase(Ease.OutCubic));
-            _tutorialSequence.Join(_handTransform.DOLocalMoveX(targetXHand, _animationDuration).SetEase(Ease.OutCubic));
-            _tutorialSequence.Join(_handTransform.DOLocalMoveY(targetYHand, _animationDuration).SetEase(Ease.OutCubic));
+            _tutorialSequence.Join(_handTransform.DOAnchorPos(new Vector2(targetXHand, targetYHand), _animationDuration).SetEase(Ease.OutCubic));
 
             _tutorialSequence.Append(_handTransform.DOScale(Vector3.one, _clickDuration).SetEase(Ease.OutQuad));
             _tutorialSequence.Join(_arrowTransform.DOScale(Vector3.zero, _reverseAnimationDuration).SetEase(Ease.OutQuad));
@@ -89,6 +102,33 @@ namespace BlinkBlade.UI
             _tutorialSequence.AppendInterval(_loopDelay);
 
             _tutorialSequence.SetLoops(-1, LoopType.Restart);
+        }
+
+        private void ApplyNewOffsets()
+        {
+            bool isPortrait = Screen.width < Screen.height;
+
+            ResetTrackedValues();
+
+            _handTransform.anchoredPosition = _initialPosition;
+
+            if (isPortrait)
+            {
+                _arrowTransform.anchoredPosition = new Vector2(_arrowTransform.anchoredPosition.x, _portraitArrowYPosition);
+                _handTransform.anchoredPosition = new Vector2(_handTransform.anchoredPosition.x, _portraitHandYPosition);
+            }
+            else
+            {
+                _arrowTransform.anchoredPosition = new Vector2(_arrowTransform.anchoredPosition.x, _albumArrowYPosition);
+                _handTransform.anchoredPosition = new Vector2(_handTransform.anchoredPosition.x, _albumHandYPosition);
+            }
+        }
+
+        private void ResetTrackedValues()
+        {
+            _lastWidth = Screen.width;
+            _lastHeight = Screen.height;
+            _lastOrientation = Screen.orientation;
         }
     }
 }

@@ -1,9 +1,9 @@
 {
-  "idSave": 2,
-  "Level": 2,
+  "idSave": 16,
+  "Level": 11,
   "Energy": 5,
-  "Coins": 275,
-  "Rating": 25,
+  "Coins": 350,
+  "Rating": 100,
   "IsFinishedGame": false,
   "WeaponId": 0,
   "SkinId": 0,
@@ -11,9 +11,29 @@
   "RewardedAdvCooldownEndTime": 0,
   "IsSoundOn": true,
   "PurchasedWeaponItemIds": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
     0
   ],
   "PurchasedSkinItemsIds": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
     0
   ]
 }

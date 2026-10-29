@@ -492,6 +492,10 @@ PrefabInstance:
       propertyPath: _sound
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 3431548246803264897, guid: 8863caec0a4442944a70714762b43c81, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.46
+      objectReference: {fileID: 0}
     - target: {fileID: 3839550494693429499, guid: 8863caec0a4442944a70714762b43c81, type: 3}
       propertyPath: _sound
       value: 13
