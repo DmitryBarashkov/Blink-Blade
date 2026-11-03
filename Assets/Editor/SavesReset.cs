@@ -2,6 +2,7 @@ using UnityEditor;
 using UnityEngine;
 
 [InitializeOnLoad]
+[DefaultExecutionOrder(1)]
 public class ResetYGOnPlay
 {
     private const string SavesReset = "SavesReset";
@@ -19,7 +20,9 @@ public class ResetYGOnPlay
 
             if (System.IO.File.Exists(path))
             {
+                PlayerPrefs.DeleteAll();
                 System.IO.File.Delete(path);
+                PlayerPrefs.Save();
             }
         }
     }

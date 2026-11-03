@@ -2,10 +2,12 @@
 using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEditor.SceneManagement;
+using UnityEngine;
 using YG;
 
 
 [InitializeOnLoad]
+[DefaultExecutionOrder(2)]
 public static class StartSceneBootstrapper
 {
     private const string StartScenePath = "Assets/Sources/Scenes/Service/Loading.unity";
