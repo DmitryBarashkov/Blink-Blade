@@ -874,8 +874,8 @@ MonoBehaviour:
   _movingEffect: {fileID: 0}
   _isBossLevel: 0
   _bossHealth: 3
-  _isTutorialLevel: 0
-  _tutorialScreenPrefab: {fileID: 0}
+  _isTutorialLevel: 1
+  _tutorialScreenPrefab: {fileID: 5827263147505555593, guid: f0bd9ecd419ab004c9273e6fc073cfb7, type: 3}
 --- !u!1 &1413086122
 GameObject:
   m_ObjectHideFlags: 0

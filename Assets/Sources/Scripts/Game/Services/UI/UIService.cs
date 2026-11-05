@@ -21,12 +21,13 @@ namespace BlinkBlade.Game
         private UIScreen _winScreenPrefab;
         private UIScreen _loseScreenPrefab;
         private UIScreen _shopScreenPrefab;
+        private UIScreen _leaderboardScreenPrefab;
         private UIScreen _finishScreenPrefab;
 
         private Transform _endGameContainer;
         private Transform _shopContainer;
         private Transform _tutorialContainer;
-
+        private Transform _leaderboardContainer;
         private float _showDelay = 0.5f;
 
         public UIService(
@@ -37,20 +38,26 @@ namespace BlinkBlade.Game
             UIScreen loseScreenPrefab,
             UIScreen finishScreenPrefab,
             [Inject(Optional = true)] UIScreen shopScreenPrefab,
+            [Inject(Optional = true)] UIScreen leaderboardScreenPrefab,
             [Inject(Id = "EndGameContainer")] Transform endGameContainer,
             [Inject(Id = "ShopContainer")] Transform shopContainer,
-            [Inject(Id = "TutorialContainer")] Transform tutorialContainer)
+            [Inject(Id = "TutorialContainer")] Transform tutorialContainer,
+            [Inject(Id = "LeaderboardContainer")] Transform leaderboardContainer)
         {
             LevelState = levelState;
             LoadService = loadService;
             Container = container;
+
             _winScreenPrefab = winScreenPrefab;
             _loseScreenPrefab = loseScreenPrefab;
             _finishScreenPrefab = finishScreenPrefab;
             _shopScreenPrefab = shopScreenPrefab;
+            _leaderboardScreenPrefab = leaderboardScreenPrefab;
+
             _endGameContainer = endGameContainer;
             _shopContainer = shopContainer;
             _tutorialContainer = tutorialContainer;
+            _leaderboardContainer = leaderboardContainer;
         }
 
         public void Initialize()
@@ -79,7 +86,7 @@ namespace BlinkBlade.Game
                 throw new ArgumentNullException(nameof(_tutorialContainer));
 
             GameObject tutorial = GetOrCreateWindow(screen, _tutorialContainer);
-            FirstTutorialScreen tutorialScreen = tutorial.GetComponent<FirstTutorialScreen>();
+            UIScreen tutorialScreen = tutorial.GetComponent<UIScreen>();
 
             tutorialScreen.Setup();
         }
@@ -96,6 +103,17 @@ namespace BlinkBlade.Game
                 UnityEngine.Object.Destroy(pair.Value);
                 CachedWindows.Remove(pair.Key);
             }
+        }
+
+        public UIScreen ShowLeaderboard()
+        {
+            if (_tutorialContainer == null)
+                throw new ArgumentNullException(nameof(_leaderboardContainer));
+
+            GameObject leaderboard = GetOrCreateWindow(_leaderboardScreenPrefab, _leaderboardContainer);
+            UIScreen leaderboardScreen = leaderboard.GetComponent<UIScreen>();
+
+            return leaderboardScreen;
         }
 
         public void Dispose() => Disposables.Dispose();

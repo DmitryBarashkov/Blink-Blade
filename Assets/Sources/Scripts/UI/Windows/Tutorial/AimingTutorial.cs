@@ -1,10 +1,6 @@
-using System;
-using BlinkBlade.Game;
 using DG.Tweening;
-using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 namespace BlinkBlade.UI
 {

@@ -20,6 +20,7 @@ namespace BlinkBlade.Game
         [SerializeField] private UIScreen _winGameScreen;
         [SerializeField] private UIScreen _loseGameScreen;
         [SerializeField] private UIScreen _shopGameScreen;
+        [SerializeField] private UIScreen _leaderboardScreen;
         [SerializeField] private UIScreen _finishGameScreen;
         [SerializeField] private CanvasScaler[] _canvasScales;
 
@@ -34,6 +35,7 @@ namespace BlinkBlade.Game
         [SerializeField] private Transform _endGameContainer;
         [SerializeField] private Transform _betweenLevelContainer;
         [SerializeField] private Transform _tutorialContainer;
+        [SerializeField] private Transform _leaderboardContainer;
 
         public override void InstallBindings()
         {
@@ -52,6 +54,7 @@ namespace BlinkBlade.Game
             Container.BindInstance(_endGameContainer).WithId("EndGameContainer");
             Container.BindInstance(_betweenLevelContainer).WithId("ShopContainer");
             Container.BindInstance(_tutorialContainer).WithId("TutorialContainer");
+            Container.BindInstance(_leaderboardContainer).WithId("LeaderboardContainer");
         }
 
         private void BindServices()
@@ -103,7 +106,7 @@ namespace BlinkBlade.Game
         {
             Container.BindInterfacesAndSelfTo<UIService>()
                 .AsSingle()
-                .WithArguments(_winGameScreen, _loseGameScreen, _finishGameScreen, _shopGameScreen)
+                .WithArguments(_winGameScreen, _loseGameScreen, _finishGameScreen, _shopGameScreen, _leaderboardScreen)
                 .NonLazy();
             Container.Bind<CanvasScaleAdapter>().AsSingle().WithArguments(_canvasScales).NonLazy();
             Container.BindInterfacesAndSelfTo<ScreenResolutionAdapter>().AsSingle().NonLazy();

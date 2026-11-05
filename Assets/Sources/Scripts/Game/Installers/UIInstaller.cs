@@ -1,5 +1,6 @@
 using BlinkBlade.UI;
 using UnityEngine;
+using YG;
 using Zenject;
 
 namespace BlinkBlade.Game
@@ -10,11 +11,13 @@ namespace BlinkBlade.Game
         [SerializeField] private SoundButton _soundButton;
         [SerializeField] private ShopButton _shopButtonPrefab;
         [SerializeField] private LanguageButton _languageButton;
+        [SerializeField] private LeaderboardButton _leaderboardButtonPrefab;
 
         [Header("Containers")]
         [SerializeField] private RectTransform _settingsContainer;
         [SerializeField] private RectTransform _betweenLevelContainer;
         [SerializeField] private RectTransform _shopButtonContainer;
+        [SerializeField] private RectTransform _leaderboardButtonContainer;
 
         public override void InstallBindings()
         {
@@ -37,6 +40,15 @@ namespace BlinkBlade.Game
 
         private void BindButtons()
         {
+            if (YG2.platform == "YandexGames")
+            {
+                Container.Bind<LeaderboardButton>()
+                    .FromComponentInNewPrefab(_leaderboardButtonPrefab)
+                    .UnderTransform(_leaderboardButtonContainer)
+                    .AsSingle()
+                    .NonLazy();
+            }
+
             Container.Bind<ShopButton>()
                 .FromComponentInNewPrefab(_shopButtonPrefab)
                 .UnderTransform(_shopButtonContainer)

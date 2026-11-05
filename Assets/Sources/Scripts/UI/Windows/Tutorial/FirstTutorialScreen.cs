@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using BlinkBlade.Game;
 using UniRx;
 using UnityEngine;
-using UnityEngine.UI;
 using Zenject;
 
 namespace BlinkBlade.UI
@@ -11,17 +9,10 @@ namespace BlinkBlade.UI
     {
         [Inject] private LevelState _state;
 
-        private Image _image;
-
         [SerializeField] private AimingTutorial _aimingTutorial;
         [SerializeField] private TeleportTutorial _teleportTutorial;
         [SerializeField] private EnergyTutorial _energyTutorial;
         [SerializeField] private EnemyKilledTutorial _enemyKilledTutorial;
-
-        private void Awake()
-        {
-            _image = GetComponent<Image>();
-        }
 
         private void OnEnable()
         {
@@ -32,11 +23,6 @@ namespace BlinkBlade.UI
             }
 
             SubscribeOnTutorialEvents();
-        }
-
-        public void SetBackgroundColor(Color color)
-        {
-            _image.color = color;
         }
 
         public bool HasActiveTutorial()

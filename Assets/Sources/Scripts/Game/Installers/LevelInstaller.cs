@@ -5,6 +5,7 @@ using BlinkBlade.Enemies;
 using BlinkBlade.Props;
 using BlinkBlade.UI;
 using UnityEngine;
+using YG;
 using Zenject;
 
 namespace BlinkBlade.Game
@@ -27,6 +28,7 @@ namespace BlinkBlade.Game
         [SerializeField] private UIScreen _tutorialScreenPrefab;
 
         [Inject] private LevelBridge _levelBridge;
+        [Inject] private LevelLoadService _levelLoadService;
 
         public override void InstallBindings()
         {
@@ -62,7 +64,13 @@ namespace BlinkBlade.Game
 
         public int GetBossHealth() => _bossHealth;
 
-        public bool IsTutorialLevel() => _isTutorialLevel;
+        public bool IsTutorialLevel()
+        {
+            if (YG2.saves.Level >= _levelLoadService.LastLevelNumber)
+                return false;
+
+            return _isTutorialLevel;
+        }
 
         public UIScreen GetTutorialScreen() => _tutorialScreenPrefab;
 
@@ -73,9 +81,7 @@ namespace BlinkBlade.Game
         private void OnDestroy()
         {
             if (_levelBridge != null)
-            {
                 _levelBridge.CurrentLevel.Value = null;
-            }
         }
     }
 }
