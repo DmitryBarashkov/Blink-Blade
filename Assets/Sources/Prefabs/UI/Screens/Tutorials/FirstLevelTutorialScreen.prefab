@@ -1094,9 +1094,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4779822280636994685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 80, y: 600}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -32.3, y: -112.5}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6496487885754956714
@@ -1197,13 +1197,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9313445ae2e1cef458de0217be2c9be8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerOffset: {x: 0.6, y: 1.8, z: 0}
+  _handOffset: {x: 50, y: -40}
+  _changeThreshold: 0.001
   _handTransform: {fileID: 441718142875320368}
   _arrowTransform: {fileID: 1649921508258518529}
   _arrowImage: {fileID: 3696572619266482640}
   _handImage: {fileID: 7080240324735705384}
   _clickScale: {x: 0.85, y: 0.85, z: 0.85}
   _handTargetX: 160
-  _handTargetY: 110
+  _handTargetY: 140
   _clickDuration: 0.3
   _animationDuration: 0.8
   _reverseAnimationDuration: 0.15
@@ -1240,9 +1243,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 4779822280636994685}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 48}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 60, y: 570}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -100, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &5793031261170119764
@@ -1700,7 +1703,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -310, y: 396}
+  m_AnchoredPosition: {x: -300, y: 115}
   m_SizeDelta: {x: 550, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9050859872841071331

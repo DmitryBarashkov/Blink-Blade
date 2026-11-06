@@ -20,6 +20,8 @@ namespace BlinkBlade.Game
         private Player _player;
         private PlayerSpawnPoint _spawnPoint;
 
+        public Player CurrentPlayer => _player;
+
         public void Initialize(PlayerSpawnPoint spawnPoint)
         {
             if (spawnPoint != null)

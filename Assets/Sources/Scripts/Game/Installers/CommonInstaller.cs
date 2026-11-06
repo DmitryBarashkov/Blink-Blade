@@ -1,4 +1,3 @@
-using System;
 using BlinkBlade.Camera;
 using BlinkBlade.Enemies;
 using BlinkBlade.UI;

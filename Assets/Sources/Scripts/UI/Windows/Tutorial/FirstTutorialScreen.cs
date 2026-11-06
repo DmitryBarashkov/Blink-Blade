@@ -1,4 +1,5 @@
 using BlinkBlade.Game;
+using BlinkBlade.Players;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -7,18 +8,22 @@ namespace BlinkBlade.UI
 {
     public class FirstTutorialScreen : UIScreen
     {
-        [Inject] private LevelState _state;
-
         [SerializeField] private AimingTutorial _aimingTutorial;
         [SerializeField] private TeleportTutorial _teleportTutorial;
         [SerializeField] private EnergyTutorial _energyTutorial;
         [SerializeField] private EnemyKilledTutorial _enemyKilledTutorial;
 
-        private void OnEnable()
+        private LevelState _state;
+
+        [Inject]
+        public void Construct(LevelState state, PlayerSpawner playerSpawner)
         {
+            _state = state;
+
             if (_aimingTutorial != null)
             {
                 DisableAllTutorials();
+                _aimingTutorial.Initialize(playerSpawner.CurrentPlayer.transform);
                 _aimingTutorial.gameObject.SetActive(true);
             }
 

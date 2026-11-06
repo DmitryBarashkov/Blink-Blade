@@ -96,7 +96,7 @@ namespace BlinkBlade.Game
             if (_tutorialContainer == null)
                 throw new ArgumentNullException(nameof(_tutorialContainer));
 
-            var pair = CachedWindows.FirstOrDefault(x => x.Key is FirstTutorialScreen);
+            var pair = CachedWindows.FirstOrDefault(x => x.Key is FirstTutorialScreen || x.Key is SurfaceTutorialScreen);
 
             if (pair.Value != null)
             {

@@ -1421,19 +1421,19 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 8791419419969711025}
     m_Modifications:
     - target: {fileID: 808882752841772098, guid: b40a48d49f0f2714fb035586192f6ff8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.72
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 808882752841772098, guid: b40a48d49f0f2714fb035586192f6ff8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.0022135
+      value: 0.4177866
       objectReference: {fileID: 0}
     - target: {fileID: 808882752841772098, guid: b40a48d49f0f2714fb035586192f6ff8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.14392
+      value: 6.48
       objectReference: {fileID: 0}
     - target: {fileID: 808882752841772098, guid: b40a48d49f0f2714fb035586192f6ff8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1472,6 +1472,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b40a48d49f0f2714fb035586192f6ff8, type: 3}
+--- !u!4 &2041407634 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 808882752841772098, guid: b40a48d49f0f2714fb035586192f6ff8, type: 3}
+  m_PrefabInstance: {fileID: 2041407633}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2133130929
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1819,6 +1824,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6488975876244533072, guid: 8863caec0a4442944a70714762b43c81, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1682852990}
+    - targetCorrespondingSourceObject: {fileID: 6488975876244533072, guid: 8863caec0a4442944a70714762b43c81, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2041407634}
     - targetCorrespondingSourceObject: {fileID: 713597016583431663, guid: 8863caec0a4442944a70714762b43c81, type: 3}
       insertIndex: -1
       addedObject: {fileID: 258968108}
@@ -1896,6 +1904,5 @@ SceneRoots:
   - {fileID: 2005677598}
   - {fileID: 1013302325}
   - {fileID: 8791419419969711023}
-  - {fileID: 2041407633}
   - {fileID: 797489269}
   - {fileID: 1178007410}

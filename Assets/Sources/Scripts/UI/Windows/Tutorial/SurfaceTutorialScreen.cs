@@ -7,14 +7,18 @@ namespace BlinkBlade.UI
 {
     public class SurfaceTutorialScreen : UIScreen
     {
-        [Inject] private LevelState _state;
-
         [SerializeField] private AimingTutorial _aimingTutorial;
 
-        private void OnEnable()
+        private LevelState _state;
+
+        [Inject]
+        public void Construct(LevelState state, PlayerSpawner playerSpawner)
         {
+            _state = state;
+
             if (_aimingTutorial != null)
             {
+                _aimingTutorial.Initialize(playerSpawner.CurrentPlayer.transform);
                 _state.IsFirstAimingStarted
                     .Subscribe(value =>
                     {
